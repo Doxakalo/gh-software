@@ -1,0 +1,72 @@
+parameters:
+    products:
+        fmb:
+            cp-configuration-for-new-request:
+                project_id: 87
+            name: "FM Bench"
+        bts:
+            cp-configuration-for-new-request:
+                project_id: 115
+            name: "BenchTest"
+        xgd:
+            cp-configuration-for-new-request:
+                project_id: 28
+            name: "Xgode"
+        fmr:
+            cp-configuration-for-new-request:
+                project_id: 84
+            name: "fmRESTor"
+        lmr:
+            cp-configuration-for-new-request:
+                project_id: 141
+            name: "LogMonitor"
+        ard:
+            cp-configuration-for-new-request:
+                project_id: 106
+            name: "Bridge for Arduino"
+        phd:
+            cp-configuration-for-new-request:
+                project_id: 101
+            name: "Bridge for Phidgets"
+        gon:
+            cp-configuration-for-new-request:
+                project_id: 103
+            name: "Gonector"
+        phc:
+            cp-configuration-for-new-request:
+                project_id: 97
+            name: "Phone Companion"
+        sdi:
+            cp-configuration-for-new-request:
+                project_id: 94
+            name: "SimpleDialog"
+        sfi:
+            cp-configuration-for-new-request:
+                project_id: 89
+            name: "SimpleFile"
+        stl:
+            cp-configuration-for-new-request:
+                project_id: 88
+            name: "SimpleTalk"
+        shs:
+            cp-configuration-for-new-request:
+                project_id: 102
+            name: "SimpleHASP"
+        snd:
+            cp-configuration-for-new-request:
+                project_id: 99
+            name: "SimpleSound"
+        tbx:
+            cp-configuration-for-new-request:
+                project_id: 100
+            name: "Toolbox"
+        other:
+            cp-configuration-for-new-request:
+                project_id: 93
+            name: "General question"
+
+
+
+
+
+

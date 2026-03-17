@@ -1,0 +1,81 @@
+{block title}fmRESTor{/block}
+{block description}fmRESTor is an object-based PHP library developed to seamlessly interact with databases and custom apps hosted on a FileMaker Server via the new powerful FileMaker Data API from within a PHP code.{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "fmRESTor - Leverage the RESTful FileMaker Data API with ease",
+            description => "fmRESTor is an object-based PHP library developed to seamlessly interact with databases and custom apps hosted on a FileMaker Server via the new powerful FileMaker Data API from within a PHP code.",
+            imagePath => "img/pages/tools/fmrestor/og_image.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/restor_green_icon.svg" alt="fmRESTor - Icon">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Leverage the RESTful FileMaker Data API with ease
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <a href="https://github.com/24u/fmRESTor" target="_blank" class="button ga-track-download-file">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/fmRESTor_en.latte'}
+{var $overview = [
+        name => 'overview',
+        testimonials => [
+            [ img => $basePath.'/img/pages/tools/fmrestor/fmrestor_overview_preview.jpeg', video => [id => 'rL3tHYfHEFU', button-dark=>"true" ], name => 'Adding Webhooks to FileMaker is Easy', ],
+        ]
+    ]
+}
+
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'learning', img => $basePath.'/img/pages/tools/fmrestor/fm_server18.png', 'img_height' => "200" ],
+    [name => 'php', img => $basePath.'/img/pages/tools/fmrestor/phplogo.svg',  'img_height' => "200"  ],
+    [name => 'js', img => $basePath.'/img/pages/tools/fmrestor/javascriptlogo.svg',  'img_height' => "200"  ],
+    [name => 'open_source', img => $basePath.'/img/pages/tools/fmrestor/opensource.png',  'img_height' => "200"  ],
+    [name => 'features', img => $basePath.'/img/pages/tools/fmrestor/php.png',  'img_height' => "350", img_url =>[url => $basePath.'/img/pages/tools/bench/php.png', target => '_blank']   ],
+    [name => 'support',  ],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+
+
+{snippet storeForm}
+    {include '../Components/store-section.latte', toolName => $toolName}
+{/snippet}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}

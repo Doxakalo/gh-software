@@ -1,0 +1,41 @@
+name: 24usoftware-com
+services:
+  php-apache:
+    build: './docker/php'
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+    networks:
+      - proxy-dev-net
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MARIADB_DATABASE: "${MYSQL_DATABASE}"
+      MARIADB_USER: "${MYSQL_USER}"
+      MARIADB_PASSWORD: "${MYSQL_PASSWORD}"
+    hostname: "db.${DOMAIN}"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    networks:
+      proxy-dev-net:
+
+  phpmyadmin:
+    image: phpmyadmin
+    depends_on:
+      - db
+    environment:
+      - UPLOAD_LIMIT=102400K
+      - VIRTUAL_HOST=pma.${DOMAIN}
+      - PMA_HOST=db.${DOMAIN}
+    networks:
+      - proxy-dev-net
+
+networks:
+  proxy-dev-net:
+    external: true

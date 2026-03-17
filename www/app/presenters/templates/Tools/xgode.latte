@@ -1,0 +1,345 @@
+{block title}Xgode{/block}
+{block description}
+    Don’t waste time downloading or learning how to use any developer tools. Simply use this online service to convert your FileMaker Go app into a native app. All you need is a copy of FileMaker Pro and Apple Developer Program membership.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "Xgode - Build native app from FileMaker Go online in 15 minutes",
+            description => "Don’t waste time downloading or learning how to use any developer tools. Simply use this online service to convert your FileMaker Go app into a native app. All you need is a copy of FileMaker Pro and Apple Developer Program membership.",
+            imagePath => "img/pages/tools/xgode/og_image.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/xgode_icon.svg" alt="Xgode - Icon">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Build native app <br/>from FileMaker Go online <br/>in 15 minutes
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <a href="https://xgode.24u.cz" target="_blank" class="button">Start building your apps</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/xgode_en.latte'}
+{var $overview = [
+    name => 'overview',
+        testimonials => [
+            [ img => $basePath.'/img/testimonials/patrick_cransotn.jpg', video => [id => '71f9IN3fQtY'], name => 'Patrick Cransotn'],
+            [ img => $basePath.'/img/testimonials/alan_preview_xgode.jpg', video => [id => 'gxuB50DSVLU'], name => 'Allan Meinhart'],
+            [ img => $basePath.'/img/testimonials/paolo_preview_xgode.jpg', video => [id => 'caTgh3yQsHI'], name => 'Paolo di Mauro'],
+            [ img => $basePath.'/img/testimonials/maurizio_preview_xgode.jpg', video => [id => 'vLsduZgZu6w'], name => 'Maurizio Accarino'],
+        ]
+    ] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+<section class="editor-content arrow  lighter-blue spacing">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 gr-12@tablet gr-12@mobile">
+                <h2>
+                    How to Build an App Easily in Minutes
+                </h2>
+                <p>
+                    <a href="{$basePath}/news/from-filemaker-to-app-store-step-by-step">Click here</a> for a step-by-step guide on how to build native apps from FileMaker database and distribute them with or without using the App Store
+                </p>
+                <div class="row">
+                    <div class="gr-12 gr-12@desktop prefix-0@desktop gr-12@desktopLarge prefix-0@desktopLarge  gr-12@tablet prefix-0@tablet gr-12@mobile prefix-0@mobile">
+                        <div class="video-wrapper"   style="max-width: 1280px; margin:0 auto;" >
+                            {var $videos = [
+                                name => 'overview',
+                                testimonials => [
+                                [ img => $basePath.'/img/pages/tools/xgode/xgode-tutorial.jpg', video => [id => 'P_5izOyJrGM'], name => 'Xgode Tutorial' ],
+                                [ img => $basePath.'/img/pages/tools/xgode/7qMhZZQ3cCg.jpg', video => [id => '7qMhZZQ3cCg', button-dark=>"true"], name => 'Creating a distribution certificate for Xgode' ],
+                                [ img => $basePath.'/img/pages/tools/xgode/turning-filemaker-databases-into-ios-apps-day-1.jpg', video => [id => 'deZfOcQR2q0', button-dark=>"true"], name => 'Turning FileMaker Databases into iOS Apps - with HOnza Koudelka - Day 1'],
+                                [ img => $basePath.'/img/pages/tools/xgode/turning-filemaker-databases-into-ios-apps-day-2.jpg', video => [id => 'fiqi2as-7Ds', button-dark=>"true"], name => 'Turning FileMaker Databases into iOS Apps - with HOnza Koudelka - Day 2'],
+                                [ img => $basePath.'/img/pages/tools/xgode/turning-filemaker-databases-into-ios-apps-day-3.jpg', video => [id => 'Uj9t312IaR4', button-dark=>"true"], name => 'Turning FileMaker Databases into iOS Apps - with HOnza Koudelka - Day 3'],
+                                [ img => $basePath.'/img/pages/tools/xgode/turning-filemaker-databases-into-ios-apps-day-4.jpg', video => [id => 'kfnzEpQuzRk', button-dark=>"true"], name => 'Turning FileMaker Databases into iOS Apps - with HOnza Koudelka - Day 4'],
+                                [ img => $basePath.'/img/pages/tools/xgode/turning-filemaker-databases-into-ios-apps-day-5.jpg', video => [id => 'aB4LaB4bKpE', button-dark=>"true"], name => 'Turning FileMaker Databases into iOS Apps - with HOnza Koudelka - Day 5'],
+                                ]
+                            ]}
+                            <div class="videoplayer-element swiper-container small testimonial-slider-multiple">
+                                <div class="swiper-wrapper">
+                                    {foreach $videos["testimonials"] as $media}
+                                        {if ($detect['platformDevice'] === "phone" || $detect['platformDevice'] === "tablet" ) }
+                                            <div class="swiper-slide swiper-slide-mobile">
+                                                <div data-yt="{$media['video']['id']}" class="playVideoTestimonial-mobile">
+                                                    <iframe class="video" allow="autoplay" allowfullscreen="allowfullscreen" data-src="https://www.youtube.com/embed/{$media['video']['id']}?autoplay=1&rel=0&fs=1&wmode=transparent"></iframe>
+                                                    <img src="{$media['img']}" alt="{$media['name']}" class="limited-height-400">
+                                                </div>
+                                            </div>
+                                        {else}
+                                            <div class="swiper-slide">
+                                                <div data-yt="{$media['video']['id']}" class="playVideoTestimonial play-icon {ifset $media['video']['button-dark']}{if $media['video']['button-dark'] == "true"} play-icon-dark {/if}{/ifset}">
+                                                    <img src="{$media['img']}" alt="{$media['name']}">
+                                                </div>
+                                            </div>
+                                        {/if}
+                                    {/foreach}
+                                </div>
+                                <div class="videoplayer-resolution">
+                                    <img class="videoplayer-expand" src="{$basePath}/img/icons/expand.svg" title="Show in larger view">
+                                    <img class="videoplayer-collapse"  src="{$basePath}/img/icons/collapse.svg" title="Close">
+                                </div>
+                                {if count($videos["testimonials"]) > 1}
+                                    <div class="swiper-button-prev active"></div>
+                                    <div class="swiper-button-next active"></div>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="editor-content arrow light-blue spacing detail">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12">
+                <h2>
+                    Building Process Simplified
+                </h2>
+                <p>Until Xgode was available these were the steps you needed to perform to turn a FileMaker Go app to a native app and install it on your iOS device:</p>
+                <style n:syntax="off">
+                    .dim-text {
+                        opacity: 0.73;
+                    }
+                </style>
+                <ol class="features">
+                    <li>Get an Apple ID and enroll in Apple Developer Program</li>
+                    <li>Register at FileMaker Community</li>
+                    <li>Get FileMaker Developer Subscription</li>
+                    <li class="dim-text">Buy a Mac</li>
+                    <li class="dim-text">Download and install Xcode</li>
+                    <li class="dim-text">Download and learn to use the FileMaker iOS App SDK</li>
+                    <li class="dim-text">Learn to use Xcode or get a third-party tool/template</li>
+                    <li class="dim-text">Generate provisioning profile and code signing certificate</li>
+
+                    <li class="dim-text">Prepare the SDK configuration file</li>
+                    <li class="dim-text"><strong>Prepare the FileMaker file and app graphics</strong></li>
+                    <li>Build the app</li>
+                    <li class="dim-text">Resolve compiler/link errors and build again</li>
+                    <li class="dim-text">Create a manifest file and upload to a secure website</li>
+                    <li>Visit the web page and install the app</li>
+                </ol>
+                <p class="p-bold">With Xgode, we have eliminated steps 4-9 and 12-13 for you!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="editor-content arrow spacing">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="prefix-0@mobile gr-12 gr-12@mobile">
+                <h2>
+                    Time Needed to Build an App
+                </h2>
+            </div>
+            <div class="prefix-0@tablet prefix-0@mobile gr-12 gr-12@tablet gr-12@mobile">
+                <img src="{$basePath}/img/pages/tools/xgode/graph.png" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="editor-content arrow light-blue spacing detail">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12">
+                <h2>
+                    Made for App Store
+                </h2>
+                <p>Xgode will help you to publish your app in the App Store. You can easily configure all properties required by Apple and when your app is ready, simply select "App Store" as distribution profile, and Xgode will automatically upload your app to the App Store, ready for you to submit it. See what apps, built with Xgode, are already published:
+                </p>
+            </div>
+        </div>
+        <style n:syntax="off">
+            .img_icon {
+                border-radius: 22.5%;
+                border: 1px solid lightgrey;
+            }
+            .img_icon:hover {
+                filter: brightness(90%);
+            }
+        </style>
+        <div class="row">
+            <div class="gr-12">
+                <div class="row">
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/af24UCKXXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/ClerkWorx.webp" title="ClerkWorx" alt="ClerkWorx" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/af24UTSYXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/Tracksy.webp" title="Tracksy" alt="Tracksy" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/af24XGSLRC" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/Solvre.webp" title="Solvre" alt="Solvre" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/af24UJOGXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/jogs_660x440bb.jpg" title="JOGS" alt="JOGS" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/af24UMULXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/24u_multiply_660x440bb.jpg" title="" alt="" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afRYLDCPXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/datacapture_660x440bb.jpg" title="" alt="" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afIPOMGRXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/ipos_660x440bb.jpeg" title="iPOS Manager" alt="iPOS Manager" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afSEEDEBXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/ebau.webp?v=1" title="Let's EBAU" alt="Let's EBAU" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afIHHSCAXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/ihehscalc.webp?v=1" title="IHehsCalc" alt="IHehsCalc" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afOCNEPMXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/octanepm.webp?v=1" title="OctanePM" alt="OctanePM" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afBECORSXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/beercolors.webp?v=1" title="BeerColors" alt="BeerColors" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afRIMANNXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/ringlemann.webp?v=1" title="Ringlemann" alt="Ringlemann" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afRCMAINXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/RCRAmain.webp?v=1" title="RCRAmain" alt="RCRAmain" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afBUSCAPXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/bus-captain.jpg" title="Bus Captain" alt="Bus Captain" />
+                            </a>
+                        </p>
+                    </div>
+                    <div class="gr-2 gr-4@tablet gr-6@mobile">
+                        <p class="mb-1 mr-1 mt-1 ml-1">
+                            <a href="//24usw.com/afVISTRAXG" target="_blank">
+                                <img class="img_icon" src="/img/pages/tools/xgode/visit-tracker.webp" title="Visit | Tracker" alt="Visit | Tracker" />
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <p></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="gr-12">
+                <p>Have you also published your app built with Xgode in the App Store? Let us know and we'll gladly showcase it here as well.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="editor-content arrow spacing detail">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12">
+                <h2>
+                    Start Building Now
+                </h2>
+                <p>Don’t hesitate, sign-up for a free account below, and start building your native apps. Or simply log in with your credentials if you have an account already. If you have any difficulties, contact us and we’ll help you</p>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="gr-12 text-center">
+                <a href="https://xgode.24u.cz" target="_blank" class="button">Start building your apps</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{snippet storeForm}
+    {include '../Components/store-section.latte', toolName => $toolName}
+{/snippet}
+
+{snippet contactForm}
+   {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}
+
+
+

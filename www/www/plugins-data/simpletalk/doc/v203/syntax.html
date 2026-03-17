@@ -1,0 +1,534 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>24U SimpleTalk Plug-In 2.0 Syntax</title>
+	<script>
+	function changeColor()
+	{
+	  var tags = document.getElementsByTagName('*');
+	  var tcl = " news_highlight ";
+	  for(i=0,j=0; i<tags.length; i++) 
+	  { 
+	    var test = " " + tags[i].className + " ";
+	    if (test.indexOf(tcl) != -1)
+	    {
+		  if(tags[i].style.backgroundColor=="")
+		  {
+		     tags[i].style.backgroundColor="yellow";
+		  }
+		  else
+		  {
+		     tags[i].style.backgroundColor="";
+		  }
+	    }
+	  }
+	}
+	</script>
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+    -->
+    </STYLE>
+  </head>
+
+<body>  
+<h1>24U SimpleTalk Plug-In 2.0 Syntax</h1>
+
+<form><input type="button" value="Highlight changes in the new version"	onClick='javascript:changeColor()'></form>
+
+<h2>Complete syntax and functionality of the plug-in functions</h2>
+
+<h3>STalk_Version( { versionFormat } )</h3>
+<p class="f_intro">Returns version string of the active 24U SimpleTalk Plug-In, formatted as requested by the parameter.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">versionFormat</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number. Default value.</td></tr>
+  <tr valign="top"><td class="t2_param">"long"</td><td>To get the plug-in name followed by its version number.</td></tr>
+  <tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform of the code currently running on.</td></tr>
+  <tr valign="top"><td class="t2_param">"autoupdate"</td><td>To get autoupdate compatible (comparable) version number.</td></tr>
+</table>
+<h4>Description</h4>
+<p>This function is very important and it has the same output format in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+<h4>Result</h4>
+<p>Returns requested version format or platform. If this function returns "?", the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.<p>
+<h4>Example</h4>
+<p><span class="syntax_hl">STalk_Version( "long" )</span><br />
+This will return the plug-in name and its version. In this case it is "24U SimpleTalk Plug-In 2.0".</p>
+
+
+<div class="news_highlight">
+<h3>STalk_Register( selector )</h3>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers.<p> 
+<h4>Parameter values for <span class="p_hl">selector</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr class="">    <td class="t2_param">SerialNumber</td>    <td>Register given SerialNumber and return an error code.</td>    </tr>
+    <tr class="">    <td class="t2_param">EmailAddress</td>    <td>Tries to activate with given email address and return an error code. Trial version is valid only after you confirm email</td>    </tr>
+    <tr class=""><td class="t2_param">Hash</td><td>Activate a serial number with a hash received from 24U. Used for offline activation.</td></tr>
+    <tr class="">    <td class="t2_param">"Registration Window"</td>    <td>Show the "Registration window" and return 0.</td>    </tr>
+    <tr class="">    <td class="t2_param">"About Window"</td>    <td>Show the "About window" and return 0.</td>    </tr>
+    <tr class="">    <td class="t2_param">"Status"</td>    <td>Return the actual registration state of the plugin: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td>    </tr>
+    <tr class="">    <td class="t2_param">"Unregister"</td>    <td>Unregister all serial numbers related to the product and return an error code. Note: after this trial version days wont come back.</td>    </tr>
+    <tr class=""><td class="t2_param">"Info"</td><td>Returns current plugin status and its registered serial numbers.</td></tr>
+    <tr class=""><td class="t2_param">"ActivationChallenge"</td><td>Returns generated challenge string. This string is sent to 24U.</td></tr>
+    <tr class=""><td class="t2_param">"Purchase" ; webAddress</td><td>Opens web browser with given webAddress. Given webAddress should point to 24U Store. <span>This functionality is not implemented for FileMaker Server and Linux.</span></td>
+</table>
+</div>
+<h4>Description</h4>
+<p><span class="news_highlight">Use this function to register or unregister 24U SimpleTalk Plug-In, to get information about current registration state, or to invoke GUI providing basic registration information and purchase capabilities.</span></p>
+<h4>Result</h4>
+<p><span class="news_highlight">Returns zero or <a href="#error">error code</a> depending on the selector.</span></p>
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Register( "STLI20C016-BXMW-VNW7-L8AJ-3KGX-VWG8" )</span></span><br />
+  <span class="news_highlight">This function will register the plug-in with client serial number STL20C016-BXMW-VNW7-L8AJ-3KGX-VWG8 for 16 users.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Register( "user@mail.com" )</span></span><br />
+  <span class="news_highlight">In case you do not have a serial number but you want to try the plug-in out, use the string with your email address as selector.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Register( "unregister" )</span></span><br />
+  <span class="news_highlight">This function will unregister every serial number related to 24U SimpleTalk Plug-In.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Register( "About window" )</span></span><br />
+  <span class="news_highlight">Similar to opening FileMaker preferences, navigating to the Plug-Ins tab and double-clicking on 24U SimpleTalk Plug-In.</span></p>
+<p><span class="news_highlight"><span class="note">Note: </span>All serial numbers here are only for demonstration purposes. They will not work in the plug-in.</span></p>
+
+<!--
+<h3>STalk_Fce( { dialogNumber ; } action { ; actionData... } )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param"></td>	<td></td></tr>
+</table>
+
+<h4>Possible values for <span class="p_hl">action</span>.</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t2_param"></td>	<td></td></tr>
+</table>
+
+<h4>Possible values to be set for <span class="p_hl">actionData</span> for action <span class="p_hl">"open","show","update"</span>.</h4>
+
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t2_param">minValue</td><td>Minimum value of the progress bar. If not set, default value 0 will be used.</td></tr>
+</table>
+
+<h4>Possible values to be set for <span class="p_hl">actionData</span> for action <span class="p_hl">"close","stop"</span>.</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t2_param"></td>	<td></td></tr>
+</table>
+
+<h4>Obligatory format of <span class="p_hl">actionData</span> for action <span class="p_hl">"incr"</span>.</h4>
+<p>actionData = { increment } { ; topMessage }</p>
+
+<h4>Possible values to be set for <span class="p_hl">actionData</span> for action <span class="p_hl">"incr"</span>.</h4>
+
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t2_param"></td>	<td></td>	</tr>
+</table>
+
+<h4>Description</h4>
+	<p></p>
+
+<h4>Result</h4>
+	<p></p>
+
+<h4>Examples</h4>
+	<p><span class="syntax_hl"></span><br>
+	
+	</p>
+-->
+
+
+<h3>STalk_StartServer ( port { ; protocol } { ; datahandler { ; openhandler { ; closehandler }}} { ; encoding } { ; terminator } )</h3>
+<p class="f_intro">
+</p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">port</td>			<td>port number to listen on</td></tr>
+	<tr valign="top">	<td class="t_param">protocol</td>		<td>"TCP" (default), additional options may be supported in future versions</td></tr>
+	<tr valign="top">	<td class="t_param">datahandler</td>	<td>name of script to run (default is <a href="#builtin">built-in handler</a>)</td></tr>
+	<tr valign="top">	<td class="t_param">openhandler</td>	<td>name of script to run (default is <a href="#builtin">built-in handler</a>)</td></tr>
+	<tr valign="top">	<td class="t_param">closehandler</td>	<td>name of script to run (default is <a href="#builtin">built-in handler</a>)</td></tr>
+	<tr valign="top">	<td class="t_param">encoding</td>		<td>"UTF-8" (default) or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). This value is also used as a default encoding for all further server connections.</td></tr>
+	<tr valign="top">	<td class="t_param">terminator</td>		<td>string for splitting the  data (default is CRLF). (see the <a href="#terminator">note</a> below) This value is also used as a default terminator for all further server connections.</td></tr>
+</table>
+
+<a name="builtin"></a>
+<h4>Built-in handlers:</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t2_param">openhandler</td>	<td>schedules the specified script to run, returns "OK" if successfully scheduled, or "ERROR" if script could not be scheduled</td></tr>
+	<tr valign="top">	<td class="t2_param">datahandler</td>	<td>receives data with one STalk_Receive call and performs actions if the received data match to one of the following patterns:<br>
+		<table border=0 cellspacing=4 cellpadding=0>
+			<tr>	<td>RUN</td>	<td>schedules the specified script to run, returns "OK" if successfully scheduled, or "ERROR" if script could not be scheduled</td>	</tr>
+			<tr>	<td>EVAL</td>	<td>evaluates the specified calculation in the current context (of the frontmost window) and returns result</td>	</tr>
+			<tr>	<td>QUIT</td>	<td>closes the connection from the server side</td>	</tr>
+		</table></td>
+	</tr>
+	<tr valign="top">	<td class="t2_param">close handler</td>	<td>closes the connection from the server side</td></tr>
+</table>
+
+<h4>Description</h4>
+	<p>Start listening for incoming connections on the specified port. When new connection is opened, openhandler is called. 
+The data received through the connection are stored in a queue. When a terminator (CRLF by default) is
+ present in the connection queue, datahandler is called and <tt>connectionID</tt> is passed to it as parameter.
+ Datahandler is responsible for clearing the beginning of the queue up to the terminator(including) using the STalk_Receive
+  function. After the data handler completes, it is called again immediately when there is a terminator in the connection queue.
+ When the connection closes, closehandler is called. Neither openhandler 
+  nor closehandler are required to call STalk_Receive.
+	</p>
+
+<h4>Result</h4>
+	<p>STalk_StartServer returns positive <tt>serverID</tt> if successful, negative <a href="#error">error code</a> in the case of failure.</p>
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_StartServer( "3333" ; "TCP" ; "Some script for openhandling" ; "Some script for datahandling" ; "Some script for closehandling" )</span></span><br />
+  <span class="news_highlight">This function will start server on port 3333 with these scripts as handlers. <b>Note:</b> "Some script for openhandling", "Some script for datahandling" and "Some script for closehandling" has to be valid names of scripts.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_StartServer( "3333" )</span></span><br />
+  <span class="news_highlight">This function will start server on port 3333 with default handlers.</span></p>
+
+
+
+
+
+
+
+
+<h3>STalk_StopServer ( serverID )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">serverID</td>	<td>value returned by StartServer function</td>	</tr>
+</table>
+
+<h4>Description</h4>
+	<p>Close all open connections and shut the specified server down.</p>
+
+<h4>Result</h4>
+	<p>Returns 0 if successful, <a href="#error">error code</a> in the case of failure (i.e. invalid server ID).</p>
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_StopServer( 42 )</span></span><br />
+  <span class="news_highlight">Stops server with ID 42 - if existed.</span></p>
+
+
+
+
+
+
+<h3>STalk_Connect ( host ; port { ; protocol } { ; datahandler { ; closehandler} } { ; encoding } { ; terminator } { ; timeout { ; idle } } )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">host</td>			<td>Domain name or IP address of the server to connect to</td>	</tr>
+	<tr valign="top">	<td class="t_param">port</td>			<td>remote port number to connect to</td>	</tr>
+	<tr valign="top">	<td class="t_param">protocol</td>		<td>"TCP" (default), additional options may be supported in future versions</td>	</tr>
+	<tr valign="top">	<td class="t_param">datahandler</td>	<td>name of script to run  (default datahandler does nothing)</td>	</tr>
+	<tr valign="top">	<td class="t_param">closehandler</td>	<td>name of script to run (default is datahandler)</td>	</tr>
+	<tr valign="top">	<td class="t_param">encoding</td>		<td>"UTF-8" (default) or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). This value is also used as a default encoding for all further connection operations.</td>	</tr>
+	<tr valign="top">	<td class="t_param">terminator</td>		<td>string for splitting the  data (default is CRLF). (see the <a href="#terminator">note</a> below)  This value is also used as a default terminator for all further connection operations.</td>	</tr>
+	<tr valign="top">	<td class="t_param">timeout</td>		<td>number of seconds to wait for a connection (default is 60).  This value is also used as a default timeout for all further connection operations.</td>	</tr>
+	<tr valign="top">	<td class="t_param">idle</td>			<td>number of seconds to wait after last send or receive operation before automatically closing the connection (default is 600)</td>	</tr>
+
+</table>
+
+<h4>Description</h4>
+	<p>Open a TCP connection to the specified host. Datahandler and close handler are called in the same way as described in STalk_StartServer function reference.</p>
+
+<h4>Result</h4>
+	<p>Returns positive <tt>connectionID</tt> if successful, negative <a href="#error">error code</a> in the case of failure.</p>
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Connect ( "1.1.1.1" ; "80" )</span></span><br />
+  <span class="news_highlight">Connects to server with IP 1.1.1.1 using port 80.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Connect ( "192.168.0.1"; "33" ; "TCP" ; "UTF-8" ; ">" )</span></span><br />
+  <span class="news_highlight">Connects to server with IP 192.168.0.1 using port 33. Encoding for communication UTF-8, as terminator is used character >.</span></p>
+
+
+
+
+<h3>STalk_Disconnect ( serverID )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">serverID</td>	<td>value returned by StartServer function</td>	</tr>
+</table>
+
+<h4>Description</h4>
+	<p>Close and invalidate the specified connection.</p>
+
+<h4>Result</h4>
+	<p>Returns 0 if successful, <a href="#error">error code</a> in the case of failure (i.e. invalid server ID).</p>
+
+<h4>Examples</h4>
+<p><span><span class="syntax_hl">STalk_Disconnect ( 4 )</span></span><br />
+  <span>Disconnects from with given serverID.</span></p>
+
+
+
+
+
+
+<h3>STalk_Send ( host; port { ; protocol } { ; encoding } { ; terminator } { ; autoconvert { ; local_terminator } }{ ; timeout } ; data )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">host</td>				<td>Domain name or IP address of the server to connect to</td>	</tr>
+	<tr valign="top">	<td class="t_param">port</td>				<td>remote port number to connect to</td>	</tr>
+	<tr valign="top">	<td class="t_param">protocol</td>			<td>"TCP" (default), additional options may be supported in future versions</td>	</tr>
+	<tr valign="top">	<td class="t_param">encoding</td>			<td>"UTF-8" (default) or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below).</td>	</tr>
+	<tr valign="top">	<td class="t_param">terminator</td>			<td>a string to be added to the end of the data being sent (CRLF by default) (see the <a href="#terminator">note</a> below)</td>	</tr>
+	<tr valign="top">	<td class="t_param">autoconvert</td>		<td>"yes" or "no" (default is "yes")</td>	</tr>
+	<tr valign="top">	<td class="t_param">local_terminator</td>	<td>string which will be replaced with terminator (default is line end)</td>	</tr>
+	<tr valign="top">	<td class="t_param">timeout</td>			<td>number of seconds to wait for a connection and reply (default is 60)</td>	</tr>
+	<tr valign="top">	<td class="t_param">data</td>				<td>data to be sent</td>	</tr>
+</table>
+
+<h4>Description</h4>
+	<p>Connect to the specified host/port, send the data (and terminator), wait for reply (until the other side closes connection or the time is out), close the connection and return the reply.
+If autoconvert is specified, each occurrence of local_terminator in data is replaced with terminator. Also each occurrence of terminator in the reply is replaced with local terminator.
+This is useful e.g. when you want to send more lines separated with CRLF instead of line ends. (This is the default behaviour)
+</p>
+
+<h4>Result</h4>
+	<p>Returns received reply if successful, negative <a href="#error">error code</a> in the case of failure.</p>
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Send ( "192.168.0.1"; "33" ; "Hello my new friend\r\n" )</span></span><br />
+  <span class="news_highlight">Sends string to address 192.168.0.1 using port 33. Terminator is used default "\r\n".</span></p>
+
+	
+	
+	
+	
+
+
+	
+<h3>STalk_Send ( connectionID { ; encoding } { ; terminator } ; data )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">connectionID</td>	<td>numerical identification of an open connection (result of <tt>STalk_Connect</tt> or handler's script parameter)</td></tr>
+	<tr valign="top">	<td class="t_param">encoding</td>		<td>"UTF-8" or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). (inherited from connection by default)</td></tr>
+	<tr valign="top">	<td class="t_param">terminator</td>		<td>string for splitting the  data (inherited from connection by default). (see the <a href="#terminator">note</a> below)</td></tr>
+	<tr valign="top">	<td class="t_param">data</td>			<td>data to be send.</td></tr>
+</table>
+
+<h4>Description</h4>
+	<p>Send data to the other side of an open connection. Automatically append the connection's terminator to the end of the data.</p>
+
+<h4>Result</h4>
+	<p>Returns positive number of bytes sent (including terminator) if successful, negative <a href="#error">error code</a> in the case of failure.</p>
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Send ( 5 ; "SimpleTalk says hi!\r\n" )</span></span><br />
+  <span class="news_highlight">Sends message to connection with ID 5. Terminator is used default "\r\n".</span></p>
+	
+
+
+
+
+
+
+
+<h3>STalk_Receive ( connectionID { ; encoding } { ; terminator } { ; timeout } )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">connectionID</td>	<td>numerical identification of an open connection (result of <tt>STalk_Connect</tt> or handler's script parameter)</td></tr>
+	<tr valign="top">	<td class="t_param">encoding</td>		<td>"UTF-8" or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). (inherited from connection by default)</td></tr>
+	<tr valign="top">	<td class="t_param">terminator</td>		<td>string for splitting the  data (inherited from connection by default). (see the <a href="#terminator">note</a> below)</td></tr>
+	<tr valign="top">	<td class="t_param">timeout</td>		<td>time in seconds to wait for data before timing out (use connection's timeout by default), 0 for "don't wait" (return immediately either data or an <a href="#error">error code</a>)</td></tr>
+</table>
+
+<h4>Description</h4>
+	<p>Read data from an open connection's buffer up to the terminator. Terminator is read but not returned.</p>
+
+<h4>Result</h4>
+	<p>Returns data read (without terminator) if successful, negative <a href="#errors">error code</a> in the case of failure.</p>
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Receive ( 42 )</span></span><br />
+  <span class="news_highlight">Tries to receive data from connection with ID 42.</span></p>
+
+
+
+
+
+
+
+
+
+<h3>STalk_Get( selector { ; connectionOrServerID } )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">selector</td>	<td>specifies operation</td>	</tr>
+	<tr valign="top">	<td class="t_param">connectionOrServerID</td>	<td>value returned by StartServer or Connect functions</td>	</tr>
+</table>
+
+<h4>Possible values for selector</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">"local-ip"</td>		<td>Local IP address</td>	</tr>
+	<tr valign="top">	<td class="t_param">"local-port"</td>	<td>Local port number associated with the specified server or connection</td>	</tr>
+	<tr valign="top">	<td class="t_param">"remote-ip"</td>	<td>IP address of the remote side of the connection</td>	</tr>
+	<tr valign="top">	<td class="t_param">"remote-port"</td>	<td>Port number of the remote side of the connection</td>	</tr>
+	<tr valign="top">	<td class="t_param">"encoding"</td>		<td>Default encoding for the connection</td>	</tr>
+	<tr valign="top">	<td class="t_param">"frontmost"</td>	<td>1 if FileMaker is the frontmost application, 0 otherwise</td>	</tr>
+</table>
+
+
+<h4>Description</h4>
+	<p>Returns current value of a global variable or a connection/server option specified by selector.</p>
+<h4>Result</h4>
+	<p>Returns requested value or "?" in case of an error</p>
+
+
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Get( "local-ip" )</span></span><br />
+  <span class="news_highlight">Returns IP adress of local pc.</span></p>
+
+
+
+
+
+
+
+
+<h3>STalk_Set( selector { ; connectionOrServerID } ; newValue )</h3>
+<p class="f_intro"></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">selector</td>	<td>specifies operation</td>	</tr>
+	<tr valign="top">	<td class="t_param">connectionOrServerID</td>	<td>value returned by StartServer or Connect functions</td>	</tr>
+</table>
+
+<h4>Possible values for selector</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">"encoding"</td>		<td>Modifies the default encoding of the specified server or connection</td>	</tr>
+	<tr valign="top">	<td class="t_param">"frontmost"</td>	<td>Brings FileMaker to front or sends it to back.</td>	</tr>
+</table>
+
+<h4>Description</h4>
+	<p>Modifies value of a global variable or a connection/server option specified by selector.</p>
+<h4>Result</h4>
+	<p>Returns 0 or "?" in case of an error</p>
+
+
+<h4>Examples</h4>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Set( "encoding" ; "UTF-16" )</span></span><br />
+  <span class="news_highlight">Sets default encoding "UTF-16".</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">STalk_Set( "frontmost" ; True )</span></span><br />
+  <span class="news_highlight">Brings FileMaker to front.</span></p>
+
+
+
+
+
+
+
+
+<h3>Note on data encoding</h3>
+<a name="encoding"></a>
+
+<p>
+Encoding of data defines the way how  the content passed to SimpleTalk is converted into binary form
+for sending through network and vice versa. Hence it is important that each side of the 
+connection is synchronized with each other and uses the same encoding.
+</p>
+
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td nowrap><tt>UTF-8</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with one or two bytes.</td></tr>
+	<tr valign="top"><td nowrap><tt>UTF-16BE</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with two bytes. Big endian ordering is used.</td></tr>
+	<tr valign="top"><td nowrap><tt>UTF-16LE</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with two bytes. Low endian ordering is used.</td></tr>
+	<tr valign="top"><td nowrap><tt>UTF-16</tt></td><td>&nbsp;</td><td>This is synonyma for UTF-16BE</td></tr>
+	<tr valign="top"><td nowrap><tt>ASCII</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with one byte. Only the basic 127 ASCII characters will be send unchanged.</td></tr>
+	<tr valign="top"><td nowrap><tt>Hex</tt></td><td>&nbsp;</td><td>The text is taken as a hexadecimal representation of binary data. (i.e. each pair of characters represents one byte)</td></tr>
+</table>
+
+
+
+<h3>Note on terminators</h3>
+<a name="terminator"></a>
+
+<p>
+Terminator is a couple of bytes which splits the transferred data into logical blocks. Of course, both sides of the connection should use the same terminators to achieve the requested behaviour.
+When a terminator is specified as an optional parameter to some Plug-In's function, it is encoded into binary form with the same encoding which is given to
+encode/decode the data. The only exception is default terminator CRLF, which already has exact binary interpretation.
+When the given terminator is an empty string, its behaviour is a little bit special and depends on the calling function:
+  
+</p>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td nowrap><tt>STalk_StartServer,STalk_Connect</tt></td><td>&nbsp;</td><td> data handler is never called</td></tr>
+	<tr valign="top"><td nowrap><tt>STalk_Send(connectionID,...)</tt></td><td>&nbsp;</td><td>normal behaviour, i.e. nothing is appended to the data sent</td></tr>
+	<tr valign="top"><td nowrap><tt>STalk_Receive</tt></td><td>&nbsp;</td><td> waits for timeout or the disconnection from the other side, then returns everything it received</td></tr>
+	<tr valign="top"><td nowrap><tt>STalk_Send(host...)</tt></td><td>&nbsp;</td><td>partially normal behaviour: nothing is appended to the data sent, occurrences of local_terminator are replaced with empty string,but the received data are not changed.</td></tr>
+</table>
+
+
+<a name="params"></a>
+
+<h3>Note on optional parameter evaluation</h3>
+
+<p>
+Majority of SimpleTalk functions can be called with optional parameters. Their syntax suggests that the plugin could not distinguish which calling form the user requested.
+For example the string "UTF-8" in call STalk_StartServer(2424,"UTF-8"), could describe protocol, datahandler, encoding or terminator.
+To be able to corectly distinguish the parameters, the name of the handlers  and terminator can not be "tcp", "UTF-8", etc. Also the terminator can not be name of any existing script (potential handler).
+This restrictions are rather small and  it rarely makes problems in practical situations. In such situation, there still is the possibility to 
+call SimpleTalk function with all parameters given so that no ambiguity is possible.
+
+
+</p>
+
+
+
+
+
+
+<a name="error" />
+<h2><span class="p_hl">24U SimpleTalk Plug-In</span> status codes</h2>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top">		<td class="t2_param">-50</td>		<td>Invalid parameter</td></tr>
+  <tr valign="top">		<td class="t2_param">-1000</td>		<td>Plug-In requires registration (expired)</td></tr>
+  <tr valign="top">		<td class="t2_param">-3218</td>		<td>Invalid server ID</td></tr>
+  <tr valign="top">		<td class="t2_param">-3247</td>		<td>Address/port already in use</td></tr>
+  <tr valign="top">		<td class="t2_param">-3256</td>		<td>Connection error / not connected</td></tr>
+  <tr valign="top">		<td class="t2_param">-3157</td>		<td>WSA internal error</td></tr>
+  <tr valign="top">		<td class="t2_param">-3259</td>		<td>Connection/request timed out</td></tr>
+  <tr valign="top">		<td class="t2_param">-3260</td>		<td>Connection refused</td></tr>
+  
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24001</span></td><td><span class="news_highlight">Demo mode expired: If you want to keep using the plug-in, you must register it or buy it for particular environment.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24002</span></td><td><span class="news_highlight">Product expired: Trial period is over. If you want to keep using the product, you must buy it for particular environment.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24003</span></td><td><span class="news_highlight">SN limit was met: The serial number is already registered on too many computers.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24004</span></td><td><span class="news_highlight">Product is dead: The product expired and cannot be used any more. Please download the new version from <a href="http://www.24usoftware.com/">24U Software</a>.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24005</span></td><td><span class="news_highlight">Invalid serial number: Serial number you entered is not valid.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24006</span></td><td><span class="news_highlight">Activation failed: Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24007</span></td><td><span class="news_highlight">Deactivation failed: Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24008</span></td><td><span class="news_highlight">Unknown serial number: The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24009</span></td><td><span class="news_highlight">Blacklisted serial number: The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</span></td></tr>
+  <tr valign="top"><td class="t2_param"><span class="news_highlight">24010</span></td><td><span class="news_highlight">eSellerate engine not installed: This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</span></td></tr>
+</table>
+
+</body>
+</html>

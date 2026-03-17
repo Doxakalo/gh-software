@@ -1,0 +1,2 @@
+0 0 * * * wget -q -O - https://www.24usoftware.com/benchtest/cache/6d6av987h96c6p9r83vdsfc64761xc8vx6v2a7q96 >/dev/null 2>&1
+0 2 * * * wget -q -O - "https://24usoftware.com/generate-searchable-records?token=48ada3das34f4sg35fd3c13sv3dfs5fa5542" >/dev/null 2>&1

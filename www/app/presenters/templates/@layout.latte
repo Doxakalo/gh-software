@@ -1,0 +1,629 @@
+{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+
+{switch $locale}
+    {case cs}
+    {ifset $switchLangLinkEN}
+        {var $switchLangLinkAlternative = $switchLangLinkEN}
+    {else}
+        {capture $switchLangLinkAlternative}{link this, locale => $alternativeLang}{/capture}
+    {/ifset}
+    {case en}
+    {ifset $switchLangLinkCS}
+        {var $switchLangLinkAlternative = $switchLangLinkCS}
+    {else}
+        {capture $switchLangLinkAlternative}{link this, locale => $alternativeLang}{/capture}
+    {/ifset}
+{/switch}
+
+<!DOCTYPE html>
+<html data-page-type="{ifset $pageType}{$pageType}{/ifset}" data-ignore-search="{ifset $ignoreSearch}true{else}false{/ifset}" data-device="{$detect['platformDevice']}"
+      data-is-edge="{$detect['isEdge']}" data-is-safari="{$detect['isSafari']}"
+      data-is-ie="{$detect['isIE']}" lang="{$locale}" lang-content="{$isTranslated !== true ? $alternativeLang:$locale}">
+<head>
+    {* METAs *}
+
+    {if $appConfig["GA-SearchConsole-Verification"] !="" }
+        <meta name="google-site-verification" content="{$appConfig["GA-SearchConsole-Verification"]}" />
+    {/if}
+    <meta charset="utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    {* METAs OG*}
+    {define meta-og}
+        <meta property='og:type' content='{$type}'/>
+        <meta property='og:title' content='{$title}'/>
+        <meta property='og:description' content='{$description}'/>
+        <meta property='og:url' content='{link //this}'/>
+
+        {ifset $imagePath}
+            <meta property='og:image' content='{link //Homepage:default}{$imagePath}'/>
+        {elseifset $imageBase}
+            <meta property='og:image' content='{link //Homepage:default}{$imageBase}'/>
+        {elseifset $ogMediaHTML}
+            {$ogMediaHTML}
+        {/ifset}
+
+        <meta property="og:logo" content="{$basePath}/img/layout/logo/logo-og.png" />
+
+
+        <meta property='og:site_name' content='{$siteName}'/>
+    {/define}
+
+    {block og}
+        {ifset $appConfig["og"]}
+            {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $appConfig["og"]["title"],
+            description => $appConfig["og"]["description"],
+            imagePath => $appConfig["og"]["image"],
+            siteName => $appConfig["og"]["site_name"]}
+        {/ifset}
+    {/block}
+
+    {* TITLE *}
+    <title>{ifset title}{include title|stripHtml} | {/ifset}24U Software</title>
+
+
+    <meta name="description"
+          content="{ifset description}{include description|stripHtml}{else}Experts in optimization and hardware integration, platinum member of the FileMaker Business Alliance. We build custom apps, FileMaker plug-ins, native apps for Mac, Windows, Linux, iOS, and Android, we are able to to integrate even hardware and software noone has integrated before.{/ifset}">
+
+    {* FAVICON *}
+    <link rel="apple-touch-icon-precomposed" sizes="57x57"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-144x144.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="60x60"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-60x60.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-76x76.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-152x152.png"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-128.png" sizes="128x128"/>
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-TileImage" content="{$basePath}/img/layout/favicon/mstile-144x144.png"/>
+    <meta name="msapplication-square70x70logo" content="{$basePath}/img/layout/favicon/mstile-70x70.png"/>
+    <meta name="msapplication-square150x150logo" content="{$basePath}/img/layout/favicon/mstile-150x150.png"/>
+    <meta name="msapplication-wide310x150logo" content="{$basePath}/img/layout/favicon/mstile-310x150.png"/>
+    <meta name="msapplication-square310x310logo" content="{$basePath}/img/layout/favicon/mstile-310x310.png"/>
+    {* FONTS *}
+
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&amp;subset=latin-ext">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&amp;subset=latin-ext">
+
+
+<script src="https://kit.fontawesome.com/7a165db722.js" crossorigin="anonymous"></script>
+
+
+{* STYLES *}
+    <link rel="stylesheet" href="{$basePath}/css/plugins.css?v=116">
+    <link rel="stylesheet" href="{$basePath}/css/screen.css?v=116">
+
+    <link rel="stylesheet" href="{$basePath}/css/grid.css">
+</head>
+
+<body data-template="{ifset $templateCustomName}{$templateCustomName|lower}{else}{$presenter->name|lower}{/ifset}">
+<noscript>Your browser does not support JavaScript!</noscript>
+
+{* HEADER *}
+
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 gr-12@tablet gr-12@mobile inner">
+                <div class="dropdown-menu-logo">
+                    <a class="logo" n:href="Homepage:default">
+                        <img id="logo" src="{$basePath}/img/layout/logo/logo.png"
+                             srcset="{$basePath}/img/layout/logo/logo.png, {$basePath}/img/layout/logo/logo@2x.png 2x"
+                             alt="24USoftware Logo">
+                    </a>
+                    <div class="dropdown-content">
+                        <ul>
+                            <li class="defaultLogo active"><a n:href="Homepage:default">{if $presenter->isLinkCurrent('Homepage:default')}{_generic.logo.homepage|noescape}{else}{_generic.logo.back_to_homepage|noescape}{/if}</a></li>
+                        </ul>
+                        <div class="splitter">
+
+                        </div>
+                        <ul>
+                            <li class="partnerLogo"><a href="{$appConfig['24u-cz-url']}{($locale === 'en' ? '/en')}" target="_blank">{_generic.logo.go_to_partner_website|noescape}<img src="{$basePath}/img/layout/logo/logo_24u.png"
+                                                                                                                                                                                        srcset="{$basePath}/img/layout/logo/logo_24u.png, {$basePath}/img/layout/logo/logo_24u@2x.png 2x"
+                                                                                                                                                                                        alt="24U" /></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <nav>
+                    <ul>
+                        <li n:class="$presenter->isLinkCurrent('CustomApps:*') ? active"><a n:href="CustomApps:default">{_generic.header-menu.capps|noescape}
+                            </a></li>
+                        <li n:class="$presenter->isLinkCurrent('FileMakerConsulting:*') ? active">
+                            <a n:href="FileMakerConsulting:default">{_generic.header-menu.fmconsulting|noescape}</a></li>
+                        <li n:class="$presenter->isLinkCurrent('HardwareIntegration:*') ? active">
+                            <a n:href="HardwareIntegration:default">{_generic.header-menu.hwintegration|noescape}</a></li>
+                        <li n:class="$presenter->isLinkCurrent('QualityAssurance:*') ? active">
+                            <a n:href="QualityAssurance:default">{_generic.header-menu.qa|noescape}</a></li>
+                        <li n:class="$presenter->isLinkCurrent('SLA:*') ? active"><a n:href="SLA:default">{_generic.header-menu.sla|noescape}</a></li>
+                        <li n:class="$presenter->isLinkCurrent('Support:*') ? active"><a n:href="Support:default">{_generic.header-menu.support|noescape}</a>
+                        </li>
+                        <li class="{($presenter->isLinkCurrent('Tools:*') && !$presenter->isLinkCurrent('Tools:Tracksy')) ? 'active'} dropdown-menu">
+                            <a n:href="Tools:list">{_generic.header-menu.tools|noescape}</a>
+                            <div class="dropdown-content">
+                                <div class="dropdown-section">{_generic.header-menu.devtools|noescape}</div>
+                                <ul>
+                                    <li><a n:href="FileMakerLicensing:default">Claris FileMaker</a></li>
+                                    <li><a n:href="Tools:bench">FM Bench</a></li>
+                                    <li><a n:href="Tools:benchTest">BenchTest</a></li>
+                                    <li><a n:href="Tools:xgode">Xgode</a></li>
+                                    <li><a n:href="Tools:fmRESTor">fmRESTor</a></li>
+                                    <li><a n:href="Tools:logMonitor">LogMonitor</a></li>
+                                </ul>
+                                <div class="dropdown-section">{_generic.header-menu.fmplugins|noescape}</div>
+                                <ul>
+                                    <li><a n:href="Tools:bridgeForArduino">Bridge for Arduino</a></li>
+                                    <li><a n:href="Tools:bridgeForPhidgets">Bridge for Phidgets</a></li>
+                                    <li><a n:href="Tools:gonector">Gonector</a></li>
+                                    <li><a n:href="Tools:phoneCompanion">Phone Companion</a></li>
+                                    <li><a n:href="Tools:simpleDialog">SimpleDialog</a></li>
+                                    <li><a n:href="Tools:simpleFile">SimpleFile</a></li>
+                                    <li><a n:href="Tools:simpleTalk">SimpleTalk</a></li>
+                                    <li><a n:href="Tools:simpleHASP">SimpleHASP</a></li>
+                                    <li><a n:href="Tools:simpleSound">SimpleSound</a></li>
+                                    <li><a n:href="Tools:toolbox">Toolbox</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="{($presenter->isLinkCurrent('Stories:*')) ? 'active'} dropdown-menu">
+                            <a n:href="Stories:list">{_generic.header-menu.stories|noescape}</a>
+                            <div class="dropdown-content">
+                                <ul>
+                                    <li><a n:href="Stories:list">{_pages.stories.list.headlines.skills.headline}</a></li>
+                                    <li><a class="link-to-scroll" data-scroll-anchor="stories" n:href="Stories:list#stories">{_pages.stories.list.headlines.stories.headline}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li n:class="$presenter->isLinkCurrent('News:*') ? active"><a n:href="News:list">{_generic.header-menu.news|noescape}</a></li>
+                        <li n:class="$presenter->isLinkCurrent('Company:*') ? 'active' : '', 'hide@desktop hide@desktopLarge' "><a  class="highlight" n:href="Company:default">{_generic.header-menu.company|noescape}</a></li>
+                    </ul>
+                </nav>
+                <div class="search-wrapper">
+                    <div class="search-wrapper-inner">
+                        <form action="{link Search:default}" id="search">
+                            <img id="searchIcon" src="{$basePath}/img/layout/icons/search-icon.png"
+                                 srcset="{$basePath}/img/layout/icons/search-icon.png, {$basePath}/img/layout/icons/search-icon@2x.png 2x"
+                                 alt="Search Icon">
+                            <input id="searchBar" name="search" type="search" placeholder="{_generic.header-menu.search-placeholder}" required/>
+                            <img id="closeIcon" src="{$basePath}/img/icons/cross_icon.svg" alt="Close Icon">
+                        </form>
+                    </div>
+                </div>
+                <div id="menuIcon" data-active="false" class="hide show@tablet show@mobile">
+                    <img class="menuOpenIcon" src="{$basePath}/img/layout/icons/menu.svg" alt="Menu Icon"/>
+                    <img class="menuCloseIcon" src="{$basePath}/img/icons/cross_icon.svg" alt="Menu Icon"/>
+                </div>
+                <div class="lang hide@tablet hide@mobile">
+                    <ul>
+                        <li class="{$locale === 'cs' ? active}"><a href="{$switchLangLinkAlternative}">CZ</a></li>
+                        <li class="{$locale === 'en' ? active}"><a href="{$switchLangLinkAlternative}">ENG</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="mobileMenu">
+    <ul>
+        <li><a n:href="CustomApps:default"><span>{_generic.header-menu-mobile.capps}</span></a></li>
+        <li><a n:href="FileMakerConsulting:default">{_generic.header-menu-mobile.fmconsulting}</a></li>
+        <li><a n:href="HardwareIntegration:default">{_generic.header-menu-mobile.hwintegration}</a></li>
+        <li><a n:href="QualityAssurance:default">{_generic.header-menu-mobile.qa|noescape}</a></li>
+        <li><a n:href="SLA:default">{_generic.header-menu-mobile.sla}</a></li>
+        <li><a n:href="Support:default">{_generic.header-menu-mobile.support}</a></li>
+        <li><a n:href="Tools:list">{_generic.header-menu-mobile.tools}</a>
+            <div class="openDropDown"><img src="{$basePath}/img/icons/right_arrow_grey_icon.svg" alt="Dropdown Icon">
+            </div>
+        </li>
+        <li class="dropdown-menu">
+            <div class="dropdown-content">
+                <div class="dropdown-section">{_generic.header-menu-mobile.devtools}</div>
+                <ul>
+                    <li><a n:href="FileMakerLicensing:default">Claris FileMaker</a></li>
+                    <li><a n:href="Tools:bench">FM Bench</a></li>
+                    <li><a n:href="Tools:benchTest">BenchTest</a></li>
+                    <li><a n:href="Tools:xgode">Xgode</a></li>
+                    <li><a n:href="Tools:fmRESTor">fmRESTor</a></li>
+                    <li><a n:href="Tools:logMonitor">LogMonitor</a></li>
+                </ul>
+                <div class="dropdown-section">{_generic.header-menu-mobile.fmplugins}</div>
+                <ul>
+                    <li><a n:href="Tools:bridgeForArduino">Bridge for Arduino</a></li>
+                    <li><a n:href="Tools:bridgeForPhidgets">Bridge for Phidgets</a></li>
+                    <li><a n:href="Tools:gonector">Gonector</a></li>
+                    <li><a n:href="Tools:phoneCompanion">Phone Companion</a></li>
+                    <li><a n:href="Tools:simpleDialog">SimpleDialog</a></li>
+                    <li><a n:href="Tools:simpleFile">SimpleFile</a></li>
+                    <li><a n:href="Tools:simpleTalk">SimpleTalk</a></li>
+                    <li><a n:href="Tools:simpleHASP">SimpleHASP</a></li>
+                    <li><a n:href="Tools:simpleSound">SimpleSound</a></li>
+                    <li><a n:href="Tools:toolbox">Toolbox</a></li>
+                </ul>
+            </div>
+        </li>
+        <li>
+            <a n:href="Stories:list">{_generic.header-menu.stories|noescape}</a>
+            {*<div class="openDropDown"><img src="{$basePath}/img/icons/right_arrow_grey_icon.svg" alt="Dropdown Icon">
+            </div>*}
+        </li>
+        {*<li class="dropdown-menu">
+            <div class="dropdown-content">
+                <ul>
+                    <li><a n:href="Stories:list">{_pages.stories.list.headlines.skills.headline}</a></li>
+                    <li><a class="link-to-scroll" data-scroll-anchor="stories" n:href="Stories:list#stories">{_pages.stories.list.headlines.stories.headline}</a></li>
+                </ul>
+            </div>
+        </li>*}
+
+        <li><a n:href="News:list">{_generic.header-menu-mobile.news}</a></li>
+        <li><a  class="highlight" n:href="Company:default">{_generic.header-menu-mobile.company}</a></li>
+        <li>
+            <form action="{link Search:default}" id="search">
+                <input id="searchBar" name="search" type="search" placeholder="{_generic.header-menu-mobile.search-placeholder}" required/>
+            </form>
+        </li>
+    </ul>
+    <form action="{link Search:default}" id="search">
+    </form>
+    <ul class="lang">
+        <li class="{$locale === 'cs' ? active}"><a href="{ifset $switchLangLinkCS}{$switchLangLinkCS}{else}{link this, locale =>cs}{/ifset}">CZ</a></li>
+        <li class="{$locale === 'en' ? active}"><a href="{ifset $switchLangLinkEN}{$switchLangLinkEN}{else}{link this, locale =>en}{/ifset}">ENG</a></li>
+    </ul>
+</div>
+
+
+<div id="lang-warning" class="lang-warning lang-warning@mobile {$isTranslated !== true ? active}">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12">
+                <span class="message-container">{_generic.no-translation.label}</span>
+                <span class="buttons-container buttons-container@mobile">
+                <a class="button" target="_blank"
+                   href="https://translate.google.com/translate?sl={$alternativeLang}&tl={$locale}&u={link //this, locale =>$alternativeLang }">
+                    {_generic.no-translation.use-translator}
+                </a><a class="button" n:href="this, locale => $alternativeLang">
+                    {_generic.no-translation.switch-lang}
+                </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{* INCLUDE MAIN CONTENT FROM TEMPLATES *}
+
+<div id="content">
+    {include content}
+</div>
+
+
+{ifset $advertisement}
+    <div id="advertisement" class="ad-type-{$advertisement["type"]}" data-ad-name="{$advertisement["uniqeName"]}">
+        <div class="close close-advertisment"></div>
+        {ifset $advertisement["image"]}
+            <div class="image">
+                <img src="{$basePath}{$advertisement["image"]}" alt="Advertisement - Image"/>
+            </div>
+        {/ifset}
+        <div class="info">
+            <h3>{$advertisement["headline"]}</h3>
+            <p>{$advertisement["description"]}</p>
+            {if $advertisement["type"] === "button"}
+                <div class="buttons">
+                    {ifset $advertisement["button_config"]["confirm_button"]}
+                        <a {if $advertisement["button_config"]["confirm_button"]["new_window"] === true}target="_blank" {/if}
+                           href="{$advertisement["button_config"]["confirm_button"]["link"]}"
+                           class="button confirm-advertisment"
+                           style="background-color: {$advertisement["button_config"]["confirm_button"]["color"]|noescape}">{$advertisement["button_config"]["confirm_button"]["text"]}</a>
+                    {/ifset}
+                    {ifset $advertisement["button_config"]["close_button"]}
+                        <button class="button close-advertisment"
+                                style="background-color: {$advertisement["button_config"]["close_button"]["color"]|noescape}">{$advertisement["button_config"]["close_button"]["text"]}</button>
+                    {/ifset}
+                </div>
+            {elseif $advertisement["type"] === "mailchimp"}
+                <div class="form-container" id="footer-subscribe-form">
+                    {snippet asnForm}
+                        {ifset $asnFormSuccess}
+                            <div class="form-sent">
+                                {if $resultType === "send_email"}
+                                    <p>{_generic.subscription.subscription-success_send_email}</p>
+                                {/if}
+                                 {if $resultType === "no_send_email"}
+                                    <p>{_generic.subscription.subscription-success_no_send_email}</p>
+                                {/if}
+                            </div>
+                            <script>
+                                gtag('event', 'form', {
+                                    'event_category': "send",
+                                    'event_label': "subscribe-ad",
+                                });
+                            </script>
+                        {else}
+                            {form advertismenSubscribeNewsForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                </ul>
+                                <label>
+                                    {input name}
+                                </label>
+                                <label>
+                                    {input surname}
+                                </label>
+                                <label>
+                                    {input email}
+                                </label>
+                                <div class="buttons">
+                                    {input subscribe class => "button confirm-advertisment GA_Mailchimp_log", value => $advertisement["mailchimp_config"]["confirm_button"]["text"], style =>["background-color: " . $advertisement["mailchimp_config"]["confirm_button"]["color"]]}
+
+                                    {ifset $advertisement["mailchimp_config"]["close_button"]}
+                                        <button class="button close-advertisment"
+                                                style="background-color: {$advertisement["mailchimp_config"]["close_button"]["color"]|noescape}">{$advertisement["mailchimp_config"]["close_button"]["text"]}</button>
+                                    {/ifset}
+                                </div>
+                            {/form}
+                        {/ifset}
+                    {/snippet}
+                </div>
+            {/if}
+        </div>
+    </div>
+    <script>
+        let adDuration = {$advertisement["duration"]};
+    </script>
+{/ifset}
+
+
+{* FOOTER *}
+<div class="videoplayer-overlay"></div>
+
+<footer id="global-footer" data-anchor="global-footer">
+    <div class="container">
+        <div class="row">
+            <div class="gr-4 gr-12@mobile">
+                <h2>{_generic.footer.question-header}</h2>
+                <div class="form-container" id="footer-contact-form">
+                    {snippet footerContactForm}
+                        {ifset $footerContactFormSuccess}
+                            <div class="form-sent">
+                                <p>{_generic.footer.question-success}</p>
+                            </div>
+                            <script>
+                                gtag('event', 'form', {
+                                    'event_category': "send",
+                                    'event_label': "contact-layout",
+                                });
+                            </script>
+                        {else}
+                            {form createFooterContactForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                </ul>
+                                <label>
+                                    {input message}
+                                </label>
+                                <div class="more-fields">
+                                    <label>
+                                        {input email}
+                                    </label>
+                                    <label>
+                                        {input name}
+                                    </label>
+                                    <label>
+                                        {input spamSecureSum}
+                                    </label>
+                                    <label>
+                                        {input subject2}
+                                    </label>
+                                    {input process}
+                                </div>
+                            {/form}
+                        {/ifset}
+                    {/snippet}
+                </div>
+            </div>
+            <div class="gr-3 gr-4@tablet gr-12@mobile prefix-1 prefix-0@tablet prefix-0@mobile">
+                <h2>{_generic.footer.contact-us}</h2>
+                <dl>
+                    <dd>
+                        24U s.r.o.
+                    </dd>
+                    <dd>
+                        Michelská 51-53
+                    </dd>
+                    <dd>
+                        {if $locale === 'cs'}
+                            141 00 Praha 4, Česká Republika
+                        {else}
+                            141 00 Prague 4, Czech Republic
+                        {/if}
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        tel: <a href="tel:+420224910892">+420 224 910 892</a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        HOnza Koudelka:
+                    </dd>
+                    <dd>
+                        <a href="tel:+420608301880">+420 608 301 880</a>
+                    </dd>
+                </dl>
+                <p>
+                    <a href="//24usw.com/ttsales" target="_blank" class="button GA_TimeTrade_log">{_generic.footer.shedule-call}</a>
+                </p>
+            </div>
+            <div class="gr-3 gr-4@tablet gr-12@mobile prefix-1 prefix-0@tablet prefix-0@mobile">
+                <h2>{_generic.footer.subscription-header}</h2>
+                <p class="mb-1">{_generic.footer.subscription-text}</p>
+                <div class="form-container" id="footer-subscribe-form">
+                    {snippet snForm}
+                        {ifset $snFormSuccess}
+                            <div class="form-sent">
+
+                                {if $resultType === "send_email"}
+                                    <p>{_generic.subscription.subscription-success_send_email}</p>
+                                {/if}
+                {if $resultType === "no_send_email"}
+                                    <p>{_generic.subscription.subscription-success_no_send_email}</p>
+                                {/if}
+                            </div>
+                            <script>
+                                gtag('event', 'form', {
+                                    'event_category': "send",
+                                    'event_label': "subscribe-layout",
+                                });
+                            </script>
+                        {else}
+                        {form subscribeNewsForm data-validationType => 'fields', class => 'ajax mb-1'}
+                            <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                <li n:foreach="$form->errors as $error">{$error}</li>
+                            </ul>
+                            <label>
+                                {input email}
+                            </label>
+                            <div class="more-fields">
+                                {input subscribe}
+                            </div>
+                        {/form}
+                        {/ifset}
+                    {/snippet}
+                </div>
+                <p>
+                    <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.footer.privacy-information}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="gr-7 gr-12@mobile">
+                    <ul>
+                        <li><a n:href="Company:default">{_generic.footer.menu.company}</a></li>
+                        <li><a n:href="Press:list">{_generic.footer.menu.press}</a></li>
+                        <li><a n:href="TermsOfUse:default">{_generic.footer.menu.terms}</a></li>
+                        <li><a n:href="PrivacyPolicy:default">{_generic.footer.menu.privacy}</a></li>
+                        <li><a href="javascript:void(0);" aria-label="View cookie settings" data-cc="c-settings">{_generic.footer.menu.cookies}</a></li>
+                    </ul>
+                    <p>
+                        Copyright &copy; {="now"|date:'Y'} 24U s.r.o. {_generic.footer.all-rights-reserved}
+                    </p>
+                </div>
+                <div class="gr-3 gr-12@mobile">
+                    <ul class="social">
+                        <li class="active"><a target="_blank" href="{_generic.footer.socials_links.facebook}"><img
+                                        src="{$basePath}/img/icons/fb_icon.svg" alt="Facebook Icon"/></a></li>
+                        <li><a target="_blank" href="{_generic.footer.socials_links.twitter}"><img
+                                        src="{$basePath}/img/icons/twitter_icon.svg" alt="Twitter Icon"/></a></li>
+                        <li><a target="_blank" href="{_generic.footer.socials_links.linkedin}"><img
+                                        src="{$basePath}/img/icons/linkedin_icon.svg" alt="LinkedIn Icon"/></a></li>
+                        <li><a target="_blank" href="{_generic.footer.socials_links.youtube}"><img
+                                        src="{$basePath}/img/icons/youtube_icon.svg" alt="Youtube Icon"/></a></li>
+                    </ul>
+                </div>
+                <div class="gr-2 gr-12@mobile">
+                    <ul class="lang">
+                        <li class="{$locale === 'cs' ? active}"><a n:href="this, locale =>cs">CZ</a></li>
+                        <li class="{$locale === 'en' ? active}"><a n:href="this, locale =>en">ENG</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div id="privacyInformationPopover">
+    <p>
+        {if $locale === 'cs'}
+            Vyplněním a odesláním tohoto formuláře udělujete 24U s.r.o., IČ: 26152584, se sídlem Zvole u Prahy, Skochovická 88,
+            PSČ 252 45, zapsané v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 74920 souhlas s využitím
+            Vašich osobních údajů, které jsou obsaženy ve formuláři, k zasílání obchodních sdělení o nabídkách
+            a novinkách 24U s.r.o. Poskytnutí osobních údajů je dobrovolné. Svůj souhlas můžete kdykoli odvolat. Podrobnosti
+            o nakládání s Vašimi osobními údaji a Vašich právech s tím souvisejících jsou obsaženy v zásadách zpracovávání
+            a ochrany <a n:href="PrivacyPolicy:default">osobních údajů</a>.
+        {else}
+            By completing and sending the form you agree that 24U s.r.o., a company established under the laws of the Czech
+            Republic, with its registered office: Zvole u Prahy, Skochovická 88, CZ-25245,
+            registered in the Commercial Register with the Municipal Court in Prague, section C, inset 74920 will use your
+            personal data contained in the form for the purpose of sending 24U’s news,
+            updates and other commercial communications. Providing 24U with personal data for the said purpose is optional.
+            Details on personal data processing and on your rights connected therewith are
+            contained in 24U’s <a n:href="PrivacyPolicy:default">Privacy Policy</a>.
+        {/if}
+    </p>
+</div>
+
+<div id="loader-full-page">
+    <img src="{$basePath}/img/layout/icons/loader_v3.svg" alt="Loader Image"/>
+</div>
+{ifset pre-script}
+    {include pre-script}
+{/ifset}
+{block scripts}
+    <script>
+        var cookieUpdateSessionExpiration = {link Cookie:setExpirationCookie};
+        var locale = {$locale}
+        var privacyPolicyLink = {link PrivacyPolicy:default}
+    </script>
+
+    <script src="{$basePath}/js/lib.js?v=116"></script>
+    <script src="{$basePath}/js/app.js?v=116"></script>
+
+
+    <script>
+        var GAId = {$appConfig["GA-ID"]};
+        var isSet_CookieExcludeGA = {$cookie['value']};
+    </script>
+
+    {if $cookie['value'] !== 1}
+    <!-- Google tag (gtag.js) G-W4R7CH710S --->
+    <script type="text/plain" async data-cookiecategory="analytics" src="https://www.googletagmanager.com/gtag/js?id={$appConfig["GA-ID"]}"></script>
+    <script n:syntax="off">
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+
+
+        gtag('js', new Date());
+
+        gtag('config', GAId);
+    </script>
+    {/if}
+{/block}
+{ifset post-script}
+    {include post-script}
+{/ifset}
+
+</body>
+</html>

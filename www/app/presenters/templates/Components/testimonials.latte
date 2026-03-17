@@ -1,0 +1,67 @@
+{import 'testimonials_translate_' . $locale . '.latte'}
+
+{define testimonial-swiper, $testimonials}
+    <div class="videoplayer-testimonial-overlay"></div>
+    <div class="swiper-container testimonial-slider-multiple">
+        <div class="swiper-wrapper">
+            {foreach $testimonials as $testimonial}
+                {include swiper-slide, $testimonial}
+            {/foreach}
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    {*
+    <div class="swiper-button-references">
+        <a n:href="References:default" class="button">{_pages.references.testimonial-slider.references-button.label}</a>
+    </div>
+    *}
+{/define}
+
+{define swiper-slide, $testimonial}
+    <div class="swiper-slide">
+        <div class="row row-align-middle">
+            {ifset $testimonial['img']}
+                <div class="gr-3 gr-8@tablet gr-8@mobile prefix-1 prefix-2@tablet prefix-2@mobile sufix-2@tablet sufix-2@mobile videoplayer-parent-element ignore-grid-margins">
+                    {include testimonial-media, $testimonial}
+                </div>
+                <div class="gr-6 gr-8@tablet gr-8@mobile prefix-1 sufix-1 prefix-2@tablet prefix-2@mobile  sufix-2@tablet sufix-2@mobile testimonial-quote">
+                    <blockquote>
+                        {include #"testimonial_quote-" . $testimonial['quote']}
+                        <cite>{include #"testimonial_cite-" . $testimonial['quote']}</cite>
+                    </blockquote>
+                </div>
+            {else}
+                <div class="gr-10 prefix-1 sufix-1">
+                    <blockquote>
+                        {include #"testimonial_quote-" . $testimonial['quote']}
+                        <cite>{include #"testimonial_cite-" . $testimonial['quote']}</cite>
+                    </blockquote>
+                </div>
+            {/ifset}
+        </div>
+    </div>
+{/define}
+
+{define testimonial-media, $testimonial}
+    {ifset $testimonial['video']}
+        <div class="videoplayer-element left-unset">
+
+        {if ($detect['platformDevice'] === "phone" || $detect['platformDevice'] === "tablet" ) }
+            <div data-yt="{$testimonial['video']['id']}" class="playVideoTestimonial-mobile">
+                <iframe class="video" allow="autoplay" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/{$testimonial['video']['id']}?autoplay=1&rel=0&fs=1&wmode=transparent"></iframe>
+        {else}
+            <div data-yt="{$testimonial['video']['id']}" class="playVideoTestimonial play-icon  {ifset $testimonial['video']['button-dark']} play-icon-dark {/ifset}">
+        {/if}
+    {/ifset}
+    {ifset $testimonial['img']}   <img src="{$testimonial['img']}" alt="{include #"testimonial_cite-" . $testimonial['quote']}" class="">{/ifset}
+    {ifset $testimonial['video']}
+            </div>
+
+        <div class="videoplayer-resolution">
+            <img class="videoplayer-expand" src="{$basePath}/img/icons/expand.svg" title="Show in larger view">
+            <img class="videoplayer-collapse" src="{$basePath}/img/icons/collapse.svg" title="Close">
+        </div>
+        </div>
+    {/ifset}
+{/define}

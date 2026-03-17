@@ -1,0 +1,266 @@
+form {
+  $fontSizeInput: 1em;
+  $lineHeightInput: 1.1em;
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="search"],
+  input[type="time"],
+  textarea {
+    @include fontFamily($fontWorkSans);
+    @include bodyFontSize();
+    font-size: $fontSizeInput;
+    line-height: 1.3;
+    color: $colorBlue;
+    background-color: $colorWhite;
+    border: 1px solid $colorGrey;
+    padding: 0.6em 0.6em 0.6em 0.6em;
+    margin: 0;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    height: 36px;
+    box-sizing: border-box;
+    position: relative;
+    @include box-shadow(0);
+    @include appearance(none);
+    @include border-radius(0);
+
+    @include input-placeholder {
+      @include fontFamily($fontWorkSans);
+      font-size: $fontSizeInput;
+      @include bodyFontSize();
+      color: lighten($colorBlack, 60%);
+    }
+
+    // @animation
+    @include transition-property(color, border-color, background-color, box-shadow);
+    @include transition-duration($hoverAnimationDuration);
+    @include transition-timing-function(ease-out);
+
+    // focus effect
+    &:focus {
+      @include box-shadow(none);
+    }
+  }
+
+  label {
+    display: block;
+    position: relative;
+    margin-bottom: 1em;
+    line-height: $lineHeightNormal;
+
+    .error-text {
+      display: none;
+      position: absolute;
+      top: $inputBorderWidth;
+      right: $inputBorderWidth;
+      bottom: $inputBorderWidth;
+      padding: 0.5em 0.6em;
+      box-sizing: border-box;
+      text-align: right;
+      font-size: 0.85em;
+      color: $colorRed;
+      background-color: rgba($colorWhite, 0.85);
+      pointer-events: none;
+
+      // @animation
+      @include transition-property(opacity);
+      @include transition-duration($focusAnimationDuration);
+      @include transition-timing-function(ease-out);
+    }
+
+    // error highlight
+    &.error {
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="number"],
+      input[type="search"],
+      input[type="time"],
+      select,
+      textarea {
+        @include box-shadow(inset 0px 0px 0px $inputBorderWidth $colorRed); // shadow + border
+      }
+
+      .error-text {
+        display: block;
+        @include opacity(1);
+      }
+
+      input:focus + .error-text,
+      textarea:focus + .error-text {
+        @include opacity(0);
+      }
+    }
+
+    &.select-container {
+      &.error {
+        .error-text {
+          display: none;
+        }
+        select, .open-arrow {
+          @include box-shadow(inset 0px 0px 0px $inputBorderWidth $colorRed); // shadow + border
+        }
+      }
+    }
+
+    // error label outside field
+    &.error.error-outside {
+      .error-text {
+        display: block;
+        padding: 0;
+        margin-top: 0.25em;
+        background-color: transparent;
+        top: inherit; //IE fix
+        top: initial;
+        right: inherit; //IE fix
+        right: initial;
+        bottom: inherit; //IE fix
+        bottom: initial;
+        left: inherit; //IE fix
+        left: initial;
+        width: 100%;
+      }
+    }
+  }
+
+  input[type="submit"] {
+    cursor: pointer;
+  }
+
+  // hide MSIE clear button
+  input::-ms-clear {
+    display: none;
+  }
+
+  textarea {
+    min-height: 4em;
+    overflow: auto; // hide MSIE scrollbar
+    resize: none;
+  }
+
+  // reset webkit search field styling
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  // general layout of elements in form
+  input,
+  select,
+  button,
+  .button {
+    vertical-align: top;
+  }
+
+  .select-container {
+    position: relative;
+
+    .placeholder-text {
+      line-height: 1.5;
+      outline: 0;
+      padding: 0.3em 0.6em 0.3em 0.6em;
+      font-size: $fontSizeInput;
+      width: 100%;
+      margin: 0;
+      color: $colorBlue;
+      background-color: $colorLightBlue4;
+      border: 0;
+      height: 36px;
+      cursor: pointer;
+      position: absolute;
+      box-sizing: border-box;
+      pointer-events: none;
+      text-align: left;
+      font-weight: 500;
+
+      @include g-state(tablet mobile) {
+        line-height: 1.9;
+      }
+
+      &.orange {
+        background-color: rgb(245, 201, 179);
+        color: #e5763f;
+
+      }
+    }
+
+    .open-arrow {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2em;
+      height: 100%;
+      background-color: $colorLightBlue5;
+      pointer-events: none;
+
+      &:after {
+        @include transform(translate(-50%, -50%));
+        top: 50%;
+        left: 50%;
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid $colorWhite;
+        position: absolute;
+        pointer-events: none;
+      }
+    }
+  }
+
+  select {
+    @include fontFamily($fontWorkSans);
+    @include border-radius(0);
+    @include appearance(none);
+    line-height: $lineHeightCondensed;
+    outline: 0;
+    padding: 0.3em 0.6em 0.3em 0.6em;
+    font-size: $fontSizeInput;
+    width: 100%;
+    margin: 0;
+    font-weight: $fwLight;
+    color: $colorBlue;
+    background-color: $colorLightBlue4;
+    border: 0;
+    height: 36px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+
+      &::-ms-value {
+        background-color: $colorLightBlue4;
+        color: $colorBlue;
+      }
+    }
+
+    &:-moz-focusring {
+      color: transparent !important;
+      text-shadow: 0 0 0 $colorBlue;
+    }
+  }
+
+}
+
+.form-container {
+  form {
+    display: block;
+
+    .errors {
+      font-weight: $fwBold;
+      color: $colorDarkRed;
+    }
+  }
+
+  .form-sent {
+    color: $colorGreen;
+    font-weight: $fwBold;
+  }
+}

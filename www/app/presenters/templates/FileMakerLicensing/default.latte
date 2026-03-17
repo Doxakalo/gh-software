@@ -1,0 +1,154 @@
+{import 'translate_'.$locale.'.latte'}
+{block title}{_pages.fm-licensing.metadata.title}{/block}
+{block description}{_pages.fm-licensing.metadata.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.fm-licensing.metadata.og.title}{/capture}
+        {capture $description}{_pages.fm-licensing.metadata.og.description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/filemaker-licensing/og_images/og_image_1.png'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<span data-search-priority="1000"></span>
+
+{* VIDEO - DETECT RESOLUTION *}
+{if $detect['platformDevice'] === "tablet"}
+    {var $videoResolution = "640"}
+{elseif $detect['platformDevice'] === "phone"}
+    {var $videoResolution = "640"}
+{else}
+    {var $videoResolution = "640"}
+{/if}
+
+{import '../Components/tools_videoplayer.latte'}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="50">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/fm2024logo.png" alt="FileMaker">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title">
+                    <strong>{_pages.fm-licensing.default.header-title|noescape}</strong>
+                    <div class="description">
+                        {_pages.fm-licensing.default.header-description|noescape}
+                    </div>
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{import 'translate_'.$locale.'.latte'}
+
+
+{var $overview = [
+    name => 'overview',
+    testimonials => [
+        [ img => $basePath . '/img/pages/filemaker-licensing/what-is-filemaker-thumbnail.jpg', video => [id => 'AKIlKj8Jcbg'], name => 'What is Claris FileMaker?', ],
+    ]
+]}
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'key_features'],
+    [name => 'filemaker_universal', img => $basePath.'/img/pages/filemaker-licensing/detail-life-card.jpg?v=2' ],
+    [name => 'why_we_use_filemaker',
+        video-compilation => [
+            [
+                videoType => "video-yt",
+                button-dark => "white",
+                id => 'mj865Lcd90c',
+                title => 'Why We at 24U Love Using Claris FileMaker',
+                img => $basePath.'/img/pages/filemaker-licensing/why-we-use-filemaker-thumbnail.jpg'
+            ],
+        ]
+    ],
+    [name => 'why_filemaker_suits_customers',
+        video-compilation => [
+            [
+                videoType => "video-yt",
+                button-dark => "white",
+                id => 'cs-9AHMjO7U',
+                title => 'Why FileMaker Suits Our Customers',
+                img => $basePath.'/img/pages/filemaker-licensing/why-filemaker-suits-customers-thumbnail.jpg'
+            ],
+        ]
+    ],
+    [name => 'where_filemaker_is_used',
+        video-mp4 => [folderName => 'filemaker-licensing', fileNamePrefix=> 'where-filemaker-is-used', videoResolution => '640']
+    ],
+] }
+{import '../Components/articles.latte'}
+
+{include article-list, $articles}
+
+
+<section class="arrow spacing detail light-blue" data-anchor="references_testimonials">
+    <div class="slider-panel video-switch-arrows testimonial-swiper-video transparent compact">
+        {var $testimonials = [
+            [quote => 'fm-maurizio_accarino', img => $basePath.'/img/testimonials/fm-maurizio_accarino.jpg', video => [id => 'W4CpTQupQHM']],
+            [quote => 'fm-jaroslav_rucki', img => $basePath.'/img/testimonials/fm-jaroslav_rucki.jpg', video => [id => 'tLvtYEcuHjY']],
+            [quote => 'fm-ruud_van_donselaar', img => $basePath.'/img/testimonials/fm-ruud_van_donselaar.jpg', video => [id => '9EFqUfYmtbQ']],
+            [quote => 'fm-honza_koudelka', img => $basePath.'/img/testimonials/fm-honza_koudelka.jpg', video => [id => '83l5ZVQjVP0']],
+            [quote => 'fm-derek_jirsa', img => $basePath.'/img/testimonials/fm-derek_jirsa.jpg', video => [id => 'oxSfr1dcspE']],
+            [quote => 'fm-jana_vidmanova', img => $basePath.'/img/testimonials/fm-jana_vidmanova.jpg', video => [id => 'eLH4cJxJczs']],
+            [quote => 'fm-pavel_habetin', img => $basePath.'/img/testimonials/fm-pavel_habetin.jpg', video => [id => '3ycfZbJbH5Q']],
+            [quote => 'fm-denisa_bajgarova', img => $basePath.'/img/testimonials/fm-denisa_bajgarova.jpg', video => [id => '6w0M5KpUyao']],
+        ] }
+        {import '../Components/testimonials.latte'}
+        {include testimonial-swiper, $testimonials}
+    </div>
+</section>
+
+{var $articles_2 = [
+    [name => 'what_is_new', img => $basePath.'/img/pages/filemaker-licensing/claris-filemaker-logo_2024.png' ],
+    [name => 'license_options', img => $basePath.'/img/pages/filemaker-licensing/licensing_guide.png' ],
+    [name => 'support', video-mp4 => [folderName => 'filemaker-licensing', fileNamePrefix=> 'support', videoResolution => $videoResolution]]
+] }
+{import '../Components/articles.latte'}
+
+{include article-list, $articles_2, '', 'right'}
+
+
+<section class="spacing light-blue" data-anchor="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 text-center">
+                <h2 class="large">
+                    {include license_inquiry}
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'false'}
+{/snippet}
+

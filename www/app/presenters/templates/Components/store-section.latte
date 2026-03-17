@@ -1,0 +1,173 @@
+{block store-section}
+
+    <section class="dropdown-section blue" id="buy-headline" data-anchor="buy">
+        <div class="container">
+            <div class="row">
+                <div class="gr-12">
+                    <h2>Buy</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="spacing" id="store-content">
+        <div class="container">
+            <div class="row">
+                <div class="gr-12">
+                    {var $defaultLanguage = "en"}
+                    {var $defaultCurrency = "USD"}
+                    {if $store["storeStatus"] === true}
+                        {ifset $storeFormSuccess}
+                            <div class="form-sent">
+                                <p>
+                                    Your inquiry was sent successfully. We will contact you shortly.
+                                </p>
+                            </div>
+                        {elseifset $storeFormError}
+                            <div class="form-sent">
+                                <p>
+                                    An error has occured while submitting your order. Please reload the page and try again.
+                                </p>
+                                <p>
+                                    {if $customError === "cart.coupon_code.invalid"}
+                                        Error details: Invalid coupon code
+                                    {/if}
+                                </p>
+                                <p><a n:href="this">Continue in shopping</a></p>
+                            </div>
+                        {else}
+                            {form storeForm data-validationType => 'fields', class => 'ajax mb-1 _storeForm'}
+                                <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                </ul>
+                                {foreach $store["sections"] as $group => $section}
+                                    <div class="buy-block" data-store-type="{ifset $section["setup"]["section_type"]}{$section["setup"]["section_type"]|lower}{else}cla{/ifset}">
+                                        <h3>{$section["setup"]["headline"]}</h3>
+
+                                        <table>
+                                            {ifset $section["setup"]["global_premium_support"]}
+                                                <tr class="product" data-active="true">
+                                                    <td class="ps_name popover">
+                                                        <input type="checkbox" name="group{$group}[]" class="selectProductChk selectGlobalPremiumSupportChk"/>
+                                                        <span class="name-inner">Premium support <span class="product-info">?</span></span>
+                                                        {ifset $section["setup"]["global_premium_support_source"]}
+                                                            {var $ps_source_id = $section["setup"]["global_premium_support_source"]}
+                                                            <div class="webui-popover-content">
+                                                                {ifset $section["items"][$ps_source_id]["image"]}
+                                                                    <img src="{$section["items"][$ps_source_id]["image"]}" alt="Premium Support - Image"/>
+                                                                {/ifset}
+                                                                <div class="description">{$section["items"][$ps_source_id]["description"]['summary'][$defaultLanguage]|noescape}</div>
+                                                            </div>
+                                                        {/ifset}
+                                                    </td>
+                                                    <td class="piece"></td>
+                                                    <td class="price-per-piece"></td>
+                                                    <td class="total-price total-price-ps" data-price="0"><span></span></td>
+                                                </tr>
+                                            {/ifset}
+
+                                            {foreach $section["items"] as $productId => $product}
+                                                {* DEFINE BASIC VALUES *}
+                                                {var $prices = $product["pricing"]}
+                                                {var $discount = "false"}
+
+                                                {if isset($prices["quantityDiscounts"]) && !empty($prices["quantityDiscounts"])}
+                                                    {var $discount = json_encode($prices["quantityDiscounts"])}
+                                                {/if}
+
+                                                <tr data-customfield="{ifset $product["setup"]["custom_fields"]}{json_encode($product["setup"]["custom_fields"])}{/ifset}" data-select-default="{if isset($product["setup"]["selected"]) && $product["setup"]["selected"] === true}true{else}false{/if}" data-disabled-change-quantity="{if $product["setup"]["editable"] === true}false{else}true{/if}" data-product-id="{$productId}"
+                                                    data-same-quantity-for="{ifset $product["setup"]["same_quantity_for"]}{$product["setup"]["same_quantity_for"]}{/ifset}"
+                                                    data-paired-with="{ifset $product["setup"]["paired_with"]}{$product["setup"]["paired_with"]}{/ifset}"
+                                                    data-paired-min-quantity="{ifset $product["setup"]["paired_min_quantity"]}{$product["setup"]["paired_min_quantity"]}{/ifset}"
+                                                    data-piece-price="{$prices["price"][$defaultCurrency]}" data-discounts="{$discount}" class="product {ifset $product["setup"]["premium_support"]} {if $product["setup"]["premium_support"] = true}hide product_ps{/if}{/ifset}">
+                                                    <td class="name popover">
+                                                        <span class="name-inner">{$product["display"][$defaultLanguage]}<span class="product-info">?</span></span>
+                                                        {ifset $product["description"]['summary'][$defaultLanguage]}
+                                                            <div class="webui-popover-content">
+                                                                {ifset $product["image"]}
+                                                                    <img src="{$product["image"]}" alt="{$product["display"][$defaultLanguage]} - Image"/>
+                                                                {/ifset}
+                                                                <div class="description">{$product["description"]['summary'][$defaultLanguage]|noescape}</div>
+                                                            </div>
+                                                        {/ifset}
+                                                    </td>
+                                                    <td class="piece">
+                                                        <div class="quantity">
+                                                            <div class="number-input">
+                                                                <button type="button" class="minusQuantity"></button>
+                                                                <input class="quantity" min="{ifset $product["setup"]["minimum_quantity"]}{$product["setup"]["minimum_quantity"]}{else}0{/ifset}"
+                                                                       data-min="{ifset $product["setup"]['min_quantity']}{$product["setup"]['min_quantity']}{else}{ifset $product["pricing"]['quantityDefault']}{$product["pricing"]['quantityDefault']}{/ifset}{/ifset}" {*TODO FIX !*}
+                                                                       name="product_{$productId}_{$section["setup"]["type"]}" step="1"
+                                                                       max="{ifset $product["setup"]['max_quantity']}{$product["setup"]['max_quantity']}{/ifset}"
+                                                                       value="{ifset $product["setup"]["minimum_quantity"]}{$product["setup"]["minimum_quantity"]}{else}0{/ifset}" type="number">
+                                                                <button type="button" class="plusQuantity plus"></button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="price-per-piece">
+                                                        <span></span>
+                                                    </td>
+                                                    <td class="total-price">
+                                                        <span></span>
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                        </table>
+                                    </div>
+                                {/foreach}
+                                <div class="total-sum-price">Total: <span></span></div>
+                                <div class="row">
+                                    <div class="discoutCode mt-2 gr-4 gr-12@mobile prefix-0@mobile no-gutter mt-2@mobile ">
+                                        {label discount_code /}
+                                        <label class="discoutCodeInput">
+                                            {input discount_code}
+                                        </label>
+                                        <span class="discoutCodeDescription">(actual discount will be calculated at checkout)<span>
+                                                <br><br>
+                                                <a n:href="CancelSubscription:default">Cancel your current subscription(s)</a>
+                                    </div>
+                                    <div class="detailOrderWrapper gr-4 gr-12@mobile prefix-4 prefix-0@mobile no-gutter">
+
+                                        <div id="customfield-bundleId">
+                                            <p><strong>BundleID</strong> for iOS apps is a unique identifier used by Apple to distinguish apps within the App Store and the iOS system. It follows a reverse domain name format, such as: <br><i style="font-style: italic">Example: com.companyname.appname</i></p>
+                                            <label class="mb-2">
+                                                {input bundleId_required}
+                                                {input bundleId}
+                                            </label>
+                                        </div>
+                                        <p class="extra-order">Due to the size of your requested order, please fill in your contact information. We will reach out to you shortly.</p>
+                                        <p class="non-extra-order">Please enter your email to proceed with your order.</p>
+                                        <label>
+                                            {input fullname}
+                                        </label>
+                                        <label>
+                                            {input email}
+                                        </label>
+                                        <label>
+                                            {input phone}
+                                        </label>
+                                        <label>
+                                            {input subject2}
+                                        </label>
+                                        <label>
+                                            {input personal_info_required}
+                                        </label>
+                                        <label>
+                                            {input spamSecureSum}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="store-error-selected-items">
+                                    Please select at least one product
+                                </div>
+                                {input process,  data-ajax-off => "genericFormAjax"}
+                            {/form}
+                        {/ifset}
+                    {else}
+                        Store is currently unavailable, please try again later.
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </section>
+{/block}

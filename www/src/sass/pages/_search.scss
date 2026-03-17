@@ -1,0 +1,56 @@
+body[data-template="search"] {
+  h2 {
+    font-size: 1.714em;
+
+    &.large {
+      font-size: 2.143em;
+      font-weight: $fwLight;
+      line-height: $lineHeightExtended;
+
+      @include g-state(mobile) {
+        font-size: 1.5em;
+      }
+
+      strong {
+        font-weight: $fwNormal;
+      }
+    }
+  }
+
+  .search-results {
+    padding-top: 3em;
+    padding-bottom: 3em;
+    background-color: $colorWhite;
+
+    .result {
+      td {
+        padding: 0.7em 0.5em;
+        vertical-align: top;
+
+        .search-mark-pageType {
+          color: $colorBlue;
+          background-color: $colorLightBlue4;
+          border: 1px solid $colorLightBlue5;
+          padding: 0.2em 0.7em;
+          font-size: 0.8em;
+          border-radius: 5px;
+          margin-right: 1em;
+          display: inline-block;
+          width: 100%;
+          box-sizing: border-box;
+          text-align: center;
+        }
+
+        .search-mark-noTranslation {
+          color: $colorBlue;
+          font-size: 0.7em;
+          margin-right: 1em;
+          box-sizing: border-box;
+          font-style: italic;
+        }
+      }
+    }
+  }
+
+
+}

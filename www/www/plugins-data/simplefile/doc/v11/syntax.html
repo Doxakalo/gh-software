@@ -1,0 +1,312 @@
+ <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>24U SimpleFile 1.1 Syntax</title>
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h2 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param_width { font-family: monospace; width: 180px; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+    -->
+    </STYLE>
+  </head>
+
+<body>  
+<h1>24U SimpleFile 1.1 Syntax</h1>
+
+<p class="intro">This file describes syntax of 24U SimpleFile Plug-In's functions.</p>
+
+<h2>SFile_Version ( { versionFormat } )</h2>
+<p class="f_intro">Returns version string of the active 24U SimpleFile Plug-In, formatted as requested by the parameter.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">versionFormat<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t2_param">short</td><td>To get just the version number. Default value.</td></tr>
+<tr valign="top"><td class="t2_param">long</td><td>To get the plug-in name followed by its version number</td></tr>
+<tr valign="top"><td class="t2_param">platform</td><td>To get the platform of the code currently running</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function is very important and it has the same output format in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+<h3>Result</h3>
+<p>Returns requested version format or platform. If this function returns "?" than the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.<p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Version( "long" )</span><br>
+This will return the plug-in name and its version. In this case it is "24U SimpleFile Plug-In 1.1.1".</p>
+<p><span class="syntax_hl">SFile_Version( "platform" )</span><br>
+Returns "Mac OS X" or "Windows" depending on the platform the plug-in is currently running.</p>
+
+<h2>SFile_Register ( originalSerialNumber { & " " & upgradeSerialNumber... } )</h2>
+<p class="f_intro">Attempts to unlock (register) your copy of 24U SimpleFile Plug-In with the specified code.<p> 
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">originalSerialNumber</td><td>The original (non upgrade) code to unlock the full version of the plug-in.</td></tr>
+<tr><td class="t_param">upgradeSerialNumber</td><td>The upgrade code to unlock the full version of the plug-in.</td></tr>
+</table>
+<h3>Description</h3>
+<p>If the code(s) is valid, 24U SimpleFile Plug-In gets unlocked and stays in this state until you quit the FileMaker Pro application, deactivate the plug-in, or the registration code expires. While unlocked, 24U SimpleFile Plug-In is fully functional and does not bother the user with a shareware reminder.</p>
+<h3>Result</h3>
+<p>Returns a non-zero error code when the serial numbers are wrong if the numbers cannot be used. Returns 0 if the plug-in was successfully registered.<p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Register( "SFI10J-CM244H-U4UGBN" )</span><br>
+This function will register the plug-in with serial number SFI10J-CM244H-U4UGBN. This method is useful when you register the plug-in with developer license but it can be used for end-user licenses as well.</p>
+<p><span class="syntax_hl">SFile_Register( "SFI10J-CM244H-U4UGBN SFI20J-BTPDSK-D3AJ9C" )</span><br>
+Use combination of serial numbers delimited by empty space to register using upgrade code. The first code must be the original one, all other codes should be upgrade codes.</p>
+<p><span class="syntax_hl">SFile_Register( "SFI10J-CM244H-U4UGBN SFI20J-BTPDSK-D3AJ9C SFI30J-5B4J7Z-W9KFNS" )</span><br>
+The example of using one original number and two upgrade numbers. The original is for version 1.0 and upgrades are for 2.0 and 3.0.</p>
+<p><span class="note">Note: </span>All serial numbers here are only for demonstration purposes. They will not work in real plug-in.</p>
+
+<h2>SFile_New( fileSpec { ; itemKind } )</h2>
+<p class="f_intro">Creates new folder (default) or empty file with the specified fileSpec.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">fileSpec</td><td>The path to new file or folder. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">itemKind</td><td>Specifies what can be created. Can be either "folder" (default) or "file".</td></tr>     
+</table>
+<h3>Description</h3>
+<p>Use this function to create the new file or folder. Using <span class="syntax">SFile_Choose( itemKind )</span> is recommended to obtain valid fileSpec. SimpleFile allways tries "best effort" to understand the path presuming that it is inserted correctly.</p>
+<h3>Result</h3>
+<p>Function returns 0 if file or folder was created. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_New( "C:\\Users\\me\\Documents\\TextFile.txt" ; "file" )</span><br>
+This will create a new text file on in Documents folder of user "me" on Windows Vista.</p>
+<p><span class="syntax_hl">SFile_New( "/Users/me/Documents/NewFolder" ; "folder" )</span><br>
+This will create a new folder "NewFolder" in Documents folder of user "me" on Mac OS X.</p>
+
+<h2>SFile_Delete( fileSpec )</h2>
+<p class="f_intro">Deletes specified file or folder, recursively if it is not empty.</p>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">fileSpec</td><td>The path to existing file or folder. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>    
+</table>
+<h3>Description</h3>
+<p>This function deletes specified existing file or folder. It can be very dangerous if misused - it recursively deletes folders. The function does not follow symbolic links however. Use with care.</p>
+<h3>Result</h3>
+<p>Function returns 0 if the file or folder was deleted. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Delete( "C:\\Users\\me\\Documents\\OldNastyFile.doc" )</span><br>
+The file "OldNastyFile.doc" in path "C:\Users\me\Documents" will be immediately deleted in Windows.</p>
+<p><span class="syntax_hl">SFile_Delete( "/Users/me/WrongScript.command" )</span><br>
+The script file "WrongScript.command" in path "/Users/me" will be immediately deleted in Mac OS X.</p>
+
+<h2>SFile_Copy( sourceFileSpec ; targetFileSpec )</h2>
+<p class="f_intro">Duplicates specified file, or folder including all contents.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">sourceFileSpec</td><td>The path to source file or folder. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">targetFileSpec</td><td>The path to destination file or folder</td></tr>  
+</table>
+<h3>Description</h3>
+<p>If targetFileSpec specifies an existing folder, source item is copied into the target under the source's original name. If targetFileSpec specifies a non-existing item in an existing folder, the source item is copied under new name specified by the targetFileSpec. Fails if target item already exists (error -48).</p>
+<h3>Result</h3>
+<p>Function returns 0 if the item was duplicated. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Copy( "C:\\Users\\me\\Documents\\OldNastyFile.doc" ; "C:\\Users\\you\\Documents\\NewNiceFile.doc" )</span><br>
+Duplicates "OldNastyFile.doc" to the new file "NewNiceFile.doc".</p>
+<p><span class="syntax_hl">SFile_Copy( "pictures/BigPicture.jpg" ; "/Volumes/ImgVolume" )</span><br>
+The file "BigPicture.jpg" stored in directory "pictures" which is in the same directory as the solution will be copied into folder "/Volumes/ImgVolume".</p>
+
+<h2>SFile_Move( sourceFileSpec ; targetFileSpec )</h2>
+<p class="f_intro">Moves or renames specified file or folder.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">sourceFileSpec</td><td>The path to source file or folder. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">targetFileSpec</td><td>The path to destination file or folder</td></tr>  
+</table>
+<h3>Description</h3>
+<p>If targetFileSpec specifies an existing folder, source item is moved into the target under the source's original name. If targetFileSpec specifies a non-existing item in an existing folder, the source item is moved and renamed to a new name specified by the targetFileSpec. If the second parameter is not a valid file specification it is considered being plain file name alone and the source item is just renamed. Fails if target item exists (error -48), or if the target item's volume is different from the source item's volume (error -1303). In this case use <span class="syntax">SFile_Copy( sourceFileSpec ; targetFileSpec )</span> and <span class="syntax">SFile_Delete( sourceFileSpec )</span> instead.</p>
+<h3>Result</h3>
+<p>Function returns 0 if the file or folder was moved. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Move( "FileWithBadName.dat" ; "FileWithGoodName.dat" )</span><br>
+This will rename the file with name "FileWithBadName.dat" to "FileWithGoodName.dat" in the current folder of the solution.</p>
+<p><span class="syntax_hl">SFile_Move( "C:\\Temp\\game_config_backup.ini" ; "C:\\Game\\SomeGame\\GameConfig.ini" )</span><br>
+Move file "game_config_backup.ini" to the folder "C:\\Game\\SomeGame\\" and rename it to "GameConfig.ini".</p>
+<p><span class="syntax_hl">SFile_Move( "C:\\Temp\\game_config_backup.ini" ; "D:\\Game\\SomeGame\\GameConfig.ini" )</span><br>
+Will fail with -1303 because source and target volumes (drives) do not match.</p>
+
+<h2>SFile_Choose( itemKind )</h2>
+<p class="f_intro">Displays a system dialog for choosing an existing file or folder or a destination for a new file.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">itemKind</td><td>Three kinds are possible: "file" to choose existing file, "folder" to choose existing folder and "new" to open system dialog with new file (Save As dialog).</td></tr>  
+</table>
+<h3>Description</h3>
+<p>Use this function to invoke operating system dialog to Open or Save file or folder.</p>
+<h3>Result</h3>
+<p>Function returns a native full path if user choose one. If user clicks cancel button the function returns -128. In the case of error the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Choose( "new" )</span><br>
+Function invokes "Save As..." dialog where you can specify the name of the new file or folder.</p>
+
+<h2>SFile_Read( fileSpec { ; startIndex { ; maxLength } } { ; encoding } )</h2>
+<p class="f_intro">Reads file or folder's contents.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">fileSpec</td><td>The path to existing file or folder. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">startIndex</td><td>Specifies where to start reading. Searching begins from start if the number is positive and from end of the file if the number is negative. The number is in bytes except for utf-16 encoding where it is in 16-bit characters.</td></tr>  
+<tr valign="top"><td class="t_param">maxLength</td><td>The maximum number of characters to read. The default is "to the end of file"</td></tr>
+<tr valign="top"><td class="t_param">encoding</td><td>The encoding of the file. This can be text or binary encoding. To see full list of encodings got to: <a href="#encodings">Encodings List</a>. The default is the default system encoding for text files.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This is a universal reader of files and folders. It can read any file, text or binary and it can list the contents of the folder.</p>
+<h3>Result</h3>
+<p>Function returns file's or folder's content if successfull. In the case of error it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Read( "SomeText.txt" )</span><br>
+Read contents of the file "SomeText.txt". Plug-In uses default values, this means it presumes that: Encoding is default system (Mac-Roman on Mac, CP-1252 on Windows) and file type is Text.</p>
+<p><span class="syntax_hl">SFile_Read( "SomeText.txt" ; 25 ; 1000 )</span><br>
+Similar to previous example. The plug-in will start reading from 25th byte of file and reads only 1000 bytes (because the default encoding is byte oriented).</p>
+<p><span class="syntax_hl">SFile_Read( "/Library/Preferences" )</span><br>
+List the contents of the directory "Preferences" inside directory "Library".</p>
+
+<h2>SFile_Write( fileSpec ; data { ; startIndex } { ; encoding } )</h2>
+<p class="f_intro">Writes contents into file.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">fileSpec</td><td>The path file. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">data</td><td>The data to be written. Use FileMaker text field for text files and for hex-dump encoding and FileMaker container for binary files.</td></tr>
+<tr valign="top"><td class="t_param">startIndex</td><td>Specifies where to start writing. Searching begins from start if the number is positive and from end of the file if the number is negative. The number is in bytes except for utf-16 encoding where it is in 16-bit characters.</td></tr>  
+<tr valign="top"><td class="t_param">encoding</td><td>The encoding of the file. This can be text or binary encoding. To see full list of encodings got to: <a href="#encodings">Encodings List</a>. The default is the default system encoding for text files.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to write to existing files or to create the new one.</p>
+<h3>Result</h3>
+<p>Function returns 0 is the file was written. In the case of error it returns the negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Write( "notes.txt" ; "Interesting note" )</span><br>
+Writes text "Interesting note" into file "notes.txt". If the file exists it will be created again.</p>
+<p><span class="syntax_hl">SFile_Write( "/var/logs/log.txt" ; "09:31 - Something happened\n" ; -1 ; "utf-8" )</span><br>
+This will append the text "09:31 - Something happened" to the end of the file "log.txt" stored inside "/var/logs" and moves cursor to the next line in file. The text will be written using UTF-8 encoding.</p>
+<p><span class="syntax_hl">SFile_Write( "picture.jpg" ; pictureContainer ; "image" )</span><br>
+Writes picture from container to file.</p>
+
+<h2>SFile_Get( what ; fileSpec )</h2>
+<p class="f_intro">Function to get parameters of file or folder or to get global plug-in settings.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">what</td><td>Which data shoud be get.</td></tr>
+<tr valign="top"><td class="t_param">fileSpec</td><td>The file or folder which should be examined. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>     
+</table>
+<h3>Parameter values for <span class="p_hl">what<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param" width="120">"kind"</td><td>Returns "file" if the path specifies an existing file "folder" if the path specifies an existing folder. Symbolic links are considered as files and Mac OS X volumes as folders. Returns error code if the object does not exist.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"created"</td><td>Returns item's creation date & time as timestamp.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"modified"</td><td>Returns item's modification date & time as timestamp.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"size"</td><td>Returns item's total size in bytes.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"data-size"</td><td>Returns item's data fork size in bytes. The same as "size" on Windows.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"resource-size"</td><td>Returns item's resource fork size in bytes. Returns 0 on Windows.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"available-space"</td><td>Returns available space in bytes on the disk where fileSpec belongs to.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"owner"</td><td>Returns item's owner.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"group"</td><td>Returns item's group.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"owner-rights"</td><td>Returns item's owner access rights.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"group-rights"</td><td>Returns item's group access rights.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"everyone-rights"</td><td>Returns item's access rights.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">fileSpecKind</td><td>Converts path from one type to another. The list of supported path types are in the next table.</td></tr>
+</table>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">fileSpecKind</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param" width="120">"fsspec"</td><td>Returns Macintosh fsspec. This is unique file or folder identifier used in old Mac OS. Today it is obsolete. The format is: "fsspec:VolumeID:FolderID:FileName". On Windows the FileName contains full path to the file and VolumeID and FolderID are 0.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"native-relative"</td><td>Relative path in the form native to the system.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"native-full"</td><td>Full path in the form native to the system.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"win-relative"</td><td>Relative path in the form native to Windows. The backslash is used as a separator.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"win-full"</td><td>Full path in the form native to Windows. On Mac.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"unix_relative"</td><td>Returns item's resource fork size in bytes. Returns 0 on Windows.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"unix-full"</td><td>Returns available space in bytes on the disk where fileSpec belongs to.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"FileMaker"</td><td>Returns item's owner.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"URL"</td><td>Returns item's group.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to get important parameters for file or folder.</p>
+<h3>Result</h3>
+<p>Function returns data if everything is OK. In case of error the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Get( "created" ; "C:\\Windows" )</span><br>
+Returns the date and time when the Windows folder was created (probably the time when Windows was installed).</p>
+<p><span class="syntax_hl">SFile_Get( "available-space" ; "D:\\" )</span><br>
+Returns the number of bytes available on disk D: on Windows.</p>
+<p><span class="syntax_hl">SFile_Get( "owner-rights" ; "/Users/me/Documents/myDocument.pages" )</span><br>
+Returns "read|write|delete" if you are owner of this file.</p>
+
+<h2>SFile_Set( selector ; fileSpec ; newValue )</h2>
+<p class="f_intro">Function to set parameters of files or folders or to set global plug-in settings.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">what</td><td>Which data shoud be set.</td></tr>
+<tr valign="top"><td class="t_param">fileSpec</td><td>The file or folder which parameters should be changed. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">newValue</td><td>The new value of the parameter.</td></tr>     
+</table>
+<h3>Parameter values for <span class="p_hl">what<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"created"</td><td>Set the file creation date and time. Use FileMaker timestamp stored in newValue parameter.</td></tr>
+<tr valign="top"><td class="t2_param">"modified"</td><td>Set the file modification date and time. Use FileMaker timestamp stored in newValue parameter.</td></tr>
+<tr valign="top"><td class="t2_param">"owner"</td><td>Sets the file owner. You must have the permission to change owner.</td></tr>
+<tr valign="top"><td class="t2_param">"group"</td><td>Sets the file group. You must have the permission to change group.</td></tr>
+<tr valign="top"><td class="t2_param">"owner-rights"</td><td>Sets the file permissions for owner. You must have the permission to change permissions.</td></tr>
+<tr valign="top"><td class="t2_param">"group-rights"</td><td>Sets the file permissions for group. You must have the permission to change permissions.</td></tr>
+<tr valign="top"><td class="t2_param">"everyone-rights"</td><td>Sets the file permissions for everyone. You must have the permission to change permissions.</td></tr>           
+</table>
+<h3>Description</h3>
+<p>Use this function to set important parameters.</p>
+<h3>Result</h3>
+<p>Function returns 0 if everything is OK. In case of error the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Set( "owner" ; "/Users/me/Documents/someFile.txt" ; "me" )</span><br>
+Change file owner to "me".</p>
+<p><span class="syntax_hl">SFile_Set( "everyone-rights" ; "C:\\Documents and Settings\\me\\Documents\\someFile.txt" ; "read|write|delete" )</span><br>
+Everyone can read file, write to file and delete file "someFile.txt".</p>
+
+<a name="paths" />
+<h2>Paths in SimpleFile</h2>
+<p class="f_intro">SimpleFile accepts and converts several path types. Here are some examples and how to use them:</p>
+<table border=0 cellspacing=4 cellpadding=0 frame="void" rules="rows">
+<tr valign="top"><th align="left">Path Example</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param" width="180">"C:\directory\file.ext"<td>The Windows full path. Use this type on Windows when you want to specify the exact file or folder position. On Mac OS X SimpleFile tries to convert path to this form: "/directory/file.ext".</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"/directory/file.ext"</td><td>Standard unix full path. Use this type on Mac OS X to specify exact file or folder position. On Windows SimpleFile tries to convert the path to the form: "C:\directory\file.ext".</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"directory\file.ext"</td><td>The Windows relative path. Use this type to specify path to file or folder relatively to position of the solution file. If you don't know where your solution will be located (i.e. on FileMaker Server) use full paths instead. On Mac OS X SimpleFile tries to convert this form to the unix one: "directory/file.ext".</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"directory/file.ext"</td><td>This is the unix relative path. Use this type to specify path to file or folder relatively to position of the solution file. If you don't know where your solution will be located (i.e. on FileMaker Server) use full paths instead. On Windows SimpleFile tries to convert this form to the Windows one: "directory\file.ext".</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"file:\volume\directory\file.ext"</td><td>This is the FileMaker path format. This format can be used in both platforms.</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"file:\\\path\to\file.ext"</td><td>URL used on unix. 24U SimpleFile Plug-In can read local files using URL. Use the same format as in your internet browser for local files.</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"fsspec:-100:883688:file.ext"</td><td>The old Macintosh FSSpec. This format is obsolete. It has been used in old Mac OS prior to Mac OS X. If you try to use this on Windows SimpleFile will take the only the last part and tries to use it as relative or absolute path.</td></tr>         
+</table>
+
+<a name="encodings" />
+<h2>Valid Encodings</h2>
+<p class="f_intro">This is the list of valid encodings.</p>
+<table border=0 cellspacing=4 cellpadding=0 frame="void" rules="rows">
+<tr valign="top"><th align="left">what</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param_width">"default",<br /> "text"</td><td>The system default encoding for text files. On english system it is "x-mac-roman" on Mac and "windows-1252" on Windows.</td></tr>
+<tr valign="top"><td class="t2_param_width">"hex-dump"</td><td>Useful for reading binary files. The content is returned in hex numbers delimited by space.</td></tr>
+<tr valign="top"><td class="t2_param_width">"utf-16"</td><td>Text files encoded in 16-bit encoding.</td></tr>
+<tr valign="top"><td class="t2_param_width">"utf-8"</td><td>Utf-8 unicode encoding. The number of bytes is not equal to number of characters.</td></tr>
+<tr valign="top"><td class="t2_param_width">"x-mac-roman",<br /> "x-mac-arabic",<br /> "x-mac-centraleurroman",<br /> "x-mac-chinesesimp",<br /> "x-mac-chinesetrad",<br /> "x-mac-cyrillic",<br /> "x-mac-greek",<br /> "x-mac-hebrew",<br /> "x-mac-japanese",<br /> "x-mac-korean",<br /> "x-mac-turkish"</td><td>Macintosh 8-bit encodings. The first is the most used.</td></tr>
+<tr valign="top"><td class="t2_param_width">"dos",<br /> "windows-1252",<br /> "windows-1250",<br /> "windows-1251",<br /> "windows-1253",<br /> "windows-1254",<br /> "windows-1255",<br /> "windows-1256",<br /> "windows-1257"</td><td>Windows 8-bit encodings. Windows-1252 is used in the English version of Windows..</td></tr>
+<tr valign="top"><td class="t2_param_width">"iso-8859-15",<br /> "iso-8859-2",<br /> "iso-8859-3",<br /> "iso-8859-4",<br /> "iso-8859-5",<br /> "iso-8859-6",<br /> "iso-8859-7",<br /> "iso-8859-8",<br /> "iso-8859-9"</td><td>The encodings defined by the ISO standard.</td></tr>
+<tr valign="top"><td class="t2_param_width">"euc-jp",<br /> "euc-kr",<br /> "gb2312",<br /> "johab"</td><td>The other text encodings.</td></tr>
+<tr valign="top"><td class="t2_param_width">"image"</td><td>The image type. The result of the function will be the FileMaker container filled with image.</td></tr>
+<tr valign="top"><td class="t2_param_width">"file"</td><td>The general file type. The result of the function will be the FileMaker container with the file icon.</td></tr>           
+</table>
+
+</body>
+</html>

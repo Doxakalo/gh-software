@@ -1,0 +1,1653 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script>
+		/* toggle function for long tables etc. */
+		function showItems(className) {
+	        var tags = document.getElementsByTagName('*');
+	        var tcl = " " + className + " ";
+	        for (i = 0, j = 0; i < tags.length; i++) {
+	            var test = " " + tags[i].className + " ";
+	            if (test.indexOf(tcl) != -1) {
+	                if (tags[i].style.display == "none") {
+	                	tags[i].style.display = "inline";
+	                }
+	                else {
+	                	tags[i].style.display = "none";
+	                }
+	            }
+	        }
+		}
+
+		/* Simple highlight toggle only: */
+        function changeColor() {
+            var tags = document.getElementsByTagName('*');
+			var classes = ["rev8", "rev9", "rev10", "rev11"];
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + " ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].style.backgroundColor == "") {
+	                        tags[i].style.backgroundColor = "#FFFFA0";
+	                        tags[i].style.color = "black";
+	                    }
+	                    else {
+	                        tags[i].style.backgroundColor = "";
+	                        tags[i].style.color = "";
+	                    }
+	                }
+	            }
+			})
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + "x ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].classList.contains("striked")) {
+	                        tags[i].classList.remove("striked");
+	                    }
+	                    else {
+	                        tags[i].classList.add("striked");
+	                    }
+	                }
+	            }
+			})
+        }
+
+		/* New revisioning functions: */
+		function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+						tags[i].classList.add(toggleClass);
+					}
+					else {
+						tags[i].classList.remove(toggleClass);
+					}
+                }
+            }
+		}
+
+        function showRevision(revNumber) {
+			var max_revisions = 35; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+			// Reset all to latest revision:
+			for (var i=1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+				toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+			}
+
+			// Highlight current revision:
+			toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+			toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+
+			// Revert future revisions:
+			for (var i=revNumber+1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+			}
+        }
+        function showRevisions(revStart, revLast) {
+            var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+            // Reset all to latest revision:
+            for (var i=1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+            }
+
+            // Highlight all changes from revision revStart to the current revision(revLast):
+            for(var i = revStart; i <= revLast; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "add");
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "add");
+            }
+
+            // Revert future revisions:
+            for (var i=revNumber+1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+            }
+        }
+
+	</script>
+	<style type="text/css">
+
+		/* Texts from old revisions are removed by default: */
+		.rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x,
+		.rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x, .rev30x, .rev31x, .rev32x, .rev33x, .rev34x, .rev35x, .rev36x, .rev37x, .rev38x { display:none; }
+		/* Highlighting classes handled by js: */
+		.highlighted { background-color: #FFFFA0; color: black; }
+		.striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }
+		.ignoreStriked { }
+		.highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */
+		li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */
+		span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */
+		td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+		tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+		.hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+
+	</style>
+
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+
+      .ios {color: black; background-color: pink;}
+      li  			{ margin: 0.2em 0em ;}
+      xmp             { font-size: 12px; margin-left: 40px; margin-top: 6px; color: darkblue; }
+      table, td, th, tr { border: 1px solid #808080; margin-top:1em; padding:0.3em; border-collapse: collapse; }
+      th			 	{ font-weight:bold; text-decoration:none;}
+    -->
+    </STYLE>
+
+	<title>Gonector 1.2</title>
+  </head>
+
+<body>
+<h1>Gonector 1.2</h1>
+
+
+<form>
+	<input type="button" value="Highlight changes in the latest revision" onclick='javascript: showRevision(38)'></br>
+	<input type="button" value="Highlight all changes since plugin version 1.1" onclick='javascript: showRevisions(24, 38)'><br/>
+</form>
+
+
+<p class="f_intro rev25 rev26x">Specification revision: <b>25</b>, 2018-11-02.</p>
+<p class="f_intro rev26 rev27x">Specification revision: <b>26</b>, 2018-11-06</p>
+<p class="f_intro rev27 rev28x">Specification revision: <b>27</b>, 2018-11-07</p>
+<p class="f_intro rev28 rev29x">Specification revision: <b>28</b>, 2018-11-26</p>
+<p class="f_intro rev29 rev30x">Specification revision: <b>26</b>, 2018-10-26</p><!-- je to tu z duvodu konzistence pro HOnzu -->
+<p class="f_intro rev29 rev30x">Specification revision: <b>29</b>, 2018-12-03</p><!-- soucasne delana revize 1.2a -->
+<p class="f_intro rev30 rev31x">Specification revision: <b>30</b>, 2018-11-28</p>
+<p class="f_intro rev31 rev32x">Specification revision: <b>31</b>, 2018-12-03</p>
+<p class="f_intro rev32 rev33x">Specification revision: <b>32</b>, 2018-12-10</p>
+<p class="f_intro rev33 rev34x">Specification revision: <b>33</b>, 2018-12-17</p>
+<p class="f_intro rev34 rev35x">Specification revision: <b>34</b>, 2018-12-18</p>
+<p class="f_intro rev35 rev36x">Specification revision: <b>35</b>, 2018-12-19</p>
+<p class="f_intro rev36 rev37x">Specification revision: <b>36</b>, 2019-01-11</p>
+<p class="f_intro rev37 rev38x">Specification revision: <b>37</b>, 2019-01-24</p>
+<p class="f_intro rev38">Specification revision: <b>38</b>, 2019-01-28</p>
+
+<p class="f_intro">Created by: Martin Vraný, Patrik Horčičák, <span class="rev30x">Zdeněk Hejl,</span> Lukáš Liebzeit<span class="rev36 rev38x">, Patrik Horčičák, Martin Vraný</span> <span class="rev30">and Martin Iliev</span> ©2019 24U Software.</p>
+
+<p class="rev28">Gonector is a FileMaker plugin. It allows You to develop applications for iOS devices with FileMaker Pro Advanced. These applications are able to control various devices like printers, scales, RFID readers and POS terminals.</p>
+<div>
+<h2 id="technicalParameters">1. Basic technical parameters</h2>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t2_param">File name:</td><td class="b_technical">Gonector.fmplugin</td></tr>
+<tr><td class="t2_param">plugin ID String:</td><td class="b_technical">24GO</td></tr>
+<tr><td class="t2_param">Function names prefix:</td><td class="b_technical">Gonector_</td></tr>
+<tr><td class="t2_param">iOS version:</td><td class="b_technical"><span class="news_highlight">11.2.6 and newer</span></td></tr>
+<tr><td class="t2_param">SN product code and versions:</td><td class="b_technical">GON12G, GON12U</td></tr>
+<tr><td class="t2_param">SNLib version:</td><td class="b_technical">SNLib 5.2</td></tr>
+
+
+<tr>
+	<td class="t2_param" id="SupportPhones">Supported Bluetooth <span class="rev24x">4.0</span> devices:</td>
+	<td class="b_technical">
+		<a href="https://www.caenrfid.com/en/products/r1170i-qidmini/"><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span> with Apple profile (R1170IEAPLP) produced by CAENRFID</a><br>
+		<a href="http://www.custom.biz/ticketing/ticket-printers/mobile-ticketing/my-printer-a">Custom MyPrinter A</a><br>
+		<a href="http://www.custom.biz/point-of-sale-retail/posretail-solutions/mobile-printers/my3-a">Custom MY3</a><br>
+		<span class="rev24 rev25x">PCL driver for Ingenico Bluetooth devices tested on <a href="https://www.ingenico.com/pos-solutions/smart-pos/portable/link-2500.html">Link/2500</a> CSOB version</span>
+		<span class="rev25">Ingenico Bluetooth devices connected via PCL driver tested with <a href="https://www.ingenico.com/pos-solutions/smart-pos/portable/link-2500.html">Link/2500</a> CSOB version</span><br/>
+			<a href="https://serialio.com/product/bluetooth-serial-adapter/bluetooth-adapters-bluetooth-serial-adapter/bluesnap-smart">BlueSnap Smart (RS232 to Bluetooth adapter)</a><br/>
+			<a class="rev29 rev31x" href="https://lineapro.store/shop/mobile-pos/infinea-mpos-flat-2d-barcode-scanner-bluetooth-3-0-nfc-black/">Infinea mPos Flat<br></a>
+			<a class="rev31" href="https://ipcmobile.com/products/ios-peripherals/infinea-mpos-flat/">Infinea mPos Flat</a>
+		</span></td></tr>
+</tr>
+
+
+
+<tr>
+	<td class="t2_param" id="SupportPhones">Supported RS232 via BlueSnap Smart adapter (Bluetooth 4.0) devices:</td>
+	<td class="b_technical">
+		Scales with RS232 interface configured via Gonector_Set with selectors "scaleReadCommand" and "scaleWeightPattern"</br>
+		Tested on: </br>
+		<a href="https://japan.ohaus.com/en-MEA/Products/Balances-Scales/Portable-Balances/Traveler/TA301-(1)">Traveler TA301 OHAUS scale</a><br>
+		LESAK J1-RWP scale
+	</td>
+</tr>
+
+<tr>
+	<td class="t2_param" id="SupportPhones">Supported directly connected devices:</td>
+	<td class="b_technical">
+		Linea and Infinea product line from <a class="rev30x" href="https://ipcmobile.com">Infinite Peripherals</a>
+		<a class="rev30 rev31x" href="https://lineapro.store/">Infinite Peripherals</br></a>
+		<a class="rev31" href="https://ipcmobile.com/">Infinite Peripherals</br></a>
+		Tested on: </br>
+		<a class="rev30x" href="https://stimare.net/products/linea-pro-scanners/linea-pro-7/">LINEA PRO 7 encrypted</br></a>
+		<a class="rev30 rev31x" href="https://lineapro.store/products/linea-pro-scanners/linea-pro-7/">LINEA PRO 7 encrypted</br></a>
+		<a class="rev31" href="https://ipcmobile.com/products/ios-peripherals/linea-pro-7/">LINEA PRO 7 encrypted</br></a>
+
+		<a class="rev29 rev31x" href="https://lineapro.store/shop/mobile-pos/infinea-mpos-ipod-5th-6th-gen-2d-barcode-scanner-nfc/">Infinea mPos BP500<br></a>
+		<a class="rev31" href="https://ipcmobile.com/products/ios-peripherals/infinea-mpos/">Infinea mPos BP500</a>
+	</td>
+</tr>
+
+<tr>
+	<td class="t2_param" id="SupportPhones">Supported iOS devices for native RFID/NFC tag reading:</td>
+	<td class="b_technical">iPhone 7 and higher with iOS 11 and newer</td>
+</tr>
+<tr><td class="t2_param" id="SupportPhones">Supported NFC cards:</td><td class="b_technical">ISO 14443A (Mifare Classic 1k, Mifare Ultralight)<br> ISO 15693 cards</td></tr>
+<tr><td class="t2_param">Product icon:</td><td class="b_technical"><img src="pictures/productIcon.png" /></td></tr>
+
+</table>
+
+
+<h2>2. Distribution archive (DA)</h2>
+<ul>
+  <li>DA will be created only for iOS as .zip file and will contain:
+    <ul>
+      <li>Plug-In binaries for iOS, iOSSimulator, macOS (dummy) and Windows (dummy)</li>
+      <li>Examples for CustomPrinter, <span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span>, Linea Pro 7, BlueSnap Smart and native iPhone RFID/NFC tag reading.</li>
+      <li class="rev24">Sample FileMaker solution with CSOB implementation of payment example on Ingenico Link/2500</li>
+      <li>Documentation: Licence agreement, HowToRegister, ReadMe, ReleaseNotes, Syntax, UsingFMPlugins and manual for supported devices. </li>
+      <li>Link to 24usoftware.com site</li>
+      <li class="rev14">Link to Xgode in the ReadMe file</li>
+      <li>WhatIsNew.html document</li>
+      <li class="rev30">Sample FileMaker solution of payment implementation using Infinea mPOS</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>3. Supported OS for development and testing in desktop version of the plug-in:</h2>
+  <table>
+    <tr class="rev14"><td class="t2_param">Windows</td><td class="b_technical">Windows 7 and newer, FileMaker 16.0 and higher</td></tr>
+    <tr class="rev14"><td class="t2_param">macOS</td><td class="b_technical">macOS Sierra 10.12, FileMaker 16.0 and higher</td></tr>
+  </table>
+  <p>
+  Functions return either default testing values or "notImplemented". This has to be set with function Gonector_Set.<br>
+  The plugin used for desktop integration does not require SNLib verification
+</p>
+</div>
+
+<h2>4. Complete syntax and functionality of the plugin functions</h2>
+<div class="rev30">
+<h3><span class="rev31x">Supported functions for device type</span><span class="rev31">Supported functions by device type</span></h3>
+<table>
+	<tr>	<td>Device type</td>	<td>Supported functions</td>	</tr>
+
+	<tr>	<td class="t2_param">qIDmini</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_Read">Gonector_Read</a><br>
+			<a href="#Gonector_Read">Gonector_Write</a><br>
+			<a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a>
+		</td>
+	</tr>
+
+	<tr class="rev32x">	<td class="t2_param">Custom MyPrinter</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a class="rev31x" href="#Gonector_Read">Gonector_Read<br></a>
+			<a class="rev31x" href="#Gonector_Write">Gonector_Write<br></a>
+			<a href="#Gonector_PrintText">Gonector_PrintText</a>	<br>
+			<a href="#Gonector_PrintImage">Gonector_PrintImage</a><br>
+			<a href="#Gonector_PrintCode">Gonector_PrintCode</a>
+		</td>
+	</tr>
+
+	<tr class="rev32x">	<td class="t2_param">Custom MY3</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_PrintText">Gonector_PrintText</a><br>
+			<a href="#Gonector_PrintImage">Gonector_PrintImage</a><br>
+			<a href="#Gonector_PrintCode">Gonector_PrintCode</a>
+		</td>
+	</tr>
+
+	<tr class="rev32">	<td class="t2_param">Custom Printers</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_PrintText">Gonector_PrintText</a><br>
+			<a href="#Gonector_PrintImage">Gonector_PrintImage</a><br>
+			<a href="#Gonector_PrintCode">Gonector_PrintCode</a>
+		</td>
+	</tr>
+
+	<tr>	<td class="t2_param">Ingenico Bluetooth device</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a>	<br>
+			<a href="#Gonector_StartTransaction">Gonector_<span class="rev34">StartTransaction</span><span class="rev34x">DoTransaction</span></a><br>
+			<a href="#Gonector_UpdateTransaction">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span></a><br>
+			<a href="#Gonector_Prepare">Gonector_Prepare</a>
+		</td>
+	</tr>
+
+	<tr>	<td class="t2_param">BlueSnap Smart</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a><br>
+			<a href="#Gonector_RawCommand">Gonector_RawCommand</a>
+		</td>
+	</tr>
+
+	<tr class="rev31x">	<td class="t2_param">Infinea mPOS Flat/Infinea mPOS BP500</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_Read">Gonector_Read</a><br>
+			<a href="#Gonector_Write">Gonector_Write</a><br>
+
+			<a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a>
+		</td>
+	</tr>
+
+	<tr class="rev31x">	<td class="t2_param">Linea Pro 7</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_Read">Gonector_Read</a><br>
+			<a href="#Gonector_Write">Gonector_Write</a><br>
+
+			<a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a>
+		</td>
+	</tr>
+
+	<tr class="rev31">	<td class="t2_param">Linea Pro / Infinea</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_Read">Gonector_Read</a><br>
+			<a href="#Gonector_Write">Gonector_Write</a><br>
+
+			<a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a><span class="rev33"><br></rev>
+			<a class="rev33" href="#Gonector_UpdateTransaction">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span></a><br>
+			<a class="rev34" href="#Gonector_StartTransaction">Gonector_StartTransaction</a>
+		</td>
+	</tr>
+
+	<tr>	<td class="t2_param">iPhone</td>
+		<td class="t2_param">
+			<a href="#Gonector_Connect">Gonnector_Connect</a><br>
+			<a href="#Gonector_Disconnect">Gonnector_Disconnect</a><br>
+			<a href="#Gonector_Get">Gonector_Get</a><br>
+			<a href="#Gonector_Set">Gonector_Set</a><br>
+
+			<a href="#Gonector_Read">Gonector_Read</a>
+		</td>
+	</tr>
+
+
+</table>
+</div>
+
+<h3>Gonector_Version( { versionFormat } )</h3>
+<p class="f_intro">Returns version string of the plugin, formatted as requested by the parameter</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">versionFormat</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number, default value</td></tr>
+  <tr valign="top"><td class="t2_param">"long"</td><td>To get the plugin name followed by its version number</td></tr>
+  <tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform of the code currently running on</td></tr>
+  <tr valign="top"><td class="t2_param">"autoupdate"</td><td>To get autoupdate compatible (comparable) version number</td></tr>
+</table>
+<h4>Description</h4>
+<p>This function is very important and it has the same output format in all 24U plugins. You should call this function every time you need to check if the plugin is properly installed to the FileMaker Pro&reg;. Even if the plugin is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+<h4>Result</h4>
+<p>Returns requested version format or platform. If this function returns "?", the plugin is not properly installed or FileMaker Pro cannot load and activate it for some reason.<p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_Version( "long" )</span><br>
+This will return the plugin name and its version. For example "Gonector 1.1" </p>
+<p><span class="syntax_hl">Gonector_Version( "platform" )</span><br>
+Returns "Mac OS X", "iOS" or "Windows" depending on the platform the plugin is currently running</p>
+<p><span class="syntax_hl">Gonector_Version( "autoupdate" )</span><br>
+Returns "01000300" for the plugin version 1.1.3. The last two digits represent the build number. In this case it means build 00 (first build) of version 1.1.0</p>
+
+
+
+
+
+
+<div>
+<h3 id="Gonector_Register">Gonector_Register( selector )</h3>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers<p>
+<h4>Parameter values for <span class="p_hl">selector</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr class="">    <td class="t2_param">SerialNumber</td>    <td>Register given SerialNumber and return an error code.</td>    </tr>
+<tr class="">    <td class="t2_param">EmailAddress</td>    <td>Tries to activate with given email address and return an error code. Trial version is valid only after you confirm email</td>    </tr>
+<tr class=""><td class="t2_param">Hash</td><td>Activate a serial number with a hash received from 24U. Used for offline activation.</td></tr>
+<tr class="">    <td class="t2_param">"Status"</td>    <td>Return the actual registration state of the plugin: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td>    </tr>
+<tr class="">    <td class="t2_param">"Unregister"</td>    <td>Unregister all serial numbers related to the product and return an error code. Note: after this trial version days wont come back.</td>    </tr>
+<tr class=""><td class="t2_param">"ActivationChallenge"</td><td>Returns generated challenge string. This string is sent to 24U.</td></tr>
+</table>
+</div>
+<h4>Description</h4>
+<p>Use this function to register or unregister plugin or to get information about current registration state</p>
+<h4>Result</h4>
+<p>Returns zero. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_Register( "GON11I-BXMWC-VNW7W-L8AJS-3KGX3-XYG84" )</span><br />
+  This function will register the iOS plugin with serial number GON11I-BXMWC-VNW7W-L8AJS-3KGX3-XYG84.</p>
+
+<p><span class="syntax_hl">Gonector_Register( "unregister" )</span><br />
+  This function will unregister every serial number related to plugin</p>
+
+
+
+
+
+
+
+
+
+<div>
+<h3 id="Gonector_Connect"><span>Gonector_Connect</span>( deviceName )
+</h3>
+<p class="f_intro">Connect to the device specified</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr><td class="t_param">deviceName</td><td>To connect to native iPhone RFID/NFC Reader use "iPhone" as deviceName </br>
+                                        To connect to Linea or Infinea product line use "LineaInfinea" as deviceName </br>
+										<span class="rev29">To connect to Infinea mPos use "mPosInfinea" as deviceName <br/></span>
+                                        deviceName for connectable bluetooth devices can be received through the function Gonector_Get( "devices" ; deviceType)</td></tr>
+</table>
+
+
+<h4>Description</h4>
+<p>This function will try to find device with provided deviceName and connect to it. </br>
+<b>In case of CustomPrinter<span class="rev24">, IngenicoTerminal</span><span class="rev29">, Infinea mPos Flat</span> and <span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span> device has to be paired via bluetooth.<span class="rev28"><br>
+To pair IngenicoTerminal with iOS device please consult the documentation received from your local provider.</span></b></p>
+<h4>Result</h4>
+<p>Function returns 0 if connected. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_Connect( "MYPrinterA_1" )</span><br>
+This command connects the plugin to the bluetooth device MYPrinterA_1.</p>
+<p><span class="syntax_hl">Gonector_Connect( "LineaInfinea" )</span><br>
+This command connects the plugin to the device of Linea or Infinea type.</br>If You have troubles connecting to the device please check the <a href="Device_Manuals/LineaInfinea_Manual.html">LineaInfinea troubleshooting guide</a></p>
+<p><span class="syntax_hl">Gonector_Connect( "iPhone" )</span><br>
+This command connects the plugin to the iPhone.</p>
+</div>
+
+
+
+
+<div>
+<h3 id="Gonector_Disconnect">Gonector_Disconnect( deviceName )
+</h3>
+<p class="f_intro">Disconnect from the device</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Use the particular name to disconnect solely this device</td></tr>
+</table>
+
+<h4>Description</h4>
+<p>This function is used to disconnect from the device.</p>
+<h4>Result</h4>
+<p>Function returns 0. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_Disconnect( "MYPrinterA_1" )</span><br>
+This command disconnects the device MYPrinterA_1.</p>
+</div>
+
+
+
+
+
+
+
+<h3 id="Gonector_Get">Gonector_Get( selector ; { option { ; additionalData } } )</h3>
+<p class="f_intro">Get value specified by the selector parameter</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">selector</td><td>Resource selector</td></tr>
+  <tr valign="top"><td class="t_param">option</td><td>Specifies the request. Use device name as option parameter for all device specific selectors (those not marked as General in table below)</td></tr>
+  <tr valign="top"><td class="t_param">additionalData</td><td>Used to specify additional data</td></tr>
+</table>
+
+<h4>Possible values for the <span class="p_hl">selector</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td><i>Selector</i></td><td><i>Supported devices</i></td><td><i>Explanation</i></td></tr>
+  <tr class="rev17x"><td class="t2_param">"desktopIntegrationSetup"</td><td>General</td><td>Returns if "default" or "notImplemented" return values are set for the desktop integration</td></tr>
+  <tr class="rev17"><td class="t2_param">"desktopIntegrationSetup"</td><td>General</td><td>Returns if "default" or "notImplemented" return values are set for the desktop integration. <b>Note: not implemented on iOS</b></td></tr>
+  <tr class="rev17x"><td class="t2_param">"inlineDocumentation"</td><td>General</td><td>Returns "on" or "off" based on status of inlineDocumentation in plugin. This can help with development on desktop.</td></tr>
+  <tr class="rev17"><td class="t2_param">"inlineDocumentation"</td><td>General</td><td>Returns "on" or "off" based on status of inlineDocumentation in plugin. This can help with development on desktop. <b>Note: not implemented on iOS</td></tr>
+  <tr class="rev15"><td class="t2_param">"urlScheme"</td><td>General</td><td>Returns the uniqueString of the URL Scheme. For more info see <a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent()</a></td></tr>
+  <tr valign="top"><td class="t2_param">"lastError"</td><td>General</td><td>Returns error code from the last plugin call.</td></tr>
+  <tr valign="top"><td class="t2_param">"lastErrorMessage"</td><td>General</td><td>Returns error text description from the last plugin call</td></tr>
+  <tr valign="top"><td class="t2_param">"firmwareVersion"</td><td>All devices</td><td>Returns firmware release version of the connected device. Device must be connected</td></tr>
+  <tr valign="top"><td class="t2_param">"softwareVersion"</td><td>All devices</td><td>Returns software release version of the library. Device must be connected</td></tr>
+  <tr valign="top"><td class="t2_param">"devices"</td><td>All bluetooth devices</td><td>Use "customPrinter", "blueSnapAdapter"<span class="rev24">, "ingenicoTerminal"</span> or "<span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span>" as option parameter to specify Your request</td></tr>
+  <tr class="rev16" valign="top"><td class="t2_param">"connectedDevices"</td><td>All bluetooth devices</td><td>Returns all connected (via Gonector_Connect) devices separated by ¶. <span class="rev21">Use "customPrinter", "blueSnapAdapter"<span class="rev24">, "ingenicoTerminal"</span> or "qIDmini" as option parameter to specify Your request</span></td></tr>
+  <tr><td class="t2_param">"randomKey"</td><td>Linea and Infinea</td><td>Returns randomly generated ready to use stripeKey for the Linea or Infinea device for the Linea or Infinea device
+  </br>You can use this key with Gonector_Set( "deviceStripeKey" ; stripeKey )</td></tr>
+  <tr class="rev17x"><td class="t2_param">"ndefSignature"</td><td>Linea and Infinea<br>iPhone</td><td>Get a signature of the record if present</td></tr>
+  <tr><td class="t2_param">"nfcCardUid"</td><td>Linea and Infinea<br><span class="rev17x">iPhone</span></td><td>Get the UID of the card</td></tr>
+  <tr><td class="t2_param">"imageAlignment"</td><td>Custom printers</td><td>Returns "left", "center" or "right"</td></tr>
+  <tr><td class="t2_param">"imageScaling"</td><td>Custom printers</td><td>Returns case "none", "scaletofit" or "scaletowidth"</td></tr>
+  <tr><td class="t2_param">"imageWidth"</td><td>Custom printers</td><td>Returns the width<span class="rev17"> (in pixels)</span> value from the printer</td></tr>
+  <tr class="rev23"><td class="t2_param">"fontType"</td><td>Custom printers</td><td>Returns "wide" or "narrow"</td></tr>
+  <tr class="rev15"><td class="t2_param">"fontWidth"</td><td>Custom printers</td><td>Returns a value of 0 through 7</td></tr>
+  <tr class="rev15"><td class="t2_param">"fontHeight"</td><td>Custom printers</td><td>Returns a value of 0 through 7</td></tr>
+  <tr><td class="t2_param">"fontSize"</td><td>Custom printers</td><td>Returns "fontWidth¶fontHeight"</td></tr>
+  <tr><td class="t2_param">"fontAlignment"</td><td>Custom printers</td><td>Returns "left", "center" or "right"</td></tr>
+  <tr><td class="t2_param">"fontBold"</td><td>Custom printers</td><td>Returns "on" or "off"</td></tr>
+  <tr><td class="t2_param">"fontItalic"</td><td>Custom printers</td><td>Returns "on" or "off"</td></tr>
+  <tr><td class="t2_param">"fontUnderline"</td><td>Custom printers</td><td>Returns "on" or "off"</td></tr>
+  <tr><td class="t2_param">"barcodeAlignment"</td><td>Custom printers</td><td>Returns the alignment of barcodes</td></tr>
+  <tr><td class="t2_param">"barcode1dWidth"</td><td>Custom printers</td><td>Returns the width<span class="rev17"> (in pixels)</span> of 1D barcodes</td></tr>
+  <tr><td class="t2_param">"barcode2dWidth"</td><td>Custom printers</td><td>Returns the width<span class="rev17"> (in pixels)</span> of 2D barcodes</td></tr>
+  <tr><td class="t2_param">"barcodeHeight"</td><td>Custom printers</td><td>Returns the height of barcodes. This value has no effect on 2D codes</td></tr>
+  <tr><td class="t2_param">"barcodeHri"</td><td>Custom printers</td><td>Returns "Human Readable Interpretation" position for 1D codes. Possible values are "none", "top", "bottom" or "topbottom" for both top and bottom</td></tr>
+  <tr class="rev15"><td class="t2_param">"scaleReadCommand"</td><td>Scales</td><td>Returns the string to be used by function Gonector_Read</td></tr>
+  <tr class="rev15"><td class="t2_param">"scaleWeightPattern"</td><td>Scales</td><td>Returns the perl-compatible regular expression used to parse data into the weight type</td></tr>
+
+  <tr class="rev25"><td class="t2_param">"terminalTransactionTimeout"</td><td>Ingenico terminals</td><td>Returns the transaction timeout in milliseconds</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalInfo"</td><td>Ingenico terminals</td><td>Returns the terminal info containing its truncated serial number<span class="rev26x"> (8 last digits)</span>, reference code and protocol in format serialNumber¶reference¶protocol</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalTime"</td><td>Ingenico terminals</td><td>Returns time of the terminal in following format "YYYY-MM-DD hh:mm:ss TZD"</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalFullSerialNumber"</td><td>Ingenico terminals</td><td>Returns a string with serial number</td></tr>
+  <tr class="rev25"><td class="t2_param">"terminalComponents"</td><td>Ingenico terminals</td><td>Returns a JSON string such as this: [
+	[ {
+		"name": "",
+		"version": "",
+		"crc": "",
+		"type": ""
+	}, {
+		"name": "",
+		"version": "",
+		"crc": "",
+		"type": ""
+	} ]
+]
+<br>
+Type can be: Application, Library, Driver or Parameter File</td></tr>
+  <tr class="rev25"><td class="t2_param">"terminalTmsInformation"</td><td>Ingenico terminals</td><td>Returns the parameters of the TMS server on Telium side in the format: host¶port¶identifier. <i>Terminal Management System (T.M.S.)</i></td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalBacklightTimeout"</td><td>Ingenico terminals</td><td>Returns the backlight timeout in seconds</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalSuspendTimeout"</td><td>Ingenico terminals</td><td>Returns the suspend timeout in seconds</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalBatteryLevel"</td><td>Ingenico terminals</td><td>Returns a value of 0-100</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalIPAddress"</td><td>Ingenico terminals</td><td>Returns the IP address of the terminal<span class="rev28"><br><b>Note: This function will be implemented but not tested</b></span></td></tr>
+  <tr class="rev25"><td class="t2_param">"terminalEncoding"</td><td>Ingenico terminals</td><td>Returns the encoding used by the device</td></tr>
+
+</table>
+
+
+<h4>Description</h4>
+<p>This function is used to get value specified by the selector.</p>
+<h4>Result</h4>
+<p>Function returns required parameter. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<div>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_Get( "inlineDocumentation" )</span><br>
+This command returns "on" or "off". </p>
+<p><span class="syntax_hl">Gonector_Get( "devices" ; "customPrinter" )</span><br>
+This command returns all customPrinter devices divided by ";". </p>
+<p><span class="syntax_hl">Gonector_Get( "fontAlignment" ; "MYPrinterA_1" )</span><br>
+This command returns "left" if the device MYPrinterA_1 has default alignment.</p>
+<p><span class="syntax_hl">Gonector_Get( "randomKey" ; "LineaInfinea" ) </span><br>
+This command returns string such as "16465168765168416845198645316551". </p>
+<p><span class="syntax_hl">Gonector_Get( "barcodeHri" ; "MYPrinterA_1" )</span><br>
+This command returns "bottom" if the device MYPrinterA_1 has HRI set to default.</p>
+
+</div>
+
+
+
+
+
+
+
+
+<h3 id="Gonector_Set"><span id="setFunction">Gonector_Set( selector ; option { ; newValue { ; oldValue } } )</span>
+
+</h3>
+<p class="f_intro">Set value or parameter</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">selector</td><td>Resource selector</td></tr>
+  <tr valign="top"><td class="t_param">option</td><td>Specifies the request. Use device name as option parameter for all device specific selectors (those not marked as General in table below)</td></tr>
+  <tr valign="top"><td class="t_param">newValue</td><td>This parameter is mostly used as a new value to be set, but it can be used for other things for some Selectors - please read table below</td></tr>
+  <tr><td class="t_param">oldValue</td><td>This parameter is used to pass an original value for some Selectors</td></tr>
+</table>
+
+<h4>Possible values for <span class="p_hl">selector</span>.</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td><i>Selector</i></td><td><i>Supported devices</i></td><td><i>Where is this setting stored</i></td><td><i>Explanation</i></td></tr>
+  <tr class="rev17x"><td class="t2_param">"inlineDocumentation"</td><td>General</td><td>In the plugin</td><td>Allows to turn off or on inline documentation. Possible values are "on" or "off". When this is turned on a simplified syntax will be visible when you write plugin's function in FileMaker calculation area</td></tr>
+  <tr class="rev17"><td class="t2_param">"inlineDocumentation"</td><td>General</td><td>In the plugin</td><td>Allows to turn off or on inline documentation. Possible values are "on" or "off". When this is turned on a simplified syntax will be visible when you write plugin's function in FileMaker calculation area. <b>Note: not implemented on iOS</b></td></tr>
+  <tr class="rev17x"><td class="t2_param">"desktopIntegrationSetup"</td><td>General</td><td>In the plugin</td><td>Allows to choose between "default" and "notImplemented" as return values for the desktop integration</td></tr>
+  <tr class="rev17"><td class="t2_param">"desktopIntegrationSetup"</td><td>General</td><td>In the plugin</td><td>Allows to choose between "default" and "notImplemented" as return values for the desktop integration. <b>Note: not implemented on iOS</td></tr>
+  <tr><td class="t2_param">"urlScheme"</td><td>General</td><td>In the plugin</td><td>Used to speed up Gonector_SetScriptEvent callbacks. <span class="rev21">Empty string will disable faster callbacks. </span>For more info see <a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent()</a> and for required configuration please refer to following <a href="#setupUrl">guide</a></td></tr>
+  <tr class="rev23"><td class="t2_param">"fontType"</td><td>Custom printers</td><td>In the plugin</td><td>Sets "wide" or "narrow" for type of characters while printing. Pass this value as a newValue parameter. <span class="rev22 rev23x">fontType 0 has wider characters and wider character spacing compared to fontType 1 but general shape is the same</span><span class="rev23">Default value is "wide"</span></td></tr>
+  <tr class="rev15"><td class="t2_param">"fontHeight"</td><td>Custom printers</td><td>In the plugin</td><td>Sets 0 through 7 value for height of characters while printing. Pass this value as a newValue parameter</td></tr>
+  <tr class="rev15"><td class="t2_param">"fontWidth"</td><td>Custom printers</td><td>In the plugin</td><td>Sets 0 through 7 value for width of characters while printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"fontSize"</td><td>Custom printers</td><td>In the plugin</td><td>Sets 0 through 7 value for size of characters while printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"fontAlignment"</td><td>Custom printers</td><td>In the plugin</td><td>Sets "left", "center" or "right" alignment for printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"fontBold"</td><td>Custom printers</td><td>In the plugin</td><td>Sets "on" or "off" for printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"fontItalic"</td><td>Custom printers</td><td>In the plugin</td><td>Sets "on" or "off" for printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"fontUnderline"</td><td>Custom printers</td><td>In the plugin</td><td>Sets "on" or "off" for printing. Pass this value as a newValue parameter</td></tr>
+  <tr class="rev23"><td class="t2_param">"fontReset"</td><td>Custom printers</td><td>In the plugin</td><td>Resets the plugin font settings to the printer's default<span class="rev22"> ("fontType" = "wide", "fontHeight" = 0, "fontWidth" = 0, "fontSize" = 0, "fontAlignment" = "left", "fontBold" = "off", "fontItalic" = "off", "fontUnderline" = "off")</span></td></tr>
+  <tr><td class="t2_param">"imageAlignment"</td><td>Custom printers</td><td>In the plugin</td><td>Sets "left", "center" or "right" alignment for printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"imageScaling"</td><td>Custom printers</td><td>In the plugin</td><td>Sets case "none", "scaletofit" or "scaletowidth" for printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"imageWidth"</td><td>Custom printers</td><td>In the plugin</td><td>Sets width<span class="rev17"> (in pixels)</span> value for printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"imageReset"</td><td>Custom printers</td><td>In the plugin</td><td>Resets the plugin image settings to default ("imageAlignment"	= "center", "imageScaling" = "none", "imageWidth"	= 100)</td></tr>
+  <tr><td class="t2_param">"barcodeAlignment"</td><td>Custom printers</td><td>In the plugin</td><td>Sets "left", "center" or "right" alignment for barcode printing. Pass this value as a newValue parameter</td></tr>
+  <tr><td class="t2_param">"barcode1dWidth"</td><td>Custom printers</td><td>In the plugin</td><td>Sets the width<span class="rev17"> (in pixels)</span> of the thinest line for a 1D barcode. Whole numbers only (recommended 2 or 3)</td></tr>
+  <tr><td class="t2_param">"barcode2dWidth"</td><td>Custom printers</td><td>In the plugin</td><td>Sets the width<span class="rev17"> (in pixels)</span> for a 2D barcode. Width<span class="rev17"> (in pixels)</span> of the whole code (recommended min. 100, for PDF417 barcode type at least 300)</td></tr>
+  <tr><td class="t2_param">"barcodeHeight"</td><td>Custom printers</td><td>In the plugin</td><td>Sets height for 1D barcode. This selector is not supported for 2D codes because those have constant aspect ratio</td></tr>
+  <tr><td class="t2_param">"barcodeHri"</td><td>Custom printers</td><td>In the plugin</td><td>Sets a "Human Readable Interpretation" position for 1D codes. Possible values are "none", "top", "bottom" or "topbottom" for both top and bottom</td></tr>
+  <tr><td class="t2_param">"barcodeReset"</td><td>Custom printers</td><td>In the plugin</td><td>Resets the plugin barcode settings to default ("barcodeAlignment" = "center", "barcode1dWidth" = 3<span class="rev17"> (px)</span>, "barcode2dWidth" = 100<span class="rev17"> (px)</span>, "barcodeHeight"	= 100<span class="rev17"> (px)</span>, "barcodeHri" = "bottom")</td></tr>
+  <tr><td class="t2_param">"scaleReadCommand"</td><td>Scales</td><td>In the plugin</td><td>String to send to the scale to request sending current weight data (Gonector_Read). This string will be sent to the scale when you call Gonector_Read( deviceName )</td></tr>
+  <tr><td class="t2_param">"scaleWeightPattern"</td><td>Scales</td><td>In the plugin</td><td>Perl-compatible regular expression to extract weight from the data received from the scale <span class="rev17"></br>Plug-In seperates regex groups by "¶" </br> </span>See the Examples section below for specific examples</td></tr>
+  <tr><td class="rev17 t2_param">"baudrate"</td><td>Scales</td><td>In the device</td><td>Sets the baudrate on the BlueSnap Smart adapter. As a part of the initial setup you should set the same baudrate for your Scale and blueSnapAdapter</br>Please, follow this <a href="Device_Manuals/Scales_Manual.html">guide</a> to properly setup you baudrate</td></tr>
+  <tr class="rev20"><td class="t2_param" id="stripeKey">"connectionStripeKey"</td><td>Linea and Infinea</td><td>In the plugin</td><td>Sets a stripe key<br>
+  Default key is "00000000000000000000000000000000"</td></tr>
+  <tr class="rev20x"><td class="t2_param" id="stripeKey">"stripeKey"</td><td>Linea and Infinea</td><td>In the plugin</td><td>Sets a stripe key for daily use<br>
+  Default key is "00000000000000000000000000000000"</td></tr>
+  <tr class="rev20"><td class="t2_param">"deviceStripeKey"</td><td>Linea and Infinea</td><td>In the device</td><td>Sets a new stripe key<br>
+  Use 4 parameters including the old key<br>
+	  <b>Changing the default key is mandatory in compliance with PCI. <span style="color: red">New key must be stored or remembered. Lost key can't be retrieved.</span></b> To reset the keys the device must be sent to the manufacturer.<br>
+  Use function Gonector_Get( "randomKey" ; deviceName ) to get a random key</td></tr>
+  <tr class="rev20x"><td class="t2_param">"newStripeKey"</td><td>Linea and Infinea</td><td>In the device</td><td>Sets a new stripe key once before the first use<br>
+  Use 4 parameters including the old key<br>
+	  <b>Changing the default key is mandatory in compliance with PCI. <span style="color: red">New key must be stored or remembered. Lost key can't be retrieved.</span></b> To reset the keys the device must be sent to the manufacturer.<br>
+  Use function Gonector_Get( "randomKey" ; deviceName ) to get a random key</td></tr>
+
+  <tr class="rev24"><td class="t2_param">"terminalTransactionTimeout"</td><td>Ingenico terminals</td><td>In the device</td><td>Sets the transaction timeout. Use newValue to set time in <span class="rev25">milliseconds</span>. <b>Note: changing the transaction timeout is not recommended</b></td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalTime"</td><td>Ingenico terminals</td><td>In the device</td><td>Sets the time in the terminal using the current iOS device time</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalReset"</td><td>Ingenico terminals</td><td>In the device</td><td>Reboots the terminal</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalTmsHost"</td><td>Ingenico terminals</td><td>In the device</td><td>The TMS's server IP address or hostname (hostname can't exceed 257 caracters)</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalTmsPort"</td><td>Ingenico terminals</td><td>In the device</td><td>The TMS's server Port (can't exceed 65535)</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalTmsIdentifier"</td><td>Ingenico terminals</td><td>In the device</td><td>The TMS's server Identifier (9 caracters max)</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalDoUpdate"</td><td>Ingenico terminals</td><td>In the device</td><td>This option updates the terminal</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalBacklightTimeout"</td><td>Ingenico terminals</td><td>In the device</td><td>This section does not apply to iSMP devices as standby parameters are overridden by iOS device
+behavior. However, if you unplug the iOS device, these parameters will be taken into account</td></tr>
+  <tr class="rev24"><td class="t2_param">"terminalSuspendTimeout"</td><td>Ingenico terminals</td><td>In the device</td><td>This section does not apply to iSMP devices as standby parameters are overridden by iOS device
+behavior. However, if you unplug the iOS device, these parameters will be taken into account</td></tr>
+  <tr class="rev25"><td class="t2_param">"terminalEncoding"</td><td>Ingenico terminals</td><td>In the plugin</td><td>This sets the encoding to be used for received data for example for "onTransactionDidEnd" event.<br>
+  Possible values are "utf-8" and "iso-8859-2". Default is "utf-8"</td></tr>
+
+
+</table>
+<p class="rev15"><b>Note: Disconnecting the device will reset all settings <span class="rev24">in plugin </span>to default.</b>
+</p>
+
+<h4>Description</h4>
+<p>By this function values or parameters can be set </p>
+<h4>Result</h4>
+<p>Function returns 0 in case of success. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_Set( "inlineDocumentation" ; "on"<span class="rev15x"> ; "notImplemented"</span> )</span><br>
+This command turns on inline documentation. inline documentation doesn't work on iOS</p>
+<p><span class="syntax_hl">Gonector_Set( "deviceStripeKey" ; "LineaInfinea" ; "12345678123456781234567812345678" ; "00000000000000000000000000000000" )</span><br>
+This changes the stripe key in the Linea or Infinea device.</p>
+<p><span class="syntax_hl">Gonector_Set( "connectionStripeKey" ; "LineaInfinea" ; "12345678123456781234567812345678" )</span><br>
+This sets the stripe key in the Linea or Infinea device.</p>
+<p><span class="syntax_hl">Gonector_Set( "fontAlignment" ; "MYPrinterA_1" ; "center" )</span><br>
+This makes the device MYPrinterA_1 print the next text in the middle of the row.</p>
+<p><span class="syntax_hl">Gonector_Set( "barcodeAlignment" ; "MYPrinterA_1" ; "center" )</span><br>
+Sets the barcode alignment to the center.</p>
+<p><span class="syntax_hl">Gonector_Set( "barcode2dWidth" ; "MYPrinterA_1" ; 100 )</span><br>
+Sets the barcode width to 100.</p>
+<p><span class="syntax_hl">Gonector_Set( "barcodeHeight" ; "MYPrinterA_1" ; 100 )</span><br>
+Sets the 1D barcode height to 100.</p>
+<p><span class="syntax_hl">Gonector_Set( "barcodeHri" ; "MYPrinterA_1" ; "bottom" )</span><br>
+Sets the human readable interpretation of the barcode to the bottom.</p>
+<p class="rev17"><span class="rev17 syntax_hl">Gonector_Set( "scaleReadCommand" ; "MIN-7943" ; "R" ) & ¶ & </br>Gonector_Set( "scaleWeightPattern" ; "MIN-7943" ; "(ST|US),[^\s-]*([-]?[ ]*[\d\.]+)([\D]+)" )</span><br>
+Sets the basic configuration for the LESAK J1-RWP scale.</p>
+<p class="rev17x"><span class="syntax_hl">Gonector_Set( "scaleReadCommand" ; "MIN-7943" ; "P" ) & ¶ & </br>Gonector_Set( "scaleWeightPattern" ; "MIN-7943" ; "[ ]*([-])?([\d\.]+)[ ]([^ ]+)[ ]?[ ]?([\?| ])?[ ]?([0-9]+\:[0-9]{2}\:[0-9]{2})?" )<br></span>
+Sets the basic configuration for the Traveler TA301 OHAUS scale.</p>
+<p class="rev17"><span class="syntax_hl">Gonector_Set( "scaleReadCommand" ; "MIN-7943" ; "P" ) & ¶ & </br>Gonector_Set( "scaleWeightPattern" ; "MIN-7943" ; "[ ]*([-]?[\d\.]+)[ ]([^ ]+)[ ]?[ ]?([\?| ])?[ ]?([0-9]+\:[0-9]{2}\:[0-9]{2})?" )<br></span>
+Sets the basic configuration for the Traveler TA301 OHAUS scale.</p>
+
+
+
+
+
+<div>
+<h3 id="Gonector_PrintText">Gonector_PrintText( deviceName ; text { ; printMode } )</h3>
+<p class="f_intro"><span class="rev30x">Sends a text to print</span><span class="rev30">Sends a text to be print<span class="rev31">ed</span>, works with Custom MyPrinter and Custom MY3.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr><td class="t_param">text</td><td>Text to print<br><b class="rev15">Note: Supported printers only print ASCII character set</b></td></tr>
+  <tr valign="top"><td class="t_param">printMode</td><td> This parameter is used to change different print modes</td></tr>
+</table>
+
+<h4>Possible values for printMode.</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr><td class="t_param">"buffer"</td><td>This printMode can be used to print various fonts in one line. </br>
+  The printer will store the text in a buffer. Text is added to the buffer and currently set formatting is remembered along with it. If the text in the buffer contains line ending<span class="rev17"> (¶)</span> or if the text fulfils width of the printable line, it is automatically printed and the remaining part of the text will stay in the buffer. </br><b>Combining multiple text alignments on one row is not possible. Overwriting of the line alignment for text in buffer is not possible.</b></td></tr>
+  <tr><td class="t_param">"immediate"</td><td>This printMode will automatically add line ending at the end of provided text which means that buffer (first) and the text (second) will be printed immediately. If buffer and text is empty printer will print empty line. This is default printMode.</td></tr>
+</table>
+
+<h4>Description</h4>
+<p>This function uses a printer to print text. Various font settings can be changed using <a href="#setFunction">Gonector_Set</a> function
+</p>
+<h4>Result</h4>
+<p>Function returns 0 in case of success. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+
+<p><span class="syntax_hl">Gonector_PrintText( "MYPrinterA_1" ; "Hello!!!" )</span><br>
+This prints "Hello!!!" on the device MYPrinterA_1.</p>
+<p><span class="syntax_hl">Gonector_PrintText( "MYPrinterA_1" ; "Name: " ; <span class="rev15x">"on"</span><span class="rev15">"buffer"</span> )  & ¶ &
+Gonector_Set( "fontUnderline" ; "MYPrinterA_1" ; <span class="rev15x">"on"</span><span class="rev15">"buffer"</span> )  & ¶ &
+Gonector_PrintText( "MYPrinterA_1" ; "name@example.com" )</span><br>
+This prints "Name: <u>name@example.com</u>" on the device MYPrinterA_1.</p>
+</div>
+
+
+
+
+
+
+<h3 id="Gonector_PrintImage">Gonector_PrintImage( deviceName ; imageContainer )</h3>
+<p class="f_intro">Prints png or jpeg image from container. <span class="rev30">Sends a text to be print<span class="rev31">ed</span>, works with Custom MyPrinter and Custom MY3.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">imageContainer</td><td>The image container in FileMaker</td></tr>
+</table>
+<p> <b>Note: Custom Printer prints transparent color as black.</b></p>
+
+<h4>Description</h4>
+<p>This function uses a printer to print an image. Various font settings can be changed using <a href="#setFunction">Gonector_Set</a> function</p>
+<h4>Result</h4>
+<p>Function returns 0 in case of success. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+
+<p><span class="syntax_hl">Gonector_PrintImage( "MYPrinterA_1" ; table::container )</span><br>
+This prints an image on the device MYPrinterA_1.</p>
+
+
+
+
+
+<div>
+<h3 id="Gonector_PrintCode">Gonector_PrintCode( deviceName ; type ; text )</h3>
+<p class="f_intro">Prints a barcode<span class="rev30">. Sends a text to be print<span class="rev31">ed</span>, works with Custom MyPrinter and Custom MY3.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">type</td><td>The type of code</td></tr>
+  <tr valign="top"><td class="t_param">text</td><td>The text to be printed as a barcode. See specific barcode types below to see what type of character strings are supported. The text has to be valid for selected code type otherwise the code can be unreadable</td></tr>
+
+</table>
+
+<h4>Description</h4>
+<p>This function uses a printer to print a barcode. Various settings can be changed using <a href="#setFunction">Gonector_Set</a> function.</p>
+
+<h4>Possible values for type</h4>
+<p><b>The printer nor plugin are checking the validity of barcodes.</b></p>
+<table>
+  <tr><th><i>Type of 1D code</i></th><td><i>Description and limitations</i></td></tr>
+  <tr><td>CODABAR</td><td>Supported characters are numbers (0-9), 4 letters (A,B,C,D) and few special characters (-$:/.+). The code must be valid including starting and ending letters. <b>The 14 digits barcode is only supported on MY3 A printer</b></td></tr>
+  <tr><td>UPCA</td><td>11 or 12 digits. Supplemental code is not supported. Code must be valid. In case the checkdigit is not known it is better to use only 11 digits</td></tr>
+  <tr><td>UPCE</td><td>11 or 12 digits. The UPCA code must must be capable to be compressed into the UPCE code. Supplemental code is not supported. The printer prints a short version of UPCA code by trimming the padding zero's. Part of the UPCA codes are excluded if they overcome the padded amount in more categories. If checkdigit is not known then the printer will calculate the checkdigit automatically</td></tr>
+  <tr><td>EAN13</td><td>13 digits. Supplemental code is not supported. The code must be valid</td></tr>
+  <tr><td>EAN8</td><td>8 digits. The code must be valid</td></tr>
+  <tr><td>CODE39</td><td>Upper case letters, numbers, some symbols, (A-Z, 0-9, space, $ % + - . /)</td></tr>
+  <tr><td>ITF</td><td>Up to 14 digits. The code must be valid</td></tr>
+  <tr><td>CODE93</td><td>43 basic symbols (0–9, A-Z, "-", ".", "$", "/", "+" and "%")</td></tr>
+  <tr><td>CODE128</td><td>All ASCII characters. Preferred set is Code B. Code C is automatically switched on from 6 following digits to compress the barcode using high density mode. Any combination of characters is allowed</td></tr>
+  <tr><td>CODE32</td><td>8 or 9 digits. "A" will be prepended automatically. If checkdigit is not known it is better to provide 8 digits only. In case of 7 digits a leading 0 digit must be used</td></tr>
+</table>
+
+<table>
+  <tr><th><i>Type of 2D code</i></th><td><i>Description and limitations</i></td></tr>
+  <tr><td>DATAMATRIX</td><td>All ASCII characters. Supports UTF-8 data stream</td></tr>
+  <tr><td>PDF417</td><td>All ASCII characters. Recommended minimum barcode2dWidth is 300<span class="rev17"> (px)</span></td></tr>
+   <tr><td>MICROPDF417</td><td>All ASCII characters. The code must be valid</td></tr>
+  <tr><td>AZTEC</td><td>All ASCII characters. Supports UTF-8 data stream</td></tr>
+  <tr><td>QRCODE</td><td>All ASCII characters. Supports UTF-8 data stream. Kanji is not supported</td></tr>
+  <tr class="rev21x"><td>MICROQRCODE</td><td>All ASCII characters. Supports UTF-8 data stream. Kanji is not supported</td></tr>
+</table>
+
+
+<h4>Result</h4>
+<p>Function returns 0 in case of success. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+
+<p><span class="syntax_hl">Gonector_PrintCode( "MYPrinterA_1" ; "04210000526" ; "UPCA" )</span><br>
+This prints UPCA barcode with HRI of "042100005264" on the device MYPrinterA_1.<br><img src="pictures/codeUpcaExample.gif" height=45 /></p>
+<p><span class="syntax_hl">Gonector_PrintCode( "MYPrinterA_1" ; "04210000526" ; "UPCE" )</span><br>
+This prints UPCE barcode with HRI of "425261" on the device MYPrinterA_1.<br><img src="pictures/codeUpceExample.png" /></p>
+<p><span class="syntax_hl">Gonector_PrintCode( "MYPrinterA_1" ; "Code 128" ; "CODE128" )</span><br>
+This prints CODE128 barcode with HRI of "Code 128" on the device MYPrinterA_1.<br><img src="pictures/code128Example.png" /></p>
+<p><span class="syntax_hl">Gonector_PrintCode( "MYPrinterA_1" ; "123456789" ; "CODE128" )</span><br>
+This prints CODE128 barcode with HRI of "123456789" on the device MYPrinterA_1.<br><img src="pictures/code128Example2.gif" height=45 /></p>
+<p><span class="syntax_hl">Gonector_PrintCode( "MYPrinterA_1" ; "Hello World" ; "QRCODE" )</span><br>
+This prints QR code with content of "Hello World" on the device MYPrinterA_1.<br><img src="pictures/qrcodeExample.gif" height=60 /></p>
+
+</div>
+
+
+
+
+
+
+
+<h3 id="Gonector_SetScriptEvent">Gonector_SetScriptEvent( deviceName ; event ; scriptName )</h3>
+<p class="f_intro">Tell the plugin to launch the script when specified event occurs </p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">event</td><td>The event when the script should be triggered</td></tr>
+  <tr valign="top"><td class="t_param">scriptName</td><td>The name of script which should be triggered. The script receives a parameter with data depending on the event</td></tr>
+
+</table>
+
+<h4>Possible values for <span class="p_hl">event</span>. </h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td><i>event</i></td><td><i>Supported devices</i></td><td><i>Explanation</i></td><td><i>Script parameter</i></td></tr>
+  <tr class="rev14 rev17"><td class="rev18 t2_param">"onTagAttach"</td><td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span></td><td>Run the script when a tag approaches <span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span> sensor. Script is not called again if this tag stays in the sensor range, but it can be called multiple times if the tag leaves and enters the sensor range again.</td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” properties e.g. [ [ { 	"deviceName": "000666D0252F", "type": "qIDminiTag", "data": "123456" } ] ] </td></tr>
+  <tr class="rev17x"><td class="rev18 t2_param">"onTagDetach</td><td>qIDmini</td><td>Run the script when the <span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span> sensor loses the connection with a tag</td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” properties e.g. [ [ { 	"deviceName": "000666D0252F", "type": "qIDminiTag", "data": "123456" } ] ] </td></tr>
+  <tr class="rev17"><td class="rev18 t2_param">"onTagDetach</td><td>qIDmini</td><td>Run the script when the <span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span> sensor loses the connection with a tag</td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” properties e.g. [ [ { 	"deviceName": "000666D0252F", "type": "qIDminiTag", "data": "123456" } ] ] </td></tr>
+  <tr class="rev14 rev17"><td class="t2_param">"onCardRead"</td><td>Linea and Infinea</td><td>Run the script when a card approaches Linea or Infinea RFID sensor</td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” or "base64Data" properties e.g.  [ [ { "language": "en", "type": "ndefText", "data": "Hello", "deviceName": "LineaInfinea" }, { "language": "cs", "type": "ndefText", "data": "Vítejte", "deviceName": "LineaInfinea" } ] ] or [ [ { 	"deviceName": "LineaInfinea", "type": "image/jpeg", "base64Data": "SGVsbG8=" } ] ]</td></tr>
+  <tr class="rev14 rev17"><td class="t2_param">"onStripeRead"</td><td>Linea and Infinea</td><td>Run the script when a card approaches Linea or Infinea magnetic card reader.</br><b>To successfully read the magnetic stripe, the stripe key must be <a href="#stripeKey">set</a></b></td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” properties e.g. [ [ { 	"deviceName": "LineaInfinea", "type": "stripe", "data": "cardholderName¶cardholderFirstName¶cardholderLastName¶accountNumber¶serviceCode¶discretionaryData¶expirationMonth¶expirationYear" } ] ]</td></tr>
+   <tr  class="rev14 rev17" class="rev17"><td class="t2_param">"onBarcodeRead"</td><td>Linea and Infinea</td><td>Run the script when a barcode is just scanned</td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” properties e.g. [ [ { 	"deviceName": "LineaInfinea", "type": "barcode", "barcodeType": "CODE128", "data": "Hello 1d code" } ] ]</td></tr>
+   <tr class="rev14 rev17"><td class="t2_param">"onDataReceived"</td><td>BlueSnap Smart adapter</td><td>Run the script when BlueSnap Smart receives data with CRLF teminator </span>from the RS232 connected  device </td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” properties e.g. [ [ { 	"deviceName": "MIN-0982", "type": "rawData", "data": "ERROR 2" } ] ] </td></tr>
+   <tr class="rev14 rev17"><td class="t2_param">"onWeightReceived"</td><td>BlueSnap Smart adapter</td><td>Run the script when BlueSnap Smart receives data with CRLF teminator </span>from the RS232 connected device
+   </br>and successfully evaluates Regex provided via Gonector_Set with selector "scaleWeightPattern"<br>
+   <b>This event has a priority over "onDataReceived"</b></td><td class="rev18">JSON array containing one or more arrays that contains one or more objects, where each object has at least “deviceName”, “type”, and “data” properties e.g. [ [ { "deviceName": "MIN-0982", "type": "weight", "data": "0.05¶g" } ] ]</span></td></tr>
+
+
+   <tr class="rev24"><td class="t2_param">"onTerminalMessage"</td><td>Ingenico terminals</td><td>Run the script when a terminal <span class="rev25x">sents</span><span class="rev25">sends</span> a message</td><td>JSON array containing one object that contains "deviceName", "type" and "base64Data" or "base64Data" and "data" properties e.g. [ [ { "deviceName": "Link/2500-163637313071041701279653", "type": "terminalMessage", "base64Data": "", "data": "" } ] ]</td></tr>
+
+   <tr class="rev25"><td class="t2_param">"onTransaction<span class="rev25x">Did</span>End"</td><td>Ingenico terminals<span class="rev34"><br>Infinea mPOS</span></td><td>Run the script when a transaction reply arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+ 	[ {
+ 		"deviceName": "Link/2500-163637313071041701279653",
+ 		"type": "transactionDidEndWithTimeoutFlag",
+ 		"replyReceived": true,
+ 		"posNumber": 123,
+ 		"operationStatus": true,
+ 		"Amount": 500,
+ 		"Currency": "203",
+ 		<span class="rev25">"data": "Data converted into string if possible",</span>
+ 	 	"base64Data": "Extra data returned"
+ 	} ]
+ ]<br>
+ Note: operationStatus is set to true in case the received value is 0. Most banks require to check whether replyReceived and operationStatus are both true</td></tr>
+   <tr class="rev24"><td class="t2_param">"onSignaturePrompt"</td><td>Ingenico terminals</td><td>Run the script when a transaction requires a signature. Use <a href="#Gonector_UpdateTransaction">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span></a>( "signature" ; ... ) to submit signature to the terminal</td><td>JSON array containing one object that contains "deviceName", "type", "screenWidth", "screenHeight" and "userSignTimeout" properties e.g. [ [ { "deviceName": "Link/2500-163637313071041701279653", "type": "shouldDoSignatureCapture", "screenWidth": 60, "screenHeight": 40, "userSignTimeout": 10 } ] ]<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+   <tr class="rev24"><td class="t2_param">"onSignatureTimeout"</td><td>Ingenico terminals</td><td>Run a script when the signature was not captured on time</td><td>JSON array containing one object that contains "deviceName" and "type" properties e.g. [ [ { "deviceName": "Link/2500-163637313071041701279653", "type": "signatureTimeoutExceeded" } ] ]<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+
+  <tr class="rev24 rev25x"><td class="t2_param">"onPrintReceipt"</td><td>Ingenico terminals</td><td>Run the script when a transaction was successful</td><td>An image with a receipt to print. Use function Gonector_Set( "imageWidth" ; ... ) to set the width of the images to receive. Default width is 640<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+
+   <tr class="rev25"><td class="t2_param">"onReceiptText"</td><td>Ingenico terminals</td><td>Run the script when an order to print a receipt arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+    	[{
+    		"deviceName": "Link/2500-163637313071041701279653",
+    		"type": "shouldPrintText",
+    		"data": "RECEIPT",
+    		"fontName": "",
+    		"fontFamily": "",
+    		"alignment": "left",
+    		"xScaling": 1,
+    		"yScaling": 1,
+    		"underline": false,
+    		"bold": false
+
+    	}]
+    ]<br>
+ Alignment: "left", "center", "right", "justified" (Fully-justified. The last line in a paragraph is natural-aligned) and "natural" (Indicates the default alignment for script)<br>
+ <b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+    <tr class="rev25"><td class="t2_param">"onReceiptImage"</td><td>Ingenico terminals</td><td>Run the script when an order to print a receipt arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+    	[{
+    		"deviceName": "Link/2500-163637313071041701279653",
+    		"type": "shouldPrintImage",
+    		"imageType": "image/png",
+    		"base64Data": "Base64 encoded image"
+
+    	}]
+    ]<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+    <tr class="rev25"><td class="t2_param">"onReceiptFeedPaper"</td><td>Ingenico terminals</td><td>Run the script when an order to print a receipt arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+    	[{
+    		"deviceName": "Link/2500-163637313071041701279653",
+    		"type": "shouldFeedPaperWithLines",
+    		"lines": 2
+
+    	}]
+    ]<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+	<tr class="rev25"><td class="t2_param">"onReceiptCutPaper"</td><td>Ingenico terminals</td><td>Run the script when an order to print a receipt arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+    	[{
+    		"deviceName": "Link/2500-163637313071041701279653",
+    		"type": "shouldCutPaper"
+
+    	}]
+    ]<br>
+    <b>This is the last callback of the receipt</b><br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+
+    <tr class="rev25"><td class="t2_param">"onReceiptStart"</td><td>Ingenico terminals</td><td>Run the script when an order to print a receipt arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+    	[{
+    		"deviceName": "Link/2500-163637313071041701279653",
+    		"type": "shouldStartReceipt"
+    		"receiptType": 0
+
+    	}]
+    ]<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+
+    <tr class="rev25"><td class="t2_param">"onReceiptEnd"</td><td>Ingenico terminals</td><td>Run the script when an order to print a receipt arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+    	[{
+    		"deviceName": "Link/2500-163637313071041701279653",
+    		"type": "shouldEndReceipt"
+
+    	}]
+    ]<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+
+    <tr class="rev25"><td class="t2_param">"onReceiptAddSignature"</td><td>Ingenico terminals</td><td>Run the script when an order to print a receipt arrived from a terminal</td><td>JSON array containing one object e.g.
+    [
+    	[{
+    		"deviceName": "Link/2500-163637313071041701279653",
+    		"type": "shouldAddSignature"
+
+    	}]
+    ]<br><b class="rev26">Note: This functionality will be implemented but not tested</b></td></tr>
+
+
+    <tr class="rev34">
+    	<td class="t2_param">"onlineProcessingRequired"</td>
+    	<td>Infinea mPOS</td>
+    	<td><span class="rev35">Run script when terminal requests online processing, script will receive data to be sent as parameter</span><span class="rev35x">Run the script when an order to print a receipt arrived from a terminal</span></td>
+    	<td>JSON array containing data e.g.
+		"[
+			[
+				{
+					"AMOUNT_AUTHORISED_BINARY":"00003039",
+					"AMOUNT_AUTHORISED_NUM":"0000000012345",
+					"APP_CRYPTOGRAM":"D37F0B7FA01FD5F2",
+					"AIP":"3C00",
+					"ATC":"008A",
+					"PAN_SEQUENCE_NUMBER":"01",
+					"ISSUER_APP_DAT":"06010A03A0E800",
+					"TERMINAL_COUNTRY_CODE":"0100",
+					"TVR":"08C0248000",
+					"TRANSACTION_DATE":"181127",
+					"TRANSACTION_TYPE":"00",
+					"UNPREDICTABLE_NUMBER":"6AFAA376",
+					"RISK_AMOUNT":"00003039",
+					"TERMINAL_CAPABILITIES":"",
+					"CRYPT_INFO_DATA":"80",
+					"EXPIRY_DATE":"170228",
+					"TRANSACTION_CURR_CODE":"0840"
+				}
+			]
+		]"
+		</td>
+    </tr>
+
+</table>
+<p><b>Some scales (such as tested LESAK J1-RWP)  have to be manually <a href="Device_Manuals/Scales_Manual.html">configured</a> to enable this feature.</b>
+</p>
+
+
+<h4>Description</h4>
+<p>Plugin calls the script on the first occasion when the FileMaker enters "idle" state. Increase speed of event callbacks the plugin can also call itself through an URL. To setup this please check following <a href="#setupUrl">guide</a>.<br/><b>The plugin has a buffer of one event per category and device. In case the device sends more data then the operation system can handle into the same category the incoming data is deleted. As soon as the queue is emptied by the script performer the next incoming data is stored for an event again.</b><br>
+For every event the deviceName will be sent back as a first script parameter "MIN-7943¶".
+</p>
+
+<h4>Result</h4>
+<p>Function returns 0 in case of success. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_SetScriptEvent( "000666D0252F" ; <span class="rev18">"onTagAttach"</span> ; "My FileMaker Script" )</span><br>
+FileMaker script "My FileMaker Script" is called every time a tag approaches RFID sensor.
+You can get the ID of the tag by using FileMaker function <a href="http://www.filemaker.com/help/12/fmp/html/func_ref2.32.70.html">Get(ScriptParameter)</a> in the script.
+</p>
+<p><span class="syntax_hl">Gonector_SetScriptEvent( "LineaInfinea" ; event ; "" )</span><br/>
+This removes an event.</p>
+<p><span class="syntax_hl">Gonector_SetScriptEvent( "LineaInfinea" ; "" ; "" )</span><br/>
+This removes all events.</p>
+<p class="rev14"><span class="syntax_hl">Gonector_SetScriptEvent( "MIN-7943" ; "onDataReceived" ; "myScript" )</span><br/>
+This installs an event to call the script myScript with data events.</p>
+<p class="rev14"><span class="syntax_hl">Gonector_SetScriptEvent( "MIN-7943" ; "onWeightReceived" ; "myScript" )</span><br/>
+This installs an event to call the script myScript with weight events.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+<h3 id="Gonector_Read">Gonector_Read( deviceName { ; selector { ; options<span class="rev29 rev35x"> { ; extra }</span> } } )</h3>
+<p class="f_intro">Reads data from a device.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">selector</td><td>Used to specify the request</td></tr>
+  <tr valign="top"><td class="t_param">options</td><td>Additional selector for some requests</td></tr>
+  <tr valign="top" class="rev29"><td class="t_param">extra</td><td>For Infinea mPos only, enter total amount (in cents e.g.: 5.00 has to be entered as 500)</td></tr>
+
+
+</table>
+
+<h4>Possible values for selector:</h4>
+<table>
+  <tr><td><i>Selector</i></td><td><i>Supported device</i></td><td><i>Description</i></td></tr>
+<tr class="rev14 rev17x">
+	<td>"single"  </td>
+	<td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span><br>Scale<br>iPhone<br>LineaInfinea (barcodes, RFID cards, magnetic stripes)</td>
+	<td>Read dialog will be shown for iPhone and Linea or Infinea device.<br>This dialog closes after one item read. This is the default</td>
+</tr>
+<tr class="rev17">
+	<td>"single"  </td>
+	<td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span><br>Scale<br>iPhone<br>LineaInfinea<span class="rev29"><br/>mPosInfinea</span></td>
+	<td>Read dialog will be shown for iPhone and Linea or Infinea device.<br>This dialog closes after one item read. This is the default<span class="rev21"></br>Note: Read dialog for iPhone will close after 60 seconds of inactivity and return all read cards</span></td>
+</tr>
+<tr class="rev14 rev17x">
+	<td>"multiple"</td>
+	<td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span><br>iPhone<br>LineaInfinea (barcodes, RFID cards)</td>
+	<td>Read dialog will be shown for iPhone and Linea or Infinea device.</br>This dialog closes when "Done" button is hit</td>
+</tr>
+<tr class="rev17"><td>"multiple"</td>
+	<td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span><br>iPhone<br>LineaInfinea<span class="rev29"><br/>mPosInfinea</span></td>
+	<td>Read dialog will be shown for iPhone and Linea or Infinea device.</br>This dialog closes when "Done" button is hit<span class="rev21"></br>Note: Read dialog for iPhone will close after 60 seconds of inactivity and return all read cards</span></td>
+</tr>
+<tr class="rev14 rev17x">
+	<td>"unique"  </td><td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span><br>iPhone<br>LineaInfinea (barcodes, RFID cards)</td>
+	<td>Read dialog will be shown for iPhone and Linea or Infinea device.</br>This dialog closes when "Done" button is hit.<br>
+The plugin guarantees that no value will be returned twice</td>
+</tr>
+<tr class="rev17">
+	<td>"unique"  </td>
+	<td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span><br>iPhone<br>LineaInfinea<span class="rev29"><br/>mPosInfinea</span></td>
+	<td>Read dialog will be shown for iPhone and Linea or Infinea device.</br>This dialog closes when "Done" button is hit.<br>
+The plugin guarantees that no value will be returned twice<span class="rev21"></br>Note: Read dialog for iPhone will close after 60 seconds of inactivity and return all read cards</span></td>
+</tr>
+
+<tr class="rev14">
+	<td>"last"</td><td><span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span><br>Scale<br>iPhone<br>LineaInfinea (barcodes, RFID cards, magnetic stripes)<span class="rev29"><br/>mPosInfinea</span></td>
+	<td>Returns the last value received from the device<br>
+<b>Data from magnetic stripe is only kept for 10 seconds to match the PCI compliance</b></td>
+</tr>
+</table>
+<p><b>Some scales (such as tested LESAK J1-RWP)  have to be manually <a href="Device_Manuals/Scales_Manual.html">configured</a> to enable this function.</b><br>
+
+</p>
+<h4>Possible values for options:</h4>
+
+<table>
+  <tr><td><i>Options</i></td><td><i>Supported device</i></td><td><i>Description</i></td></tr>
+  <tr class="rev14 rev20">
+  	<td>"stripe"</td>
+  	<td>LineaInfinea<span class="rev29 rev36x"><br/>mPosInfinea</span></td>
+  	<td>Reads a magnetic stripe. <b>To successfully read the magnetic stripe, a stripe key must be <a href="Device_Manuals/LineaInfinea_Manual.html#security">set</a></b></td>
+  </tr>
+  <tr class="rev14">
+  	<td>"rfidCard"</td>
+  	<td>LineaInfinea<span class="rev29"><br/>mPosInfinea</span></td>
+  	<td>Reads an RFID card</td></tr>
+  <tr class="rev14">
+  	<td>"barcode"</td>
+  	<td>LineaInfinea<span class="rev29"><br/>mPosInfinea</span></td>
+  	<td>Reads a barcode</td>
+  </tr>
+  <tr class="rev29 rev34x">
+  	<td>"smartCard"</td>
+  	<td>mPosInfinea</td>
+  	<td><span class="rev30x">Reads a smart card.</span><span class="rev30"> Returns data which has to be sent to payment processor to complete a payment.</span> This option can be used only with selector "single".</td>
+  </tr>
+
+
+ </table>
+
+<div class="rev14">
+  <h4>Read dialog example:</h4><br>
+  <img src="pictures/readDialog.png" width=200 />
+</div>
+
+<h4>Description</h4>
+<p>Plugin sends a request to one of the supported devices to respond with data.</p>
+
+<h4>Result</h4>
+<p class="rev18">Function returns JSON string if everything is OK. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.<br>
+The JSON string contains an array of items read (cards, tags…). The items are wrapped in arrays which contain one or more objects. Each object represents one chunk of items data (e.g. in case of localised rfid cards one object would be for data in English and another object for data in German). Each object has at least “type” and “data” or “base64Data” properties.</p>
+
+
+<h4>Examples</h4>
+<p class="rev14 rev17"><span class="syntax_hl">Gonector_Read( "<span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span> R1170" ; "multiple" )</span><br>
+This returns a JSON string such as [ [ {
+		"type": "<span class="rev16x">qIDMini</span><span class="rev16">qIDmini</span>Tag",
+		"data": "123456"
+	},
+	{
+		"type": "<span class="rev16x">qIDMini</span><span class="rev16">qIDMini</span>Tag",
+		"data": "654321"
+	}
+] ] or "?" in case of an error.</p>
+<p class="rev14 rev17"><span class="syntax_hl">Gonector_Read( "MIN-7943" )</span><br>
+This returns a JSON string such as [ [ {
+	"type": "weight",
+	"data": "0.05¶g"
+} ] ] or [ [ {
+	"type": "rawData",
+	"data": "ERROR 2"
+} ] ] or "?" in case of an error.</p>
+<p class="rev14 rev17"><span class="syntax_hl">Gonector_Read( "LineaInfinea" ; "single" ; "stripe" )</span><br>
+This returns a JSON string such as [ [ {
+	"type": "stripe",
+	"data": "cardholderName¶cardholderFirstName¶cardholderLastName¶accountNumber¶serviceCode¶discretionaryData¶expirationMonth¶expirationYear"
+} ] ] or "?" in case of an error.</p>
+<p class="rev14 rev17"><span class="syntax_hl">Gonector_Read( "LineaInfinea" ; "last" ; "rfidCard" )</span><br>
+This returns a JSON string such as [ [
+ {
+    "language": "en",
+	"type": "ndefText",
+	"data": "Hello",
+	"deviceName": "LineaInfinea"
+ },
+ {
+    "language": "cs",
+	"type": "ndefText",
+	"data": "Vítejte",
+	"deviceName": "LineaInfinea"
+ }
+ ], [
+  {
+	"type": "image/jpeg",
+	"base64Data": "SGVsbG8="
+}
+ ] ] or "?" in case of an error.</p>
+<p class="rev14 rev17"><span class="syntax_hl">Gonector_Read( "LineaInfinea" ; "unique" ; "barcode" )</span><br>
+This returns a JSON string such as [ [ { 	"deviceName": "deviceName", "type": "barcode", "barcodeType": "CODE128", "data": "Hello 1d code" }, { 	"deviceName": "deviceName", "type": "barcode", "barcodeType": "QRCODE", "data": "Hello 2d code" } ] ] or "?" in case of an error.</p>
+<p class="rev14 rev17"><span class="syntax_hl">Gonector_Read( "iPhone" )</span><br>
+This returns a JSON string such as [ [ {
+	"type": "text/plain",
+	"data": "Hello"
+} ] ] or "?" in case of an error.</p>
+
+</div>
+
+<p class="rev29 rev34x"><span class="syntax_hl">Gonector_Read("mPosInfinea" ; "single" ; "smartCard" ; "5000")</span><br/>
+<span class="rev30">
+Attempts to read from card. After entering PIN code (if required) card will return following data:
+"[ [ {"AMOUNT_AUTHORISED_BINARY":"00003039", "AMOUNT_AUTHORISED_NUM":"0000000012345",
+"APP_CRYPTOGRAM":"D37F0B7FA01FD5F2", "AIP":"3C00", "ATC":"008A", "PAN_SEQUENCE_NUMBER":"01", "ISSUER_APP_DAT":"06010A03A0E800", "TERMINAL_COUNTRY_CODE":"0100", "TVR":"08C0248000",
+"TRANSACTION_DATE":"181127", "TRANSACTION_TYPE":"00", "UNPREDICTABLE_NUMBER":"6AFAA376", "RISK_AMOUNT":"00003039", "TERMINAL_CAPABILITIES":"", "CRYPT_INFO_DATA":"80", "EXPIRY_DATE":"170228",
+"TRANSACTION_CURR_CODE":"0840" } ] ]"
+</span>
+</p>
+</div>
+
+
+<div>
+<h3 id="Gonector_Write">Gonector_Write( deviceName ; options ; value { ; cardLocking } )</h3>
+<p class="f_intro">Writes data to the device.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">options</td><td>Specific options</td></tr>
+  <tr valign="top"><td class="t_param">value</td><td>The value to be written</td></tr>
+  <tr class="rev14"><td class="t_param">cardLocking</td><td>Can be "lock" or empty string. In case of "lock" read/write card will be locked and cannot be rewritten in the future. Default value is "". </br>
+  <b>This is a one way process. Locked card cannot be unlocked</b></td></tr>
+
+</table>
+
+<h4>Possible values for options:</h4>
+<table>
+  <tr><td><i>Options</i></td><td><i>Supported device</i></td><td><i>Description</i></td></tr>
+<tr valign="top"><td>"rawData"</td><td>LineaInfinea</td><td>Writes raw data onto the card. <span class="rev17">Write dialog will be shown</span></td></tr>
+<tr valign="top"><td>"ndefText"</td><td>LineaInfinea</td><td>Writes an NDEF message formatted as a Well Known text to the NFC card. <span class="rev17">Write dialog will be shown</span></td></tr>
+<tr valign="top"><td>"ndefUri"</td><td>LineaInfinea</td><td>Writes an NDEF message formatted as a Well Known URI to the NFC card according to the RTD. <span class="rev17">Write dialog will be shown</span></td></tr>
+<tr valign="top"><td>"ndefMime"</td><td>LineaInfinea</td><td>Writes an NDEF message formatted as a MIME data to the NFC card. Images and other data based MIME types should be passed as container. <span class="rev17">Write dialog will be shown</span></td></tr>
+
+<tr valign="top" class="rev24"><td>"terminalMessage"</td><td>Ingenico terminals</td><td>Writes a message to the terminal. Catch replies with <a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a></td></tr>
+
+
+</table>
+
+<h4>Description</h4>
+<p>Plugin writes data through the selected device. In case of <a href="https://nfc-forum.org/our-work/specifications-and-application-documents/specifications/nfc-forum-technical-specifications/">NDEF format</a>, the card is formatted so that it is iPhone 7+ readable. <b>The card will be completely rewritten.</b></p>
+
+<h4>Result</h4>
+<p>Function returns 0. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_Write( "LineaInfinea" ; "ndefUri" ; "https://www.24usoftware.com")</span><br>
+This writes an NDEF message as a URI to the present NFC card through the Linea or Infinea device.
+</p>
+<p><span class="syntax_hl">Gonector_Write( "LineaInfinea" ; "ndefMime" ; test::container )</span><br>
+This writes an NDEF message as a MIME to the present NFC card through the Linea or Infinea device.
+</p>
+<p><span class="syntax_hl">Gonector_Write( "LineaInfinea" ; "ndefText" ; "Hello World" ; <span class="rev15x">"on"</span><span class="rev15">"lock"</span>)</span><br>
+This writes an NDEF message as a Text to the present NFC card through the Linea or Infinea device and lock it.
+</p>
+<p class="rev26 rev28x"><span class="syntax_hl">Gonector_Write( "Link/2500-163637313071041701279653" ; "terminalMessage" ; "CMD=READMAGCARD" )</span><br>
+This writes a message to <span class="rev27">Ingenico terminal with ČSOB</span> asking to read a loyalty card.
+</p>
+<p class="rev28"><span class="syntax_hl">Gonector_Write( "Link/2500-163637313071041701279653" ; "terminalMessage" ; "CMD=TERMCAPABILITIES" )</span><br>
+This message to Ingenico terminal with ČSOB asks for list of capabilities.
+</p>
+
+</div>
+
+
+
+
+
+
+<div>
+<h3 id="Gonector_RawCommand">Gonector_RawCommand( deviceName ; value )
+</h3>
+<p class="f_intro">Sends raw data to the BlueSnap Smart device</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">value</td><td>String of the data to be sent</td></tr></table>
+
+<h4>Description</h4>
+<p>This function is used to send raw data to the scale. See the scale's manual to see what kind of messages the scale supports.</p>
+<h4>Result</h4>
+<p>Function returns 0. In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_RawCommand( "MIN-7943" ; "R" )</span><br>
+This command sends RawCommand "R" to the BlueSnap Smart device</p>
+</div>
+
+
+
+
+
+<div class="rev24">
+<h3 id="Gonector_StartTransaction">Gonector_<span class="rev34">StartTransaction</span><span class="rev34x">DoTransaction</span>( deviceName ; amount <span class="rev35"> { </span>; posNumber ; transactionType ; currency ; applicationNumber ; authorization { ; extendedData { ; privateData } } <span class="rev35">} </span>)
+</h3>
+
+<p class="f_intro rev26">Processes a payment transaction through smart POS terminal (currently relevant for Ingenico POS terminals only). Note: annulation is considered a transaction as well.<span class="rev30"> Works with Ingenico device <span class="rev34x">only</span><span class="rev34"> and Infinea mPOS</span>.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr class="rev34"> <th>Parameter name</th>	<th>Description</th>	<th>Mandatory for Ingenico devices?</th>	<th>Mandatory for Infinea mPOS?</th>	</tr>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td>	<td class="rev34">yes</td>	<td class="rev34">yes</td>	</tr>
+  <tr valign="top"><td class="t_param">amount</td><td>Amount of the transaction <span class="rev34x">. 500 means 5.00 with the CSOB Link/2500</span></td>	<td class="rev34">yes</td>	<td class="rev34">yes</td>	</tr>
+  <tr valign="top"><td class="t_param">posNumber</td><td>POS Number</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+  <tr valign="top" class="rev26"><td class="t_param">transactionType</td><td>Character representing transaction type as expected by the specific terminal firmware. In the case of CSOB/Global Payment firmware available during development the valid values for this parameter were: "0" for debit transaction, "1" for credit transaction, "2" for annulation, "3" for duplicata. Actual values you will have to use may vary depending on your terminal’s firmware</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+  <tr valign="top"><td class="t_param">currency</td><td>The currency code in ISO4217 format. E.g. "978" for EUR</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+  <tr valign="top"><td class="t_param">applicationNumber</td><td>The number of the terminal application that should be invoked to handle the transaction. If this parameter is set to 0, the payment application will be implicitly selected</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+  <tr valign="top" class="rev26"><td class="t_param">authorization</td><td>Numeric flag specifying how restrictive the terminal should be when authorizing the transaction. Actual values vary by firmware version. In the case of CSOB/Global Payment firmware available during development the valid values for this flag were 0 for offline authorization, 1 to prefer online authorization, and 2 to require online authorization</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+  <tr valign="top" class="rev29x"><td class="t_param">extendedData</td><td>Certain banks require extended data to be sent. Pass a TLV encoded container or text string. Use function <a href="#Gonector_Prepare">Gonector_Prepare</a> to prepare string into TLV data if needed</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+  <tr valign="top" class="rev29"><td class="t_param">extendedData</td><td>Certain banks require extended data to be sent. Pass a TLV encoded container or text string. Use function <a href="#Gonector_EncodeTLV">Gonector_EncodeTLV</a> to encode string into TLV data if needed</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+  <tr valign="top"><td class="t_param">privateData</td><td>Application specific data to be passed to payment application. Max size 10 bytes</td>	<td class="rev34">yes</td>	<td class="rev34">no</td>	</tr>
+
+  </table>
+
+<h4>Description</h4>
+<p>This function is used to process a transaction.</p>
+
+<h4>Result</h4>
+<p>This function returns always a 0. Use <a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a> to receive the reply.</p>
+
+<h4>Examples</h4>
+<p><span class="syntax_hl">Gonector_<span class="rev34">StartTransaction</span><span class="rev34x">DoTransaction</span>( "Link/2500-163637313071041701279653" ; <span class="rev35x">"1" ;</span> "500" ; <span class="rev35">"1" ;</span> "0" ; "203" ; 0 ; 0 ; "INVOICENUM=0" )</span><br>
+This function call issues a command to the terminal to make a payment of 5<span class="rev35x">,</span>00 CZK on the CSOB version of Ingenico Link/2500.</p>
+</div>
+
+<p class="rev35"><span class="syntax_hl">Gonector_StartTransaction( "Infinea mPOS" ; "5.23" )</span><br>
+This function call issues a command to the terminal to make a payment of 5,23 USD on the Infinea mPOS terminal.</p>
+</div>
+
+
+
+
+<div class="rev24">
+<h3 id="Gonector_UpdateTransaction">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span>( deviceName ; selector ; value )
+</h3>
+
+<p class="f_intro">Submits a request<span class="rev26"><br><b>Note: This function will be implemented but not tested<span class="rev38"> on Ingenico device</span></b></span><span class="rev30">. Works with Ingenico device <span class="rev33">and Infinea mPOS.</span> <span class="rev33x">only.</span></span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">selector</td><td>Selects an action type</td></tr>
+  <tr valign="top"><td class="t_param">value</td><td>The value to be submitted</td></tr>
+
+  </table>
+
+  <h4>Possible values for selector:</h4>
+<table>
+  <tr><td><i>Options</i></td><td><i>Supported device</i></td><td><i>Description</i></td></tr>
+<tr valign="top">
+	<td>"signature"</td>
+	<td>Ingenico terminals</td>
+	<td>Value must be a container containing an image. Use function <a href="#Gonector_ResizeImage">Gonector_ResizeImage</a> to resize the image into the height and width received through <a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a></td>
+</tr>
+
+<tr valign="top" class="rev33">
+	<td>"ARPCresponse"</td>
+	<td>Infinea mPOS</td>
+	<td>String with hexadecimal code representing response from financial institution (e.g. card issuer).</td>
+</tr>
+
+</table>
+
+
+<h4>Description</h4>
+<p>This function is used to submit a request typically received through <a href="#Gonector_SetScriptEvent">Gonector_SetScriptEvent</a>.</p>
+<h4>Result</h4>
+<p>Function returns 0 in case of success. In case of error the function returns "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p class="rev32"><span class="syntax_hl">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span>( "Link/2500-163637313071041701279653" ; "signature" ; test::signature )</span><br>
+This submits a signature from container test::signature.</p>
+
+<p class="rev33"><span class="syntax_hl">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span>( "mPosInfinea" ; "ARPCresponse" ; "C20101E6048A023030" )</span><br>
+This simulates successful response from financial institution. <b>Use this command only for development purposes!</b></p>
+</div>
+
+
+
+
+<h3 class="rev28" id="Gonector_ResizeImage">Gonector_ResizeImage( imageContainer ; width ; height { ; options } )</h3>
+<p class="f_intro rev28">Resize PNG image
+	<span class="rev31">Support function - not dependent on any device.</span>
+	<span class="rev30 rev31x">Works with Ingenico device only.</span>
+</p>
+
+<h4 class="rev28">Parameters</h4>
+<table class="rev28" border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">imageContainer</td><td>FileMaker container with PNG image you want to resize</td></tr>
+  <tr valign="top"><td class="t_param">width</td><td>Width of resized image</td></tr>
+  <tr valign="top"><td class="t_param">height</td><td>Height of resized image</td></tr>
+  <tr valign="top"><td class="t_param">options</td><td>String with parameters separated by "¶". Currently supports "maintainProportions=on", "maintainProportions=off". "maintainProportions=on" is default</td></tr>
+</table>
+<h4 class="rev28">Description</h4>
+<p class="rev28">This function is used to resize images. Use this function to resize image to size expected by <a href="#Gonector_UpdateTransaction">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span></a> function</p>
+<h4 class="rev28">Result</h4>
+<p class="rev28">Function returns FileMaker container with resized image in case of success. In case of error the function returns "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4 class="rev28">Examples</h4>
+<p class="rev28"><span class="syntax_hl">Gonector_ResizeImage( test::signature ; 300 ; 200 )</span><br>
+This will resize image in test::signature container to 300x200 size maintaining its proportions.</p>
+<p class="rev28"><span class="syntax_hl">Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span>( "Link/2500-163637313071041701279653" ; "signature" ; Gonector_ResizeImage( test::signature ; test::expectedWidth ; test::expectedHeight ) )</span><br>
+This will resize signature image in test::signature container to expected size and then it will submit it to the terminal.</p>
+
+
+
+
+
+<h3 class="rev28" id="Gonector_EncodeTLV">Gonector_EncodeTLV( type ; value )</h3>
+<p class="f_intro rev28">
+	<span class="rev31">Support function - not dependent on any device.</span>
+	<span class="rev30 rev31x">Works with Ingenico device only.</span>
+</p>
+<h4 class="rev28">Parameters</h4>
+<table class="rev28" border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">type</td><td>Type of Data. Only one byte type/tag is supported. Constructed TLV is<span class="rev29"> currently</span> not supported</td></tr>
+  <tr valign="top"><td class="t_param">value</td><td>Value of Data</td></tr>
+</table>
+<h4 class="rev28">Description</h4>
+<p class="rev28">This function will TLV encode provided data. This function can be used to encode data for <a href="#Gonector_StartTransaction">Gonector_<span class="rev34">StartTransaction</span><span class="rev34x">DoTransaction</span></a> function</p>
+<h4 class="rev28">Result</h4>
+<p class="rev28">Function returns a FileMaker container with TLV encoded data in case of success. In case of error the function returns "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4 class="rev28">Examples</h4>
+<p class="rev28"><span class="syntax_hl">Gonector_EncodeTLV( 12 ; "INVOICENUM=0|ADDTEXT01=HELLO" )</span><br>
+This will encode value "INVOICENUM=0|ADDTEXT01=HELLO" and type "12" into TLV data.</p>
+
+
+
+
+
+<h3 class="rev28" id="Gonector_DecodeTLV">Gonector_DecodeTLV( tlvContainer )</h3>
+<p class="f_intro rev28">Decode TLV encoded container based on X.690
+	<span class="rev31">Support function - not dependent on any device.</span>
+	<span class="rev30 rev31x">Works with Ingenico device only.</span>
+</p>
+<h4 class="rev28">Parameters</h4>
+<table class="rev28" border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">tlvContainer</td><td>FileMaker container with TLV encoded (based on X.690) data to be decoded </td></tr>
+</table>
+<h4 class="rev28">Description</h4>
+<p class="rev28">This function will decode TLV data. This function can be used to decode data generated by setScriptEvents "onTransactionEnd" and "onTerminalMessage" from same Terminals</p>
+<h4 class="rev28">Result</h4>
+<p class="rev28">Function returns a JSON with data and type representing the TLV extracted data based on X.690 in case of success. In case of error the function returns "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4 class="rev28">Examples</h4>
+<p class="rev28"><span class="syntax_hl">Gonector_DecodeTLV( Example::tlvContainer )</span><br>
+This will return JSON with decoded TLV data from "Example::tlvContainer" container .</p>
+
+
+
+<div class="rev24 rev28x">
+<h3 id="Gonector_Prepare">Gonector_Prepare( deviceName ; selector ; item { ; parameter1 { ; parameter2 } } )
+</h3>
+
+<p class="f_intro rev25x">Prepares an item for an action</p>
+<p class="f_intro rev25">This function helps to prepare data for specific tasks needed by other functions such as Write("terminalMessage") and Submit("signature")<span class="rev26"><br>Note: This function will be implemented but not tested</span><span class="rev30">. Works with Ingenico device only.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><td class="t_param">deviceName</td><td>Unique name of the device</td></tr>
+  <tr valign="top"><td class="t_param">selector</td><td>Selects a type of preparation</td></tr>
+  <tr valign="top"><td class="t_param">item</td><td>The item to be prepared</td></tr>
+
+  </table>
+
+    <h4>Possible values for selector:</h4>
+<table>
+  <tr><td><i>Options</i></td><td><i>Supported device</i></td><td><i>Description</i></td></tr>
+<tr valign="top"><td>"imageResize"</td><td>Ingenico terminals</td><td>Item must be a container containing an image. Pass width as a parameter1 and height as parameter2</td></tr>
+<tr valign="top"><td>"tlvEncode"</td><td>Ingenico terminals</td><td>Takes a type as a parameter1 and returns a JSON with TLV encoded Base64 data<span class="rev26"> based on X.690</span>. Only one byte type/tag is supported. Constructed TLV is not supported</td></tr>
+<tr valign="top"><td>"tlvDecode"</td><td>Ingenico terminals</td><td>Takes a container with TLV encoded data and returns a JSON with data and type representing the TLV extracted data based on X.690</td></tr>
+<tr valign="top" class="rev25x"><td>"receipt"</td><td>Ingenico terminals</td><td>Pass the input data as an item string and type as a parameter1. Supported types are "CSOB"</td></tr>
+
+</table>
+
+<h4>Description</h4>
+<p>This function is used to prepare data.</p>
+<h4>Result</h4>
+<p class="rev25">Function returns a<span class="rev25"> modified value based on the selector.<br>In case the result is a string it is passed as "data". In case the result is binary then the actual result is passed as "base64Data". The result format is a</span> JSON string such as this:<br>
+[ [ {
+	"deviceName": "",
+	"type": "",
+	"base64Data": "Data returned",
+	"data": "Data returned"
+} ] ]<br>
+In case of error the function will return "?". Use Gonector_Get( "lastError" ) to get the specific error code.</p>
+<h4>Examples</h4>
+<p><ul class="rev26"><b>Example for signature handling:</b>
+		<li>Script Event:<br>
+<span class="syntax_hl">Gonector_SetScriptEvent( "Link/2500-163637313071041701279653" ; "onSignaturePrompt" ; "EVENT - signature" )</span></li>
+		<li>EVENT - signature script:<br>
+		<span class="syntax_hl">Set Variable [ $param ; Value: Get ( ScriptParameter ) ]</span><br>
+		<span class="syntax_hl">Set Variable [ $$width ; Value: JSONGetElement ( JSONGetElement ( JSONGetElement ( $param ; 0 ) ; 0 ) ; "screenWidth" ) ]</span><br>
+		<span class="syntax_hl">Set Variable [ $$height ; Value: JSONGetElement ( JSONGetElement ( JSONGetElement ( $param ; 0 ) ; 0 ) ; "screenHeight" ) ]</span><br>
+		<span class="syntax_hl">Set Variable [ $timeout ; Value: JSONGetElement ( JSONGetElement ( JSONGetElement ( $param ; 0 ) ; 0 ) ; "userSignTimeout" ) ]</span><br>
+		<span class="syntax_hl">Show Custom Dialog [ "Signature needed" ; "Please submit a signature within " & $timeout & " seconds" ]</span></li>
+		<li>PROCESS - submit script:<br>
+		<span class="syntax_hl">Set Variable [ $result ; Value: Gonector_Prepare( "Link/2500-163637313071041701279653" ; "imageResize" ; test::signature ; $$width ; $$height ) ]</span><br>
+		<span class="syntax_hl">Set Variable [ $base64Data ; Value: JSONGetElement ( JSONGetElement ( JSONGetElement ( $result ; 0 ) ; 0 ) ; "base64Data" ) ]</span><br>
+		<span class="syntax_hl">Set Field [ test::signature ; Value: Base64Decode ( $base64Data ; "signature.png" ) ]</span><br>
+		<span class="syntax_hl">Set Variable [ $submitResult ; Value: Gonector_<span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span>( "Link/2500-163637313071041701279653" ; "signature" ; test::signature ) ]</span></li>
+
+		</ul>
+
+</p>
+<p><ul class="rev26"><b>Example for TLV encoding:</b>
+		<li>TLV encode:<br>
+		<span class="syntax_hl">Set Variable [ $result ; Value: Gonector_Prepare( "Link/2500-163637313071041701279653" ; "tlvEncode" ; "INVOICENUM=0|ADDTEXT01=HELLO" ; 12 ) ]</span><br>
+		<span class="syntax_hl">Set Variable [ $base64Data ; Value: JSONGetElement ( JSONGetElement ( JSONGetElement ( $result ; 0 ) ; 0 ) ; "base64Data" ) ]</span><br>
+		<span class="syntax_hl">Set Field [ test::container ; Value: Base64Decode ( $base64Data ; "binary" ) ]</span><br></li>
+		<li>TLV decode:<br>
+		<span class="syntax_hl">Set Variable [ $result ; Value: Gonector_Prepare( "Link/2500-163637313071041701279653" ; "tlvDecode" ; test::container ) ]</span><br>
+		<span class="syntax_hl">Set Variable [ $decodedString ; Value: JSONGetElement ( JSONGetElement ( JSONGetElement ( $result ; 0 ) ; 0 ) ; "data" ) ]</span></li>
+
+		</ul>
+		</p>
+</div>
+
+
+
+
+
+
+<div>
+<h2 >5. Registered Custom Script Steps</h2>
+<ul>
+  <li class="rev14"><a href="#Gonector_Register">Gonector Register</a></li>
+  <li><a href="#Gonector_Connect">Gonector Connect</a></li>
+  <li><a href="#Gonector_Disconnect">Gonector Disconnect</a></li>
+  <li><a href="#Gonector_Set">Gonector Set</a></li>
+  <li><a href="#Gonector_PrintText">Gonector PrintText</a></li>
+  <li><a href="#Gonector_PrintImage">Gonector PrintImage</a></li>
+  <li><a href="#Gonector_PrintCode">Gonector PrintCode</a></li>
+  <li><a href="#Gonector_SetScriptEvent">Gonector SetScriptEvent</a></li>
+  <li><a href="#Gonector_Read">Gonector Read</a></li>
+  <li><a href="#Gonector_Write">Gonector Write</a></li>
+  <li class="rev14"><a href="#Gonector_RawCommand">Gonector RawCommand</a></li>
+  <li class="rev24"><a href="#Gonector_StartTransaction">Gonector <span class="rev34">StartTransaction</span><span class="rev34x">DoTransaction</span></a></li>
+  <li class="rev24"><a href="#Gonector_UpdateTransaction">Gonector <span class="rev34">UpdateTransaction</span><span class="rev34x">Submit</span></a></li>
+
+</ul>
+</div>
+
+
+
+
+<h2>6. Guides</h2>
+
+<h4 id="setupUrl">Setup to send data for SetScriptEvent faster</h4>
+<ul>
+  <li>Open the Info.plist file in Your Xcode project</li>
+  <li>Go to the bottom and click on "+" to insert a new row</li>
+  <li>Select "URL types"</li>
+  <li>Click at the small arrow to uncollapse the list</li>
+  <li>Click at the small arrow next to the Item 0 to uncollapse</li>
+  <li>Double click the empty field next to the "String" and insert "com.24usoftware.plugin" as the URL identifier</li>
+  <li>Click at "+" and select "URL Schemes"</li>
+  <li>Click at the arrow next to the "URL Schemes"</li>
+  <li>Double click the empty field next to the "String" and insert uniqueString (e.g. Your application name) as the URL identifier</li>
+  <li>Build Your Application as usually</li>
+  <li class="rev14">Set Your uniqueString via Gonector_Set( "urlScheme" ; uniqueString )</li>
+</ul>
+
+
+
+<a name="error" />
+<h2>7. Gonector error codes</h2>
+<p>Use Gonector_Get( "lastErrorMessage" ) to get the specific error message</p>
+<table class="rev16" border=0 cellspacing=4 cellpadding=0>
+
+  <tr valign="top"><td class="t2_param">0</td><td class="t2_param">No error</td><td>All requested actions were successful</td></tr>
+  <tr valign="top"><td class="t2_param">-4</td><td class="t2_param">Feature not implemented</td><td>The requested feature is not implemented</td></tr>
+
+  <tr valign="top"><td class="t2_param">-10</td><td class="t2_param">RawCommand failed</td><td>Could not send data to device</td></tr>
+  <tr valign="top"><td class="t2_param">-11</td><td class="t2_param">Scale is not configured</td><td>Scale is not configured, please use Gonector_Set with "scaleReadCommand" and "scaleWeightPattern" selectors to configure scale</td></tr>
+  <tr valign="top"><td class="t2_param">-12</td><td class="t2_param">Invalid regex</td><td>Provided pattern is not regex</td></tr>
+  <tr valign="top"><td class="t2_param">-13</td><td class="t2_param">Scale is in config mode</td><td>Scale is in configuration mode, please finish your configuration before using device.</td></tr>
+
+   <tr valign="top"><td class="t2_param">-20</td><td class="t2_param">CUTTER ERROR</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-21</td><td class="t2_param">EEPROM ERROR</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-22</td><td class="t2_param">FFPRESSED</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-23</td><td class="t2_param">OVERVOLTAGE</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-24</td><td class="t2_param">LFPRESSED</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-25</td><td class="t2_param">NEAR PAPER END</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-26</td><td class="t2_param">HEAD UP</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-27</td><td class="t2_param">COVER OPEN</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-28</td><td class="t2_param">NO PAPER</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-29</td><td class="t2_param">OVERTEMPERATURE</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-30</td><td class="t2_param">PAPER JAM</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-31</td><td class="t2_param">PAPER ROLLING</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-32</td><td class="t2_param">RAM ERROR</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-33</td><td class="t2_param">SPOOLING</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-34</td><td class="t2_param">TICKET OUT</td><td>Printer specific error, please refer to device manual for more informations</td></tr>
+   <tr valign="top"><td class="t2_param">-35</td><td class="t2_param">Invalid character in text</td><td>Text contains characters outside supported Extended ASCII character set</td></tr>
+   <tr valign="top"><td class="t2_param">-36</td><td class="t2_param">Printer error</td><td>Printer indicates that the printing command failed. Use Gonector_Get( "lastErrorMessage" ) to get the specific error message</td></tr>
+   <tr valign="top"><td class="t2_param">-37</td><td class="t2_param">Printer status error</td><td>Printer indicates that it is not able to function properly. Use Gonector_Get( "lastErrorMessage" ) to get the specific error message</td></tr>
+  <tr class="rev18"><td class="t2_param">-40</td><td class="t2_param">Linea Infinea Error</td><td>Indicates an error on the Linea or Infinea device. Use Gonector_Get( "lastErrorMessage" ) to get the specific error message</td></tr>
+  <tr class="rev37"><td class="t2_param">-41</td><td class="t2_param">Linea Infinea Error</td><td>Requested amount for transaction is too high.</td></tr>
+  <tr valign="top"><td class="t2_param">-50</td><td class="t2_param">Wrong parameters</td><td>Plugin was called with wrong parameters</td></tr>
+  <tr valign="top"><td class="t2_param">-51</td><td class="t2_param">Device not connected</td><td>The device is not connected</td></tr>
+  <tr valign="top"><td class="t2_param">-52</td><td class="t2_param">Device already connected</td><td>The device is already connected</td></tr>
+  <tr valign="top"><td class="t2_param">-53</td><td class="t2_param">Device not supported</td><td>Selected device is not supported</td></tr>
+  <tr valign="top"><td class="t2_param">-54</td><td class="t2_param">Operation timeout</td><td>Last funcion timeout, please check device and try again later</td></tr>
+  <tr valign="top"><td class="t2_param">-55</td><td class="t2_param">Invalid device type</td><td>Provided device type is not supported</td></tr>
+  <tr valign="top"><td class="t2_param">-56</td><td class="t2_param">Invalid device name</td><td>Could not find device with provided name, use Gonector_Set with "devices" selector to get available devices</td></tr>
+  <tr valign="top"><td class="t2_param">-57</td><td class="t2_param">Invalid read mode</td><td>Provided read mode is not supported</td></tr>
+  <tr valign="top"><td class="t2_param">-58</td><td class="t2_param">Invalid read type</td><td>Provided read type is not supported</td></tr>
+  <tr valign="top"><td class="t2_param">-59</td><td class="t2_param">Invalid print type</td><td>Provided print mode is not supported</td></tr>
+  <tr valign="top"><td class="t2_param">-60</td><td class="t2_param">Firmware version not available</td><td>Could not get firmware version</td></tr>
+  <tr valign="top"><td class="t2_param">-61</td><td class="t2_param">Software version not available</td><td>Could not get software version</td></tr>
+  <tr valign="top" class="rev24"><td class="t2_param">-70</td><td class="t2_param">Ingenico device error</td><td>Indicates an error on an Ingenico device. Use Gonector_Get( "lastErrorMessage" ) to get the specific error message</td></tr>
+  <tr valign="top"><td class="t2_param">-80</td><td class="t2_param">Unknown error</td><td>Use Gonector_Get( "lastErrorMessage" ) to get the specific error message</td></tr>
+
+
+    <!-- snlib codes <24001;24019> -->
+<tr valign="top"><td class="t2_param">24001</td><td class="t2_param">Demo mode expired</td><td>If you want to keep using the plugin, you must register it or buy it for particular environment</td></tr>
+<tr valign="top"><td class="t2_param">24002</td><td class="t2_param">Product expired</td><td>Trial period is over. If you want to keep using the product, you must buy it for particular environment</td></tr>
+<tr valign="top"><td class="t2_param">24003</td><td class="t2_param">SN limit was met</td><td>The serial number is already registered on too many computers</td></tr>
+<tr valign="top"><td class="t2_param">24004</td><td class="t2_param">Product is dead</td><td>The product expired and cannot be used any more. Please download the new version from 24U Software</td></tr>
+<tr valign="top"><td class="t2_param">24005</td><td class="t2_param">Invalid serial number</td><td>Serial number you entered is not valid</td></tr>
+<tr valign="top"><td class="t2_param">24006</td><td class="t2_param">Activation failed</td><td>Activation failed probably due to some network error. Please, check your connection to the internet and try again later</td></tr>
+<tr valign="top"><td class="t2_param">24007</td><td class="t2_param">Deactivation failed</td><td>Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later</td></tr>
+<tr valign="top"><td class="t2_param">24008</td><td class="t2_param">Unknown serial number</td><td>The given serial number cannot be used for the current product. It has been stored so that other product can try to use it</td></tr>
+<tr valign="top"><td class="t2_param">24009</td><td class="t2_param">Blacklisted serial number</td><td>The given serial number has been blacklisted and cannot be used anymore. Please, contact 24U Support if you need more information</td></tr>
+</table>
+
+</body>
+</html>

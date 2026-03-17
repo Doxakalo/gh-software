@@ -1,0 +1,218 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}{_pages.customapps.metadata.title}{/block}
+{block description}{_pages.customapps.metadata.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.customapps.metadata.og.title}{/capture}
+        {capture $description}{_pages.customapps.metadata.og.description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/custom-apps/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/custom-apps/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/custom-apps/og_images/og_image_3.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/custom-apps/og_images/og_image_4.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover default extended has-video inner-tabs">
+    <div class="video-container overlay overlay-light cover-parallax">
+
+        {if $detect['platformDevice'] === "tablet"}
+            {var $videoResolution = "1024"}
+        {elseif $detect['platformDevice'] === "phone"}
+            {var $videoResolution = "640"}
+        {else}
+            {var $videoResolution = "1920"}
+        {/if}
+        <video class="video-js" playsinline
+               data-setup='{
+					"controls": false,
+					"autoplay": {if $detect['isFirefox'] === "true"}"true"{else}"muted"{/if},
+					"preload": false,
+					"loop": "loop",
+					"aspectRatio":"16:9",
+					"fluid": true
+				   }'
+               poster="{$basePath}/video/custom-apps/custom_apps_preview_{$videoResolution}.jpg?v=1">
+            <source src="{$basePath}/video/custom-apps/custom_apps_header_{$videoResolution}.mp4?v=1" type="video/mp4">
+            <source src="{$basePath}/video/custom-apps/custom_apps_header_{$videoResolution}.webm?v=1" type="video/webm">
+            <div class="vjs-no-js" style="background-image: url('{$basePath}/video/custom-apps/custom_apps_preview_{$videoResolution}.jpg')"></div>
+        </video>
+    </div>
+    <div class="container cover-content">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        {_pages.customapps.default.header-title|noescape}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover inner-tabs hide@tablet hide@mobile">
+    <div class="tabs hide@tablet hide@mobile">
+        <div class="container">
+            <div class="row row-align-center row-full@tablet row-full@mobile">
+                <div class="tab divider">
+                    <a n:href="FileMakerConsulting:default">
+                        <h2>{_pages.customapps.default.service-tabs.effeciency.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.effeciency.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab divider">
+                    <a n:href="Company:default#technology">
+                        <h2>{_pages.customapps.default.service-tabs.technology.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.technology.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab divider">
+                    <a n:href="HardwareIntegration:default">
+                        <h2>{_pages.customapps.default.service-tabs.hw.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.hw.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab divider">
+                    <a n:href="Company:default#certified">
+                        <h2>{_pages.customapps.default.service-tabs.redundancy.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.redundancy.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab">
+                    <a n:href="Company:default#iso">
+                        <h2>{_pages.customapps.default.service-tabs.reliability.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.reliability.text|noescape}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="tabs mobile hide show@tablet show@mobile">
+        <div class="container">
+            <div class="row row-align-center row-full@tablet row-full@mobile">
+                <div class="tab divider">
+                    <a n:href="FileMakerConsulting:default">
+                        <h2>{_pages.customapps.default.service-tabs.effeciency.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.effeciency.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab divider">
+                    <a n:href="Company:default#technology">
+                        <h2>{_pages.customapps.default.service-tabs.technology.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.technology.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab divider">
+                    <a n:href="HardwareIntegration:default">
+                        <h2>{_pages.customapps.default.service-tabs.hw.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.hw.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab divider">
+                    <a n:href="Company:default#certified">
+                        <h2>{_pages.customapps.default.service-tabs.redundancy.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.redundancy.text|noescape}</p>
+                    </a>
+                </div>
+                <div class="tab">
+                    <a n:href="Company:default#iso">
+                        <h2>{_pages.customapps.default.service-tabs.reliability.label}</h2>
+                        <p>{_pages.customapps.default.service-tabs.reliability.text|noescape}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{snippet contactForm}
+    {include '../Components/contact-form-orange.latte', headline => 'false', description => 'false'}
+{/snippet}
+
+<section class="spacing arrow light-blue custom-apps-description">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 text-left@mobile-center">
+                {include custom_apps_example}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="aside-image">
+    <div class="inner-background tile-parallax" style="background-image: url('{$basePath}/img/pages/custom-apps/tracksy-cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-4 prefix-8 gr-12@mobile prefix-0@mobile text-center@mobile-center tile-parallax-inner">
+                {include tracksy}
+                <a n:href="Tools:tracksy" class="button">{_pages.customapps.default.articles.read-more}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="aside-image arrow">
+    <div class="inner-background" style="background-image: url('{$basePath}/img/pages/custom-apps/synetrans_cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-4 gr-6@desktop gr-8@tablet gr-12@mobile text-left@mobile-center">
+                {include synetrans}
+                <a n:href="Stories:synetrans" class="button">{_pages.customapps.default.articles.read-more}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="aside-image">
+    <div class="inner-background tile-parallax" style="background-image: url('{$basePath}/img/pages/custom-apps/jogs_cover_flip.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-4 prefix-8 gr-12@mobile prefix-0@mobile text-center@mobile-center tile-parallax-inner">
+                {include jogs}
+                <a n:href="Stories:jogs" class="button">{_pages.customapps.default.articles.read-more}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="aside-image end">
+    <div class="inner-background" style="background-image: url('{$basePath}/img/pages/custom-apps/led_stripe_cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-4 gr-6@desktop gr-8@tablet gr-12@mobile text-left@mobile-center">
+                {include led_strip}
+                <a n:href="ProductPages:led" class="button">{_pages.customapps.default.articles.read-more}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slider-panel end testimonial-swiper-video">
+    {var $testimonials = [
+        [quote => 'jeff_england', img => $basePath.'/img/testimonials/jeff_england.jpg', video => [id =>'zwsonEo2Go8']],
+        [quote => 'graham_lindsay', img => $basePath.'/img/testimonials/graham_lindsay.jpg', video => [id =>'TCTXNlx5-8I']],
+        [quote => 'duncan_mcdavid', img => $basePath.'/img/testimonials/duncan_mcdavid.jpg', video => [id =>'6cyY3URjoOg']],
+        [quote => 'justin_owen2', img => $basePath.'/img/testimonials/justin_owen.jpg' , video => [id =>'sJ8Fxi96Y3E']],
+        [quote => 'world_wide_distributor'],
+        [quote => 'randy_leclaire', img => $basePath.'/img/testimonials/randy_LeClaire-edited.jpg'],
+    ] }
+    {import '../Components/testimonials.latte'}
+    {include testimonial-swiper, $testimonials}
+</section>

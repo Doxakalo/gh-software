@@ -1,0 +1,233 @@
+body[data-template="homepage"] {
+
+	section {
+		&.main-cover {
+			position: relative;
+			min-height: 200px;
+			background-color: $colorWhite;
+
+			.swiper-slide {
+				background-size: cover;
+				background-position: center;
+				height: 40vw;
+				padding: 0;
+				max-height: 65vh;
+
+				.row.row-align-middle {
+					height: 40vw;
+					max-height: 65vh;
+
+					@include g-state(desktop) {
+						height: 45vw;
+					}
+					@include g-state(tablet) {
+						height: 40vw;
+					}
+
+					@include g-state(mobile) {
+						height: 40vw;
+						min-height: 150px;
+					}
+				}
+
+				@include g-state(desktop) {
+					height: 45vw;
+				}
+				@include g-state(tablet) {
+					height: 40vw;
+				}
+
+				@include g-state(mobile) {
+					height: 40vw;
+					min-height: 150px;
+					padding: 3em 0;
+				}
+				.slide1-adjust_position{
+					@include g-state(mobile) {
+						background-position-x: -155px;
+					}
+				}
+				.slide-text-content {
+					width: 100%;
+					margin-top: -1.45em;
+
+					h1, h2 {
+						margin-bottom: 0;
+						font-weight: 300;
+
+						&.page-title {
+							@include g-state(mobile) {
+								font-size: 1.1em !important;
+							}
+						}
+					}
+				}
+			}
+			.swiper-button-prev,
+			.swiper-button-next {
+				@include g-state(mobile) {
+					display: none;
+				}
+			}
+			.swiper-pagination {
+				bottom: 4em;
+
+				@include g-state(mobile) {
+					bottom: 2em;
+				}
+
+				.swiper-pagination-bullet {
+					background-color: $colorBlue;
+					@include g-state(tablet mobile) {
+						background-color: $colorWhite;
+					}
+
+					&-active {
+						background-color: $colorBlue;
+
+						@include g-state(tablet mobile) {
+							background-color: $colorWhite;
+						}
+					}
+				}
+			}
+		}
+
+		&.slider-panel {
+			position: relative;
+			z-index: 20;
+			background-color: $colorWhite;
+			margin-top: -2.5em;
+			padding: 5.5em 0 6em;
+
+			@include g-state(tablet) {
+				margin-top: (-2.5em * $scaleRatioTablet);
+				padding: 3em 0;
+			}
+
+			@include g-state(mobile) {
+				margin-top: (-2.5em * $scaleRatioMobile);
+				padding: 3em 0;
+			}
+		}
+		
+		&.service-tabs {
+			margin-top: -2.5em;
+			background-color: $colorOrange;
+			text-align: center;
+			position: relative;
+			z-index: 30;
+
+			@include g-state(tablet) {
+				margin-top: (-2.5em * $scaleRatioTablet);
+			}
+
+			@include g-state(mobile) {
+				margin-top: (-2.5em * $scaleRatioMobile);
+			}
+
+			a {
+				@include box-sizing(border-box);
+				padding: 3em 1.8em 6em;
+				text-align: center;
+				position: relative;
+				height: 100%;
+				text-decoration: none;
+				display: block;
+				overflow: hidden;
+				cursor: pointer;
+
+				@include g-state(tablet) {
+					padding: (3em * $scaleRatioTablet) (1.4em * $scaleRatioTablet) (6em * $scaleRatioTablet);
+				}
+
+				@include g-state(mobile) {
+					padding: (3em * $scaleRatioMobile) (3em * $scaleRatioMobile) (6em * $scaleRatioMobile);
+				}
+
+				@include g-state(mobileSmall) {
+					border-bottom: 2px solid $colorWhite;
+					padding: (3em * $scaleRatioMobile) (3em * $scaleRatioMobile) (3em * $scaleRatioMobile);
+
+					&.last {
+						padding: (3em * $scaleRatioMobile) (3em * $scaleRatioMobile) (6em * $scaleRatioMobile);
+					}
+				}
+
+				&.divider {
+					border-right: 1px solid $colorWhite;
+					border-left: 1px solid $colorWhite;
+
+					&.first {
+						border-left: 0;
+						@include g-state(mobile) {
+							border-bottom: 2px solid $colorWhite;
+						}
+					}
+
+					&.last {
+						border-right: 0;
+					}
+
+					@include g-state(mobile) {
+						&.first-mobile {
+							border-left: 0;
+						}
+
+						&.last-mobile{
+							border-right: 0;
+							border-bottom: 2px solid $colorWhite;
+						}
+					}
+					@include g-state(mobileSmall) {
+						border-left: 0;
+						border-right: 0;
+					}
+				}
+				
+				.overlay {
+					@include transition($hoverAnimationDuration all ease-in-out);
+					@include transform(scale(1.1));
+					opacity: 0;
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					background-color: $colorOrange;
+					background-size: cover;
+					background-repeat: no-repeat;
+					z-index: -1;
+				}
+
+				&:hover {
+					.overlay {
+						@include transform(scale(1));
+						opacity: 1;
+					}
+				}
+
+				h2,
+				p {
+					color: $colorWhite;
+					font-weight: $fwNormal;
+				}
+
+				h2 {
+					font-size: 1.6em;
+				}
+
+				img {
+					max-height: 45px;
+					max-width: 75px;
+					margin-bottom: 1em;
+				}
+
+				p {
+					max-width: 10em;
+					margin: 0 auto;
+				}
+			}
+		}
+	}
+}

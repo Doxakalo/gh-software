@@ -1,0 +1,75 @@
+{block title}LogMonitor{/block}
+{block description}To maintain any kind of server efficiently, LogMonitor allows you to get quickly notified when the server needs your immediate attention and NOT notified about things that are not important to you.{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "LogMonitor - Get notified (only) when your server needs your attention",
+            description => "To maintain any kind of server efficiently, LogMonitor allows you to get quickly notified when the server needs your immediate attention and NOT notified about things that are not important to you.",
+            imagePath => "img/pages/tools/logmonitor/icon.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/pages/tools/logmonitor/icon.png" alt="LogMonitor - Icon">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Get notified (only) when your server needs your attention
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <a href="https://github.com/24u/LogMonitor" target="_blank" class="button ga-track-download-file">Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/logMonitor_en.latte'}
+{var $overview = [
+    name => 'overview',
+    ]
+}
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'fmserver', img => $basePath.'/img/pages/tools/logmonitor/notification-iphone.png', 'img_height' => '200' ],
+    [name => 'otherserver', img => $basePath.'/img/pages/tools/logmonitor/config.png', 'img_height' => '350', img_url =>[url => $basePath.'/img/pages/tools/logmonitor/config.png', target => '_blank'] ],
+    [name => 'pushover', img => $basePath.'/img/pages/tools/logmonitor/notification-apple-watch.png', 'img_height' => '350', img_url =>[url => $basePath.'/img/pages/tools/logmonitor/notification-apple-watch.png', target => '_blank'] ],
+    [name => 'notification', img => $basePath.'/img/pages/tools/logmonitor/webserver-digest.png', 'img_height' => '350', img_url =>[url => $basePath.'/img/pages/tools/logmonitor/webserver-digest.png', target => '_blank'] ],
+    [name => 'open_source', img => $basePath.'/img/pages/tools/logmonitor/opensource.png',  'img_height' => "200"  ],
+    [name => 'support',  ],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+{snippet storeForm}
+    {include '../Components/store-section.latte', toolName => $toolName}
+{/snippet}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}

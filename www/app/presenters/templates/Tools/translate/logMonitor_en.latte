@@ -1,0 +1,62 @@
+{block overview-headline}LogMonitor Overview{/block}
+{block overview}
+    <h2>{include overview-headline}</h2>
+    <p>
+        To maintain any kind of server efficiently, LogMonitor allows you to get quickly notified when the server needs your immediate attention and NOT notified about things that are not
+        important to you.
+    </p>
+{/block}
+
+{block fmserver-headline}Watch FileMaker Server{/block}
+{block fmserver}
+    <h2>{include fmserver-headline}</h2>
+    <p>
+        <a n:href="FileMakerLicensing:default">FileMaker Server</a> used to have the option to send e-mail <strong>notifications about errors and warnings</strong>. Version 17 removed the option for warning notifications. With
+        LogMonitor you get
+        this feature back in an even more flexible alternative. You can get notified even about <strong>scripting errors</strong> if they are important for you.
+    </p>
+{/block}
+
+{block otherserver-headline}Watch other server apps{/block}
+{block otherserver}
+    <h2>{include otherserver-headline}</h2>
+    <p>
+        LogMonitor lets you define multiple different log files to monitor and different patterns to look for in the logs, so you can use it to monitor any app that logs important events
+        to a readable text file. LogMonitor is even able to handle log rolling, as long as you can define name pattern for the log files.
+    </p>
+{/block}
+
+{block pushover-headline}Get notified fast via push notifications{/block}
+{block pushover}
+    <h2>{include pushover-headline}</h2>
+    <p>
+        In addition to sending e-mails, LogMonitor can send push notifications to your smart phone via <a href="https://pushover.net" target="_blank">Pushover</a>. You can enable push
+        notifications separately for each pattern, so you can
+        get push notifications for urgent issues and only e-mail notifications about things that do not require immediate attention.
+    </p>
+{/block}
+
+{block notification-headline}Get notified, not spammed{/block}
+{block notification}
+    <h2>{include notification-headline}</h2>
+    <p>
+        LogMonitor does not send an e-mail and push notification for every single log entry that matches your pattern. Instead, it sends a single notification as a digest of all issues it
+        has discovered since last check, sorted by importance.
+    </p>
+{/block}
+
+{block open_source-headline}Open Source Library{/block}
+{block open_source}
+    <h2>{include open_source-headline}</h2>
+    <p>
+        We at 24U believe that not only server admins, but everyone will benefit from server admins being able to address issues efficiently and in timely manner, for instance by experiencing shorter downtimes of our favorite online services, therefore we decided to make LogMonitor available as Open Source, under the GNU LGPLv3 license. We will, of course, appreciate any feedback or suggestions how to make it even better.
+    </p>
+{/block}
+
+{block support-headline}Support{/block}
+{block support}
+    <h2>{include support-headline}</h2>
+    <p>
+        We cannot provide free support for the tool. You may, however, <a href="javascript:void(0);" class="buy-button">hire us</a> to help you with your projects for money.
+    </p>
+{/block}

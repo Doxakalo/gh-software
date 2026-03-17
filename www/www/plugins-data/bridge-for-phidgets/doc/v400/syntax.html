@@ -1,0 +1,940 @@
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+            <script>
+                /* toggle function for long tables etc. */
+                function showItems(className) {
+                    var tags = document.getElementsByTagName('*');
+                    var tcl = " " + className + " ";
+                    for (i = 0, j = 0; i < tags.length; i++) {
+                        var test = " " + tags[i].className + " ";
+                        if (test.indexOf(tcl) != -1) {
+                            if (tags[i].style.display == "none") {
+                                tags[i].style.display = "inline";
+                            }
+                            else {
+                                tags[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            
+            /* Simple highlight toggle only: */
+            function changeColor() {
+                var tags = document.getElementsByTagName('*');
+                var classes = ["rev8", "rev9", "rev10", "rev11"];
+                classes.forEach(function(revclass) {
+                                var tcl = " " + revclass + " ";
+                                for (i = 0, j = 0; i < tags.length; i++) {
+                                var test = " " + tags[i].className + " ";
+                                if (test.indexOf(tcl) != -1) {
+                                if (tags[i].style.backgroundColor == "") {
+                                tags[i].style.backgroundColor = "#FFFFA0";
+                                tags[i].style.color = "black";
+                                }
+                                else {
+                                tags[i].style.backgroundColor = "";
+                                tags[i].style.color = "";
+                                }
+                                }
+                                }
+                                })
+                                classes.forEach(function(revclass) {
+                                                var tcl = " " + revclass + "x ";
+                                                for (i = 0, j = 0; i < tags.length; i++) {
+                                                var test = " " + tags[i].className + " ";
+                                                if (test.indexOf(tcl) != -1) {
+                                                if (tags[i].classList.contains("striked")) {
+                                                tags[i].classList.remove("striked");
+                                                }
+                                                else {
+                                                tags[i].classList.add("striked");
+                                                }
+                                                }
+                                                }
+                                                })
+            }
+            
+            /* New revisioning functions: */
+            function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+                var tags = document.getElementsByTagName('*');
+                var tcl  = " " + targetClasses + " ";
+                for (i = 0, j = 0; i < tags.length; i++) {
+                    var test = " " + tags[i].className + " ";
+                    if (test.indexOf(tcl) != -1) {
+                        if (op=="add") {
+                            tags[i].classList.add(toggleClass);
+                        }
+                        else {
+                            tags[i].classList.remove(toggleClass);
+                        }
+                    }
+                }
+            }
+            
+            function showRevision(revNumber) {
+                var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+                
+                // Reset all to latest revision:
+                for (var i=1; i<max_revisions; i++) {
+                    toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                    toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                    toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                    toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+                }
+                
+                // Highlight current revision:
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+                toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+                
+                // Revert future revisions:
+                for (var i=revNumber+1; i<max_revisions; i++) {
+                    toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                    toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+                }
+            }
+            function showRevisions(revStart, revLast) {
+                var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+                
+                // Reset all to latest revision:
+                for (var i=1; i<max_revisions; i++) {
+                    toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                    toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                    toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                    toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+                }
+                
+                // Highlight all changes from revision revStart to the current revision(revLast):
+                for(var i = revStart; i <= revLast; i++) {
+                    toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "add");
+                    toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "add");
+                }
+                
+                // Revert future revisions:
+                for (var i=revNumber+1; i<max_revisions; i++) {
+                    toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                    toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+                }
+            }
+            
+                </script>
+            <style type="text/css">
+                
+                /* Texts from old revisions are removed by default: */
+                .rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x,
+                .rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }
+                /* Highlighting classes handled by js: */
+                .highlighted { background-color: #FFFFA0; color: black; }
+                .striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }
+                .ignoreStriked { }
+                .highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */
+                li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */
+                span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */
+                td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+                tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+                .hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+                
+                </style>
+            
+            <STYLE TYPE="text/css" MEDIA=screen>
+                <!--
+                h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+                h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+                h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+                h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+                .intro { font-size: 14px; margin-left: 0px }
+                .f_intro { font-size: 12px; margin-left: 0px }
+                .p_hl { color: maroon }
+                .syntax { color: #003200; font-family: monospace; font-size: 12px }
+                .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+                .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+                .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+                .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+                .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+                .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+                table { margin-left: 20px; margin-right: 20px }
+                TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+                TD { font-family: Helvetica, Arial; font-size: 12px }
+                p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+                DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+                
+                .ios {color: black; background-color: pink;}
+                li              { margin: 0.2em 0em ;}
+                xmp             { font-size: 12px; margin-left: 40px; margin-top: 6px; color: darkblue; }
+                table, td, th, tr { border: 1px solid #808080; margin-top:1em; padding:0.3em; border-collapse: collapse; }
+                th                 { font-weight:bold; text-decoration:none;}
+                -->
+                </STYLE>
+
+
+    <title>Bridge for Phidgets 4.0 Syntax</title>
+  </head>
+
+<body>
+<h1>Bridge for Phidgets 4.0 Syntax</h1>
+
+<form>
+	<input type="button" value="Highlight changes in the new version" onclick='javascript: showRevisions(1, 100)'>
+</form>
+
+<h2>Known limitations</h2>
+<ul>
+    <li>iOS version only supports Phidgets through a network connection.</li>
+<li>After using Phidget_Connect( address ; password {; port } ) function device may act as connected even though the communication with plugin may not be set yet. You may want to add Pause into onAttach set script event as workaround. Please see Examples inside Distribution Archive.</li>
+<li>It is not possible to downgrade the plugin through the function Install Plug-In file.</li>
+<li class="rev1 rev8x">To use functions Phiget_Read, Phidget_Write, Phidget_Get, Phidget_Set with FileMaker Server, you have to make sure, that there is a script running in a loop so the the phidgets can stay connected/attached with the library.</li>
+<li class="rev8">To use plugin on FileMaker Server, you have to first run helper application 24UPhidgetManager.</span>
+    <li class="rev1">It is not possible to use function Phidget_SetScriptEvent on FileMaker Server<span class="rev2">. Use instead function Phidget_SetServerEvent.</span></li>
+</ul>
+
+<div class="rev4">
+    <h2>Hosting friendly functionality</h2>
+    <p> In order for plugin function to work on the server you have to create a config file on server and set the read permission to everyone:</p>
+    
+    <ul>
+        <li><b>macOs:</b>&nbsp;/Library/FileMaker Server/<span class="rev6x">Data/Documents/</span><span class="rev6 rev7x">CStore/</span><span class="rev7">Data/24U/</span>24uPluginsAllowedFunctions.txt</li>
+        <li><b>win:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\Program Files\FileMaker\FileMaker Server\<span class="rev6x">Data\Documents\</span><span class="rev6 rev7x">CStore\</span><span class="rev7">Data\24U\</span>24uPluginsAllowedFunctions.txt</li>
+        <li><b>linux:</b>&nbsp;&nbsp;&nbsp;&nbsp;/FileMakerData/<span class="rev6x">Data/Documents/</span><span class="rev6 rev7x">CStore/</span><span class="rev7">Data/24U/</span>24uPluginsAllowedFunctions.txt</li>
+    </ul>
+    <p><span class="rev5x">Toolbox plugin</span><span class="rev5 rev8x">Bridge For Arduino</span><span class="rev8">Bridge For Phidgets</span> functions won't work on server in these cases:</p>
+    <ul>
+        <li class="rev18x">File 24uPluginsAllowedFunctions.txt doesn't exist</li>
+        <li>Plugin doesn't have permission to read 24uPluginsAllowedFunctions.txt</li>
+        <li>The record in the file 24uPluginsAllowedFunctions.txt with the database name and the list of allowed function doesn't exist</li>
+    </ul>
+    <p class="rev18">NOTE: If file 24uPluginsAllowedFunctions.txt doesn't exist -> all functions are enabled.</p>
+    
+    <h3>Format of 24uPluginsAllowedFunctions.txt file</h3>
+    <p>Every line represent one database, first is the name of the database followed by tabulator and then function names separated by '|' (vertical bar).<br />
+    Or name of the database followed by tabulator and then the word "any" if you want to allow all the plugin functions.
+    You can find template of 24uPluginsAllowedFunctions.txt in Examples.</p>
+    
+    <h3>Example</h3>
+    <p>In following example:
+    <ul>
+        <li>Solution MyFileMakerDatabaseOnServer.fmp12 is allowed to use all the functions of any of the 24U plugins</li>
+        <li>Solution MyOtherFileMakerDatabaseOnServer.fmp12 is allowed to use functions Phidget_SetServerEvent and Phidget_Get. Calling function other then those 2 will fail</li>
+        
+        <p>MyFileMakerDatabaseOnServer.fmp12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any<br/>
+        MyOtherFileMakerDatabaseOnServer.fmp12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phidget_SetServerEvent|Phidget_Get</p>
+        
+            
+</div>
+
+<div class="rev15">
+<h2>Registered Custom Script Steps</h2>
+<ul>
+  <li><a href="#Phidget_Register">Phidget Register</a></li>
+  <li><a href="#Phidget_Write">Phidget Write</a></li>
+  <li><a href="#Phidget_Connect">Phidget Connect</a></li>
+  <li><a href="#Phidget_Disconnect">Phidget Disconnect</a></li>
+  <li><a href="#Phidget_Set">Phidget Set</a></li>
+  <li><a href="#Phidget_SetScriptEvent">Phidget SetScriptEvent</a></li>
+  <li class="rev16"><a href="#Phidget_SetServerEvent">Phidget SetServerEvent</a></li>
+
+</ul>
+</div>
+
+<div class="rev15">
+<h2>Registered Calculation Functions</h2>
+<ul class="rev10">
+  <li><a href="#Phidget_Version">Phidget_Version( { versionFormat } )</a></li>
+  <li><a href="#Phidget_Read">Phidget_Read( device ; valueID { ; index } )</a></li>
+  <li><a href="#Phidget_Write">Phidget_Write( device ; valueID ; data { ; index { ; tagProtocol { ; tagLocking } } } )</a></li>
+  <li><a href="#Phidget_SetScriptEvent">Phidget_SetScriptEvent( device ; event/time ; scriptName { ; index { ; changeAmount { ; threshold } } } )</a></li>
+  <li><a href="#Phidget_Get">Phidget_Get( what { ; device ; index } )</a></li>
+  <li><a href="#Phidget_Set">Phidget_Set( what ; value { ; device  ; index } )</a></li>
+  <li><a href="#Phidget_Connect">Phidget_Connect( address ; password {; port })</a></li>
+  <li><a href="#Phidget_Disconnect">Phidget_Disconnect( address )</a></li>
+  <li><a href="#Phidget_Register">Phidget_Register( selector )</a></li>
+  <li><a href="#Phidget_SetServerEvent">Phidget_SetServerEvent( login; password; device ; event/time ; eventType ; layoutName ; tableName/scriptName {; fields/parameters { ; index { ; changeAmount { ; threshold } } } } )</a></li>
+</ul>
+</div>
+
+<h2>Complete syntax of plugin functions</h2>
+
+<h2 id="supportedDevices">Supported Devices</h2>
+<p class="f_intro">You can find all the supported devices in file SupportedDevices.html</p>
+
+<h3 id="Phidget_Version">Phidget_Version ( { versionFormat } )</h3>
+<p class="f_intro">Returns version string of the active 24U Phidgets Plug-In, formatted as requested by the parameter.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">versionFormat</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number</td></tr>
+<tr valign="top"><td class="t2_param">"long"</td><td>To get the plug-in name followed by its version number</td></tr>
+<tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform of the code currently running</td></tr>
+<tr valign="top"><td class="t2_param">"autoupdate"</td><td>To get autoupdate compatible (comparable) version number.</td></tr>
+<tr valign="top"><td class="t2_param">"phidgetlib"</td><td>To get the version of Phidget library</td></tr>
+</table>
+<h4>Examples</h4>
+<p> <span class="syntax_hl">Phidget_Version("phidgetlib")</span><br>
+This will return for example: "Phidget22 - Version 1.3 - Built May 24 2019 10:38:17"</p>
+
+<h3 id="Phidget_Register">Phidget_Register(selector)</h3>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers.<span class="rev16"></br>Also available as a custom script step.</span></p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>Define the type of operation.</td></tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">selector</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top" class=""><td class="t2_param">SerialNumber</td><td>Register given SerialNumber and return an error code.</td></tr>
+<tr valign="top" class=""><td class="t2_param">EmailAddress</td><td>Tries to activate with given email address and return an error code. Not supported in iOS version and will return error -4 Not implemented.</td></tr>
+			<tr valign="top">
+				<td class="t2_param">Hash</td>
+				<td>Activate a serial number with a hash received from 24U. Used for offline activation.</td>
+			</tr>
+<tr valign="top" class=""><td class="t2_param">"Registration window"</td><td>Show the "Registration window" and return 0. Not supported in iOS version and will return error -4 Not implemented.</td></tr>
+<tr valign="top" class=""><td class="t2_param">"About window"</td><td>Show the "About window" and return 0. Not supported in iOS version and will return error -4 Not implemented.</td></tr>
+<tr valign="top" class=""><td class="t2_param">"Status"</td><td>Return the actual registration state of the plugin: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td></tr>
+<tr valign="top" class=""><td class="t2_param">"Unregister"</td><td>Unregister all serial numbers related to the product and return an error code.</td></tr>
+			<tr valign="top">
+				<td class="t2_param">"ActivationChallenge"</td>
+				<td>Returns generated challenge string. This string is sent to 24U.</td>
+			</tr>
+</table>
+
+<h4>Description</h4>
+<p><span class="news_highlight">Use this function to register or unregister 24U Phidgets Plug-In, to get information about current registration state, or to invoke GUI providing basic registration information and purchase capabilities.</span></p>
+
+<h4>Result</h4>
+<p>Returns zero or error code depending on the selector.</p>
+
+<h4>Examples</h4>
+<p> <span class="syntax_hl">Phidget_Register( "address@example.com" )</span><br>
+This will send email on address@example.com for confirmation, if you confirm than you will get trial version on this product verified by this email.</p>
+
+<p> <span class="syntax_hl">Phidget_Register( "PHD40C666-4B7B-37PH-Q2E6-1UKY" )</span><br>
+This will register this product with key: "PHD40C666-4B7B-37PH-Q2E6-1UKY".</p>
+
+<p> <span class="syntax_hl">Phidget_Register( "Unregister" )</span><br>
+This will remove all registered keys. After this call product is no longer registered.</p>
+
+<h3 id="Phidget_Read">Phidget_Read ( device ; valueID { ; index <span class=rev15x>; { extra }</span> } )</h3>
+<p class="f_intro">Reads data from the Phidget.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">device</td><td><a href="#deviceParam">Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be read.</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>Default to 0. Index of the port of IO Phidget or another index information if needed</td></tr>
+<tr valign="top" class="rev15x"><td class="t_param">extra</td><td>Specifies some options for specific Phidget type.</td></tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">valueID</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">valueID</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"inputValue"    </td><td>General</td><td>Returns value of the default input</td></tr>
+<tr valign="top"><td>"inputState"    </td><td>Interface Kit</td><td>Returns the value of the digital input</td></tr>
+<tr valign="top"><td>"sensorValue"   </td><td>Interface Kit</td><td>Returns the value of the analog input or value of a supported VINT sensor</td></tr>
+<tr valign="top"><td>"sensorRawValue"</td><td>Interface Kit</td><td>Returns the raw value of the analog input</td></tr>
+<tr valign="top"><td>"outputState"   </td><td>Interface Kit</td><td>Returns the value of the analog output</td></tr>
+
+<tr valign="top"><td>"outputState"   </td><td>RFID</td><td>Returns the state of the designated digital output</td></tr>
+<tr valign="top"><td>"tag"</td><td>RFID</td><td>Reads the RFID tag value. Note: before reading antenna on device has to be on. See <a href="#phidgetSet">Phidget_Set</a>.<span class="rev15"></br><b>Warning:</b> 24U Phidget Plug-In 1.x compatibility mode is no longer available. If you still maintain tag values that used to be returned by the old version, you may have to re-read the tags before upgrading to this version.</span></td></tr>
+
+<tr valign="top"><td>"motorPosition" </td><td>Servo</td><td>Reads the position of the motor</td></tr>
+
+<tr valign="top"><td>"bridgeValue"   </td><td>Bridge</td><td>Reads the value of port (port has to be enabled)</td></tr>
+
+<tr valign="top"><td>"voltage"</td><td>Analog</td><td>Reads voltage level on port of Phidget Analog</td></tr>
+
+</table>
+
+<div class=rev15x>
+<h4>Parameter values for <span class="p_hl">extra</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><th align="left">extra</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+  <tr>  <td>"autoDetect"</td>  <td>RFID</td>  <td>
+	  Use this flag to autodetect the tag protocol from the tag.
+	  Without this flag, the first 5 characters of the tag content is converted into 10 character long string
+	  to ensure backward compatibility with solutions created for plug-in version 1.x.
+	  <br>Note: all new solutions are recommended to use this flag. </td>  </tr>
+</table>
+</div>
+
+<h4>Description</h4>
+<p>The "General" Phidget Type can be used with all Phidgets. The default input for all Phidgets is the first valueID for each phidget in this list. For example calling <span class="syntax">Phidget_Read( -1 ; "inputValue" )</span> is the same as <span class="syntax">Phidget_Read( -1 ; "motorPosition" )</span> for PhidgetServo.</p>
+<h4>Result</h4>
+<p>Function returns data from Phidget if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Read(-1 ; "inputValue")</span><br>
+The most basic reading. This command will read an "inputValue" from a connected Phidget. If more than one device is connected the plug-in will choose the first device which was connected.</p>
+<p><span class="syntax_hl">Phidget_Read(335882 ; "sensorValue" ; 3)</span><br>
+Reads a value from the fourth sensor of the InterfaceKit. If the field device does not contain correct serial number of the the Interface Kit Phidget (which must be connected in the time of reading) than the function will fail and returns "?".</p>
+<p><span class="syntax_hl">Phidget_Read("335882:3"; "bridgeValue" ; 1)</span><br>
+Reads value from port 1 on Phidget Bridge with Phidget serial number 335882 connected to 3rd VINT port. If the port is disabled or any other error occured than the function will fail and returns "?".</p>
+<p class="rev15x"><span class="syntax_hl">Phidget_Read(335882 ; "tag")</span><br>
+Reads tag value from Phidget RFID.</p>
+
+<p class="rev15x"><span class="syntax_hl">Phidget_Read(335882 ; "tag")</span><br>
+Assume, that tag contains value "hello world!" using protocol PHIDGET. Because "autoDetect" is not used, output value is converted to "68656c6c6f".</p>
+
+<p><span class="syntax_hl">Phidget_Read(335882 ; "tag"<span class="rev15x"> ; 0 ; "autoDetect"</span>)</span><br>
+Assume, that tag contains value "hello world!" using protocol PHIDGET. This returns "hello world!".</p>
+
+
+<h3 id="Phidget_Write">Phidget_Write( device ; valueID ; data { ; index { ; tagProtocol { ; tagLocking } } } )</h3>
+<p class="f_intro">Data to the Phidget are written or set.<span class="rev16"></br>Also available as a custom script step.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">device</td><td><a href="#deviceParam">Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be written</td></tr>
+<tr valign="top"><td class="t_param">data</td><td>Data to write or set. Please use FileMaker number type for numbers and text for strings. The plug-in will try to convert them if necessary.</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>Default to 0. Index of the port of IO Phidget or another index information if needed.</td></tr>
+<tr valign="top"><td class="t_param">tagProtocol</td><td>Default to PHIDGETS. See <a href="#tagProtocol">tag protocols</a> for more information.</td></tr>
+<tr><td class="t_param">tagLocking</td><td>Can be "lock" or empty string. In case of "lock" read/write tag will be locked and cannot be rewritten in the future. Default value is "". </br>
+  <b>This is a one way process. Locked tag cannot be unlocked</b></td></tr>
+
+
+</table>
+<h4>Parameter values for <span class="p_hl">valueID</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">valueID</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"outputState"</td>     <td>General</td><td>Write value to default output</td></tr>
+<tr valign="top"><td>"outputState"</td>     <td>Interface Kit</td><td>Write data to digital output</td></tr>
+<tr valign="top"><td>"outputState"</td>     <td>RFID</td><td>New value to the output is written</td></tr>
+<tr valign="top"><td>"tag"</td> <td>RFID</td><td>New tag is written. Note: antenna has to be turned on before reading. See <a href="#phidgetSet">Phidget_Set</a>.</td></tr>
+<tr valign="top"><td>"motorPosition"</td>   <td>Servo and Stepper</td><td>Sets the new motor position</td></tr>
+<tr valign="top"><td>"displayString"</td><td>TextLCD</td><td>New text to LCD is written on the first row</td></tr>
+<tr valign="top"><td>"voltage"</td><td>Analog</td><td>Allows to set voltage level of given port. Don't forget to enable port in order to make it work.</td></tr>
+
+</table>
+<h4>Description</h4>
+<p>The "General" valueIDs can be used with all sensors. The default output for all Phidgets is the first valueID for each Phidget in this list. For example calling <span class="syntax">Phidget_Write( -1 ; "outputState" ; 20 )</span> is the same as <span class="syntax">Phidget_Write( -1 ; "motorPosition" ; 20 )</span> for PhidgetServo.</p>
+<h4>Result</h4>
+<p>Function returns 0 if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Write(-1 ; "outputState" ; 20)</span><br>
+This will write a value "20" to the first connected phidget if it is possible.</p>
+<p><span class="syntax_hl">Phidget_Write( Device ; "motorPosition" ; 215)</span><br>
+It rotates the servo in PhidgetServo to 215 degrees. Device parameter should contain a valid serial number of connected servo phidget.</p>
+<p><span class="syntax_hl">Phidget_Write( 69418 ; "outputState" ; 1 ; 5)</span><br>
+Sets the sixth output of the interface kit phidget with serial number 69418 to 1.</p>
+<p><span class="syntax_hl">Phidget_Write( 335882 ; "tag" ; "Your text." )</span><br>
+New tag is written. Used tag protocol: PHIDGETS (See <a href="#tagProtocol">tag protocols</a> for more information.)</p>
+<p><span class="syntax_hl">Phidget_Write( Device ; "tag" ; "999123456789012"; 0 ; "ISO11785_FDX_B" )</span><br>
+New tag is written. Used tag protocol: ISO11785_FDX_B (See <a href="#tagProtocol">tag protocols</a> for more information.)</p>
+<p><span class="syntax_hl">Phidget_Write( Device ; "tag" ; "123456789a"; 0 ; "EM4100" )</span><br>
+New tag is written. Used tag protocol: EM4100 (See <a href="#tagProtocol">tag protocols</a> for more information.)</p>
+<p><span class="syntax_hl">Phidget_Write( Device ; "displayString" ; "Hello World!"; 0)</span><br>
+New text is written on the first row. Note: Rows are indexed from zero. If text is not visible, please check backlight, brightness and contrast.</p>
+<p><span class="syntax_hl">Phidget_Write( Device ; "displayString" ; "special chars: "& char(224)  & char(225)  &  char(226)  &  char(227) ; 1) </span><br>
+Special characters on the first row are written. More about special characters can be found <a href="//24usw.com/fzeb">here</a>.</p>
+<p><span class="syntax_hl">Phidget_Write( Device ; "outputState" ; 2,6 ; 1) </span><br>
+Set output voltage to 2,6V on port 1 (assuming this port is enabled).</p>
+
+<h3 id="Phidget_SetScriptEvent">Phidget_SetScriptEvent( device ; event/time ; scriptName { ; index { ; changeAmount { ; threshold } } } )</h3>
+<p class="f_intro">Tell the plug-in to launch the script when specified event is triggered by the Phidget or in specified time intervals. <span class="rev1">This functionality is not implemented for FileMaker Server.</span><span class="rev16"></br>Also available as a custom script step.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">device</td><td><a href="#deviceParam">Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param">event</td><td>The event when the script should be triggered. Use FileMaker text to describe it. I.e. "onSensorChange".</td></tr>
+<tr valign="top"><td class="t_param">time</td><td>The time interval on which the script should trigger. Use FileMaker number i.e. 1.8. Time is in [s]. Time must be a positive number. Setting time lower than 1 s is not recommended.</td></tr>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of script which should be triggered. The script will receive a parameter which will contain at least Device on the first row. More values can be added depending on the event.</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>The index of analog input or output to trigger the script. The script will be triggered only if the value will exceed changeAmount. If omitted the script will be triggered every time when any of inputs/outputs are changed regardless of its number.</td></tr>
+<tr valign="top"><td class="t_param">changeAmount</td><td>The amount of change that should exist between the last reported value and the current value before an event triggers. The default is 1. This cannot be changed for binary inputs or outputs. Use FileMaker number.
+Param changeAmount can be used only on onSensorChange event, it is ignored on other events.
+</td></tr>
+<tr valign="top"><td class="t_param">threshold</td><td>The script will not be triggered until the sensor value exceeds threshold. Use it as a simple noise filter. It has no meaning for binary inputs/outputs. The default value is 0 - no filtering.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">event</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">event</th><th align="left">Phidget type</th><th align="left">Description</th><th align="left">Script is given parameters (return-delimited):</th></tr>
+<tr valign="top"><td>"onAttach"     </td><td>General</td><td>Run the script when some phidget is attached. Device must be set to "all".</td><td>
+      <a href="#deviceParam">device</a></td></tr>
+<tr valign="top"><td>"onDetach"     </td><td>General</td><td>Run the script when some phidget is detached. Device must be set to "all".</td><td>
+     <a href="#deviceParam">device</a></td></tr>
+<tr valign="top"><td>"onInputChange"</td><td>General</td><td>Run the script when default input is changed</td><td>
+      <a href="#deviceParam">device</a> index value </td></tr>
+<tr valign="top"><td>"onInputChange"</td><td>Interface Kit</td><td>Run the script when digital input is changed</td><td>
+      <a href="#deviceParam">device</a> index value </td></tr>
+<tr valign="top"><td>"onSensorChange"</td><td>Interface Kit</td><td>Run the script when the value from connected sensor or VINT sensor is changed. The amount can be set by the changeAmount.</td><td>
+      <a href="#deviceParam">device</a> index value </td></tr>
+<tr valign="top"><td>"onOutputChange"</td><td>Interface Kit</td><td>Run the script when output is changed</td><td>
+      <a href="#deviceParam">device</a> index value </td></tr>
+<tr valign="top"><td>"onTag"         </td><td>RFID</td><td>Run the script when a tag approaches RFID sensor</td><td>
+      <a href="#deviceParam">device</a> index tagBackwardCompatibleString tagValueString</td></tr>
+<tr valign="top"><td>"onTagLost"     </td><td>RFID</td><td>Run the script when a the sensor losts the connection with a tag</td><td>
+      <a href="#deviceParam">device</a> index tagBackwardCompatibleString tagValueString</td></tr>
+<tr valign="top"><td>"onOutputChange"</td><td>RFID</td><td>Run the script when output is changed</td><td>
+      <a href="#deviceParam">device</a> index value</td></tr>
+<tr valign="top" ><td>"onMotorPosChange"</td><td>Servo and Stepper</td><td>Run the script when the motor position is changed</td><td>
+      <a href="#deviceParam">device</a> index value</td></tr>
+<tr valign="top"><td>"onBridgeData"  </td><td>Bridge</td><td>Run the script when dataRate time has passed</td><td>
+      <a href="#deviceParam">device</a><index value</td></tr>
+<tr valign="top"><td>"onStepperStop"  </td><td>Stepper</td><td>Run the script when stepper motor stops. <!--span class="rev4">Calling this function before stepper runs at least once might lead to unexpected behavior.</span--></td><td>
+      <a href="#deviceParam">device</a> index value</td></tr>
+</table>
+<h4>Description</h4>
+
+<p>Some events are the same for more Phidgets. The "General" event "onInputChange" can be installed to all listed Phidgets and it will behave as their default input event.
+For example: <span class="syntax">Phidget_SetScriptEvent( -1 ; "onInputChange" ; "Do Something" )</span> has the same meaning as
+<span class="syntax">Phidget_SetScriptEvent( -1 ; "onMotorPosChange" ; "Do Something" )</span> for PhidgetServo or <span class="syntax">Phidget_SetScriptEvent( -1 ; "onTag" ; "Do Something" )</span>
+for PhidgetRFID. If "onInputChange" is used, the phidget type is detected automatically and the event is installed to it.<br>
+Param changeAmount can be used only on onSensorChange event. On other events it is ignored.</p>
+
+<p>In both cases (event/time) the script will receive a parameter containing the value list with <a href="#deviceParam">device</a>, inputIndex and inputValue. Values for digital input can be "0" or "1" for analog it varies by the type of the event.</p>
+<p>To remove event call <span class="syntax">Phidget_SetScriptEvent( device ; event/time ; "" )</span>.<br>
+To remove all events from some phidget call <span class="syntax">Phidget_SetScriptEvent( device ; "" ; "" )</span>.<br>
+To remove all events from all Phidgets call <span class="syntax">Phidget_SetScriptEvent( "" ; "" ; "" )</span> or <span class="syntax">Phidget_SetScriptEvent( "all" ; "" ; "" )</span>.</p>
+<h4>Result</h4>
+<p>Function returns 0 if event is successfully installed or uninstalled. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p></p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(-1 ; 1.2 ; "Default Script")</span><br>
+This will install the script named "Default Script" to the first available connected phidget. The script will run every 1.2 second and it will obtain a parameter which consist of serial number, "0" and input value. Each on new line. The "0" signals that the input on index 0 is beeing read.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(device ; "onTag" ; "Process new tag")</span><br>
+The script "Process new tag" will be triggered every time the new RFID tag is in the vicinity of the RFID phidget. The script will receive a parameter with phidget serial number, "0" and RFID value of the tag. Each on the new line. The zero means, that the first input of RFID phidget is used.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(69418 ; "onSensorChange" ; "Read sensor" ; 6 ; 10 ; 5)</span><br>
+This will install "onSensorChange" event to the interface kit phidget with serial number 69418. The phidget must be connected.
+The "Read sensor" script will be triggered when the seventh sensor's value on the interface kit phidget with SN 69418 will change more than 10 points and will be higher than 5. The script will receive the parameter which will contain: "69418", "6" and sensor value. Each on the new line.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent("all" ; "onAttach" ; "New phidget attached")</span><br>
+The script "New phidget attached" will be called every time when user will connect a new phidget to the system. The script will receive a parameter with serial number of the new connected phidget.</p>
+
+<div class="rev2">
+    <h3 id="Phidget_SetServerEvent">Phidget_Set<span class="rev3">Server</span>Event(<span class="rev3"> login; password;</span> device ; event/time ; eventType ; <span class="rev3x">databaseName ; </span>layoutName ; tableName/scriptName {; fields/params { ; index  { ; changeAmount { ; threshold } } } } )</h3>
+<p class="f_intro">This functionality is implemented for FileMaker Server. Tell the plug-in to write the records into the table or run a script when specified event is triggered by the Phidget or in specified time intervals.<span class="rev16"></br>Also available as a custom script step.</span> </p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr valign="top" class="rev3"><td class="t_param">login</td><td>User name to access server solution (this account has to have rights for accessing <span class="rev3x">dataAPI</span><span class="rev4">FileMaker Data API</span>)<span class="rev8">.</span></td></tr>
+    <tr valign="top" class="rev3"><td class="t_param">password</td><td>Password to access solution on the master FileMaker Server</td></tr>
+
+    <tr valign="top"><td class="t_param">device</td><td><a href="#deviceParam">Identification of device<span class="rev8">.</span></a></td></tr>
+    <tr valign="top"><td class="t_param">event</td><td>The event when the data should be written or the script should be triggered. Use FileMaker text to describe it. I.e. "onSensorChange".</td></tr>
+    <tr valign="top"><td class="t_param">time</td><td>The time interval on which the data should be written or the script should trigger. Use FileMaker number i.e. 1.8. Time is in [s]. Time must be a positive number. Setting time lower than 1 s is not recommended.</td></tr>
+    <tr valign="top"><td class="t_param">eventType</td><td>What event should be triggerd. Either "data" or "script". </td></tr>
+    <tr valign="top" class="rev3x"><td class="t_param">databeseName</td><td>The name of the FileMaker solution which contains the tableName or the scriptName. The script will receive a parameter which will contain Device on the first row, channel on the second, and value on the third.</td></tr>
+    <tr valign="top"><td class="t_param">layoutName</td><td>The name of the layout. <span class="rev17x">The script will receive a parameter which will contain Device on the first row, channel on the second, and value on the third.</span></td></tr>
+    <tr valign="top"><td class="t_param">tableName</td><td>The name of table where the data will be written<span class="rev8">.</span></td></tr>
+    <tr valign="top"><td class="t_param">scriptName</td><td class="rev17">The name of script which should be triggered. The script will receive a parameter which will be based on "params" parameter.</td></tr>
+    <tr valign="top"><td class="t_param">fields</td><td>Fields of the table where data plugin will write data.</td></tr>
+	<tr class="rev17" valign="top"><td class="t_param">params</td><td>String that will be send to script as parameter where key-words: &lt;device&gt;, &lt;channel&gt;, &lt;value&gt; and &lt;timestamp&gt; will be replaced by real device, channel, value and timestamp values.</td></tr>
+    <tr valign="top"><td class="t_param">index</td><td>The index of analog input or output to trigger the script. The data will be written (or script will be triggered) only if the value will exceed changeAmount. If omitted tha data will be <span class="rev8x">will be </span>written (or the script will be triggered) every time when any of inputs/outputs are changed regardless of its number.</td></tr>
+    <tr valign="top"><td class="t_param">changeAmount</td><td>The amount of change that should exist between the last reported value and the current value. The default is 1. This cannot be changed for binary inputs or outputs. Use FileMaker number.
+        Param changeAmount can be used only on onSensorChange event, it is ignored on other events.
+    </td></tr>
+    <tr valign="top"><td class="t_param">threshold</td><td>The data will not be written (the script will not be triggered) until the sensor value exceeds threshold. Use it as a simple noise filter. It has no meaning for binary inputs/outputs. The default value is 0 - no filtering.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">event</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr valign="top"><th align="left">event</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+    <tr valign="top"><td>"onInputChange"</td><td>General</td><td>Store data (run the script) when default input is changed</td></tr>
+    <tr valign="top"><td>"onInputChange"</td><td>Interface Kit</td><td>Store data (run the script) when digital input is changed</td></tr>
+    <tr valign="top"><td>"onSensorChange"</td><td>Interface Kit</td><td>Store data (run the script) when the value from connected sensor or VINT sensor is changed. The amount can be set by the changeAmount.</td></tr>
+    <tr valign="top"><td>"onOutputChange"</td><td>Interface Kit</td><td>Store data (run the script) when output is changed</td></tr>
+    <tr valign="top"><td>"onTag"         </td><td>RFID</td><td>Store data (run the script) when a tag approaches RFID sensor</td></tr>
+    <tr valign="top"><td>"onTagLost"     </td><td>RFID</td><td>Store data (run the script) when a the sensor losts the connection with a tag</td></tr>
+    <tr valign="top"><td>"onOutputChange"</td><td>RFID</td><td>Store data (run the script) when output is changed</td></tr>
+    <tr valign="top" ><td>"onMotorPosChange"</td><td>Servo and Stepper</td><td>Store data (run the script) when the motor position is changed</td></tr>
+    <tr valign="top"><td>"onBridgeData"  </td><td>Bridge</td><td>Store data (run the script) when dataRate time has passed</td></tr>
+    <tr valign="top"><td>"onStepperStop"  </td><td>Stepper</td><td>Store data (run the script) when stepper motor stops.</td></tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">field</span></h4>
+
+<p class="f_intro">You can choose 1 or more params delimited by ¶. </p>
+
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr valign="top"><th align="left">event</th><th align="left">Description</th></tr>
+    <tr valign="top"><td>"deviceField=&lt;device&gt;"</td><td>The device identification (sn:hubport) will be put into field <span class="rev3">whose name is "deviceField"</span><span class="rev3x">deviceField</span>.</td></tr>
+    <tr valign="top"><td>"channelField=&lt;channel&gt;"</td><td>The channel will be put into field <span class="rev3">whose name is "channelField"</span><span class="rev3x">channelField</span>.</td></tr>
+    <tr valign="top"><td>"valueField=&lt;value&gt;"</td><td>Value will be put into field <span class="rev3">whose name is "valueField"</span><span class="rev3x">valueField</span></td></tr>
+    <tr valign="top"><td>"timestampField=&lt;timestamp&gt;"</td><td>Date and time when the the event occured will be put into <span class="rev3">field whose name is "timestampField"</span><span class="rev3x">timestampField</span></td></tr>
+	<tr class="rev15" valign="top"><td>"eventField=Outside Temperature"</td><td>Text "Outside Temperature" will be put into "eventField"</td></tr>
+</table>
+
+<div class="rev3">
+<h4>Limitations and requirements</h4>
+<ul>
+    <li>DataAPI has to be allowed on the master FileMaker Server</li>
+    <li>DataAPI has to be properly set - please see <a href="//24usw.com/FMS18EnableDataAPI">FileMaker 18 Data API Guide</a> on how to set DataAPI properly</li>
+    <li>To run scripts you need FileMaker Server 18 or later</li>
+</ul>
+</div>
+
+<h4>Description</h4>
+
+<p> When event occures depending on the parameter 'fields' plugin will insert records into the FileMaker table or plugin will try to run the script 'scriptName'. Values for digital input can be "0" or "1" for analog it varies by the type of the event.<span class="rev3"> As mentioned before this function uses FileMaker DataAPI, so it has to be allowed and properly set on the master FileMaker Server. If you run this function on client, nothing happens.</span></p>
+
+<div class="rev17x">
+<p>To remove data event call for database <span class="rev3x"> MyDatabase </span><span class="syntax">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ;</span> device ; event/time ; "data" ; "DatabaseName" )</span>.<br>
+To remove script event call for database <span class="rev3x"> MyDatabase </span> <span class="syntax">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ;</span> device ; event/time ; "script" ; "DatabaseName")</span>.<br>
+To remove all data events from some phidget call <span class="syntax">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ;</span> device ; event/time ; "data" ; <span class="rev3x">""; </span>"" )</span>.<br>
+To remove all script events from some phidget call <span class="syntax">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ;</span>device ; event/time ; "script" ; <span class="rev3x">""; </span>"" )</span>.<br>
+To remove all events from some phidget call <span class="syntax">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ;</span>device ; "" ; "" ; "" ; <span class="rev3x">"" ; </span>"")</span>.<br>
+To remove all events from all Phidgets call <span class="syntax">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ;</span> "" ; "" ; "" ; <span class="rev3x rev12">"" ; </span>"")</span>.</p>
+</p>
+</div>
+<p class=rev17>To remove event(s) call the function with the layoutName parameter empty. Leaving any other parameter empty will make that parameter ignored when matching events to remove (see Examples).</p>
+
+<h4>Result</h4>
+<p>Function returns 0 if event is successfully installed or uninstalled. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p></p>
+
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ; </span>"355999:1" ; "onSensorChange" ; "data" ; "MyFilemakerSolution" ; "tableWithValuesFromSensor" ; "dateAndTime=&lt;timestamp&gt;¶temperatureSensorID=&lt;device&gt;¶temperature=&lt;value&gt;" ; 0 ; 1)</span><br>
+This will install data event on sensor attached to the VINT hub 355999 on hubport 1. When temperature changes by 1 degree plugin will insert data to the table.
+
+<table>
+    <tr><th>dateAndTime</th><th>temperatureSensorId</th><th>temperature</th></tr>
+    <tr><td>15/8/2019 13:12:11.232315</td><td>355999:1</td><td>25.7</td></tr>
+    <tr><td>15/8/2019 13:55:14.277715</td><td>355999:1</td><td>26.9</td></tr>
+    <tr><td>15/8/2019 14:15:22.668791</td><td>355999:1</td><td>25.8</td></tr>
+</table>
+
+</p>
+
+<p><span class="syntax_hl">Phidget_SetServerEvent(<span class="rev3">"user" ; "password" ; </span>"355911" ; "onTag" ; "script" ; "MyFilemakerSolution" ; "Process new tag" ; "dateAndTime=&lt;timestamp&gt;¶rfid=&lt;device&gt;¶tag=&lt;value&gt;")</span><br>
+The script "Process new tag" from solution MyFileMakerSolution will be triggered every time the new RFID tag is in the vicinity of the RFID phidget. The script will receive a parameter: "dateAndTime=15/8/2019 13:12:11.232315¶rfid=355999¶tag=123456".</p>
+
+<p class="rev17"><span class="syntax_hl">Phidget_SetServerEvent(Phidget_SetServerEvent("" ; "" ; "355999:1" ; "" ; "" ; "" ; "" )</span><br>
+This will remove all events associated with device 355999:1</p>
+
+<p class="rev17"><span class="syntax_hl">Phidget_SetServerEvent(Phidget_SetServerEvent("" ; "" ; "355999:1" ; "" ; "script" ; "" ; "" )</span><br>
+This will remove only script events associated with device 355999:1</p>
+
+</div>
+
+<h3 id="Phidget_Get">Phidget_Get( what { ; more ; index } )</h3>
+<p class="f_intro">Function to get plug-in or phidget settings and other useful data.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">what</td><td>Which data should be get</td></tr>
+<tr valign="top"><td class="t_param">more</td><td>Additional specifier to concretize the request</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>Additional specifier to get data for specific part (see example)</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">what</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"lastError"</td>       <td>Not used</td><td>Returns the error code of the last error. If no error occurred 0 is returned.</td></tr>
+<tr valign="top"><td>"lastErrorMessage"</td><td>Not Used</td><td>Returns error text description from the last plugin call</td></tr>
+<tr valign="top"><td>"libraryVersion"</td>  <td>Not used</td><td>Get version of Phidget Library installed on system</td></tr>
+<tr valign="top"><td>"attachedDevices"</td> <td>Not used</td><td>Get number of attached devices</td></tr>
+<tr valign="top" class="rev13"><td>"activeEvents"</td> <td>Not used</td><td>On FileMaker Client returns JSON array of all active ScriptEvents. On Server returns JSON array of all active ServerEvents.</td></tr>
+<tr valign="top" class="rev14"><td>"connectedSBCs"</td> <td>Not used</td><td>Returns JSON array of all currently connected SBCs.</td></tr>
+<tr valign="top"><td>"serialNumber"</td>    <td>Phidget Index</td><td>Serial number of the device with index specified in "more" parameter</td></tr>
+<tr valign="top"><td>"deviceType"</td>      <td>Device</td><td>Type of the device specified by Device</td></tr>
+<tr valign="top"><td>"deviceName"</td>      <td>Device/td><td>Name of the device specified by Device</td></tr>
+<tr valign="top"><td>"deviceVersion"</td>   <td>Device</td><td>Version of the device specified by Device</td></tr>
+<tr valign="top"><td>"deviceLabel"</td>     <td>Device</td><td>Label of the device specified by Device</td></tr>
+<tr valign="top"><td>"numInputs"</td>       <td>Device</td><td>The number of default inputs</td></tr>
+<tr valign="top"><td>"numOutputs"</td>      <td>Device</td><td>The number of default outputs</td></tr>
+
+<tr valign="top"><td>"numSensors"</td>      <td>Interface Kit</td><td>Number of sensors</td></tr>
+<tr valign="top"><td>"ratiometric"</td>     <td>Interface Kit</td><td>Returns phidget ratiometric status</td></tr>
+
+<tr valign="top"><td>"antennaOn"</td>       <td>RFID</td><td>The status of the antenna of the RFID reading device</td></tr>
+<tr valign="top"><td>"ledOn"</td>           <td>RFID</td><td>The status of the LED</td></tr>
+<tr valign="top"><td>"tagProtocol"</td> <td>RFID</td><td>Returns RFID tag protocol. See <a href="#tagProtocol">tag protocols</a> for more information.</td></tr>
+
+<tr valign="top"><td>"backlight"</td>   <td>TextLCD</td><td>Gets the backlight brightness</td></tr>
+<tr valign="top"><td>"brightness"</td>  <td>TextLCD</td><td>This parameter is deprecated since version 3.0, please use "backlight" instead. For backward compatibility, this parameter returns the same value as "backlight" parameter.</td></tr>
+
+<tr valign="top"><td>"contrast"</td>    <td>TextLCD</td><td>Gets the last set contrast value</td></tr>
+<tr valign="top"><td>"numRows"</td>     <td>TextLCD</td><td>Gets number of rows on LCD display</td></tr>
+<tr valign="top"><td>"numColumns"</td>  <td>TextLCD</td><td>Gets number of columns on LCD display</td></tr>
+<tr valign="top"><td>"cursorOn"</td>    <td>TextLCD</td><td>Gets '1' if cursor is on </td></tr>
+<tr valign="top"><td>"cursorBlink"</td> <td>TextLCD</td><td>Gets '1' if cursor should be blinking</td></tr>
+
+<tr valign="top"><td>"enabled"</td>     <td>Bridge and Analog</td><td>Gets "1" if port is enabled</td></tr>
+<tr valign="top"><td>"dataRateMin"</td> <td>Bridge</td><td>Gets minimal possible data rate</td></tr>
+<tr valign="top"><td>"dataRateMax"</td> <td>Bridge</td><td>Gets maximum possible data rate</td></tr>
+<tr valign="top"><td>"dataRate"</td>    <td>Bridge</td><td>Gets actual data rate for getting values from bridge automatically.</td></tr>
+<tr valign="top"><td>"gain"</td>        <td>Bridge</td><td>Gets the value of actual gain (something and precision) </td></tr>
+<tr valign="top"><td>"bridgeMin"</td>   <td>Bridge</td><td>Gets bridge minimal possible value on port</td></tr>
+<tr valign="top"><td>"bridgeMax"</td>   <td>Bridge</td><td>Gets bridge maximal possible value on port</td></tr>
+
+<tr valign="top"><td>"voltageMin"</td>  <td>Analog</td><td>Gets voltage minimal possible value on port</td></tr>
+<tr valign="top"><td>"voltageMax"</td>  <td>Analog</td><td>Gets voltage maximal possible value on port</td></tr>
+
+<tr valign="top"><td>"servoMin"</td>    <td>AdvancedServo</td><td>Get minimal value for servo position</td></tr>
+<tr valign="top"><td>"servoMax"</td>    <td>AdvancedServo</td><td>Get maximal value for servo position</td></tr>
+
+<tr valign="top"><td>"engaged"</td>     <td>AdvancedServo and Stepper</td><td>Gets '1' if servo on position is on</td></tr>
+
+<tr valign="top"><td>"acceleration"</td>     <td>Stepper</td>	<td>Get current acceleration of stepper</td></tr>
+<tr valign="top"><td>"velocity"</td>     <td>Stepper</td>	<td>Get current velocity of stepper</td></tr>
+<tr valign="top"><td>"minAcceleration"</td>     <td>Stepper</td>	<td>Get minimal possible acceleration</td></tr>
+<tr valign="top"><td>"maxAcceleration"</td>     <td>Stepper</td>	<td>Get maximal possible acceleration</td></tr>
+<tr valign="top"><td>"controlMode"</td>     <td>Stepper</td>	<td>Get control mode, possible values are "run" (continuos movement),
+															"step" (motor will move to given target).</td></tr>
+<tr valign="top"><td>"targetPosition"</td>     <td>Stepper</td>	<td>Get target position</td></tr>
+<tr valign="top"><td>"acceleration"</td>     <td>Stepper</td>	<td>Get current acceleration of stepper</td></tr>
+<tr valign="top"><td>"velocity"</td>     <td>Stepper</td>	<td>Get current velocity of stepper</td></tr>
+<tr valign="top"><td>"currentLimit"</td>     <td>Stepper</td>	<td>Get value of current limit. Current limit allows to control maximal power output for given Stepper.</td></tr>
+<tr valign="top"><td>"correctionTemperature"</td>     <td>PH Sensor</td>    <td>Get value of correction temperature for PH Sensor</td>    </tr>
+<tr valign="top"><td>"portMode"</td>     <td>VINT Hub</td>    <td>Get current port mode. Possible values are "digitalOutput", "digitalInput", "voltage", "voltageRatio", "vintDevice".</td></tr>
+
+
+</table>
+<h4>Description</h4>
+<p>The "more" parameter is usually used to specify Phidget Serial Number. Some commands need specificDevice (of specific type) otherwise they will fail. Some commands are more general. You can use PhigetSN value "-1" to specify the default Phidget.</p>
+<p>The boolean values are returned in number form. For example <span class="syntax">Phidget_Get("antennaOn" ; -1)</span> returns 0 if backlight is off and 1 if backlight is on.</p>
+<h4>Result</h4>
+<p>Function returns data if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Get("attachedDevices")</span><br>
+This will return the number of attached devices. If no phidget is attached to the machine it will return 0. It is a good command to start with to check if any phidget is connected.</p>
+<p><span class="syntax_hl">Phidget_Get("serialNumber" ; 3)</span><br>
+If you have four Phidgets connected to the machine this will return the serial number of the fourth one. Use this command in the loop (along with previous one) to enumerate serial numbers of all Phidgets connected to the machine.</p>
+<p><span class="syntax_hl">Phidget_Get("deviceType" ; 69418)</span><br>
+This will check the connected phidget with SN 69418 and returns its type. The types are textual in human readable form. For the supported types the result can be: "PhidgetInterfaceKit", "PhidgetRFID" and "PhidgetServo". In general the type names are the same as the official ones.</p>
+<p><span class="syntax_hl">Phidget_Get("deviceType" ; 120538 ; 1)</span><br>
+This will return device type of given Device, however it will try to locate the second type of given Device. <b>Example</b>: you have TextLCD combined with InterfaceKit, this allows you to get device type of the second device.</p>
+<p><span class="syntax_hl">Phidget_Get("enabled" ; 140923 ; 2)</span><br>
+This will check if port 2 on Phidget Bridge is enabled. Port has to be enabled, if we want to read data.</p>
+<p><span class="syntax_hl">Phidget_Get("dataRateMin" ; 140923)</span><br>
+This will return minimal rate in Phidget Bridge. Value is in ms and if you set data rate, it should be <b>lesser or equal</b>.</p>
+<p><span class="syntax_hl">Phidget_Get("numColumns" ; 120538)</span><br>
+This will return number of columns of Text LCD with SN 120538.</p>
+<p><span class="syntax_hl">Phidget_Get("numRows" ; 120538)</span><br>
+This will return number of rows of Text LCD with SN 120538.</p>
+<p><span class="syntax_hl">Phidget_Get("contrast" ; 120538)</span><br>
+This will return current value of contrast of Text LCD with SN 120538.</p>
+<p><span class="syntax_hl">Phidget_Get("backlight" ; 120538)</span><br>
+This will return current value of backlightm brightness (within range of 0-255) of Text LCD with SN 120538.</p>
+
+<p class="rev14"><span class="syntax_hl">Phidget_Get("connectedSBCs")</span><br>
+This will return currently connected SBCs:</p>
+<pre class="rev14">
+  [{
+	"address": "phidgetsbc.local",
+	"password": "*****",
+	"port": 5661
+  }]
+</pre>
+<p class="rev13"><span class="syntax_hl">Phidget_Get("activeEvents")</span><br>
+This will return currently active Script/Server events depending on Client/Server:</p>
+
+<b class="rev13">Server:</b>
+<pre class="rev13">
+   [{
+	"changeAmount": "",
+	"device": "355911",
+	"event": "140",
+	"eventType": "script",
+	"fields": "dateAndTime=&lt;timestamp&gt;\rrfid=&lt;device&gt;\rtag=&lt;value&gt;",
+	"index": "0",
+	"layout": "Attach",
+	"login": "user",
+	"password": "password",
+	"table/scriptName": "Process new tag",
+	"threshold": ""
+   }]
+</pre>
+
+<b class="rev13">Client:</b>
+<pre class="rev13">
+   [{
+	"changeAmount": "10.000000",
+	"device": "69418:0",
+	"event/time": "onsensorchange",
+	"fileName": "iOS.fmp12",
+	"index": "6",
+	"scriptName": "Attach",
+	"threshold": "5.000000"
+   }]
+</Pre>
+
+
+
+
+
+<h3 id="Phidget_Set">Phidget_Set( what ; value { ;device ; index } )</h3>
+<p class="f_intro">Function to set plug-in or phidget settings and other useful data.<span class="rev16"></br>Also available as a custom script step.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><tt>what</tt></td><td>Which data should be set.</td></tr>
+<tr valign="top"><td class="t_param"><tt>value</tt></td><td>The new value.</td></tr>
+<tr valign="top"><td class="t_param"><tt>device</tt></td><td><a href="#deviceParam" >Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param"><tt>index</tt></td><td>Index of changed value.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">what</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"ratiometric"</td>     <td>Interface Kit</td><td>Sets phidget ratiometric. The phidget with ratiometric will measure more precise if ratiometric sensor (marked with R) is attached.</td></tr>
+<tr valign="top"><td>"antennaOn"</td>       <td>RFID</td><td>Sets the status of the antenna of the RFID reading device</td></tr>
+<tr valign="top"><td>"ledOn"</td>           <td>RFID</td><td>Sets the status of the LED</td></tr>
+
+<tr valign="top"><td>"backlight"</td>          <td>TextLCD</td><td
+																   Sets the backlight brightness. Possible values are 0-255.</td></tr>
+<tr valign="top"><td>"brightness"</td>         <td>TextLCD</td><td
+																   This parameter is deprecated since version 3.0, please use "backlight" instead. For backward compatibility, setting this parameter behaves the same way as setting the "backlight".</td></tr>
+<tr valign="top"><td>"contrast"</td>           <td>TextLCD</td><td>Sets the contrast value. Possible values of contrast are 0-255.</td></tr>
+<tr valign="top"><td>"cursorOn"</td>           <td>TextLCD</td><td>This allows to turn on/off cursor</td></tr>
+<tr valign="top"><td>"cursorBlink"</td>        <td>TextLCD</td><td>If cursor is on, then you can turn on/off its blinking</td></tr>
+
+<tr valign="top"><td>"enabled"</td>            <td>Bridge and Analog</td><td>This will enable port on given index</td></tr>
+<tr valign="top"><td>"gain"</td>               <td>Bridge</td><td>This will allow you to set gain of data from the bridge</td></tr>
+<tr valign="top"><td>"dataRate"</td>           <td>Bridge</td><td>This will allow you to set data rate of incomming data</td></tr>
+
+<tr valign="top" ><td>"motorOn"</td>         <td>Servo and Stepper</td><td>Turns a Motor On &amp; Off. Before you turn servo on, first you have to configure target position.</td></tr>
+<tr valign="top"><td>"servoMax"</td>           <td>AdvancedServo</td><td>Allow to set minimal value for servo (prevents servo from being damaged)</td></tr>
+<tr valign="top"><td>"servoMin"</td>           <td>AdvancedServo</td><td>Allow to set maximal value for servo (prevents servo from being damaged)</td></tr>
+
+<tr valign="top" ><td>"portMode"</td>     <td>VINT Hub</td>    <td>Sets the hub port mode. Possible values are "digitalOutput", "digitalInput", "voltage", "voltageRatio", "vintDevice". Default value for hub port is "vintDevice" mode. Hub Port will ignore all VINT devices if it is not set to VINT device mode. Only one mode is active at time. Setting mode unsets all other modes.</td></tr>
+
+<tr valign="top" ><td>"controlMode"</td>     <td>Stepper</td>	<td>Set motor mode, possible values are "step" (motor will move to given position) and "run" (continuos movement). After you set controlMode you should also reset velocity, acceleration and target position.</td></tr>
+<tr valign="top" ><td>"acceleration"</td>     <td>Stepper</td>	<td>Set current acceleration of stepper</td></tr>
+<tr valign="top" ><td>"velocity"</td>     <td>Stepper</td>	<td>Set current velocity of stepper</td></tr>
+<tr valign="top" ><td>"currentLimit"</td>     <td>Stepper</td>	<td>Set the current limit. Current limit allows to control maximal power output for given Stepper.</td></tr>
+<tr valign="top" ><td>"correctionTemperature"</td>     <td>PH Sensor</td>    <td>Set value for correction temperature for PH Sensor</td></tr>
+<tr valign="top" class="rev14"><td>"serverLog"</td>     <td>None</td><td>Turns on/off log for helper app on FMS. Supported values "0" and "1". Default is "0". Path to log file on macOS: "/Library/Application Support/24U/24UPhidgetManager/ServerLog.txt", on Windows: "%appdata%\24u\24UPhidgetManager\ServerLog.txt"</td></tr>
+
+</table>
+<h4>Description</h4>
+<p>Use this funtion to set various value on Phidgets.</p>
+<h4>Result</h4>
+<p>Function returns set value if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Set("ratiometric" ; 1 ; 69418)</span><br>
+This will set the ratiometric value to 1 (turns on) in the phidget with SN 69418. This phidget must be interface kit phidget otherwise "?" is returned.</p>
+<p><span class="syntax_hl">Phidget_Set("ratiometric" ; 1 ; -1)</span><br>
+This will set the ratiometric value to 1 (turns on) in the first phidget it founds. This phidget must be interface kit phidget otherwise "?" is returned. Use this form if you have only one phidget connected to the computer and you are sure that you will never connect any other phidget otherwise the result can be unpredictable.</p>
+<p ><span class="syntax_hl">Phidget_Set( "backlight" ; 127,5 ; 120538)</span><br>
+This will set the backlight brightness value. Possible values 0-255.</p>
+<p><span class="syntax_hl">Phidget_Set( "contrast" ; 155 ; 120538)</span><br>
+This will set the contrast value. Possible values 0-255.</p>
+<p><span class="syntax_hl">Phidget_Set( "motorOn" ; 1 ; 170192 ; 3)</span><br>
+This will turn on the fourth motor.</p>
+<p><span class="syntax_hl">Phidget_Set( "motorOn" ; 0 ; 170192 ; 0)</span><br>
+This will turn off the first motor.</p>
+<p><span class="syntax_hl">Phidget_Set( "enabled" ; 1 ; 140912 ; 3)</span><br>
+This will enable port 3 on Bridge.</p>
+<p><span class="syntax_hl">Phidget_Set( "dataRate" ; 200 ; 140923)</span><br>
+This will set data rate of Phidget Bridge on 200 ms. Be careful - data rate should be between data rate min and data rate max.</p>
+<p><span class="syntax_hl">Phidget_Set( "enabled" ; 1 ; 131907 ; 3)</span><br>
+This will enable port 3 on Analog (assuming proper phidgetSN was given).</p>
+<p ><span class="syntax_hl">Phidget_Set( "portMode" ; "digitalOutput" ; "335882:3")</span><br>
+This will set digital output mode on port 3 on VINT Hub with serial number 335882. You can use the port as digital output the same way as with the Interface kit.</p>
+<p ><span class="syntax_hl">Phidget_Set( "portMode" ; "vintDevice" ; "335882:3")</span><br>
+This will set VINT device mode on port 3 on VINT Hub with serial number 335882. After you set port, you can connect to the port one of the supported VINT devices.</p>
+<p class=rev14><span class="syntax_hl">Phidget_Set( "serverLog" ; "1" )</span><br>
+This will turn on log file on FMS.</p>
+
+
+
+
+<h3 id="Phidget_Connect">Phidget_Connect( address { ; password {; port } )</h3>
+<p class="f_intro">Function to connect to an SBC or a computer running the Phidget Network Server via network.<span class="rev16"></br>Also available as a custom script step.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr valign="top"><td class="t_param"><tt>address</tt></td><td>Address of SBC in network</td></tr>
+    <tr valign="top"><td class="t_param"><tt>password</tt></td><td>Password for security</td></tr>
+<tr valign="top"><td class="t_param"><tt>port</tt></td><td>Port of service. In case you wont use, port 5661  is used.</td></tr>
+</table>
+<h4>Description</h4>
+<p>Use this function to connect to an SBC or Phidget Network Server.</p>
+<h4>Result</h4>
+<p>Function return 0, if everything OK, if function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.
+However, even if function returns 0, it doesn't mean that SBC is already connected. If you have slow network, then it can take some time. Connected SBC will trigger "onAttach" script (if set).</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Connect("10.0.3.51" ; "111111")</span><br>
+Try to establish connection to address 10.0.3.51 with password "111111" on port 5661.</p>
+<p>FileMaker example of using this feature can be found <a href="../Examples/24U Phidgets SBC Example.fmp12">here</a>.</p>
+
+<div>
+<h3 id="Phidget_Disconnect">Phidget_Disconnect( address )</h3>
+<p class="f_intro">Function to disconnect from an SBC or a computer running the Phidget Network Server.<span class="rev16"></br>Also available as a custom script step.</span></p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><tt>address</tt></td><td>Address of SBC in network</td></tr>
+</table>
+<h4>Description</h4>
+<p>Use this function to disconnect from an SBC or Phidget Network Server.</p>
+<h4>Result</h4>
+<p>Function return 0, if everything OK, if function fails - it returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Disconnect("10.0.3.51")</span><br>
+Disconnects from address 10.0.3.51.</p>
+
+</div>
+
+
+
+
+<div >
+<h2 id="deviceParam">Device identification</h2>
+<p class="f_intro">
+There are several different ways to identify a Phidget device:
+</p>
+<table style="text-align: left;">
+  <tr><th>Type</th> <th>Example</th>   <th>Description</th> </tr>
+  <tr><td>Phidgets SN </td> <td>335882 </td> <td>Use Phidget serial number for Phidgets connected directly to computer or SBC (Single Board Computer).</td></tr>
+  <tr><td>First available</td><td>-1</td><td>Use value -1 for the first available device. </td> </tr>
+  <tr><td>Phidgets SN + ":" + VINT port </td><td>"335882:4"</td> <td>Use Phidget serial number and VINT port for Phidgets connected via VINT hub.</td> </tr>
+</table>
+<p class="f_intro">
+Please note that if the Phidgets is connected via network, you will have to use <a href="#Phidgets_Connnect">Phidget_Connect</a> function first.
+</p>
+</div>
+
+
+<div>
+<h2 id="tagProtocol">Tag protocols of RFID</h2>
+<p class="f_intro">This section explain tag protocols used for writing on RFID tag.<br>
+Tag protocol specifies, which format of input data is accepted. Table below shows supported protocols.</p>
+<table style="text-align: left;">
+  <tr>  <th>Tag protocol</th>   <th>Accepted value</th> </tr>
+  <tr>  <td>PHIDGETS</td>       <td>Strings or numbers (integer)</td> </tr>
+  <tr>  <td>ISO11785_FDX_B</td> <td>Strings with 15 numbers (3 state code, 12 animal code)</td> </tr>
+  <tr>  <td>EM4100</td>         <td>Strings of 10 hexadecimal numbers (0-f)</td> </tr>
+</table>
+</div>
+
+<div class="rev4 rev15x">
+    <h2>Script Steps</h2>
+    <p>
+    Since version 16 of FileMaker Pro and FileMaker Pro Advanced new feature called "External script steps" has been added. This feature allows plug-in to offer its functionality as FileMaker script steps.<br>
+    Following table shows<span class="rev8x">,</span> which functions of plug-in can be also called as script step.
+    
+    <table>
+        <tr>    <th>Plug-In function</th>    <th>Script Step</th>    </tr>
+        
+        <tr class="rev5x">    <td><a href="#Phidget_Version">Phidget_Version</a></td>    <td>Phidget Version</td>    </tr>
+        
+        <tr>    <td><a href="#Phidget_Register" style="">Phidget_Register</a></td>        <td>Phidget Register</td>         </tr>
+        <tr>    <td><a href="#Phidget_Connect">Phidget_Connect</a></td>                   <td>Phidget Connect</td>          </tr>
+        <tr>    <td><a href="#Phidget_Disconnect">Phidget_Disconnect</a></td>             <td>Phidget Disconnect</td>       </tr>
+        <tr>    <td><a href="#Phidget_Write">Phidget_Write</a></td>                        <td>Phidget Write</td>    </tr>
+        <tr>    <td><a href="#Phidget_Set">Phidget_Set</a></td>                    <td>Phidget Set</td>    </tr>
+        <tr>    <td><a href="#Phidget_SetServerEvent">Phidget_SetServerEvent</a></td>                    <td>Phidget Set Server Event</td>    </tr>
+        
+        <tr>    <td><a class="rev3" href="#Phidget_SetScriptEvent">Phidget_SetScriptEvent</a></td>    <td><span class="rev8x">Phone</span><span class="rev8">Phidget</span> Set Script Event</td>    </tr>
+    </table>
+    </p>
+</div>
+
+<a name="error" />
+<h2><span class="p_hl">24U Phidget Plug-In</span> status codes</h2>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr valign="top"><td>-50</td><td>Parameter error</td><td>Means paramErr, Phidget_ has wrong parameters.</td></tr>
+    <tr valign="top"><td>-36</td><td>Missing RFID tag</td><td>Returned when RFID Reader / Writer has no RFID tag to read / write.</td></tr>
+    <tr valign="top" ><td>-37</td><td>Antenna is off</td><td>RFID Reader is not able to provide this functionality with antenna off.</td></tr>
+    <tr valign="top" ><td>-23</td><td>Invalid Script Name</td><td>Returned when plugins function Phidget_SetScriptEvent can't find script in the file</td></tr>
+    <tr valign="top" ><td>1 - 1000</td><td>Phidget Library errors</td><td>You can get error description by calling Phidget_Get("lastErrorMessage").</td></tr>
+
+
+    <tr valign="top"><td>24001</td>  <td>Demo mode expired</td>                <td>If you want to keep using the plug-in, you must register it or buy it for particular environment.</td>  </tr>
+    <tr valign="top"><td>24002</td>  <td>Product expired</td>                  <td>Trial period is over. If you want to keep using the product, you must buy it for particular environment.</td></tr>
+    <tr valign="top"><td>24003</td>  <td>SN limit was met</td>                 <td>The serial number is already registered on too many computers.</td></tr>
+    <tr valign="top"><td>24004</td>  <td>Product is dead</td>                  <td>The product expired and cannot be used any more. Please download the new version from <a href="//24usw.com/188d7">24U Software</a>.</td></tr>
+    <tr valign="top"><td>24005</td>  <td>Invalid serial number</td>            <td>Serial number you entered is not valid.</td></tr>
+    <tr valign="top"><td>24006</td>  <td>Activation failed</td>                <td>Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top"><td>24007</td>  <td>Deactivation failed</td>              <td>Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top"><td>24008</td>  <td>Unknown serial number</td>            <td>The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</td></tr>
+    <tr valign="top"><td>24009</td>  <td>Blacklisted serial number</td>        <td>The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</td></tr>
+    <tr valign="top"><td>24010</td>  <td>eSellerate engine not installed</td>  <td>This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</td></tr>
+    <tr valign="top" ><td>24011</td>  <td>Device limit met</td>    <td>The purchased license has a limitation of used devices.</td></tr>
+    <tr class="rev18" valign="top" ><td>24012</td>  <td>24uPluginsAllowedFunctions file error</td>    <td>Hosting friendly functionality related error occurred, get exact issue by calling Phidget_Get("lastErrorMessage") function.</td></tr>
+</table>
+
+
+</body>
+</html>

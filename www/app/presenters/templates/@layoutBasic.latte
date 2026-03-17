@@ -1,0 +1,152 @@
+{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+
+{switch $locale}
+    {case cs}
+    {ifset $switchLangLinkEN}
+        {var $switchLangLinkAlternative = $switchLangLinkEN}
+    {else}
+        {capture $switchLangLinkAlternative}{link this, locale => $alternativeLang}{/capture}
+    {/ifset}
+    {case en}
+    {ifset $switchLangLinkCS}
+        {var $switchLangLinkAlternative = $switchLangLinkCS}
+    {else}
+        {capture $switchLangLinkAlternative}{link this, locale => $alternativeLang}{/capture}
+    {/ifset}
+{/switch}
+
+<!DOCTYPE html>
+<html data-page-type="{ifset $pageType}{$pageType}{/ifset}" data-ignore-search="{ifset $ignoreSearch}true{else}false{/ifset}" data-device="{$detect['platformDevice']}"
+      data-is-edge="{$detect['isEdge']}" data-is-safari="{$detect['isSafari']}"
+      data-is-ie="{$detect['isIE']}" lang="{$locale}" lang-content="{$isTranslated !== true ? $alternativeLang:$locale}">
+<head>
+    {* METAs *}
+
+    {if $appConfig["GA-SearchConsole-Verification"] !="" }
+        <meta name="google-site-verification" content="{$appConfig["GA-SearchConsole-Verification"]}" />
+    {/if}
+    <meta charset="utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    {* METAs OG*}
+    {define meta-og}
+        <meta property='og:type' content='{$type}'/>
+        <meta property='og:title' content='{$title}'/>
+        <meta property='og:description' content='{$description}'/>
+        <meta property='og:url' content='{link //this}'/>
+
+        {ifset $imagePath}
+            <meta property='og:image' content='{link //Homepage:default}{$imagePath}'/>
+        {elseifset $imageBase}
+            <meta property='og:image' content='{link //Homepage:default}{$imageBase}'/>
+        {elseifset $ogMediaHTML}
+            {$ogMediaHTML}
+        {/ifset}
+
+
+        <meta property='og:site_name' content='{$siteName}'/>
+    {/define}
+
+    {block og}
+        {ifset $appConfig["og"]}
+            {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $appConfig["og"]["title"],
+            description => $appConfig["og"]["description"],
+            imagePath => $appConfig["og"]["image"],
+            siteName => $appConfig["og"]["site_name"]}
+        {/ifset}
+    {/block}
+
+    {* TITLE *}
+    <title>{ifset title}{include title|stripHtml} | {/ifset}24U Software</title>
+
+
+    <meta name="description"
+          content="{ifset description}{include description|stripHtml}{else}Experts in optimization and hardware integration, platinum member of the FileMaker Business Alliance. We build custom apps, FileMaker plug-ins, native apps for Mac, Windows, Linux, iOS, and Android, we are able to to integrate even hardware and software noone has integrated before.{/ifset}">
+
+    <script src="https://kit.fontawesome.com/7a165db722.js" crossorigin="anonymous"></script>
+
+
+    {* FAVICON *}
+    <link rel="apple-touch-icon-precomposed" sizes="57x57"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-144x144.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="60x60"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-60x60.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="120x120"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-76x76.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152"
+          href="{$basePath}/img/layout/favicon/apple-touch-icon-152x152.png"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-196x196.png" sizes="196x196"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-96x96.png" sizes="96x96"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="{$basePath}/img/layout/favicon/favicon-128.png" sizes="128x128"/>
+    <meta name="application-name" content="&nbsp;"/>
+    <meta name="msapplication-TileColor" content="#FFFFFF"/>
+    <meta name="msapplication-TileImage" content="{$basePath}/img/layout/favicon/mstile-144x144.png"/>
+    <meta name="msapplication-square70x70logo" content="{$basePath}/img/layout/favicon/mstile-70x70.png"/>
+    <meta name="msapplication-square150x150logo" content="{$basePath}/img/layout/favicon/mstile-150x150.png"/>
+    <meta name="msapplication-wide310x150logo" content="{$basePath}/img/layout/favicon/mstile-310x150.png"/>
+    <meta name="msapplication-square310x310logo" content="{$basePath}/img/layout/favicon/mstile-310x310.png"/>
+    {* FONTS *}
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&amp;subset=latin-ext">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&amp;subset=latin-ext">
+    {* STYLES *}
+
+    <link rel="stylesheet" href="{$basePath}/css/plugins.css?v=84">
+    <link rel="stylesheet" href="{$basePath}/css/screen.css?v=84">
+
+
+    <link rel="stylesheet" href="{$basePath}/css/grid.css">
+</head>
+
+<body data-template="{ifset $templateCustomName}{$templateCustomName|lower}{else}{$presenter->name|lower}{/ifset}">
+<noscript>Your browser does not support JavaScript!</noscript>
+
+{* INCLUDE MAIN CONTENT FROM TEMPLATES *}
+<div id="content">
+    {include content}
+</div>
+
+
+
+
+{* FOOTER *}
+<div class="videoplayer-overlay"></div>
+
+
+<div id="loader-full-page">
+    <img src="{$basePath}/img/layout/icons/loader_v3.svg" alt="Loader Image"/>
+</div>
+
+{ifset pre-script}
+    {include pre-script}
+{/ifset}
+
+{block scripts}
+    <script src="{$basePath}/js/lib.js?v=84"></script>
+    <script src="{$basePath}/js/app.js?v=84"></script>
+
+{/block}
+{ifset post-script}
+    {include post-script}
+{/ifset}
+
+</body>
+</html>

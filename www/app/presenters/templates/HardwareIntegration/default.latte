@@ -1,0 +1,244 @@
+
+{block title}{_pages.hw-integrations.metadata.title}{/block}
+{block description}{_pages.hw-integrations.metadata.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.hw-integrations.metadata.og.title}{/capture}
+        {capture $description}{_pages.hw-integrations.metadata.og.description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/hardware-integration/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/hardware-integration/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/hardware-integration/og_images/og_image_3.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/hardware-integration/og_images/og_image_4.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="cover default extended has-video">
+    <div class="video-container overlay overlay-light cover-parallax">
+
+        {if $detect['platformDevice'] === "tablet"}
+            {var $videoResolution = "1024"}
+        {elseif $detect['platformDevice'] === "phone"}
+            {var $videoResolution = "640"}
+        {else}
+            {var $videoResolution = "1920"}
+        {/if}
+        <video class="video-js" playsinline
+               data-setup='{
+					"controls": false,
+					"autoplay": {if $detect['isFirefox'] === "true"}"true"{else}"muted"{/if},
+					"preload": false,
+					"loop": "loop",
+					"aspectRatio":"16:9",
+					"fluid": true
+				   }'
+               poster="{$basePath}/video/hardware-integration/preview/hwi_preview_{$videoResolution}.jpg?v=1">
+            <source src="{$basePath}/video/hardware-integration/hwi_{$videoResolution}.mp4?v=1" type="video/mp4">
+            <source src="{$basePath}/video/hardware-integration/hwi_{$videoResolution}.webm?v=1" type="video/webm">
+            <div class="vjs-no-js" style="background-image: url('{$basePath}/video/hardware-integration/preview/hwi_preview_{$videoResolution}.jpg')"></div>
+        </video>
+    </div>
+    <div class="container cover-content">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        {_pages.hw-integrations.default.header-title|noescape}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{snippet contactForm}
+    {include '../Components/contact-form-orange.latte', headline => 'false', description => 'false'}
+{/snippet}
+
+<section class="tile-panel arrow">
+    <div class="row">
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="false">
+            <a n:href="Tools:gonector#printers" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/mobile_printers/mobile_printers_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/mobile_printers/mobile_printers_cover_rollover.jpg')"></div>
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.mobile_printers.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.mobile_printers.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true" data-highlight-full-width="false">
+            <a n:href="Tools:simpleHASP" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/security_dongles/security_dongles_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/security_dongles/security_dongles_cover_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.security_dongles.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.security_dongles.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="false">
+            <a n:href="Tools:bridgeForPhidgets#rfid" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/rfid_nfc/rfid_nfc_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/rfid_nfc/rfid_nfc_cover_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.rfid.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.rfid.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true" data-highlight-full-width="false">
+            <a n:href="Tools:gonector#linea" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/barcode_scanners/barcode_scanners.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/barcode_scanners/barcode_scanners_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.barcode.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.barcode.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+            <a n:href="Tools:gonector#linea" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/payment_terminals/payment_terminals_cover_wide.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/payment_terminals/payment_terminals_cover_wide_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.pay_terminals.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.pay_terminals.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+            <a n:href="Tools:gonector#scales" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/weighing_scales/weighing_scales_cover_wide.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/weighing_scales/weighing_scales_cover_wide_rollover.jpg')"></div>
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.scales.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.scales.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="false">
+            <a n:href="Tools:bridgeForPhidgets#servo" class="overlay"
+                                             style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/servo_steppers_motors/servo_steppers_motors_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/servo_steppers_motors/servo_steppers_motors_cover_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.motors.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.motors.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true" data-highlight-full-width="false">
+            <a n:href="Tools:bridgeForPhidgets#rfid" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/smart_cards/smarts_cards_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/smart_cards/smarts_cards_cover_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.smart_cards.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.smart_cards.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="false">
+            <a href="//24usw.com/vzfeha" target="_blank" class="overlay"
+               style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/medical_devices/medical_devices.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/medical_devices/medical_devices_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.medical_devices.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.medical_devices.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true" data-highlight-full-width="false">
+            <a n:href="ProductPages:led" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/led_stripe/led_stripe_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/led_stripe/led_stripe_cover_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.led_strips.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.led_strips.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-12 gr-12@mobile no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+            <a n:href="Tools:bridgeForPhidgets#lcd" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/lcd_displays/lcd_displays_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/lcd_displays/lcd_displays_cover_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.lcd.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.lcd.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="false">
+            <a n:href="Tools:phoneCompanion" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/telephones/telephony.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/telephones/telephony_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.telephony.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.telephony.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true" data-highlight-full-width="false">
+            <a n:href="Tools:bridgeForArduino" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/bridge-for-arduino/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/bridge-for-arduino/cover_rollover.jpg')"></div>
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.arduino.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.arduino.text|noescape}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="false">
+            <a n:href="ProductPages:led" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/raspberry_pi/raspberry_pi.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/raspberry_pi/raspberry_pi_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.raspberry.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.raspberry.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true" data-highlight-full-width="false">
+            <a n:href="Tools:bridgeForPhidgets#sensors" class="overlay"
+                                               style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/environmental_sensors/environmental_sensors_cover.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/environmental_sensors/environmental_sensors_cover_rollover.jpg')"></div>
+
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.sensors.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.sensors.text}</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+            <a n:href="Tools:bridgeForPhidgets" class="overlay" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/phidgets/phidgets_wide.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/hardware-integration/card_boxes/phidgets/phidgets_wide_rollover.jpg')"></div>
+                <div class="content">
+                    <h2>{_pages.hw-integrations.default.card-boxes.phidgets.label}</h2>
+                    <p>{_pages.hw-integrations.default.card-boxes.phidgets.text}</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</section>

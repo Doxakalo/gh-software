@@ -1,0 +1,145 @@
+{block overview-headline}Bridge for Phidgets Overview{/block}
+{block overview}
+    <h2>{include overview-headline}</h2>
+    <p>Bridge for Phidgets allows <a n:href="FileMakerLicensing:default">FileMaker Pro</a> to
+        interact with various Phidgets boards to let
+        <strong>your solution control physical devices </strong>
+        and <strong>physical devices</strong> to <strong>control your solution.</strong></p>
+    <div class="editor-content">
+        <ul>
+            <li>Read and write RFID tags to <strong>track goods, assets and people</strong></li>
+            <li>Capture sensor data to <strong>collect environmental data such as temperature or force</strong></li>
+            <li>Control servo and stepper motors to <strong>automate moving parts of robots and machines</strong></li>
+            <li>Read digital and analog inputs to <strong>control your solution by physical controls</strong></li>
+            <li> Set digital and analog outputs to <strong>switch lights and other electrical devices</strong></li>
+            <li> Display text on an LCD display to <strong>create custom user interface such as cashbox</strong></li>
+            <li> Control phidgets over network <strong>to use sensors and devices located farther from your computer</strong></li>
+            <li>Compatibility with VINT lets you <strong>use the latest Phidgets devices</strong></li>
+            <li>Comatibility with iOS lets you <strong>control Phidgets directly from iPhone or iPad</strong></li>
+            <li>Compatibility with FileMaker Server lets you <strong>capture sensor data and control stuff 24/7</strong></li>
+        </ul>
+    </div>
+{/block}
+
+{block read_write-headline}Read and Write RFID Tags{/block}
+{block read_write}
+    <h2>{include read_write-headline}</h2>
+    <p>
+        With Bridge for Phidgets and the <a href="http://www.phidgets.com/products.php?category=14" target="_blank">PhidgetRFID board</a> you can
+        read and write to RFID tags up to 6cm away. The latest board
+        revision supports EM4100 series, ISO11785 FDX-B and
+        PhidgetTag protocols and writes to T5577 tags.
+    </p>
+    <p class="p-bold">
+        By accessing the RFID tags directly your FileMaker solution
+        can easily track people, animals, goods, assets, and other
+        identifiable physical items, such as documents, faster than
+        by typing their IDs on the keyboard.
+    </p>
+{/block}
+
+{block capture_data-headline}Capture data from sensors{/block}
+{block capture_data}
+    <h2>{include capture_data-headline}</h2>
+    <p>Bridge for Phidgets lets your FileMaker solution use
+        <a href="http://www.phidgets.com/products.php?category=0" target="_blank">Phidgets I/O Boards</a> to read data from variety of
+        <a href="http://www.phidgets.com/products.php?category=1" target="_blank">environmental sensors</a>, either upon request, or by
+        triggering a script when some sensor’s value exceeds
+        certain limit.</p>
+    <p class="p-bold">By reading sensor values, your FileMaker solution can
+        collect environmental data such as temperature, force,
+        or pressure, or respond to unexpected events in the
+        physical world, such as overheating your lab or
+        insufficient humidity in your greenhouse.</p>
+{/block}
+
+{block servo_motor-headline}Control Servo and Stepper Motors{/block}
+{block servo_motor}
+    <h2>{include servo_motor-headline}</h2>
+    <p> The Phidgets Servo and Stepper controllers  are supported to control servo and stepper motors or actuators directly from FileMaker.</p>
+    <p class="p-bold"> By controlling motors and actuators your FileMaker solution can literally move things in the physical world, such as window shaders or machine parts. You can even design an automated CNC lathe or cutter controlled solely by FileMaker. </p>
+{/block}
+
+{block tlakovy_sensor-headline}Read Digital and Analog Inputs{/block}
+{block tlakovy_sensor}
+    <h2>{include tlakovy_sensor-headline}</h2>
+    <p>
+        Bridge for Phidgets can use the <a href="http://www.phidgets.com/products.php?category=0" target="_blank">Phidgets I/O boards</a> to read both digital and analog signal inputs. Digital inputs can be used to read the on/off state of buttons or switched while analog inputs can, in addition to sensor values, read the state of input devices such as knobs and sliders.
+    </p>
+    <p class="p-bold">
+        Whether you’re designing a point-of-sale terminal or an entertainment solution such as bowling, being able to read signals lets you design a completely customized physical interface while still running a FileMaker solution on the backend.
+    </p>
+{/block}
+
+{block led-headline}Set Digital and Analog Outputs{/block}
+{block led}
+    <h2>{include led-headline}</h2>
+    <p>The <a href="http://www.phidgets.com/products.php?category=0" target="_blank">Phidgets I/O boards</a> with digital outputs can be
+        controlled by Bridge for Phidgets to set the on/off state
+        of up to 16 digital outputs per board. The digital outputs
+        can be used to control electronic circuits as well as to
+        switch high-current electrical devices using
+        <a href="http://www.phidgets.com/products.php?category=9" target="_blank">relays.</a>
+    </p>
+    <p class="p-bold">
+        By controlling digital outputs your FileMaker solution
+        can switch lights, turn on the heating or air condition,
+        open doors, or allow and disallow the use of any
+        electrically powered devices, all based on the data in
+        your database.
+    </p>
+{/block}
+
+{block network-headline}Control Phidgets Over Network{/block}
+{block network}
+    <h2>{include network-headline}</h2>
+    <p>
+        With Bridge for Phidgets you can now connect to a remote <a href="https://www.phidgets.com/products.php?category=21" target="_blank">PhidgetSBC</a>,  <a href="https://www.phidgets.com/?tier=3&catid=2&pcid=1&prodid=1143" target="_blank">Wireless VINT Hub</a>, or a  <a href="https://www.phidgets.com/docs21/Phidget_WebService" target="_blank">Phidget WebService</a> equipped computer and access any compatible Phidgets boards connected there.
+    </p>
+    <p class="p-bold">
+        By being able to connect to Phidgets over network your solution can now access sensors and control located farther from your computer, such as sensors in a factory or plant field,
+        or door locks in the whole building.
+    </p>
+{/block}
+
+{block lcd-headline}Display Text on LCD Display{/block}
+{block lcd}
+    <h2>{include lcd-headline}</h2>
+    <p>
+        You can use Bridge for Phidgets to display text on an LCD screen through the <a href="https://www.phidgets.com/products.php?category=15" target="_blank"> PhidgetTextLCD board.</a>
+    </p>
+    <p class="p-bold"> If you’re designing a FileMaker based point-of-sale or entertainment solution, being able to display text on a small LCD display now lets you create a fully
+        customized hardware
+        terminal and even control multiple terminals from a single copy of FileMaker Pro.
+    </p>
+{/block}
+
+{block vint-headline}Support for VINT Devices{/block}
+{block vint}
+    <h2>{include vint-headline}</h2>
+    <p>
+        Bridge for Phidgets fully supports the new VINT digital technology. VINT stands for Versatile Interface, and it’s the system that all modern Phidgets use to communicate. VINT
+        makes
+        the Phidgets devices more versatile and more affordable.
+    </p>
+    <p class="p-bold"> The same VINT port interface can work as like digital input, digital output, analog output or as a smart VINT port, which you can connect other devices to. </p>
+{/block}
+
+{block iphone-headline}Support for iOS{/block}
+{block iphone}
+    <h2>{include iphone-headline}</h2>
+    <p> Starting from version 3.1 you can include Bridge for Phidgets in native apps build using the iOS app SDK.</p>
+    <p class="p-bold"> Having the plug-in included in native iOS apps allows you to incorporate interaction with Phidgets devices even into your FileMaker apps running on iPhone or iPad.
+    </p>
+{/block}
+
+{block filemaker-support-server-headline}Support for FileMaker Server{/block}
+{block filemaker-support-server}
+    <h2>{include filemaker-support-server-headline}</h2>
+    <p> Starting from version 4, Bridge for Phidgets can be used on FileMaker without any client connected. It can access Phidgets from server-side scripts but also create data records and trigger scripts based on input from sensors and other devices.
+    </p>
+    <p class="p-bold"> Bridge for Phidgets being able to operate server-side enables FileMaker Server to become the core of a fully automated solution, capturing sensor data 24 hours a day, 7 hours a week, and controlling stuff like door locks, cooling systems, or even production lines.
+    </p>
+    <a href="news/monitor-filemaker-server-temperature-with-bridge-for-phidgets-4">Learn how</a>
+{/block}
+

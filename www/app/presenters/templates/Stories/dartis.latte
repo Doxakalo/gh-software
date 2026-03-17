@@ -1,0 +1,85 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}{include dartis_detail_title}{/block}
+{block description}
+    {include dartis_detail_description}
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{include dartis_detail_og_title}{/capture}
+        {capture $description}{include dartis_detail_og_description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og-dartin-dartis.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="22">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/stories/dartis/dartis_story_header.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/stories/dartis/dartis_story_header.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-9@desktop gr-12@mobile cover-parallax-inner">
+                <h1 class="page-title">
+                    {include dartis_detail_headline}
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{var $overview = [
+name => 'dartis_detail-overview',
+testimonials => [
+[img => $basePath.'/img/testimonials/dartin-dartis.jpg', video => [id => 'AGfUSq0GJ-4'], name => 'Štěpán Mindl, Dartin, FileMaker, Success Story'],
+]
+]}
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{capture $alt2}{_pages.stories.dartin.alts.2}{/capture}
+{capture $alt3}{_pages.stories.dartin.alts.3}{/capture}
+{capture $alt4}{_pages.stories.dartin.alts.4}{/capture}
+{capture $alt5}{_pages.stories.dartin.alts.5}{/capture}
+{capture $alt6}{_pages.stories.dartin.alts.6}{/capture}
+{capture $alt7}{_pages.stories.dartin.alts.7}{/capture}
+{capture $alt8}{_pages.stories.dartin.alts.8}{/capture}
+
+{var $articles = [
+    [name => 'dartis_2', img => $basePath.'/img/pages/stories/dartis/Odstavec2.jpg', title => $alt2],
+    [name => 'dartis_3', img => $basePath.'/img/pages/stories/dartis/Odstavec3.jpg', 'title' => $alt3],
+    [name => 'dartis_4', img => $basePath.'/img/pages/stories/dartis/Odstavec4.jpg', 'title' => $alt4],
+    [name => 'dartis_5', img => $basePath.'/img/pages/stories/dartis/Odstavec5.jpg?v=1', 'title' => $alt5],
+    [name => 'dartis_6', img => $basePath.'/img/pages/stories/dartis/Odstavec6.jpg', 'title' => $alt6],
+    [name => 'dartis_7', img => $basePath.'/img/pages/stories/dartis/Odstavec7.jpg', 'title' => $alt7],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles, row_color => ''}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'true', customDescriptionTranslate => "pages.stories.contact-form.description"}
+{/snippet}

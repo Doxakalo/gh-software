@@ -1,0 +1,552 @@
+RewriteEngine On
+
+# REDIRECT TO HTTPS
+
+#RewriteCond %{HTTPS} off
+#RewriteCond %{HTTP_HOST} !^fmbench.com [NC]
+#RewriteCond %{HTTP_HOST} !^honza.24usoftware.com [NC]
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=307]
+
+# REDIRECT START
+# ------------- REDIRECT TO FMBENCH PAGE -------------
+
+Redirect 307 /blog/2017/02/10/fmb_error_checker /fmbench
+Redirect 307 /planet-systems-group /fmbench
+Redirect 307 /detective /fmbench
+Redirect 307 /happy-customer /fmbench
+Redirect 307 /session-browser /fmbench
+Redirect 307 /watching-your-optimization-progress-with-reporter /fmbench
+Redirect 307 /blog/2017/02/10/fmb_bottleneck_finder /fmbench
+Redirect 307 /mad-optimizer /fmbench
+Redirect 307 /guides /fmbench
+
+# ------------- REDIRECT TO NEWS PAGE -------------
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /marvelous-optimization-2
+RewriteRule ^(.*)$ http://24usoftware.com/news/marvelous-optimization-2 [R=307,L]
+Redirect 307 /tips/marvelous-optimization-2 /news/marvelous-optimization-2
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /team-development
+RewriteRule ^(.*)$ /news/team-development [R=307,L]
+Redirect 307 /tips/team-development /news/team-development
+Redirect 307 /blog/2013/11/25/team-development-2 /news/team-development
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /client-offload
+RewriteRule ^(.*)$ http://24usoftware.com/news/client-offload [R=307,L]
+Redirect 307 /tips/client-offload /news/client-offload
+Redirect 307 /blog/2013/11/20/client-offload-2 /news/client-offload
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /optimization-madness
+RewriteRule ^(.*)$ http://24usoftware.com/news/optimization-madness [R=307,L]
+Redirect 307 /tips/optimization-madness /news/optimization-madness
+Redirect 307 /blog/2013/11/14/optimization-madness-2 /news/optimization-madness
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /tamagotchi_ready_for_the_future
+RewriteRule ^(.*)$ http://24usoftware.com/news/tamagotchi---ready-for-the-future [R=307,L]
+Redirect 307 /tips/tamagotchi_ready_for_the_future /news/tamagotchi---ready-for-the-future
+Redirect 307 /blog/2012/08/10/tamagotchi_ready_for_the_future /news/tamagotchi---ready-for-the-future
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /why-is-filemaker-12-slow
+RewriteRule ^(.*)$ http://24usoftware.com/news/why-is-filemaker-12-slow [R=307,L]
+Redirect 307 /tips/why-is-filemaker-12-slow /news/why-is-filemaker-12-slow
+Redirect 307 /blog/2012/05/31/why-is-filemaker-12-slow /news/why-is-filemaker-12-slow
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /marvelous-optimization-4-optimized-again
+RewriteRule ^(.*)$ http://24usoftware.com/news/marvelous-optimization-4---optimized-again [R=307,L]
+Redirect 307 /tips/marvelous-optimization-4-optimized-again /news/marvelous-optimization-4---optimized-again
+Redirect 307 /blog/2012/01/26/marvelous-optimization-4-optimized-again /news/marvelous-optimization-4---optimized-again
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /marvelous-optimization-3-faster-imports
+RewriteRule ^(.*)$ http://24usoftware.com/news/marvelous-optimization-3---faster-imports [R=307,L]
+Redirect 307 /tips/marvelous-optimization-3-faster-imports /news/marvelous-optimization-3---faster-imports
+Redirect 307 /blog/2011/12/11/marvelous-optimization-3-faster-imports /news/marvelous-optimization-3---faster-imports
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /marvelous-optimization-1
+RewriteRule ^(.*)$ http://24usoftware.com/news/marvelous-optimization-1 [R=307,L]
+Redirect 307 /tips/marvelous-optimization-1 http://24usoftware.com/news/marvelous-optimization-1
+Redirect 307 /blog/2011/11/07/marvelous-optimization-1 http://24usoftware.com/news/marvelous-optimization-1
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /debugging-scripts-by-writing-to-event-log
+RewriteRule ^(.*)$ http://24usoftware.com/news/debugging-scripts-by-writing-to-eventlog [R=307,L]
+Redirect 307 /tips/debugging-scripts-by-writing-to-event-log /news/debugging-scripts-by-writing-to-eventlog
+Redirect 307 /blog/2011/10/17/debugging-scripts-by-writing-to-event-log /news/debugging-scripts-by-writing-to-eventlog
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /random-set-of-records-optimized
+RewriteRule ^(.*)$ http://24usoftware.com/news/random-set-of-records-optimized [R=307,L]
+Redirect 307 /tips/random-set-of-records-optimized /news/random-set-of-records-optimized
+Redirect 307 /blog/2011/09/29/random-set-of-records-optimized /news/random-set-of-records-optimized
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /custom-function-optimized-to-evaluate-hundreds-times-faster
+RewriteRule ^(.*)$ http://24usoftware.com/news/custom-function-optimized-to-evaluate-hundreds-times-faster [R=307,L]
+Redirect 307 /tips/custom-function-optimized-to-evaluate-hundreds-times-faster /news/custom-function-optimized-to-evaluate-hundreds-times-faster
+Redirect 307 /blog/2011/09/14/custom-function-optimized-to-evaluate-hundreds-times-faster /news/custom-function-optimized-to-evaluate-hundreds-times-faster
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /filemaker-custom-function-for-html-entities
+RewriteRule ^(.*)$ http://24usoftware.com/news/filemaker-custom-function-for-html-entities [R=307,L]
+Redirect 307 /tips/filemaker-custom-function-for-html-entities /news/filemaker-custom-function-for-html-entitie
+Redirect 307 /blog/2011/08/29/filemaker-custom-function-for-html-entities /news/filemaker-custom-function-for-html-entitie
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /5-reasons-for-not-attending-filemaker-devcon
+RewriteRule ^(.*)$ http://24usoftware.com/news/5-reasons-for-not-attending-filemaker-devcon [R=307,L]
+Redirect 307 /tips/5-reasons-for-not-attending-filemaker-devcon /news/5-reasons-for-not-attending-filemaker-devcon
+Redirect 307 /blog/2011/07/18/5-reasons-for-not-attending-filemaker-devcon /news/5-reasons-for-not-attending-filemaker-devcon
+
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /mac-os-x-10-7-lion-upgrade-or-wait
+RewriteRule ^(.*)$ http://24usoftware.com/news/mac-os-x-107-lion---upgrade-or-wait [R=307,L]
+Redirect 307 /tips/mac-os-x-10-7-lion-upgrade-or-wait /news/mac-os-x-107-lion---upgrade-or-wait
+Redirect 307 /blog/2011/07/13/mac-os-x-10-7-lion-upgrade-or-wait /news/mac-os-x-107-lion---upgrade-or-wait
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /php-debugging-filemaker-custom-functions-do-exist
+RewriteRule ^(.*)$ http://24usoftware.com/news/php-debugging--filemaker-custom-functions-do-exist [R=307,L]
+Redirect 307 /tips/php-debugging-filemaker-custom-functions-do-exist /news/php-debugging--filemaker-custom-functions-do-exist
+Redirect 307 /blog/2011/05/25/php-debugging-filemaker-custom-functions-do-exist /news/php-debugging--filemaker-custom-functions-do-exist
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /blog-moved
+RewriteRule ^(.*)$ http://24usoftware.com/news/blog-moved [R=307,L]
+Redirect 307 /tips/blog-moved /news/blog-moved
+Redirect 307 /blog/2011/04/27/blog-moved /news/blog-moved
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /infinite-hierarchy
+RewriteRule ^(.*)$ http://24usoftware.com/news/infinite-hierarchy [R=307,L]
+Redirect 307 /tips/infinite-hierarchy /news/infinite-hierarchy
+Redirect 307 /blog/2011/03/29/infinite-hierarchy /news/infinite-hierarchy
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /filemaker-script-run-time-cut-from-5-hours-to
+RewriteRule ^(.*)$ http://24usoftware.com/news/filemaker-script-execution-time-cut-from-5-hours-to-6-seconds [R=307,L]
+Redirect 307 /tips/filemaker-script-run-time-cut-from-5-hours-to /news/filemaker-script-execution-time-cut-from-5-hours-to-6-seconds
+Redirect 307 /blog/2011/03/17/filemaker-script-run-time-cut-from-5-hours-to /news/filemaker-script-execution-time-cut-from-5-hours-to-6-seconds
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /per-database-filemaker-plug-ins
+RewriteRule ^(.*)$ http://24usoftware.com/news/per-database-filemaker-plug-ins  [R=307,L]
+Redirect 307 /tips/per-database-filemaker-plug-ins /news/per-database-filemaker-plug-ins
+Redirect 307 /blog/2011/02/24/per-database-filemaker-plug-ins /news/per-database-filemaker-plug-ins
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /filemaker-php-error-7-running-out-of-memory-resolved
+RewriteRule ^(.*)$ http://24usoftware.com/news/filemaker-php-error-7-running-out-of-memory-resolved [R=307,L]
+Redirect 307 /tips/filemaker-php-error-7-running-out-of-memory-resolved /news/filemaker-php-error-7-running-out-of-memory-resolved
+Redirect 307 /blog/2011/02/23/filemaker-php-error-7-running-out-of-memory-resolved /news/filemaker-php-error-7-running-out-of-memory-resolved
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /designing-buttons-in-pages-updated
+RewriteRule ^(.*)$ http://24usoftware.com/news/designing-buttons-in-pages-updated [R=307,L]
+Redirect 307 /tips/designing-buttons-in-pages-updated /news/designing-buttons-in-pages-updated
+Redirect 307 /blog/2011/01/28/designing-buttons-in-pages-updated /news/designing-buttons-in-pages-updated
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /24u-net-remote-demo-video
+RewriteRule ^(.*)$ http://24usoftware.com/news/24u-net-remote-demo-video [R=307,L]
+Redirect 307 /tips/24u-net-remote-demo-video /news/24u-net-remote-demo-video
+Redirect 307 /blog/2011/01/19/24u-net-remote-demo-video /news/24u-net-remote-demo-video
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /first-lessons-from-developing-for-filemaker-go
+RewriteRule ^(.*)$ http://24usoftware.com/news/first-lessons-from-developing-for-filemaker-go [R=307,L]
+Redirect 307 /tips/first-lessons-from-developing-for-filemaker-go /news/first-lessons-from-developing-for-filemaker-go
+Redirect 307 /blog/2011/01/13/first-lessons-from-developing-for-filemaker-go /news/first-lessons-from-developing-for-filemaker-go
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /indicate-progress-in-filemaker-go-and-11
+RewriteRule ^(.*)$ http://24usoftware.com/news/indicate-progress-in-filemaker-go-and-11 [R=307,L]
+Redirect 307 /tips/indicate-progress-in-filemaker-go-and-11 /news/indicate-progress-in-filemaker-go-and-11
+Redirect 307 /blog/2010/07/29/indicate-progress-in-filemaker-go-and-11 /news/indicate-progress-in-filemaker-go-and-11
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /24u-simpledialog-plug-in-40-special-offer
+RewriteRule ^(.*)$ http://24usoftware.com/news/24u-simpledialog-plug-in-40-special-offer-updated-jul-24-2010 [R=307,L]
+Redirect 307 /tips/24u-simpledialog-plug-in-40-special-offer /news/24u-simpledialog-plug-in-40-special-offer-updated-jul-24-2010
+Redirect 307 /blog/2010/07/17/24u-simpledialog-plug-in-40-special-offer /news/24u-simpledialog-plug-in-40-special-offer-updated-jul-24-2010
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /stay-independent-0
+RewriteRule ^(.*)$ http://24usoftware.com/news/stay-independent [R=307,L]
+Redirect 307 /tips/stay-independent-0 /news/stay-independent
+Redirect 307 /blog/2010/07/16/stay-independent-0 /news/stay-independent
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /prevent-support-calls-updated-july-29-2010
+RewriteRule ^(.*)$ http://24usoftware.com/news/prevent-support-calls-updated-july-29-2010 [R=307,L]
+Redirect 307 /tips/prevent-support-calls-updated-july-29-2010 /news/prevent-support-calls-updated-july-29-2010
+Redirect 307 /blog/2010/07/15/prevent-support-calls-updated-july-29-2010 /news/prevent-support-calls-updated-july-29-2010
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /top-10-things-i-like-about-filemaker-10
+RewriteRule ^(.*)$ http://24usoftware.com/news/top-10-things-i-like-about-filemaker-10 [R=307,L]
+Redirect 307 /tips/top-10-things-i-like-about-filemaker-10 /news/top-10-things-i-like-about-filemaker-10
+Redirect 307 /blog/2010/02/25/top-10-things-i-like-about-filemaker-10 /news/top-10-things-i-like-about-filemaker-10
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /getasdatex-getasdatex-and-in-filemaker
+RewriteRule ^(.*)$ http://24usoftware.com/news/getasdatex-getasdate-x-- [R=307,L]
+Redirect 307 /tips/getasdatex-getasdatex-and-in-filemaker /news/getasdatex-getasdate-x--
+Redirect 307 /blog/2010/01/21/getasdatex-getasdatex-and-in-filemaker/ /news/getasdatex-getasdate-x--
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /top-10-things-i-hate-about-filemaker-pro-10
+RewriteRule ^(.*)$ http://24usoftware.com/news/top-10-things-i-hate-about-filemaker-pro-10 [R=307,L]
+Redirect 307 /tips/top-10-things-i-hate-about-filemaker-pro-10 /news/top-10-things-i-hate-about-filemaker-pro-10
+Redirect 307 /blog/2009/11/11/top-10-things-i-hate-about-filemaker-pro-10 /news/top-10-things-i-hate-about-filemaker-pro-10
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /the-best-10minute-workflow-to-demo-filemaker-at-a-press-conference
+RewriteRule ^(.*)$ http://24usoftware.com/news/the-best-10minute-workflow-to-demo-filemaker-at-a-press-conference [R=307,L]
+Redirect 307 /tips/the-best-10minute-workflow-to-demo-filemaker-at-a-press-conference /news/the-best-10minute-workflow-to-demo-filemaker-at-a-press-conference
+Redirect 307 /blog/2009/10/21/the-best-10minute-workflow-to-demo-filemaker-at-a-press-conference /news/the-best-10minute-workflow-to-demo-filemaker-at-a-press-conference
+
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteCond %{REQUEST_URI} /i-have-got-my-filemaker-branded-flash-drive
+RewriteRule ^(.*)$ http://24usoftware.com/news/i-have-got-my-filemaker-branded-flash-drive [R=307,L]
+Redirect 307 /tips/i-have-got-my-filemaker-branded-flash-drive /news/i-have-got-my-filemaker-branded-flash-drive
+Redirect 307 /blog/2009/09/03/i-have-got-my-filemaker-branded-flash-drive /news/i-have-got-my-filemaker-branded-flash-drive
+
+
+Redirect 307 /devcon2014 /news/24u-exhibited-at-filemaker-devcon-2014
+Redirect 307 /devcon2015 /news/24u-at-filemaker-devcon-2015
+Redirect 307 /devcon2016 /news/our-aptitude-for-apps-at-filemaker-devcon-2016
+Redirect 307 /devcon2017 /news/24u-at-devcon-2017
+Redirect 307 /devcon2018 /news/24u-at-filemaker-devcon-2018
+Redirect 307 /devcon2019 /news/24u-at-devcon-2019
+Redirect 307 /devcon /news/24u-at-devcon-2019
+Redirect 307 /hero /news/become-a-troubleshooting-hero
+Redirect 307 /session-browser /news/examining-solution-usage-with-session-browser
+
+# REDIRECT TO MENU PAGES
+Redirect 307 /customdevelopment /custom-apps
+Redirect 307 /devsupport /support
+Redirect 307 /24u-simplefile /simplefile
+Redirect 307 /about /company
+Redirect 307 /basic-implementation /custom-apps
+Redirect 307 /buy-premium-support /support
+Redirect 307 /complex-implementation /filemaker-consulting
+Redirect 307 /detective /fmbench
+Redirect 307 /emailosax /tools
+Redirect 307 /fm-solution-optimization /fmbench
+Redirect 307 /fm-basic-implementation /fmbench
+Redirect 307 /fmb-complex-implementation /fmbench
+Redirect 307 /fmb-demo /fmbench
+Redirect 307 /integration /hardware-integration
+Redirect 307 /mad-optimizer /company
+Redirect 307 /premium-support /support
+Redirect 307 /policy /privacy-policy
+Redirect 307 /simpledialog-news /simpledialog
+Redirect 307 /solutionaudit /filemaker-consulting
+Redirect 307 /plugins /tools
+Redirect 307 /support/pluginscompatibility /tools
+Redirect 307 /support/pbxsupport /phonecompanion#download
+Redirect 307 /synetrans /stories/synetrans
+Redirect 307 /team /company
+Redirect 307 /transformation /filemaker-consulting
+Redirect 307 /64bit-app /hardware-integration
+Redirect 307 /64bit-plugin /hardware-integration
+
+# REDIRECT TO PRESS
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=208
+RewriteRule ^(.*)$ http://24usoftware.com/press/2019-02-25 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=207
+RewriteRule ^(.*)$ http://24usoftware.com/press/2019-01-31-2 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=206
+RewriteRule ^(.*)$ http://24usoftware.com/press/2019-01-31 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=205
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-11-26 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=204
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-10-30 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=203
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-07-30 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=202
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-07-27 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=1&ID=201
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-07-13 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=200
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-06-28 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=199
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-06-20-2 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=198
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-06-20 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=197
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-06-05-2 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=196
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-06-05 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=195
+RewriteRule ^(.*)$ http://24usoftware.com/press/2018-05-30 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=194
+RewriteRule ^(.*)$ http://24usoftware.com/press/2017-12-19 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=193
+RewriteRule ^(.*)$ http://24usoftware.com/press/2017-05-17 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=192
+RewriteRule ^(.*)$ http://24usoftware.com/press/2016-11-23 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=191
+RewriteRule ^(.*)$ http://24usoftware.com/press/2016-10-07 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=190
+RewriteRule ^(.*)$ http://24usoftware.com/press/2016-07-18 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=189
+RewriteRule ^(.*)$ http://24usoftware.com/press/2016-07-13 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=188
+RewriteRule ^(.*)$ http://24usoftware.com/press/2016-07-06 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=187
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-12-09 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=186
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-11-26 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=185
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-11-06 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=184
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-11-04 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=183
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-07-01 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=182
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-05-28 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=181
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-05-26 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=180
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-05-20 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=179
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-05-13 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=178
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-03-30 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=177
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-02-12 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=176
+RewriteRule ^(.*)$ http://24usoftware.com/press/2015-02-10 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=175
+RewriteRule ^(.*)$ http://24usoftware.com/press/2014-12-16 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=174
+RewriteRule ^(.*)$ http://24usoftware.com/press/2014-09-04 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=173
+RewriteRule ^(.*)$ http://24usoftware.com/press/2014-04-08 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=172
+RewriteRule ^(.*)$ http://24usoftware.com/press/2014-03-11 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=171
+RewriteRule ^(.*)$ http://24usoftware.com/press/2013-08-05 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=170
+RewriteRule ^(.*)$ http://24usoftware.com/press/2012-07-09-2 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=169
+RewriteRule ^(.*)$ http://24usoftware.com/press/2012-07-09 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=168
+RewriteRule ^(.*)$ http://24usoftware.com/press/2012-02-13-2 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=167
+RewriteRule ^(.*)$ http://24usoftware.com/press/2012-02-13 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=166
+RewriteRule ^(.*)$ http://24usoftware.com/press/2012-02-03 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=165
+RewriteRule ^(.*)$ http://24usoftware.com/press/2011-12-05-2 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=164
+RewriteRule ^(.*)$ http://24usoftware.com/press/2011-12-05 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=163
+RewriteRule ^(.*)$ http://24usoftware.com/press/2011-09-27 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=162
+RewriteRule ^(.*)$ http://24usoftware.com/press/2011-01-20 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=161
+RewriteRule ^(.*)$ http://24usoftware.com/press/2010-07-19 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=160
+RewriteRule ^(.*)$ http://24usoftware.com/press/2010-03-16 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=159
+RewriteRule ^(.*)$ http://24usoftware.com/press/2009-08-14 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=158
+RewriteRule ^(.*)$ http://24usoftware.com/press/2009-07-23 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteCond %{QUERY_STRING} ^page=2&ID=157
+RewriteRule ^(.*)$ http://24usoftware.com/press/2009-07-07 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24usoftware.com [NC]
+RewriteCond %{REQUEST_URI} /pr/index.php
+RewriteRule ^(.*)$ http://24usoftware.com/press [R=307,L]
+
+# REQUIRED - DOWNLOAD
+RewriteCond %{REQUEST_URI} /download
+RewriteRule ^download/(.*)$ https://product-installers-s3.s3.us-east-2.amazonaws.com/$1 [R=307,L]
+
+# DEFAULT
+RewriteCond %{HTTP_HOST} ^honza\.24usoftware\.com [NC]
+RewriteRule ^(.*)$ http://24usoftware.com/news [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^content.24uSoftware.com [NC]
+RewriteRule ^(.*)$ https://24usw.com/$1 [R=307,L]
+
+RewriteCond %{HTTP_HOST} ^fmbench.com [NC]
+RewriteRule ^(.*)$ http://24usoftware.com/fmbench [R=307,L]
+
+# REDIRECT TO WWW FOLDER
+RewriteCond %{THE_REQUEST} /www/([^\s?]*) [NC]
+RewriteRule ^ /%1 [L,R=307]
+RewriteRule (.*) www/$1 [L]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php70” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php70 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

@@ -1,0 +1,25 @@
+{block content}
+
+<section class="spacing">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 editor-content text-left@mobile-center">
+                <br />
+                <h1>Chcete, aby tento prohlížeč byl ignorován ve statistikách?</h1>
+                <p>V případě, že jste zaměstnancem firmy, nastavte si prosím stav na "Ignorováno ve statistikách", pomůžete nám tím zpřesnit statistiky Google Analytics (je potřeba nastavit pro každý prohlížeč a zařízení)
+                </p>
+                <h2 class="mb-2">Aktuální stav:
+                    {if $cookie['value'] ==  1}
+                        Ignorováno ve statistikách
+                    {else}
+                        Započítáváno ve statistikách
+                    {/if}
+                </h2>
+                        <a class="button" n:href="Cookie:setCookie, cookie_val => true">Ignorovat ve statistikách</a>
+                        <a class="button mb-2@mobile" n:href="Cookie:setCookie, cookie_val => false">Započítávat do statistik</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+

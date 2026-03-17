@@ -1,0 +1,124 @@
+section.contact {
+  background-color: $colorOrange;
+  color: $colorWhite;
+  position: relative;
+  z-index: 30;
+
+
+  h2 {
+    font-size: 1.714em;
+
+    @include g-state(desktop) {
+      font-size: 1.5em;
+    }
+    @include g-state(tablet) {
+      font-size: 1.5em;
+    }
+    @include g-state(mobile) {
+      font-size: 1.4em;
+    }
+  }
+
+  img.icon {
+    max-width: 100%;
+    max-height: 100px;
+    margin-bottom: 1em;
+    opacity: .5;
+  }
+
+  span.large {
+    display: block;
+    font-size: 1.9em;
+    margin-bottom: 1em;
+
+    @include g-state(mobile) {
+      font-size: 1.4em;
+    }
+  }
+
+  form {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="search"],
+    input[type="time"],
+    textarea {
+      background-color: rgba($colorWhite, .6);
+      color: $colorOrange;
+
+      @include input-placeholder {
+        color: $colorOrange;
+      }
+    }
+
+    a {
+      color: rgba($colorWhite, .8);
+
+      @include g-state(desktop) {
+        font-size: .75em;
+      }
+
+      &:hover {
+        color: $colorWhite;
+      }
+    }
+
+    .button {
+      background-color: rgba($colorWhite, .3);
+
+      &:hover {
+        background-color: rgba($colorWhite, .2);
+      }
+    }
+  }
+
+  .box {
+    padding: 3em 1em 2em;
+    margin: 0;
+    position: relative;
+    height: 100%;
+
+    @include g-state(tablet) {
+      padding: (5em * $scaleRatioTablet) (3em * $scaleRatioTablet) (4em * $scaleRatioTablet);
+      height: auto;
+    }
+    @include g-state(mobile) {
+      padding: (5em * $scaleRatioMobile) (3em * $scaleRatioMobile) (4em * $scaleRatioMobile);
+      height: auto;
+    }
+
+    &.divider {
+      border-right: 2px solid $colorWhite;
+      border-left: 2px solid $colorWhite;
+
+      &.first {
+        border-left: 0;
+
+        @include g-state(tablet) {
+          border: 0;
+          border-bottom: 2px solid $colorWhite;
+        }
+
+        @include g-state(mobile) {
+          border: 0;
+          border-bottom: 2px solid $colorWhite;
+        }
+      }
+
+      &.last {
+        border-right: 0;
+
+        @include g-state(tablet) {
+          border: 0;
+          border-top: 2px solid $colorWhite;
+        }
+
+        @include g-state(mobile) {
+          border: 0;
+          border-top: 2px solid $colorWhite;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+
+	<title>LineaInfinea Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h2:before { counter-increment:section; content:"" counter(section) ". "; }
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for Infinea mPos terminals</h1>
+<p>
+<a href="../../Support/mPOS-mPOSF_User_Manual.pdf">Product information</a>
+</p>
+
+<h2>Limitations</h2>
+<ul>
+    <li>Detailed limits for the RFID cards are found <a href="../GonectorSyntax.html#technicalParameters">here</a>. We recommend to use NTAGs. Namely NFC Forum Type 2 Tags. (They fall into the category Mifare Ultralight but they are NDEF formatted)</li>
+</ul>
+
+<h2>Connecting the Infinea mPos device</h2>
+<p>
+To successfully connect the Infinea mPos terminal it is necessary to call function Gonector_Connect( "mPosInfinea" ) and press a hardware button.
+
+</p>
+
+<h4>Connection troubleshooting guide</h4>
+
+<ul>
+  <li>Open Settings of the iOS device</li>
+  <li>Open the General tab on the iOS device</li>
+  <li>Open About on the iOS device</li>
+  <li>Scroll down and see if the device is mentioned in the list of options</li>
+  <li>If the device is not visible in the list of options, try to press the hardware button mentioned in the specification of the device as a startup button</li>
+  <li>If the device is still not visible in the list of options, try reconnecting the device by removing it completely</li>
+  <li>If the device is still not visible in the list of options, try to restart the iOS device</li>
+  <li>If the device is still not visible in the list of options, try upgrading the firmware of the iOS device</li>
+  <li>If the device is still not visible in the list of options, contact the supplier at https://stimare.net/contact-us/
+  <li>If the device is visible in the list of options but it is not possible to use the function Gonector_Connect successfully, please contact our support at support@24usoftware.com</li>
+</ul>
+
+<h2>Solving issues with Infinea mPos terminals</h2>
+<p>
+	<ul>
+		<li><i>Device is connected to iOS, but i cannot use the device and cannot get firmwareVersion neither</i><br>
+			Infinea mPos terminals use special protocol for communication, which has to be specified in your app. Into the .plist file of the project in Xcode, add new Row with the value "Supported external accessory protocol" and add the Strings:
+		<ul>
+		    <li>"com.datecs.linea.pro.msr"</li>
+		    <li>"com.datecs.linea.pro.bar"</li>
+        <li>"com.datecs.linea.pro.msr"</li>
+        <li>"com.datecs.linea.pro.bar"</li>
+        <li>"com.datecs.pengine"</li>
+        <li>"com.datecs.printer.escpos"</li>
+        <li>"com.datecs.pinpad"</li>
+        </ul>
+		</li>
+	</ul>
+</p>
+
+</body>
+</html>

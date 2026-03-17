@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+      table, th, td {
+        border: 1px solid black;
+      }
+	</style>
+
+	<title>Zebra ZQ630 Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h2:before { counter-increment:section; content:"" counter(section) ". "; }
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for Zebra printers</h1>
+<p>
+<a href="https://www.zebra.com/gb/en/support-downloads/printers/mobile/zq600.html">Zebra ZQ630 Product information</a></br>
+</p>
+
+<h2>Limitations</h2>
+<ul>
+    <li>Calibration - if you use RFIDCalibration(recommended to use everytime printing media is changed) the printer will feed 2 tags. You can still use them if you open the printer and reroll tags back manually.</li>
+    <li>barcodeRotation - when setting barcodeRotation, keep in mind that HRI(human readable interpretation) is "outside" of printed box. For example: when you set barcodeRotation = 180 and print barcode at location (100,50), barcode will be upside down and point (100,50) will be upper-left corner of barcode but HRI will be upwards from coordinate 50.</li>
+    <li>Printing location - it is not recommended to print at first and last 3mm of width and height of tag.</li>
+</ul>
+
+<h2>Font size arithmetics - fontHeight, fontWidth</h2>
+<p>
+Our plugin uses two bitmapped fonts which have following sizes:
+<br><br>
+<table>
+<tr>
+  <td>fontType</td>
+  <td>base height</td>
+  <td>base width</td>
+</tr>
+<tr>
+  <td><b>wide</td>
+  <td><b>18</td>
+  <td><b>10</td>
+</tr>
+<tr>
+  <td><b>narrow</td>
+  <td><b>28</td>
+  <td><b>15</td>
+</tr>
+</table>
+<br>
+These bitmapped fonts can be magnified from 2 to 10 times their normal (default) size using <i>Gonector_Set( "fontSize" ; "ZebraPrinter" ; 10 )</i>.<br>
+You can use different values for fontHeight and fontWidth if you need.<br>
+If the fontWidth is set to 0, it will be magnified by same factor as fontHeight and keep the font proportional. The same result can be achieved using just the fontSize option.
+</p>
+
+<h2>printableArea</h2>
+<p>
+To set the right printable area, you need to calculate width and height in dots.
+<br><br><i>printableWidth [dots] = width [inches] * printerResolution [dpi]
+<br>printableHeight [dots] = height [inches] * printerResolution [dpi]</i><br><br>
+Zebra ZQ630 has printer resolution 203dpi, if you have tag that is 3.94 inches wide, it has printableWidth of 800dots.
+</p>
+
+<h2>RawCommand</h2>
+<p>You can use <a href="https://www.zebra.com/us/en/products/software/barcode-printers/print-dna/zebra-designer.html">ZebraDesigner</a> to design label for your needs and then you can send created ZPL command through Gonector_RawCommand() function to printer.
+<br>You can also use <a href="http://labelary.com/viewer.html">Labelary</a> to check result of your ZPL command online.</p>
+
+<h2>Connecting the Zebra ZQ630 printer</h2>
+<p>There are 2 posible ways how to connect to Zebra Printer: Bluetooth LE (recommended) and Bluetooth Clasic</p>
+
+<h3>Bluetooth LE (recommended)</h3>
+<p>To successfully connect to Zebra ZQ630 to Gonector via Bluetooth LE please follow instructions below.</p>
+<ul>
+  <li>If previously paired on iOS device, run Gonector_Connect(device_name) otherwise continue bellow</li>
+  <li>Press and keep pressed FEED button(next to ON/OFF button) for at least 5 seconds until Bluetooth icon starst blinking on upper left corner of Zebra printer display</li>
+  <li>Call Gonector_Get("devices") or Gonector_Get("devices" ; "ZebraPrinter") plugin function to get device_name(Serial Number) of your printer</li>
+  <li>Call Gonector_Connect(device_name) to connect to your printer</li>
+  <li>Pairing dialog should apear on your iOS device and Zebra printer -> accept on both devices</li>
+  <li>Done</li>
+</ul>
+</p>
+
+<h3>Bluetooth Classic</h3>
+<p>To successfully connect to Zebra ZQ630 to Gonector via Bluetooth Classic please follow instructions below.</p>
+<ul>
+  <li>If previously paired, go to system Settings->Bluetooth and unpair ZQ630</li>
+  <li>Press and keep pressed FEED button(next to ON/OFF button) for at least 5 seconds until Bluetooth icon starst blinking on upper left corner of Zebra printer display</li>
+  <li>Zebra printer device should appear available for pairing named as it's Serial Number</li>
+  <li>Pair your iOS device with Zebra Printer in Setting->Bluetooth</li>
+  <li>Pairing dialog should apear on your iOS device and Zebra printer -> accept on both devices</li>
+  <li>Call Gonector_Get("devices") or Gonector_Get("devices" ; "ZebraPrinter") plugin function to get device_name(Serial Number) of your printer</li>
+  <li>Call Gonector_Connect(device_name) to connect to your printer</li>
+  <li>Done</li>
+</ul>
+</p>
+
+<h2>Solving issues with Zebra printer</h2>
+<p>
+	<ul>
+		<li><i>Device is paired with iOS, but function Gonector_Get("devices") does not return device:</i><br>
+			Zebra printers use special protocol for communication, which has to be specified in your app. Into the .plist file of the project in Xcode, add new Row with the value "Supported external accessory protocol" and add the Strings:
+		<ul>
+          <li>com.zebra.rawport</li>
+        </ul>
+		</li>
+	</ul>
+</p>
+
+<h2>Apple App Store Requirements</h2>
+
+<p>
+  If you are connecting Zebra Printer via Bluetooth Classic (MFI) and you added "com.zebra.rawport" to "Supported external accessory protocol", you will have to register the app with Zebra in order to obtain MFi Authorization before you can submit you app to the AppStore<br><br>
+  You can do so through the <a href="https://www.zebra.com/content/dam/zebra/product-information/en-us/brochures-datasheets/software/ios-app-whitelisting-faqs-sheet-a4-en-us.pdf">Zebra website</a>. Zebra will provide you with an identification number (PPID) that you have to include in review notes when submitting your app<br><br>
+</p>
+
+</body>
+</html>

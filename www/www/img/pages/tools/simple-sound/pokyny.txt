@@ -1,0 +1,4 @@
+Tyto sekce prosím úplně odstranit:
+Custom-built Copy for each Customer (nepatří k SimpleSoundu)
+Playback Functionality Completely Rewritten (je to změna, není to funkce)
+Extended ID3 Tags Support (je to změna, není to samostatná funkce)

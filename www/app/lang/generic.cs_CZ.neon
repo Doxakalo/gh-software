@@ -1,0 +1,98 @@
+errors:
+        unexpected: "Nastala neočekávaná chyba, prosím kontaktujte 24U"
+
+no-translation:
+    label: "Omlouváme se, informace na této stránce jsou k dispozici pouze anglicky."
+    use-translator: "Použít překladač"
+    switch-lang: "Přepnout do angličtiny"
+
+logo:
+    back_to_homepage: "Zpět&nbsp;na&nbsp;<br/>titulní&nbsp;stranu"
+    homepage: "Titulní&nbsp;strana"
+    go_to_partner_website: "Přejít&nbsp;na"
+
+page-types:
+    service_page: "Služba"
+    product_page: "Produkt"
+    customer_story: "Příběh"
+    news_article: "Článek"
+    general_info: "Informace o firmě"
+    press_release: "Tisková zpráva"
+    legal_info: "Právní informace"
+    other: "Ostatní"
+
+page-title:
+    quality-assurance: "24U - Kontrola kvality"
+    sla: "24U - Servisní smlouvy"
+    support: "24U - Podpora"
+    tools: "24U - Nástroje"
+    stories: "24U - Ukázky řešení"
+    news: "24U - Novinky"
+    about-us: "24U - O firmě"
+    press: "24U - Informace pro média"
+    press-detail: "24U - Informace pro média"
+
+header-menu:
+    capps: "Aplikace<br />na míru"
+    fmconsulting: "Konzultace<br />FileMaker"
+    hwintegration: "Integrace<br />hardware"
+    qa: "Kontrola<br />kvality"
+    sla: "Servisní<br />smlouvy"
+    support: "Podpora"
+    tools: "Nástroje"
+    devtools: "Vývojářské nástroje"
+    fmplugins: "Plug-iny pro FileMaker"
+    stories: "Ukázky<br>řešení"
+    news: "Novinky"
+    search-placeholder: "Začít vyhledávat"
+    company: "O nás"
+
+header-menu-mobile:
+    capps: "Aplikace na míru"
+    fmconsulting: "Konzultace FileMaker"
+    hwintegration: "Integrace hardware"
+    qa: "Kontrola kvality"
+    sla: "Servisní smlouvy"
+    support: "Podpora"
+    tools: "Nástroje"
+    devtools: "Vývojářské nástroje"
+    fmplugins: "FileMaker pluginy"
+    stories: "Příběhy"
+    news: "Novinky"
+    search-placeholder: "Hledat na 24uSoftware.com"
+    company: "O nás"
+
+contact-form-section:
+    contact-us: "Kontaktujte nás"
+    call-us: "Volejte<br />nám"
+    let-us-call: "Voláme<br />zpět"
+    available-time: "Obvykle jsme dostupní v pracovní dny mezi 8. a 18. hodinou"
+    we-call-back: "Pokud budete volat z viditelného čísla a nedovoláte se, zavoláme vám zpátky"
+    form-sent: "Děkujeme za váš dotaz. Pokusíme se vás kontaktovat na uvedeném telefonním čísle co nejdříve."
+    form-sent2: "Děkujeme."
+    privacy-information: "Ochrana osobních údajů"
+
+footer:
+    question-header: "Pokud máte dotaz"
+    question-success: "Děkujeme za váš dotaz, odpovíme vám co nejdříve. Pokud se vám do 2 pracovních dnů neozveme, kontaktujte nás telefonicky."
+    contact-us: "Kontaktujte nás"
+    shedule-call: "Naplánovat hovor"
+    subscription-header: "Zůstaňme v kontaktu"
+    subscription-text: "Přihlaste se k odběru novinek a rad z 24U přímo do vaší e-mailové schránky"
+    privacy-information: "Ochrana osobních údajů"
+    all-rights-reserved: "Všechna práva vyhrazena"
+    menu:
+        company: "O nás"
+        press: "Média"
+        terms: "Podmínky užití"
+        privacy: "Ochrana soukromí"
+        cookies: "Nastavení cookies"
+    socials_links:
+        facebook: "https://www.facebook.com/skolstvi24U/"
+        twitter: "https://twitter.com/24usro"
+        linkedin: "https://linkedin.com/company/24u-s.r.o."
+        youtube: "https://youtube.com/24u"
+
+subscription:
+    subscription-success_send_email: "Děkujeme, vaše přihláška byla úspěšně odeslána."
+    subscription-success_no_send_email: "Děkujeme, vaše přihlášení bylo úspěšné"

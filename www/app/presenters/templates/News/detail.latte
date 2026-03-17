@@ -1,0 +1,288 @@
+{block title}{$news->title}{/block}
+{block description}{$news->meta_description}{/block}
+
+{block og}
+    {capture $ogMediaHTML}
+
+        {if !empty($ogMedia)}
+            {foreach $ogMedia as $img}
+                <meta property='og:image' content='{link //News:imageOG, $img->id, $news->id}'/>
+            {/foreach}
+        {else}
+            <meta property='og:image' content='{$imageLink}'/>
+        {/if}
+        {if !empty($news->og_video_yt_id)}
+            <meta property='og:video' content='https://www.youtube.com/v/{$news->og_video_yt_id}' />
+        {/if}
+    {/capture}
+
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => "article",
+            title => $news->og_title,
+            description => $news->og_description . " " . $hashtagString,
+            ogMediaHTML => $ogMediaHTML,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+
+{/block}
+
+
+{block content}
+
+<section class="cover default">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/news/empty_header.png')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner ">
+                <div class="content">
+                    <p class="page-title">
+                        {$news->name}
+                    </p>
+                    {if $news->author !== ""}
+                    <p class="author">
+                        by&nbsp;{$news->author|replace:' ','&nbsp;'|noescape}
+                    </p>
+                    {/if}
+                    <ul class="tags">
+
+                        {foreach $tags as $tag}
+                            <li><a n:href="News:list, tag=>$tag->name">{$tag->name}</a></li>
+                        {/foreach}
+                    </ul>
+
+                </div>
+            </div>
+            <div class="gr-6 hide@mobile">
+                <img class="detail-preview-image {!empty($news->filter_over_preview_image) ? "active-filtr" : ""}" src="{plink //News:image, $news->id}"
+                     alt="{$news->name} - Preview Image"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="news arrow detail">
+    <article>
+        <div class="news gr-12">
+            <div class="container">
+                <div class="editor-content">
+                {$news->content|noescape}
+                </div>
+                <div class="article-footer mt-1">
+                    <ul class="share-links">
+                        <li>
+                            <a href="{$news->shortlink_facebook}" data-title="{$news->name} {$hashtagString}" class="share facebook" title="Share on Facebook"><span>Facebook</span></a>
+                        </li>
+                        <li>
+                            <a href="{$news->shortlink_twitter}" data-title="{$news->name} by @24U {$hashtagString}" class="share twitter" title="Share on Twitter"><span>Twitter</span></a>
+                        </li>
+                        <li>
+                            <a href="{$news->shortlink_linkedin}" data-title="{$news->name} {$hashtagString}" class="share linkedin" title="Share on LinkedIn"><span>LinkedIn</span></a>
+                        </li>
+                        {dump $article_shortlinks_admin}
+                        {if $article_shortlinks_admin == 1}
+                            {dump "x"}
+                            <li>
+                                <a href="#" data-title="" class="share shortlink shortlink-FormSwitch" title=""><span>Shortlink</span></a>
+                            </li>
+                        {else}
+                        {dump "a"}
+
+                            {if !empty($news->shortlink_direct)}
+                            <li class="shortlink2copy">
+                                <div class="shortlink-Copy2Clipboard-msg">{_pages.news-detail.shortlink-copy2clipboard}</div>
+                                <a href="#" data-title="" class="share shortlink shortlink-Copy2Clipboard" title=""><span>Shortlink</span><input type="text" name="url" value="{$news->shortlink_direct}" class="hide shortlinkUrlInput"/></a>
+                            </li>
+                            {/if}
+                        {/if}
+                    </ul>
+                    {if $article_shortlinks_admin == 1}
+
+                        <div class="shortlinkFormContainer hide">
+                            <div class="row">
+                                <div n:snippet="shortlinkList" class="shortlinkList gr-5 gr-12@mobile">
+                                    {ifset $article_shortlinks}
+                                        {foreach $article_shortlinks as $shortlink}
+                                            <div class="row">
+                                                <div class="gr-1 shortlink2copy">
+                                                    <div class="shortlink-Copy2Clipboard-msg">{_pages.news-detail.shortlink-copy2clipboard}</div>
+                                                    <span class="shortlinkUrl shortlink-Copy2Clipboard" title="{$shortlink['shortlink']}">
+                                                        &lt;a&gt;<input type="text" name="url" value="{$shortlink['shortlink']}" class="hide"/>
+                                                    </span>
+                                                    <span class="shortlinkUrl shortlink-Copy2Clipboard hide" title="{$shortlink['url']}" data-url="{$shortlink['url']}">
+                                                        [?]<input type="text" name="url" value="{$shortlink['url']}" class="hide"/>
+                                                    </span>
+                                                </div>
+                                                <div class="gr-3">{$shortlink['name']}</div>
+                                                <div class="gr-8">{$shortlink['note']}</div>
+                                            </div>
+                                        {/foreach}
+                                    {/ifset}
+                                </div>
+
+                                <div id="formShortlink" class="shortlinkForm gr-7 gr-12@mobile">
+                                    {snippet shortlinkForm}
+                                        {ifset $shortlinkFormSuccess}
+                                            <div class="form-sent">
+                                                <p>...</p>
+                                            </div>
+                                        {else}
+                                            {form shortlinkForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                                <div n:if="$form->hasErrors()" class="row errors mb-1">
+                                                    <div n:foreach="$form->errors as $error" class="gr-12 gr-12@mobile">{$error}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="gr-12 gr-12@mobile">
+                                                        <span class="input-label">{_forms.shortlinks.items.url.label}</span>
+                                                        <label>{input url}</label>
+                                                    </div>
+                                                    <div class="gr-12 gr-12@mobile">
+                                                        <span class="input-label">{_forms.shortlinks.items.note.label}</span>
+                                                        <label>{input note}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="gr-6 gr-12@mobile">
+                                                        <span class="input-label">{_forms.shortlinks.items.shortlink.label}</span>
+                                                        <label>{input shortlink}</label>
+                                                    </div>
+                                                    <div class="gr-6 gr-12@mobile">
+                                                        <span class="input-label">{_forms.shortlinks.items.category.label}</span>
+                                                        <label>{input category}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                     <div class="gr-4 gr-4@mobile" >
+                                                        <span class="input-label">{_forms.shortlinks.items.days_limit.label}</span>
+                                                        <label>{input days_limit}</label>
+                                                     </div>
+                                                     <div class="gr-4 gr-4@mobile">
+                                                        <span class="input-label">{_forms.shortlinks.items.min_click.label}</span>
+                                                        <label>{input min_click}</label>
+                                                    </div>
+                                                     <div class="gr-4 gr-4@mobile">
+                                                        <span class="input-label">{_forms.shortlinks.items.max_click.label}</span>
+                                                        <label>{input max_click}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="gr-12 text-center">
+                                                        {input submit}
+                                                    </div>
+                                                </div>
+                                            {/form}
+                                        {/ifset}
+                                    {/snippet}
+                                </div>
+                            </div>
+
+                        </div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+<div id="formPopoverContact" class="formPopover formPopoverContact">
+    {snippet contactForm}
+        {include '../Components/contact-form-blue.latte', headline => 'false', description => 'false'}
+    {/snippet}
+</div>
+
+<div id="formPopoverSubscribe" class="formPopover formPopoverSubscribe">
+    {snippet stForm}
+        {ifset $stFormSuccess}
+            <div class="form-sent">
+                {if $resultType === "send_email"}
+                    <p>{_generic.subscription.subscription-success_send_email}</p>
+                {/if}
+                {if $resultType === "no_send_email"}
+                    <p>{_generic.subscription.subscription-success_no_send_email}</p>
+                {/if}
+            </div>
+            <script>
+                gtag('event', 'form', {
+                    'event_category': "send",
+                    'event_label': "subscribe",
+                });
+            </script>
+        {else}
+            {form subscribeTipsForm data-validationType => 'fields', class => 'ajax mb-1'}
+                <ul n:if="$form->hasErrors()" class="errors mb-1">
+                    <li n:foreach="$form->errors as $error">{$error}</li>
+                </ul>
+                <label>
+                    {input name}
+                </label>
+                <label>
+                    {input surname}
+                </label>
+                <label>
+                    {input email}
+                </label>
+                <div class="row">
+                    <div class="gr-6 no-gutter-left">
+                        <small>
+                            <a href="JavaScript:void(0);" class="showPrivacyInformation">Privacy Information</a>
+                        </small>
+                    </div>
+                    <div class="gr-6 text-right no-gutter-right">
+                        {input subscribe}
+                    </div>
+                </div>
+            {/form}
+        {/ifset}
+    {/snippet}
+</div>
+
+<div id="formPopoverMessage" class="formPopover formPopoverMessage">
+    <div class="form-container" id="">
+
+    {snippet footerContactPopupForm}
+        {ifset $footerContactFormPopupSuccess}
+            <div class="form-sent">
+                <p>{_generic.footer.question-success}</p>
+            </div>
+        {else}
+            {form createFooterContactForm data-validationType => 'fields', class => 'ajax mb-1'}
+                <ul n:if="$form->hasErrors()" class="errors mb-1">
+                    <li n:foreach="$form->errors as $error">{$error}</li>
+                </ul>
+                <label>
+                    {capture $placeholder}{_forms.client-portal-create-ticket.items.message.placeholder-popup}{/capture}
+                    {input message placeholder: $placeholder}
+                </label>
+                <div class="more-fields">
+                    <label>
+                        {input email}
+                    </label>
+                    <label>
+                        {input name}
+                    </label>
+                    <label>
+                        {input spamSecureSum}
+                    </label>
+                    <label>
+                        {input subject2}
+                    </label>
+                    {input process}
+                </div>
+                {input formIdent value: 'popup'}
+            {/form}
+        {/ifset}
+    {/snippet}
+    </div>
+</div>
+
+{/block}
+{block post-script}
+    {if $redirectOnExtern !== false}
+        <script>
+            var loader = $("#loader-full-page");
+            loader.show();
+            setTimeout(function () {
+                window.location.replace({$redirectOnExtern});
+            }, 2000);
+        </script>
+    {/if}
+{/block}

@@ -1,0 +1,62 @@
+# FOR SUCCESFULL RUN NETTE REMOVE ".default" from name of this file
+
+parameters:
+    # INTERNAL API AUTH (USED FOR FASTSPRING)
+    application:
+        api-auth: # AUTH FOR INTERNAL API
+            username: ""
+            password: ""
+
+    # FASTSPRING
+    fastspring:
+        auth:
+            user: ""
+            password: ""
+
+        vendor_id: ""
+        api_url: ""
+        store_front_url: ""
+        affiliate_cookie: ""
+        affiliate_id_cookie: ""
+
+    # Xgode
+    xgode:
+        salt: ""
+
+        #PROD API_URL: https://xgode.24u.cz
+        api_url: ""
+
+    # MAILCHIMP API
+    mailchimp:
+        auth:
+            user: ""
+            token:
+
+        api_url: ""
+
+        lists:
+            24UGENERIC_EN:
+                id: 852fe7460a #24U TIPS
+                status_subscribe: "pending"
+                gdpr:
+                    "": true
+                    "": true
+            24UGENERIC_CS:
+                id: 2a102374ff #24U TIPS for czech version
+                status_subscribe: "pending"
+                gdpr:
+                    "": true
+                    "": true
+
+    pushover:
+        auth:
+            token: ""
+
+        api_url: 
+
+    # CLIENT PORTAL
+    client-portal:
+        auth:
+            token: ""
+
+        api_url: ""

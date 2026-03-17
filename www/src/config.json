@@ -1,0 +1,101 @@
+{
+  "libJs": {
+    "src": [
+      "node_modules/jquery/dist/jquery.js",
+      "node_modules/nette-forms/src/assets/netteForms.js",
+      "node_modules/nette.ajax.js/nette.ajax.js",
+      "node_modules/swiper/swiper-bundle.js",
+      "node_modules/webui-popover/dist/jquery.webui-popover.js",
+      "node_modules/rellax/rellax.js",
+      "node_modules/video.js/dist/video.js",
+      "node_modules/jquery-modal/jquery.modal.js",
+      "node_modules/waypoints/lib/jquery.waypoints.js",
+      "node_modules/waypoints/lib/shortcuts/sticky.js",
+      "src/js/lib/gridle-2.0.48/gridle.js",
+      "src/js/utils/SharingUtils.js",
+      "src/js/utils/NavigationUtils.js",
+      "node_modules/vanilla-lazyload/dist/lazyload.js",
+      "node_modules/lightbox2/dist/js/lightbox.js",
+      "node_modules/css-element-queries/src/ResizeSensor.js",
+      "node_modules/css-element-queries/src/ElementQueries.js",
+      "node_modules/vanilla-cookieconsent/dist/cookieconsent.js"
+    ],
+    "dest": "lib.js"
+  },
+  "appJs": {
+    "src": [
+      "src/js/utils/NumberUtils.js",
+      "src/js/utils/StringUtils.js",
+      "src/js/components/Platform.js",
+      "src/js/components/Store.js",
+      "src/js/components/FormComponent.js",
+      "src/js/components/NavComponent.js",
+      "src/js/components/FooterComponent.js",
+      "src/js/components/StickyElement.js",
+      "src/js/components/StickyCover.js",
+      "src/js/components/FixedCover.js",
+      "src/js/components/TileHighlightOnScroll.js",
+      "src/js/components/Header.js",
+      "src/js/components/MobileMenu.js",
+      "src/js/components/FooterContactForm.js",
+      "src/js/components/FooterSubscribeForm.js",
+      "src/js/components/SectionArrows.js",
+      "src/js/components/NumberCounter.js",
+      "src/js/components/CookieConsentComponent.js",
+      "src/js/controllers/PageController.js",
+      "src/js/controllers/HomepageController.js",
+      "src/js/controllers/FileMakerConsultingController.js",
+      "src/js/controllers/FileMakerLicensingController.js",
+      "src/js/controllers/HardwareIntegrationController.js",
+      "src/js/controllers/SupportController.js",
+      "src/js/controllers/ToolsDetailController.js",
+      "src/js/controllers/SlaController.js",
+      "src/js/controllers/NewsController.js",
+      "src/js/controllers/NewsDetailController.js",
+      "src/js/controllers/ToolsController.js",
+      "src/js/controllers/StoriesController.js",
+      "src/js/controllers/CompanyController.js",
+      "src/js/controllers/PressController.js",
+      "src/js/controllers/TermsOfUseController.js",
+      "src/js/controllers/PrivacyPolicyController.js",
+      "src/js/controllers/ProductPagesController.js",
+      "src/js/controllers/StoriesDetailController.js",
+      "src/js/controllers/QualityAssuranceController.js",
+      "src/js/controllers/SearchController.js",
+      "src/js/main.js"
+    ],
+    "dest": "app.js"
+  },
+  "copyAssets": [
+    {
+      "src": "node_modules/swiper/swiper-bundle.css",
+      "dest": "src/sass/plugins",
+      "type": "plugin"
+    },
+    {
+      "src": "node_modules/jquery-modal/jquery.modal.css",
+      "dest": "src/sass/plugins",
+      "type": "plugin"
+    },
+    {
+      "src": "node_modules/webui-popover/dist/jquery.webui-popover.css",
+      "dest": "src/sass/plugins",
+      "type": "plugin"
+    },
+    {
+      "src": "node_modules/vanilla-cookieconsent/dist/cookieconsent.css",
+      "dest": "src/sass/plugins",
+      "type": "plugin"
+    },
+    {
+      "src": "node_modules/video.js/dist/video-js.css",
+      "dest": "src/sass/plugins",
+      "type": "plugin"
+    },
+    {
+      "src": "node_modules/lightbox2/dist/css/lightbox.css",
+      "dest": "src/sass/plugins",
+      "type": "plugin"
+    }
+  ]
+}

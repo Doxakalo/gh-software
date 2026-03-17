@@ -1,0 +1,10 @@
+support-options: "Click on one of the four support options above to reveal more details"
+
+immediate-help:
+    phone-or-skype: "Enter your phone number or Skype name"
+    call-us-directly: "Or call us directly at"
+
+product-support:
+    premium-instruction: "If you need help urgently and haven't purchased our Premium Support option with your license yet, please use <a href='#' class='item-custom-link' data-id='immediate-help'>the Immediate Help form</a>"
+    form-sent: "Thanks for submitting your question. We will get back to you as soon as possible. Please feel free to contact us by phone if you don't hear from us within 4 business days."
+    form-sent-urgent: "Thanks for submitting your question. We will get back to you as soon as possible. Please feel free to call <a href='tel:+420730152138'>+420 730 152 138</a> if you don't hear from us within the next business day"

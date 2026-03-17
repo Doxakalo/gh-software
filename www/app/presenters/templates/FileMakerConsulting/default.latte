@@ -1,0 +1,220 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}{_pages.fm-consulting.metadata.title}{/block}
+{block description}{_pages.fm-consulting.metadata.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.fm-consulting.metadata.og.title}{/capture}
+        {capture $description}{_pages.fm-consulting.metadata.og.description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/filemaker-consulting/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/filemaker-consulting/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/filemaker-consulting/og_images/og_image_3.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="cover default extended has-video">
+    <div class="video-container overlay overlay-light cover-parallax">
+
+        {if $detect['platformDevice'] === "tablet"}
+            {var $videoResolution = "1024"}
+        {elseif $detect['platformDevice'] === "phone"}
+            {var $videoResolution = "640"}
+        {else}
+            {var $videoResolution = "1920"}
+        {/if}
+        <video class="video-js" playsinline
+               data-setup='{
+					"controls": false,
+					"autoplay": {if $detect['isFirefox'] === "true"}"true"{else}"muted"{/if},
+					"preload": false,
+					"loop": "loop",
+					"aspectRatio":"16:9",
+					"fluid": true
+				   }'
+               poster="{$basePath}/video/filemaker-consulting/preview/fmc_preview_{$videoResolution}.jpg?v=1">
+            <source src="{$basePath}/video/filemaker-consulting/fmc_{$videoResolution}.mp4?v=1" type="video/mp4">
+            <source src="{$basePath}/video/filemaker-consulting/fmc_{$videoResolution}.webm?v=1" type="video/webm">
+            <div class="vjs-no-js" style="background-image: url('{$basePath}/video/filemaker-consulting/preview/fmc_preview_{$videoResolution}.jpg')"></div>
+        </video>
+    </div>
+    <div class="container cover-content">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">{_pages.fm-consulting.default.header-title|noescape}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="info arrow">
+    <div class="container">
+        <div class="row row-align-center">
+            <div class="item">
+                <a n:href="Company:default#countries">
+                    <span data-number-counter="true" data-number-counter-delay="300" data-number-counter-tick="20">79</span>
+                    <p>{_pages.fm-consulting.default.counters.countries|noescape}</p>
+                </a>
+            </div>
+            <div class="item">
+                <a n:href="Company:default#devcons">
+                    <span data-number-counter="true" data-number-counter-delay="600" data-number-counter-tick="25">58</span>
+                    <p>{_pages.fm-consulting.default.counters.conferences|noescape}</p>
+                </a>
+            </div>
+            <div class="item">
+                <a n:href="Company:default#experience">
+                    <span data-number-counter="true" data-number-counter-delay="900">33</span>
+                    <p>{_pages.fm-consulting.default.counters.xp|noescape}</p>
+                </a>
+            </div>
+
+            <div class="item">
+                <a n:href="Company:default#plugins">
+                    <span data-number-counter="true" data-number-counter-delay="1200">28</span>
+                    <p>{_pages.fm-consulting.default.counters.plugins|noescape}</p>
+                </a>
+            </div>
+            <div class="item">
+                <a n:href="Company:default#certified">
+                    <span data-number-counter="true" data-number-counter-delay="1500">5</span>
+                    <p>{_pages.fm-consulting.default.counters.developers|noescape}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-anchor="contact-form">
+{snippet contactForm}
+    {include '../Components/contact-form-orange.latte', headline => 'false', description => 'false'}
+{/snippet}
+</section>
+
+<section class="arrow spacing detail" data-id="default">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-3 gr-12@mobile image-left text-center mt-2 mt-1@mobile order-first order-last@mobile">
+                <img src="/img/pages/filemaker-consulting/fm2024logo.png" alt="" class="filemaker-logo limited-height-100">
+            </div>
+            <div class="editor-content gr-9 gr-12@mobile content-right">
+                {include claris_filemaker}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="arrow spacing detail light-blue" data-id="default">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content gr-8 gr-7@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile content-left">
+                {include claris_filemaker_experience, filemakerExperienceYears => $filemakerExperienceYears }
+            </div>
+            <div class="gr-4 gr-5@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile text-right image-right text-right@mobile-center mt-1@mobile">
+                <img src="/img/pages/filemaker-consulting/team-work.jpg" alt="" class="limited-height-400">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tile-panel arrow">
+    <div class="row">
+
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="true">
+        {if $locale === 'cs'}
+            <a target="_blank" href="{$basePath}/24u_eet_1.0_nabidka.pdf" class="overlay blue"
+               style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box3-integration/integration_wide.jpg')">
+        {else}
+            <a target="_blank" href="//24usw.com/tqioxx" class="overlay blue"
+               style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box3-integration/integration_wide.jpg')">
+        {/if}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box3-integration/integration_wide_rollover.jpg')"></div>
+                <div class="content">
+                    {include golfshop_preview}
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <a target="_blank" href="//24usw.com/ylmvqj" class="overlay blue"
+               style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box2-audit/solution_audit.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box2-audit/solution_audit_rollover.jpg')"></div>
+                <div class="content">
+                    {include medeam_preview}
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a n:href="Stories:synetrans" target="_blank" class="overlay blue" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box5-redefination/redefinition.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box5-redefination/redefinition_rollover.jpg')"></div>
+                <div class="content">
+                    {include synelogis_preview}
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <a n:href="SLA:default" class="overlay blue" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box8-maintenance/maintenance.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box8-maintenance/maintenance_rollover.jpg')"></div>
+
+                <div class="content">
+                    {include dorper_preview}
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a target="_blank" href="//24usw.com/oryvje" class="overlay blue"
+               style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box1-optimization/optimization.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box1-optimization/optimization_rollover.jpg')"></div>
+                <div class="content">
+                    {include logrea_preview}
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-12 gr-12@mobile no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="true">
+            <div class="go2Form overlay blue" data-scroll-anchor="contact-form"
+               style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box6-scalability/server_wide.jpg?v=1')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box6-scalability/server_wide_rollover.jpg?v=1')"></div>
+                <div class="content">
+                    {include wb_preview}
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <a href="//24usw.com/jvxnmr" target="_blank" class="overlay blue"
+               style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box4-automation/automation.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box4-automation/automation_rollover.jpg')"></div>
+                <div class="content">
+                    {include useful_comp_preview}
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a n:href="Tools:simpleHASP" class="overlay blue" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box7-security/security.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/filemaker-consulting/card_boxes/box7-security/security_rollover.jpg')"></div>
+
+                <div class="content">
+                    {include scoutboy_preview}
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+</section>

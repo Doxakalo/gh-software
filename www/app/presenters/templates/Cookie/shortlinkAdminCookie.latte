@@ -1,0 +1,25 @@
+{block content}
+
+<section class="spacing">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 editor-content text-left@mobile-center">
+                <br />
+                <h1>Správa shortlinků v novinkách</h1>
+                <p>Aktivování této funkce umožní na detailu novinky vytvářet shortlinky a vidět seznam všech shortlinků k novince.
+                </p>
+                <h2 class="mb-2">Aktuální stav:
+                    {if $shortlink_cookie['value'] ==  1}
+                        Aktivní
+                    {else}
+                        Neaktivní
+                    {/if}
+                </h2>
+                <a class="button" n:href="Cookie:SetShortlinkAdminCookie, cookie_val => true">Aktivovat</a>
+                <a class="button mb-2@mobile" n:href="Cookie:SetShortlinkAdminCookie, cookie_val => false">Vypnout</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+

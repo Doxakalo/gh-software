@@ -1,0 +1,351 @@
+{block title}{_generic.page-title.news}{/block}
+{block description}
+    Stay up to date on what we do and what we discover and share with you in order to make your life with the technology easier and more productive.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_generic.page-title.news}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/news/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/news/og_images/og_image_2.jpg'>
+        {/capture}
+        {include meta-og,
+        type => $appConfig["og"]["type"],
+        title => $title,
+        description => "Stay up to date on what we do and what we discover and share with you in order to make your life with the technology easier and more productive.",
+        ogMediaHTML => $ogMediaHtml,
+        siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="cover default bottom-arrow-margin">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/news/cover_patterngradmask.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        News, tips, advice, ideas, experience&hellip;
+                        {if $searchTerm !== false}
+                            <div class="resultFor">
+                                {if count($newsList) > 4}
+                                    Showing {count($newsList)} Results
+                                {elseif count($newsList) > 1}
+                                    Showing {count($newsList)} Results
+                                {else}
+                                    Showing {count($newsList)} Result
+                                {/if}
+                                for "{$searchTerm}"<br/>
+                                <a n:href="News:list" class="deleteFilter">Show all articles</a>
+                            </div>
+                        {/if}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="news-list">
+    <div class="row hide show@mobile">
+        <div class="gr-12 no-gutter">
+            <aside>
+                <div class="tag-cloud">
+                    <h2>Search for</h2>
+                    <form action="">
+                        <div class="search-input-container">
+                            <label>
+                                <input type="search" name="search" required>
+                            </label>
+                            <button class="search"><img src="{$basePath}/img/icons/mag_icon_blue.svg" alt="Search icon"></button>
+                        </div>
+                        {*<div class="row">
+                            <div class="gr-6 gr-12@mobile gr-6@mobileSmall no-gutter-left">
+                                <label for="type">
+                                    <input type="radio" name="type" id="type">
+                                    Filter type
+                                </label>
+                            </div>
+                            <div class="gr-6 gr-12@mobile gr-6@mobileSmall no-gutter-right no-gutter-left@mobile text-right text-right@mobile-left text-right@mobileSmall-right">
+                                <a href="">Reset Filters</a>
+                            </div>
+                        </div>*}
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div class="row">
+        <div class="gr-9 gr-8@desktop gr-8@tablet gr-12@mobile no-gutter">
+            {if count($newsList) > 0}
+                {foreach $newsList as $news}
+
+
+                    {*{continueIf $iterator->counter > 3}*}
+                    <article class="{if $iterator->counter !== 1}moved-up{/if}">
+                        <div class="row">
+                            <div class="gr-12 gr-12@mobile arrow arrow-no-margin news no-gutter {if $iterator->isEven()}highlight{/if}">
+                                <div class="row">
+                                    {if $iterator->isOdd()}
+                                    <div class="order-first gr-4 gr-6@desktop gr-5@tablet gr-4@mobile gr-12@mobileSmall">
+                                        {else}
+                                        <div class="order-last gr-4 gr-6@desktop gr-5@tablet gr-4@mobile gr-12@mobileSmall text-right">
+                                            {/if}
+
+                                            <a class="hide@mobileSmall" href="{plink News:detail, url => $news['url']}" {if $news['link_extern']}target="_blank"{/if}>
+                                                <img data-src="{plink //News:image, $news->id}" {if $iterator->counter < 4}
+                                                     src="{plink //News:image, $news->id}" {/if}class="{if $iterator->counter >= 4}lazy{/if}"
+                                                     alt="{$news->name} - Preview Image"/>
+                                            </a>
+                                        </div>
+                                        {if $iterator->isOdd()}
+                                        <div class="order-last gr-8 gr-6@desktop gr-7@tablet gr-8@mobile gr-12@mobileSmall">
+                                            {else}
+                                            <div class="order-first gr-8 gr-6@desktop gr-7@tablet gr-8@mobile gr-12@mobileSmall">
+                                                {/if}
+                                                <h2>
+                                                    <a href="{plink News:detail, url => $news['url']}" {if $news['link_extern']} target="_blank"{/if}>{$news->name}</a>
+                                                </h2>
+                                                <a class="hide show@mobileSmall" href="{plink News:detail, url => $news['url']}" {if $news['link_extern']} target="_blank"{/if}>
+                                                    <img data-src="{plink //News:image, $news->id}" {if $iterator->counter < 4}
+                                                         src="{plink //News:image, $news->id}" {/if}class="{if $iterator->counter >= 4}lazy{/if}"
+                                                         alt="{$news->name} - Preview Image"/>
+                                                </a>
+                                                <p>
+                                                    {$news->preview_description|noescape}
+                                                </p>
+                                                <footer class="row">
+                                                    <div class="gr-6">
+                                                        <a href="{plink News:detail, url => $news['url']}" {if $news['link_extern']} target="_blank"{/if}>
+                                                            {if !empty($news['link_name'])}{$news['link_name']}{else}Read more&hellip;{/if}
+                                                        </a>
+                                                    </div>
+                                                    {var $hashtags = ""}
+                                                    {foreach $newsHashtags[$news->id] as $tag}
+                                                        {var $hashtags .= "#" . $tag->name . " "}
+                                                    {/foreach}
+                                                    <div class="gr-6 text-right">
+                                                        <ul class="share-links">
+                                                            {if !empty($news->shortlink_direct)}
+                                                                <li class="shortlink2copy">
+                                                                    <div class="shortlink-Copy2Clipboard-msg">{_pages.news-detail.shortlink-copy2clipboard}</div>
+                                                                    <a href="#" data-title="" class="share shortlink shortlink-Copy2Clipboard" title=""><span>Shortlink</span>
+                                                                        <input type="text" name="url" value="{$news->shortlink_direct}" class="hide shortlinkUrlInput"/>
+                                                                    </a>
+                                                                </li>
+                                                            {/if}
+                                                            <li>
+                                                                <a href="{$news->shortlink_linkedin}" data-title="{$news->name} {$hashtags}" class="share linkedin" title="Share on LinkedIn"><span>LinkedIn</span></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{$news->shortlink_twitter}" data-title="{$news->name} by @24U {$hashtags}" class="share twitter"
+                                                                   title="Share on Twitter"><span>Twitter</span></a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="{$news->shortlink_facebook}" data-title="{$news->name} {$hashtags}" class="share facebook" title="Share on Facebook"><span>Facebook</span></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </footer>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                    </article>
+                {/foreach}
+            {else}
+                <div class="no-results">
+                    <article>
+                        <div class="row">
+                            <div class="editor-content gr-12 gr-12@mobile arrow arrow-no-margin news no-gutter">
+                                {ifset $systemUnavailable}
+                                    <p>We are sorry, but page is temporary unavailable</p>
+                                {else}
+                                    <p>Sorry, there are no results for this search</p>
+                                    <ul>
+                                        <li>Make sure all words are spelled correctly</li>
+                                        <li>Try different keywords</li>
+                                        <li>Try more general keywords</li>
+                                        <li>Try fewer keywords</li>
+                                    </ul>
+                                {/ifset}
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            {/if}
+        </div>
+        <div class="gr-3 gr-4@desktop gr-4@tablet hide@mobile no-gutter">
+            <aside class="sticky">
+
+                <div class="subscribe">
+                    <h2>
+                        Subscribe
+                    </h2>
+                    <p>
+                        Get notified by email when we have some news for you
+                    </p>
+                    {snippet stForm}
+                        {ifset $stFormSuccess}
+                            <div class="form-sent">
+                                {if $resultType === "send_email"}
+                                    <p>{_generic.subscription.subscription-success_send_email}</p>
+                                {/if}
+                                {if $resultType === "no_send_email"}
+                                    <p>{_generic.subscription.subscription-success_no_send_email}</p>
+                                {/if}
+                                <script>
+                                    gtag('event', 'form', {
+                                        'event_category': "send",
+                                        'event_label': "subscribe",
+                                    });
+                                </script>
+                            </div>
+                        {else}
+                            {form subscribeTipsForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                </ul>
+                                <label>
+                                    {input email}
+                                </label>
+                                <div class="row">
+                                    <div class="gr-6 no-gutter-left">
+                                        <small>
+                                            <a href="JavaScript:void(0);" class="showPrivacyInformation">Privacy Information</a>
+                                        </small>
+                                    </div>
+                                    <div class="gr-6 text-right no-gutter-right">
+                                        {input subscribe}
+                                    </div>
+                                </div>
+                            {/form}
+                        {/ifset}
+                    {/snippet}
+                    {*<form action="">
+                        <label>
+                            <input type="email" name="email" placeholder="Your e-mail"/>
+                        </label>
+                        <div class="row">
+                            <div class="gr-6 no-gutter-left">
+                                <small>
+                                    <a href="">Privacy information</a>
+                                </small>
+                            </div>
+                            <div class="gr-6 text-right no-gutter-right">
+                                <button class="button">Send</button>
+                            </div>
+                        </div>
+                    </form>*}
+                </div>
+                {* size-3: 2x *}
+                {* size-2: 6x *}
+                {* size-1: 9x *}
+                {* no-size: 7x *}
+                {* total: 24x *}
+                <div class="tag-cloud">
+                    <ul class="mb-3">
+                        <li class="size-1"><a n:href="News:list tag=> 'performance'">Performance</a></li>
+                        <li><a n:href="News:list tag=> 'released'">Released</a></li>
+                        <li class="size-2"><a n:href="News:list tag=> 'plug-ins'">Plug-Ins</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'fm bench'">FM Bench</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'integration'">Integration</a></li>
+                        <li class="size-2"><a n:href="News:list tag=> 'intermediate'">Intermediate</a></li>
+                        <li><a n:href="News:list tag=> 'phidgets'">Phidgets</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'beginner'">Beginner</a></li>
+                        <li><a n:href="News:list tag=> 'tools'">Tools</a></li>
+                        <li class="size-2"><a n:href="News:list tag=> 'development'">Development</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'example'">Example</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'conference'">Conference</a></li>
+                        <li><a n:href="News:list tag=> 'iphone'">iPhone</a></li>
+                        <li class="size-2"><a n:href="News:list tag=> 'advanced'">Advanced</a></li>
+                        <li><a n:href="News:list tag=> 'best practices'">Best Practices</a></li>
+                        <li class="size-3"><a n:href="News:list tag=> 'filemaker'">FileMaker</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'detective'">Detective</a></li>
+                        <li class="size-2"><a n:href="News:list tag=> 'devCon'">DevCon</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'mobile'">Mobile</a></li>
+                        <li><a n:href="News:list tag=> 'ios'">iOS</a></li>
+                        <li class="size-2"><a n:href="News:list tag=> 'hardware'">Hardware</a></li>
+                        <li class="size-3"><a n:href="News:list tag=> 'optimization'">Optimization</a></li>
+                        <li class="size-1"><a n:href="News:list tag=> 'presentation'">Presentation</a></li>
+                        <li><a n:href="News:list tag=> 'konferenz'">Konferenz</a></li>
+                    </ul>
+                    <h2>Search for</h2>
+                    <form action="">
+                        <div class="search-input-container">
+                            <label>
+                                <input type="search" name="search" required>
+                            </label>
+                            <button class="search"><img src="{$basePath}/img/icons/mag_icon_blue.svg" alt="Search icon"></button>
+                        </div>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+<section class="news older-news hide show@mobile">
+    <div class="container">
+        <div class="row row-full">
+            <div class="gr-12 no-gutter hide show@mobile">
+                <aside>
+                    <div class="subscribe">
+                        <h2>
+                            Subscribe
+                        </h2>
+                        <p>
+                            Get notified by email when we have some news for you
+                        </p>
+                        <form action="">
+                            <label>
+                                <input type="email" name="email" placeholder="Your e-mail"/>
+                            </label>
+                            <div class="row">
+                                <div class="gr-6 gr-12@mobile no-gutter-left mb-1@mobile">
+                                    <small>
+                                        <a href="JavaScript:void(0);" class="showPrivacyInformation">Privacy Information</a>
+
+                                    </small>
+                                </div>
+                                <div class="gr-6 gr-12@mobile text-right text-right@mobile-left no-gutter-right no-gutter-left@mobile">
+                                    <button class="button">Send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tag-cloud">
+                        <ul class="mb-3">
+                            <li class="size-1"><a n:href="News:list tag=> 'example'">Example</a></li>
+                            <li><a n:href="News:list tag=> 'future'">future</a></li>
+                            <li class="size-2"><a n:href="News:list tag=> 'detective'">Detective</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'filemaker go'">FileMaker Go</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'toolbox'">Toolbox</a></li>
+                            <li class="size-2"><a n:href="News:list tag=> 'fm bench'">FM Bench</a></li>
+                            <li><a n:href="News:list tag=> 'solution'">Solution</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'best practices'">Best Practices</a></li>
+                            <li><a n:href="News:list tag=> 'administration'">Administration</a></li>
+                            <li class="size-2"><a n:href="News:list tag=> 'development'">Development</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'conference'">Conference</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'prevention'">Prevention</a></li>
+                            <li><a n:href="News:list tag=> 'custom functions'">Custom Functions</a></li>
+                            <li class="size-2"><a n:href="News:list tag=> 'optimization'">Optimization</a></li>
+                            <li><a n:href="News:list tag=> 'iphone'">iPhone</a></li>
+                            <li class="size-3"><a n:href="News:list tag=> 'plug-ins'">Plug-Ins</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'devCon'">DevCon</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'devCon'">DevCon</a></li>
+                            <li class="size-2"><a n:href="News:list tag=> 'intermediate'">Intermediate</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'released'">Released</a></li>
+                            <li><a n:href="News:list tag=> 'pause on error'">Pause On Error</a></li>
+                            <li class="size-2"><a n:href="News:list tag=> 'advanced'">Advanced</a></li>
+                            <li class="size-3"><a n:href="News:list tag=> 'filemaker'">FileMaker</a></li>
+                            <li class="size-1"><a n:href="News:list tag=> 'troubleshooting'">Troubleshooting</a></li>
+                            <li><a n:href="News:list tag=> 'server'">Server</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>

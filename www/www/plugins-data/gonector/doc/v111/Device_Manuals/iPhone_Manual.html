@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+		
+	<title>iPhone Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h2:before { counter-increment:section; content:"" counter(section) ". "; }
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for iPhone (NFC reader)</h1>
+
+<h2>Limitations</h2>
+<ul>
+    <li>Supported are iPhones from version 7 and higher.</li>
+    <li>The iPhone must have at least iOS 11.</li>
+    <li>The RFID card to be read must be properly formatted and non-empty. You can read more about NDEF format <a href="https://nfc-forum.org/our-work/specifications-and-application-documents/specifications/nfc-forum-technical-specifications/">here</a>.</li>
+</ul>
+
+
+<h2>Solving issues with iPhone as a device</h2>
+<p>
+	<ul>		
+		<li><i>I cannot connect to the iPhone. It says that device is not available</i><br>
+		iPhone uses a special library called Core NFC. To enable this library it is necessary to go to your project in Xcode, select the target you build, go to tab Capabilities and switch on the Near Field Communication Tag Reading.	
+		
+		</li>
+
+	</ul>
+</p>
+
+</body>
+</html>

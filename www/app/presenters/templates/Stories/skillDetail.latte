@@ -1,0 +1,72 @@
+{block title}{$skill->title}{/block}
+{block description}{$skill->description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/skills/{$skill->skill->folder_image}/og.jpg'>
+        {/capture}
+
+        {include meta-og,
+        type => "article",
+        title => $skill->og_title,
+        description => $skill->description,
+        ogMediaHTML => $ogMediaHtml,
+        siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+
+{/block}
+
+
+{block content}
+
+
+
+    <section class="cover sticky">
+        <div class="inner-background " style="background-image: url('{$basePath}/img/layout/headers/header_patterngradmask_empty_v4.png')"></div>
+
+        <img class="preview-image" src="{$basePath}/img/pages/stories/skills/{$skill->skill->folder_image}/{$skill->skill->preview_image}" />
+        <div class="container">
+            <div class="row row-align-middle cover-parallax-inner">
+                <div class="gr-7 gr-7@tablet gr-6@mobile mb-1@mobile">
+                    <h1 class="page-title plugins-page">
+                        <br>
+                        <strong>{$skill->title}</strong>
+                        <br>
+                        <br>
+                        <br>                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="news arrow detail">
+        {capture $imagePath}{$basePath}/img/pages/stories/skills/{$skill->skill->folder_image}/{/capture}
+        <article>
+            <div class="news gr-12">
+                <div class="container-article">
+
+                    <div class="editor-content">
+
+                        {$skill->html_content|replace: "[[IMAGE_PATH]]", $imagePath|replace: "[IMAGE_PATH]", $imagePath|noescape}
+                        <div class="mt-3 text-right">
+                        {if !empty($backlink)}
+                            <a class="button" href="javascript:history.back()">&lt;&lt; {_pages.stories.skill-detail.back-to-list-button}</a>
+                        {else}
+                            <a class="button" n:href="Stories:list"><< {_pages.stories.skill-detail.back-to-list-button}</a>
+                        {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+
+
+    {snippet contactForm}
+        {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true', customDescriptionTranslate => "pages.stories.skill-detail.contact-form.description"}
+    {/snippet}
+
+{/block}
+

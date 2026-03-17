@@ -1,0 +1,229 @@
+nav {
+  height: 100%;
+  float: left;
+  margin-left: 3em;
+  opacity: 1;
+  @include transition(opacity 1s);
+
+  > ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    height: 100%;
+
+    > li {
+      float: left;
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+      @include transition(opacity 0.3s ease-in-out);
+
+      > a {
+        color: $colorWhite;
+        font-weight: $fwNormal;
+        text-decoration: none;
+        padding: 0 1.5em;
+        height: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+
+        &.highlight {
+          font-weight: bold;
+        }
+
+        @include g-state(desktop){
+          padding: 0 1.0em;
+        }
+      }
+
+      &:hover, &.active {
+        opacity: 1;
+
+        > a {
+          background-color: #3c96e0;
+          color: $colorWhite;
+        }
+      }
+
+      &.dropdown-menu {
+
+        &:hover {
+
+          .dropdown-content {
+            display: block;
+          }
+        }
+
+        .dropdown-content {
+          padding: 5px 0;
+          background-color: rgba(46, 125, 191, 0.99);
+          display: none;
+          position: absolute;
+          min-width: 160px;
+          z-index: 1;
+
+          .dropdown-section {
+            margin-top: 10px;
+            font-weight: $fwBold;
+            padding: 10px;
+            text-align: left;
+            border-top: 1px solid rgba(255, 255, 255, 0.6);
+
+            &:first-of-type {
+              border-top: none;
+              margin-top: 0;
+            }
+          }
+
+          ul {
+
+            li {
+
+              a {
+                text-align: left;
+                padding: 5px 10px;
+                display: block;
+                color: $colorWhite;
+                text-decoration: none;
+                opacity: 0.6;
+
+                &:hover {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+header {
+  &.scroll {
+    position: fixed;
+  }
+  @include g-state(tablet){
+    #search{
+      display: none;
+    }
+    nav {
+      display: none;
+    }
+    #openMobileMenuButton {
+      display: block;
+    }
+  }
+  @include g-state(mobile) {
+    #openMobileMenuButton {
+      display: block;
+    }
+    #search{
+      display: none;
+    }
+    nav {
+      display: none;
+    }
+  }
+}
+
+
+
+.dropdown-menu-logo {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 130px;
+  margin-left: -10px;
+  float: left;
+  z-index: 1;
+  > a {
+    transition: background-color 0s;
+  }
+  &:hover {
+
+    > a {
+      background-color: #3c96e0;
+    }
+
+    .dropdown-content {
+      display: block;
+    }
+  }
+
+  &.deactive {
+    > a {
+      opacity: 0.6;
+      background-color: transparent !important;
+    }
+  }
+
+  .dropdown-content {
+    top: 100%;
+    padding: 0px 0;
+    background-color: rgba(46, 125, 191, 0.99);
+    display: none;
+    position: absolute;
+    z-index: 1;
+
+    .dropdown-section {
+      margin-top: 10px;
+      font-weight: $fwBold;
+      padding: 10px;
+      text-align: left;
+      border-top: 1px solid rgba(255, 255, 255, 0.6);
+
+      &:first-of-type {
+        border-top: none;
+        margin-top: 0;
+      }
+    }
+
+    ul {
+
+      li {
+
+        a {
+          text-align: left;
+          padding: 7px 10px;
+          display: block;
+          color: $colorWhite;
+          text-decoration: none;
+          opacity: 0.6;
+
+          .smallH {
+            display: inline-block;
+            margin-bottom: 0.5em;
+          }
+
+          img {
+            margin-top: 5px;
+          }
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        &.active {
+          background-color: #3c96e0;
+
+          a {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .splitter {
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+  }
+}

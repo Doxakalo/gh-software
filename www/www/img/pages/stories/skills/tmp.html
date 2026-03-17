@@ -1,0 +1,20 @@
+<meta charset="utf-8">
+<style>
+    p {
+        line-height: 1.5;
+        font-family: "Helvetica Neue";
+        font-weight: 300;
+    }
+</style>
+
+<p>The customer needed to streamline the process of submitting orders for creating <strong>graphic materials</strong> for regular seasonal advertising banners. They had an <strong>Excel spreadsheet</strong> with orders, which had to be manually entered into <strong>FileMaker</strong>, making it time-consuming and prone to errors. The goal was to <strong>automate and speed up</strong> the process.</p>
+<div class="image-preview"><img src="[[IMAGE_PATH]]automatic_order_creation.jpg" alt="Automating the process of creating orders for seasonal advertising banners" /></div>
+<p>We implemented a <strong>REST API</strong> that accepts data in <strong>JSON format</strong>. The customer sends data directly from their system in <strong>JSON format to the API</strong>, eliminating the need for any additional user actions that might delay the process or introduce errors. The <strong>API checks the validity of the JSON file</strong>, verifies the required fields, and then passes the validated data to the <strong>FileMaker database</strong>. After validation, a script automatically creates orders in the existing <strong>FileMaker application</strong> based on predefined rules.</p>
+<div class="image-preview diagram"><img src="[[IMAGE_PATH]]automatic_order_creation_diagram.svg" alt="Diagram of automatic order creation using REST API" /></div>
+<p>This process, which previously took several minutes, is now reduced to just a few seconds thanks to <strong>automation</strong>. The system ensures that all orders are properly <strong>validated</strong> and entered into the database without any manual intervention.</p>
+<h2>Used technologies</h2>
+<ul>
+    <li><a href="/filemaker-consulting">FileMaker</a></li>
+    <li><a href="/fmrestor">REST API</a></li>
+    <li><a href="https://www.json.org/json-en.html" target="_blank">JSON</a></li>
+</ul>

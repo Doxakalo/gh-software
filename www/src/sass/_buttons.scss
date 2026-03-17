@@ -1,0 +1,56 @@
+.button {
+	display: inline-block;
+	border: 0;
+	box-sizing: border-box;
+	background-color: $colorLightBlue3;
+	color: $colorWhite;
+	text-align: center;
+	font-size: 1em;
+	line-height: 1em;
+	font-weight: normal;
+	text-decoration: none;
+	min-width: 90px;
+	white-space: nowrap;
+	padding: .8em 1em;
+	margin: 0 auto;
+	margin-bottom: 1em;
+	outline: none;
+	cursor: pointer;		
+	@include fontFamily($fontWorkSans);
+	@include user-select(none);
+	@include appearance(none);	
+	@include border-radius(2px);
+	
+	// @animation					
+	@include transition-property(background-color, color, border-color);
+	@include transition-duration($hoverAnimationDuration);
+	@include transition-timing-function(ease-out);	
+	
+	&:hover {
+		color: $colorWhite;
+		text-decoration: none;
+		background-color: darken($colorLightBlue3, 5);
+	}
+
+	&.active {
+		background-color: 	#2d7eb9;
+
+	}
+
+	&.sending {
+		background-color: grey;
+		background-image: url('/img/icons/loader_v3.svg');
+		background-size: auto 80%;
+		background-repeat: no-repeat;
+		background-position: center center;
+		color: transparent;
+		pointer-events: none;
+
+		@include browserIE {
+			background-image: url('/img/icons/loader_v3.gif');
+		}
+		@include browserEdge {
+			background-image: url('/img/icons/loader_v3.gif');
+		}
+	}
+}

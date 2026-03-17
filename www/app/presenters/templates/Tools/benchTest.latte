@@ -1,0 +1,248 @@
+{block title}BenchTest - Test FileMaker Performance{/block}
+l{block description}BenchTest is our free tool you can use to measure and compare performance of different techniques, versions of FileMaker, or different FileMaker environments{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "BenchTest - Test FileMaker Performance",
+            description => "BenchTest is our free tool you can use to measure and compare performance of different techniques to achieve the same result, different versions of FileMaker doing the same thing, or different environments running the same version of FileMaker.",
+            imagePath => "img/pages/tools/benchtest/bst-og.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/benchtest_icon.png" alt="BenchTest - Icon">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Compare Performance of
+                        FileMaker Techniques,
+                        Versions and Configurations
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <div class="button download-button">Download</div>
+                    <div class="button link-to-scroll" data-scroll-anchor="results">Results</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/benchTest_en.latte'}
+{var $overview = [
+        name => 'overview',
+        testimonials => [
+            [ img => $basePath.'/img/pages/tools/benchtest/BenchTest_2.0-thumbnail.png', video => [id => 'xJaGKkr4Cm4', button-dark=>"false" ], name => 'BenchTest 2.0b3 released as part of FileMaker Performance Lab June 2016 update', ],
+        ]
+    ]
+}
+
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'keyfeatures', 'img_height' => "200" ],
+    [name => 'testrecords', img => $basePath.'/img/pages/tools/benchtest/bst-data.png',  'img_height' => "450" , img_url =>[url => $basePath.'/img/pages/tools/benchtest/bst-data.png', target => '_blank'] ],
+    [name => 'compare', img => $basePath.'/img/pages/tools/benchtest/bst-techniques.png',  'img_height' => "450" , img_url =>[url => $basePath.'/img/pages/tools/benchtest/bst-techniques.png', target => '_blank']   ],
+    [name => 'hosting', img => $basePath.'/img/pages/tools/benchtest/BenchTest-hosting-dispatcher.png',  'img_height' => "450" , img_url =>[url => $basePath.'/img/pages/tools/benchtest/BenchTest-hosting-dispatcher.png', target => '_blank']  ],
+    [name => 'automate', img => $basePath.'/img/pages/tools/benchtest/bst-automation.png',  'img_height' => "450" , img_url =>[url => $basePath.'/img/pages/tools/benchtest/bst-automation.png', target => '_blank']  ],
+    [name => 'score', img => $basePath.'/img/pages/tools/benchtest/bst-results.png?v=2',  'img_height' => "450", img_url =>[url => $basePath.'/img/pages/tools/benchtest/bst-results.png', target => '_blank']   ],
+    [name => 'results'],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+
+
+
+
+
+{capture $downloadVersionsHtml}
+    <div class="version" data-active="false" style="border-bottom: 0;">
+        <div class="basic-info">
+            <div class="version-name">
+                Latest version
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2025/05/03"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    BenchTest
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12 mb-2">
+                            The BenchTest tool itself is likely to be updated more often than the test data. In order to save on download time and bandwidth, test data is not included in the BenchTest tool download, so you have to download it separately.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/download/24uBenchTest21v3.zip" target="_blank" class="button">Download BenchTest</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    BenchTest Data
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12 mb-2">
+                            If you download the small data file, you will have to generate the test data yourself, which can easily take over 10 hours. The larger data file comes with all the data for the standard test already generated, so it’s ready to use immediately.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="https://24usoftware.com/download/24uBenchTest20DataFresh.zip" target="_blank" class="button">Download Small Data File (166 MB)</a>
+                            <a href="https://24usoftware.com/download/24uBenchTest20Data10k.zip" target="_blank" class="button"> Download Ready-To-Use Data (2.2 GB)</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Requirements
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-12 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <p>
+                                BenchTest works with FileMaker Pro 12 or newer, but some tests and features may require higher version. FileMaker Pro 17 or newer is required to submit standard test results for scoring and comparison. FileMaker Pro 18 or newer is required to measure hard disk speed. At least 20 GB of free disk space is recommended for running the standard test set.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+{/capture}
+{include '../Components/download-section.latte', versionsHtml => $downloadVersionsHtml, toolName => $toolName}
+
+    {snippet storeForm}
+        {include '../Components/store-section.latte', toolName => $toolName}
+    {/snippet}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}
+{/block}
+{block post-script}
+    <script>
+        var topResultsIframe = $(".topresults");
+        var topResultsIframeEl = topResultsIframe[0];
+
+        function iframeLoad(){
+            let frame = topResultsIframe.contents().find("#benchTestResult");
+            var types = ["Local File", "Localhost", "Local Network", "Wide Area Network", "Multiple Users", "Hosting"];
+
+            // DETECT CLICK
+            $(".tab", frame).click(function(){
+                var tab = $(this);
+
+                $(".showTenMore", frame).show();
+
+
+                // SET STYLE FOR SELECTED TAB
+                $(".tab", frame).removeClass("active");
+                tab.addClass("active");
+
+
+                // FILTER DATA FOR TAB
+                var tabType = $(this).attr("data-tab");
+                $(".run", frame).hide();
+                var limit = 10;
+
+
+                if(types.includes(tabType)){
+                    $(".run[data-type='"+tabType+"']:hidden", frame).each(function( index ) {
+                        if(index <= limit){
+                            $(this).show();
+                        }
+                    });
+                } else {
+                    $(".run", frame).show();
+                }
+                resizeIframeByElementResults(topResultsIframeEl);
+
+            $(".run", frame).removeClass("even-row");
+                $(".run:visible:even", frame).addClass("even-row");
+            });
+
+
+            // DETECT CLICK
+            $(".showTenMore", frame).click(function(){
+                var tabType = $(".tab.active", frame).attr("data-tab");
+                var limit = 10;
+
+                if(types.includes(tabType)){
+                    $(".run[data-type='"+tabType+"']:hidden", frame).each(function( index ) {
+                        if(index <= limit){
+                            $(this).show();
+                        }
+                    });
+
+                    if($(".run[data-type='"+tabType+"']:hidden", frame).length <= 0){
+                        $(".showTenMore", frame).hide();
+                    }
+                } else {
+                    $(".run", frame).show();
+                }
+
+                resizeIframeByElementResults(topResultsIframeEl);
+
+                $(".run", frame).removeClass("even-row");
+                $(".run:visible:even", frame).addClass("even-row");
+
+            });
+
+            if($(".tab", frame).length >= 1) {
+                $(".tab[data-tab='Local File']", frame).click();
+            }
+
+            resizeIframeByElementResults(topResultsIframeEl);
+        }
+
+        // Resize Iframe by Content inside
+        function resizeIframeByElementResults(obj) {
+            obj.style.height = obj.contentWindow.document.getElementById("benchTestResult").scrollHeight + 'px';
+        }
+
+        // Resize After Resize Window
+        $( window ).resize(function() {
+            resizeIframeByElementResults(topResultsIframeEl);
+        });
+    </script>
+
+
+{/block}

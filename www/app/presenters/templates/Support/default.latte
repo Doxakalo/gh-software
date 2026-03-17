@@ -1,0 +1,787 @@
+{import 'translate_' . $locale . '.latte'}
+
+{block title}{_generic.page-title.support}{/block}
+{block description}
+    We are here for you to help with your issues or emergency. Chose whether you need an immediate help in emergency, or schedule our assistance for later time. We provide free e-mail support for our products, as well as ongoing solution support based on service level agreements.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_generic.page-title.support}{/capture}
+        {capture $description}We are here for you to help with your issues or emergency. Chose whether you need an immediate help in emergency, or schedule our assistance for later time. We provide free e-mail support for our products, as well as ongoing solution support based on service level agreements.{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/support/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/support/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/support/og_images/og_image_3.jpg'>
+        {/capture}
+        {include meta-og,
+        type => $appConfig["og"]["type"],
+        title => $title,
+        description => $description,
+        ogMediaHTML => $ogMediaHtml,
+        siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="cover default extended has-video">
+    <div class="video-container overlay overlay-light cover-parallax">
+
+        {if $detect['platformDevice'] === "tablet"}
+            {var $videoResolution = "1024"}
+        {elseif $detect['platformDevice'] === "phone"}
+            {var $videoResolution = "640"}
+        {else}
+            {var $videoResolution = "1920"}
+        {/if}
+        <video class="video-js" playsinline
+               data-setup='{
+					"controls": false,
+					"autoplay": {if $detect['isFirefox'] === "true"}"true"{else}"muted"{/if},
+					"preload": false,
+					"loop": "loop",
+					"aspectRatio":"16:9",
+					"fluid": true
+				   }'
+               poster="{$basePath}/video//support/preview/preview_support_preview_{$videoResolution}.jpg?v=1">
+            <source src="{$basePath}/video/support/support_header_{$videoResolution}.mp4?v=1" type="video/mp4">
+            <source src="{$basePath}/video/support/support_header_{$videoResolution}.webm?v=1" type="video/webm">
+            <div class="vjs-no-js" style="background-image: url('{$basePath}/video/support/preview/support_header_preview_{$videoResolution}.jpg')"></div>
+        </video>
+    </div>
+    <div class="container cover-content">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        {include header-title}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="support-tabs arrow arrow-top-bottom animated hide@mobile">
+    <div class="container">
+        <div class="row row-full@tablet row-full@mobile">
+            <div class="gr-12">
+                <div class="row">
+                    <div class="gr-3 gr-6@mobile gr-12@mobileSmall no-gutter">
+                        <a href="#" class="item red" data-id="immediate-help">
+                            <div class="content">
+                                <h2>{_pages.support.default.immediate_help}</h2>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="gr-3 gr-6@mobile gr-12@mobileSmall no-gutter">
+                        <a href="#" class="item orange" data-id="scheduled-assistance">
+                            <div class="content">
+                                <h2>{_pages.support.default.sheduled_assistance}</h2>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="gr-3 gr-6@mobile gr-12@mobileSmall no-gutter">
+                        <a href="#" class="item green" data-id="ongoing-care">
+                            <div class="content">
+                                <h2>{_pages.support.default.ongoing_care}</h2>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="gr-3 gr-6@mobile gr-12@mobileSmall no-gutter">
+                        <a href="#" class="item blue" data-id="product-support" data-highlight="false">
+                            <div class="content">
+                                <h2>{_pages.support.default.product_support}</h2>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="support-tabs-mobile arrow arrow-top-bottom hide show@mobile">
+    <div class="row">
+        <div class="gr-12 no-gutter">
+            <a href="#" class="item red" data-id="immediate-help">
+                <div class="content">
+                    <h2>{_pages.support.default.immediate_help}</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="detail" data-id="immediate-help">
+
+
+    <div class="container">
+
+        <div class="row mb-3">
+            <div class="gr-12">
+                <p class="large text-left@mobile-center">
+                    {include immediate_help}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="no-gutter gutter-left@tablet gutter@mobile gr-6 gr-12@mobile">
+                <div class="column divider first">
+                    {snippet contactImmediateHelpForm}
+                        {ifset $contactAdditionalInformationSuccess}
+                            <div class="form-sent">
+                                <p>
+                                    {_generic.contact-form-section.form-sent}
+                                </p>
+                            </div>
+                        {elseifset $contactImmediateHelpFormSuccess}
+                            <div class="form-sent">
+                                <div class="text-form">
+                                    {include let_us_call_you}
+                                </div>
+
+                                <script>
+                                    gtag('event', 'form', {
+                                        'event_category': "send",
+                                        'event_label': "contact-immediate",
+                                    });
+                                </script>
+
+                                {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- START ------------------------ *}
+                                {snippet contactAdditionalInformationForm}
+                                    {ifset $contactAdditionalInformationSuccess}
+                                        <div class="form-sent">
+                                            <p>{_generic.contact-form-section.form-sent2}</p>
+                                        </div>
+                                    {else}
+                                        {form contactAdditionalInformationForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                            <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                                <li n:foreach="$form->errors as $error">{$error}</li>
+                                            </ul>
+                                            <label>
+                                                {input email}
+                                            </label>
+                                            <label>
+                                                {input timezones}
+                                            </label>
+                                        {input predata}
+                                        {input type}
+                                            <div class="row row-align-middle">
+                                                <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                                    <label>
+                                                        <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                                    </label>
+                                                </div>
+                                                <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                                    {input process}
+                                                </div>
+                                            </div>
+                                        {/form}
+                                    {/ifset}
+                                {/snippet}
+                                {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- END ------------------------ *}
+
+                            </div>
+                        {else}
+                            {form contactImmediateHelpForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                </ul>
+                                <label>{_support.immediate-help.phone-or-skype}</label>
+                                <div class="input-container mb-2">
+                                    <div class="row">
+                                        <div class="gr-4 no-gutter-right">
+                                            <label class="select-container">
+                                                <div class="placeholder-text"></div>
+                                                <span class="open-arrow"></span>
+                                                {input prefix_number}
+                                            </label>
+                                        </div>
+                                        <div class="gr-8 gutter-left">
+                                            <label>
+                                                {input number}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label>
+                                    <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                </label>
+                                {input type}
+
+                                {input process class => "button mb-2"}
+                            {/form}
+                        {/ifset}
+                    {/snippet}
+                    <p>
+
+                        {_support.immediate-help.call-us-directly}
+                        <span class="large"><a href="tel:+420608301880">+420 608 301 880</a></span>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gutter@mobile gr-6 gr-12@mobile">
+                <div class="column divider last" id="store-content" style="    display: flex;align-items: center;">
+
+                    <div class="flex-item" style="flex: 1 0 100%;">
+                    {if $locale === "en"}
+                        {snippet storeForm }
+                            {var $defaultLanguage = "en"}
+                            {var $defaultCurrency = "USD"}
+                            {ifset $storeFormSuccess}
+                                <div class="form-sent"  >
+                                    <p style="font-weight: bold">
+                                        Your inquiry was sent successfully. We will contact you shortly.
+                                    </p>
+                                </div>
+                            {elseifset $storeFormError}
+                                <div class="form-sent">
+                                    <p>
+                                        An error has occured while submitting your order. Please reload the page and try again.
+                                    </p>
+                                </div>
+                            {else}
+                                {form storeForm data-validationType => 'fields', class => 'ajax mb-1 _storeForm'}
+                                    <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                        <li n:foreach="$form->errors as $error">{$error}</li>
+                                    </ul>
+                                    {foreach $store["sections"] as $group => $section}
+                                        <div class="buy-block" data-store-type="{ifset $section["setup"]["section_type"]}{$section["setup"]["section_type"]|lower}{else}cla{/ifset}">
+                                            <h3>{$section["setup"]["headline"]}</h3>
+
+                                            <table>
+                                                {dump $section["setup"]}
+                                            {ifset $section["setup"]["global_premium_support"]}
+                                                    <tr class="product" data-active="true">
+                                                        <td class="ps_name popover">
+                                                            <input type="checkbox" name="group{$group}[]" class="selectProductChk selectGlobalPremiumSupportChk"/>
+                                                            <span class="name-inner">Premium support <span class="product-info">?</span></span>
+                                                            {ifset $section["setup"]["global_premium_support_source"]}
+                                                                {var $ps_source_id = $section["setup"]["global_premium_support_source"]}
+                                                                <div class="webui-popover-content">
+                                                                    {ifset $section["items"][$ps_source_id]["image"]}
+                                                                        <img src="{$section["items"][$ps_source_id]["image"]}" alt="Premium Support - Image"/>
+                                                                    {/ifset}
+                                                                    <div class="description">{$section["items"][$ps_source_id]["description"]['summary'][$defaultLanguage]|noescape}</div>
+                                                                </div>
+                                                            {/ifset}
+                                                        </td>
+                                                        <td class="piece"></td>
+                                                        <td class="price-per-piece"></td>
+                                                        <td class="total-price total-price-ps" data-price="0"><span></span></td>
+                                                    </tr>
+                                                {/ifset}
+
+                                            {foreach $section["items"] as $productId => $product}
+                                                    {* DEFINE BASIC VALUES *}
+                                                    {var $prices = $product["pricing"]}
+                                                    {var $discount = "false"}
+
+                                                    {if isset($prices["quantityDiscounts"]) && !empty($prices["quantityDiscounts"])}
+                                                        {var $discount = json_encode($prices["quantityDiscounts"])}
+                                                    {/if}
+
+                                                    <tr data-customfield="{ifset $product["setup"]["custom_fields"]}{json_encode($product["setup"]["custom_fields"])}{/ifset}" data-select-default="{if isset($product["setup"]["selected"]) && $product["setup"]["selected"] === true}true{else}false{/if}" data-disabled-change-quantity="{if $product["setup"]["editable"] === true}false{else}true{/if}" data-product-id="{$productId}"
+                                                        data-same-quantity-for="{ifset $product["setup"]["same_quantity_for"]}{$product["setup"]["same_quantity_for"]}{/ifset}"
+                                                        data-paired-with="{ifset $product["setup"]["paired_with"]}{$product["setup"]["paired_with"]}{/ifset}"
+                                                        data-paired-min-quantity="{ifset $product["setup"]["paired_min_quantity"]}{$product["setup"]["paired_min_quantity"]}{/ifset}"
+                                                        data-piece-price="{$prices["price"][$defaultCurrency]}" data-discounts="{$discount}" class="product {ifset $product["setup"]["premium_support"]} {if $product["setup"]["premium_support"] = true}hide product_ps{/if}{/ifset}">
+                                                        <td class="name popover">
+                                                            <span class="name-inner">{$product["display"][$defaultLanguage]}<span class="product-info">?</span></span>
+                                                            {ifset $product["description"]['summary'][$defaultLanguage]}
+                                                                <div class="webui-popover-content">
+                                                                    {ifset $product["image"]}
+                                                                        <img src="{$product["image"]}" alt="{$product["display"][$defaultLanguage]} - Image"/>
+                                                                    {/ifset}
+                                                                    <div class="description">{$product["description"]['summary'][$defaultLanguage]|noescape}</div>
+                                                                </div>
+                                                            {/ifset}
+                                                        </td>
+                                                        <td class="piece">
+                                                            <div class="quantity">
+                                                                <div class="number-input">
+                                                                    <button type="button" class="minusQuantity"></button>
+                                                                    <input class="quantity" min="{ifset $product["setup"]["min_quantity"]}{$product["setup"]["min_quantity"]}{else}0{/ifset}"
+                                                                           data-min="{ifset $product["setup"]['min_quantity']}{$product["setup"]['min_quantity']}{else}{ifset $product["pricing"]['quantityDefault']}{$product["pricing"]['quantityDefault']}{/ifset}{/ifset}" {*TODO FIX !*}
+                                                                           name="product_{$productId}_{$section["setup"]["type"]}" step="1"
+                                                                           max="{ifset $product["setup"]['max_quantity']}{$product["setup"]['max_quantity']}{/ifset}"
+                                                                           value="{ifset $product["setup"]["minimum_quantity"]}{$product["setup"]["minimum_quantity"]}{else}0{/ifset}" type="number">
+                                                                    <button type="button" class="plusQuantity plus"></button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td style="display: none" class="price-per-piece">
+                                                            <span></span>
+                                                        </td>
+                                                        <td style="display: none" class="total-price">
+                                                            <span></span>
+                                                        </td>
+                                                    </tr>
+                                                {/foreach}
+                                            </table>
+                                        </div>
+                                    {/foreach}
+                                    <div class="total-sum-price">Total: <span></span></div>
+                                    <div class="detailOrderWrapper gr-12 gr-12@mobil  no-gutter">
+                                        <p class="extra-order">Due to the size of your requested order, please fill in your contact information. We will reach out to you shortly.</p>
+                                        <p class="non-extra-order">Please enter your email to proceed with your order.</p>
+                                        <label>
+                                            {input fullname}
+                                        </label>
+                                        <label>
+                                            {input email}
+                                        </label>
+                                        <label>
+                                            {input phone}
+                                        </label>
+                                        <label>
+                                            {input subject2}
+                                        </label>
+                                        <label>
+                                            {input personal_info_required}
+                                        </label>
+                                        <label>
+                                            {input spamSecureSum}
+                                        </label>
+                                    </div>
+                                    {input process,  data-ajax-off => "genericFormAjax"}
+                                {/form}
+
+                                {include immediate_help_price}
+
+                            {/ifset}
+                        {/snippet}
+                    {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="support-tabs-mobile arrow arrow-top-bottom hide show@mobile">
+    <div class="row">
+        <div class="gr-12 no-gutter">
+            <a href="#" class="item orange" data-id="scheduled-assistance">
+                <div class="content">
+                    <h2>{_pages.support.default.sheduled_assistance}</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="detail contact" data-id="scheduled-assistance">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="gr-12">
+                <p class="large text-left@mobile-center">
+                    {include sheduled_assistance}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="gr-6 gr-10@tablet gr-12@mobile gr-centered@tablet no-gutter">
+                <div class="box divider first">
+                    <div class="row">
+                        <div class="gr-4 gr-12@mobileSmall text-center mb-1@mobile">
+                            <img src="{$basePath}/img/icons/call_us_icon_blue.svg" class="icon" alt="Call us">
+                            <span class="large">{_generic.contact-form-section.call-us|noescape}</span>
+                        </div>
+                        <div class="gr-8 gr-12@mobileSmall text-left text-left@mobile-center">
+                            <h2>
+                                <a href="tel:+420608301880">+420 608 301 880</a>
+                            </h2>
+                            <p>{_generic.contact-form-section.available-time}</p>
+                            <p>{_generic.contact-form-section.we-call-back}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gr-6 gr-10@tablet gr-12@mobile gr-centered@tablet no-gutter">
+                <div class="box divider last">
+                    <div class="row">
+                        <div class="gr-4 gr-12@mobileSmall text-center mb-1@mobile">
+                            <img src="{$basePath}/img/icons/let_us_call_you_icon_blue.svg" class="icon" alt="Let us call you">
+                            <span class="large">{_generic.contact-form-section.let-us-call|noescape}</span>
+                        </div>
+                        <div class="gr-8 gr-12@mobileSmall text-left text-left@mobile-center">
+                            {snippet contactScheduledAssistance}
+                                {ifset $contactAdditionalInformationSuccess}
+                                    <div class="form-sent">
+                                        <p>{_generic.contact-form-section.form-sent}</p>
+                                    </div>
+                                {elseifset $contactScheduledAssistanceFormSuccess}
+                                    <div class="form-sent">
+                                        <div class="text-form">
+                                            {include let_us_call_you}
+                                        </div>
+
+                                        <script>
+                                            gtag('event', 'form', {
+                                                'event_category': "send",
+                                                'event_label': "contact-sheduled_assistance",
+                                            });
+                                        </script>
+
+                                        {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- START ------------------------ *}
+                                        {snippet contactAdditionalInformationForm3}
+                                            {ifset $contactAdditionalInformationSuccess}
+                                                <div class="form-sent">
+                                                    <p>{_generic.contact-form-section.form-sent2}</p>
+                                                </div>
+                                            {else}
+                                                {form contactAdditionalInformationForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                                    <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                                        <li n:foreach="$form->errors as $error">{$error}</li>
+                                                    </ul>
+                                                    <label>
+                                                        {input email}
+                                                    </label>
+                                                    <label>
+                                                        {input timezones}
+                                                    </label>
+                                                {input predata}
+                                                {input type}
+                                                    <div class="row row-align-middle">
+                                                        <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                                            <label>
+                                                                <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                                            </label>
+                                                        </div>
+                                                        <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                                            {input process}
+                                                        </div>
+                                                    </div>
+                                                {/form}
+                                            {/ifset}
+                                        {/snippet}
+                                        {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- END ------------------------ *}
+
+                                    </div>
+                                {else}
+                                    {form contactScheduledAssistanceForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                        <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                        </ul>
+                                        <label>
+                                            {input name}
+                                        </label>
+                                        <div class="row">
+                                            <div class="gr-4 no-gutter-left no-gutter-right">
+                                                <label class="select-container">
+                                                    <div class="placeholder-text"></div>
+                                                    <span class="open-arrow"></span>
+                                                    {input prefix_number}
+                                                </label>
+                                            </div>
+                                            <div class="gr-8 gutter-left no-gutter-right no-gutter-left">
+                                                <label>
+                                                    {input number}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            {input time}
+                                        </label>
+                                        <label>
+                                            {input topic}
+                                        </label>
+                                    {input type}
+                                        <div class="row row-align-middle">
+                                            <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                                <label>
+                                                    <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                                </label>
+                                            </div>
+                                            <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                                {input process}
+                                            </div>
+                                        </div>
+                                    {/form}
+                                {/ifset}
+                            {/snippet}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="support-tabs-mobile arrow arrow-top-bottom hide show@mobile">
+    <div class="row">
+        <div class="gr-12 no-gutter">
+            <a href="#" class="item green" data-id="ongoing-care">
+                <div class="content">
+                    <h2>{_pages.support.default.ongoing_care}</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="detail contact" data-id="ongoing-care">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="gr-12">
+                <p class="large text-left@mobile-center">
+                    {include ongoing_care}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="gr-6 gr-10@tablet gr-12@mobile gr-centered@tablet no-gutter">
+                <div class="box divider first">
+                    <div class="row">
+                        <div class="gr-4 gr-12@mobileSmall text-center mb-1@mobile">
+                            <img src="{$basePath}/img/icons/call_us_icon_blue.svg" class="icon" alt="Call us">
+                            <span class="large">{_generic.contact-form-section.call-us|noescape}</span>
+                        </div>
+                        <div class="gr-8 gr-12@mobileSmall text-left text-left@mobile-center">
+                            <h2>
+                                <a href="tel:+420608301880">+420 608 301 880</a>
+                            </h2>
+                            <p>{_generic.contact-form-section.available-time}</p>
+                            <p>{_generic.contact-form-section.we-call-back}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gr-6 gr-10@tablet gr-12@mobile gr-centered@tablet no-gutter">
+                <div class="box divider last">
+                    <div class="row">
+                        <div class="gr-4 gr-12@mobileSmall text-center mb-1@mobile">
+                            <img src="{$basePath}/img/icons/let_us_call_you_icon_blue.svg" class="icon" alt="Let us call you">
+                            <span class="large">{_generic.contact-form-section.let-us-call|noescape}</span>
+                        </div>
+                        <div class="gr-8 gr-12@mobileSmall text-left text-left@mobile-center">
+                            {snippet contactOngoingCareForm}
+                                {ifset $contactAdditionalInformationSuccess}
+                                    <div class="form-sent">
+                                        <p>{_generic.contact-form-section.form-sent}</p>
+                                    </div>
+                                {elseifset $contactOngoingCareFormSuccess}
+                                    <div class="form-sent">
+                                        <div class="text-form">
+                                            {include let_us_call_you}
+                                        </div>
+
+                                        <script>
+                                            gtag('event', 'form', {
+                                                'event_category': "send",
+                                                'event_label': "contact-ongoing_care",
+                                            });
+                                        </script>
+
+                                        {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- START ------------------------ *}
+                                        {snippet contactAdditionalInformationForm2}
+                                            {ifset $contactAdditionalInformationSuccess}
+                                                <div class="form-sent">
+                                                    <p>{_generic.contact-form-section.form-sent2}</p>
+                                                </div>
+                                            {else}
+                                                {form contactAdditionalInformationForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                                    <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                                        <li n:foreach="$form->errors as $error">{$error}</li>
+                                                    </ul>
+                                                    <label>
+                                                        {input email}
+                                                    </label>
+                                                    <label>
+                                                        {input timezones}
+                                                    </label>
+                                                {input predata}
+                                                {input type}
+                                                    <div class="row row-align-middle">
+                                                        <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                                            <label>
+                                                                <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                                            </label>
+                                                        </div>
+                                                        <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                                            {input process}
+                                                        </div>
+                                                    </div>
+                                                {/form}
+                                            {/ifset}
+                                        {/snippet}
+                                        {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- END ------------------------ *}
+
+                                    </div>
+                                {else}
+                                    {form contactOngoingCareForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                        <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                        </ul>
+                                        <label>
+                                            {input name}
+                                        </label>
+                                        <div class="row">
+                                            <div class="gr-4 no-gutter-left no-gutter-right">
+                                                <label class="select-container">
+                                                    <div class="placeholder-text"></div>
+                                                    <span class="open-arrow"></span>
+                                                    {input prefix_number}
+                                                </label>
+                                            </div>
+                                            <div class="gr-8 gutter-left no-gutter-right no-gutter-left">
+                                                <label>
+                                                    {input number}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            {input time}
+                                        </label>
+                                        <label>
+                                            {input topic}
+                                        </label>
+                                    {input type}
+                                        <div class="row row-align-middle">
+                                            <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                                <label>
+                                                    <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                                </label>
+                                            </div>
+                                            <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                                {input process}
+                                            </div>
+                                        </div>
+                                    {/form}
+                                {/ifset}
+                            {/snippet}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="support-tabs-mobile arrow arrow-top-bottom hide show@mobile">
+    <div class="row">
+        <div class="gr-12 no-gutter">
+            <a href="#" class="item blue" data-id="product-support">
+                <div class="content">
+                    <h2>{_pages.support.default.product_support}</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="detail contact" data-id="product-support">
+    <div class="container">
+        {snippet csztForm}
+            <div class="row mb-3">
+                <div class="gr-12">
+                    <p class="large text-left@mobile-center">
+                        {include product_support}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row" id="csztForm">
+                {ifset $csztFormSuccess}
+                    <div class="gr-12">
+                        <div class="form-sent">
+                            <p>
+                                {if isset($premiumSupport) && $premiumSupport === true}
+                                    {_support.product-support.form-sent-urgent|noescape}
+                                {else}
+                                    {_support.product-support.form-sent}
+                                {/if}
+                            </p>
+                        </div>
+                    </div>
+                    <script>
+                        gtag('event', 'form', {
+                            'event_category': "send",
+                            'event_label': "contact-product_support",
+                        });
+                    </script>
+                {else}
+                    <div class="gr-12 no-gutter">
+                        <div class="box">
+                            {form createClientPortalNewRequestForm data-validationType => 'fields', class => 'ajax'}
+                                <ul n:if="$form->hasErrors()" class="errors text-center mb-1">
+                                    <li n:foreach="$form->errors as $error">{$error}</li>
+                                </ul>
+                                <div class="row">
+
+                                    <div class="gr-6 gr-12@mobile">
+
+                                        <label>
+                                            {input fullname}
+                                        </label>
+                                        <label>
+                                            {input email}
+                                        </label>
+                                        <label>
+                                            {input topic}
+                                        </label>
+
+                                        <label class="select-container">
+                                            <span class="open-arrow"></span>
+                                            {input productCode}
+                                        </label>
+                                    </div>
+                                    <div class="gr-6 gr-12@mobile">
+                                        <label>
+                                            {input message}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                                        <p>
+                                            {input premium_support}
+                                            {_support.product-support.premium-instruction|noescape}
+                                            <br/><br/>
+
+                                            <label>
+                                                <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <div class="gr-6 gr-12@mobile text-right text-right@mobile-center">
+                                        <honeypot>{input subject}</honeypot>
+
+                                        {input createTicket}
+                                    </div>
+                                </div>
+                            {/form}
+                        </div>
+                    </div>
+                {/ifset}
+            </div>
+        {/snippet}
+    </div>
+</section>
+
+<section class="detail" data-id="default">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12">
+                <p class="text-center large">{_support.support-options}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slider-panel arrow video-switch-arrows testimonial-swiper-video">
+    {var $testimonials = [
+    [quote => 'joe_king', ],
+    [quote => 'jacques_kirouac', img => $basePath . '/img/testimonials/jacques_kirouac.jpg', video => [id => '53A9RU00jJ8']],
+    [quote => 'michael_lau', ],
+    [quote => 'pep_espuyes', img => $basePath . '/img/testimonials/pepe_espunyes.jpg'],
+    [quote => 'bruce_berry', ],
+    [quote => 'world_wide_distributor2', ],
+    [quote => 'john_mikton', img => $basePath . '/img/testimonials/john_mikton.jpg'],
+
+    ]}
+    {import '../Components/testimonials.latte'}
+    {include testimonial-swiper, $testimonials}
+</section>

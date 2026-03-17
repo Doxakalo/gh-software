@@ -1,0 +1,208 @@
+parameters:
+
+    # APPLICATION CONFIGURATION
+    application:
+        # METAs Open Graph - Default value
+        og:
+            type: "website"
+            title: "24U Software - Software for people, not for computers"
+            description: "Experts in optimization and hardware integration, platinum member of the FileMaker Business Alliance. We build custom apps, FileMaker plug-ins, native apps for Mac, Windows, Linux, iOS, and Android, we are able to to integrate even hardware and software noone has integrated before."
+            image: "img/layout/logo/logo-og.png"
+            site_name: "24U Software"
+
+        # COOKIE WITH TIME OF FIRST WEB VISIT (implemented in version 1.6, summer 2021 )
+        first_visit_cookie_name: "first_visit_time_cookie"
+
+        #for news module - shortlink form
+        shortlinks:
+            admin_cookie_name: "shortlink-admin-cookie"
+            active_cookie_hash: ""
+            categories:
+                - "24U Product Documentation"
+                - "Affilliates"
+                - "DevCon"
+                - "Mailing"
+                - "Nástroje"
+                - "Outbound"
+                - "Reklama"
+                - "Slides"
+                - "Sociální sítě"
+                - "Tips & Examples"
+
+
+        # CONTACT FORM - Spam Security (find in message from customer)
+        spam-security-directory:
+            message:
+                last-line:
+                    -
+                        - "p.s. "
+                    -
+                        - "ps: "
+                    -
+                        - "if you "
+                    -
+                        - "respond"
+                        - "stop"
+
+                whole-message:
+                    -
+                        - "sex"
+
+
+        # About FileMaker - experience years
+        filemaker-experience-start-year: 1991
+
+        # Define contact way for forms & services
+        contact:
+            technical-issue: #TECHNICAL ISSUES - FORM
+                subject: "Technical error:"
+                pushover_user: false
+                email: false
+
+            immediate_help: #IMMEDIATE HELP - FORM
+                subject: "Immediate help"
+                pushover_user: false
+                email: false
+
+            scheduled_assistance: #SCHEDULED ASSISTANCE - FORM
+                subject: "Scheduled assistance"
+                pushover_user: false
+                email: false
+
+            premium_support: #PREMIUM SUPPORT - FORM
+                subject: "Create Ticket - Premium support (require verification)"
+                pushover_user: false
+                email: false
+
+            ongoing_care: # ONGOING CARE - FORM
+                subject: "Ongoing care"
+                pushover_user: false
+                email: false
+
+            call: # LET US CALL YOU - FORM
+                subject: "Let us call you"
+                pushover_user: false
+                email: false
+
+            qa_call: # QA - FORM
+                subject: "Quality Assurance"
+                pushover_user: false
+                email: false
+
+            product_support: # PRODUCT SUPPORT - FORM
+                pushover_user: false
+                email: false
+
+            footer: # PAGE FOOTER - HAVE A QUESTION - FORM
+                subject: "Footer question"
+                pushover_user: false
+                email: false
+
+        search:
+            typos:
+                "filemaker":
+                    - "file maker"
+                    - fajlmejkr
+                    - filemakr
+                    - fielmaker
+                    - filmaker
+                    - filmakr
+                    - filemker
+                    - filemakre
+                    - filemaekr
+                    - fielmakre
+                    - fielmaekr
+                    - fiklemaker
+                    - filemkaer
+                    - filmakre
+                    - filemake
+                    - filemakdr
+                    - filemaler
+                    - filemakwr
+                    - fildmaker
+                    - fulemaker
+                    - filemakrr
+                    - filemeker
+                    - filemazker
+                    - filemiker
+                    - fildmakr
+                    - filemaket
+                    - filemakef
+                    - filemqker
+                    - filemaked
+                    - filemakel
+                    - filemakee
+                    - filemakew
+                    - filemajer
+                    - filemamer
+                    - filenaker
+                    - filebaker
+                    - filemater
+                    - filemakar
+                    - fileraker
+                    - filemoker
+                    - filemakefr
+                    - fliemaker
+                    - fleimaker
+                    - filemak3r
+                    - filemak4r
+                    - filemaier
+                    - filemakek
+                    - filemakrrr
+                    - fikeMaker
+                    - firemaker
+                    - filemakedr
+                    - filemaksr
+                    - filemakor
+                    - fillemaker
+                    - fielmker
+                    - filrmaker
+                    - filemaikr
+                    - filemxker
+                    - fliemakr
+                    - filmaeker
+                    - fioleMaker
+                    - fuleMakre
+                    - filemcker
+                    - filleMakre
+                    - pilemaker
+                    - vilemaker
+                    - filemakrrt
+                    - filemakrru
+                    - filemakrre
+                    - filemakper
+                    - filemaxer
+                    - filemajker
+                    - filemarer
+                    - filemuker
+                    - filemakrrp
+                    - fipemaker
+                    - filemaokr
+                    - filematker
+                    - f9lemaker
+                    - filemwker
+                    - fiemaker
+                    - fimemaker
+                    - filemakwe
+                    - filemoker
+                    - fil4maker
+                    - fi4lemaker
+                    - filwmaker
+                    - fiolemaekr
+                    - fielmake
+                    - fillemker
+                    - filemqakr
+                    - filemqwer
+                    - filemakewr
+                    - filemkaekr
+                    - fielmakar
+                    - fielmoker
+                    - filemakerz
+                    - filemacker
+                    - fulemakr
+                    - filemakeg
+                    - filemakgr
+                    - filemakder
+                    - f8lemaker
+                    - filemakr3
+                    - filemaqker

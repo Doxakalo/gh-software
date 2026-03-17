@@ -1,0 +1,513 @@
+{block title}SimpleDialog{/block}
+{block description}
+    Thanks to this plug-in FileMaker<sup>&reg;</sup> solutions can now interact with users via professionally looking dialogs. Easily.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "SimpleDialog",
+            description => "Thanks to this plug-in FileMaker&reg; solutions can now interact with users via professionally looking dialogs. Easily.",
+            imagePath => "img/pages/tools/simple-dialog/og_image.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/simple-dialog_icon.svg" alt="SimpleDialog">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Easily make users love your dialogs
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <div class="button download-button">Download</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/simpleDialog_en.latte'}
+{var $overview = [
+    name => 'overview',
+    testimonials => [
+        [ img => $basePath.'/img/testimonials/vince_menanno.jpg', video => [id => 'z-6Uu_j5nv8'], name => 'Vince Menanno', ],
+        [ img => $basePath.'/img/testimonials/paul_de_halle.jpg', video => [id => 'pqTBJMjcn34'], name => 'Paul de Halle', ],
+        [ img => $basePath.'/img/testimonials/diego_dalessio.jpg', video => [id => 'QWJcKOK0aEg'], name => 'Diego Dalessio', ],
+        [ img => $basePath.'/img/testimonials/lynn_oburg.jpg', video => [id => '0pLFVb0x_K0'], name => 'Lynn Oburg', ],
+        [ img => $basePath.'/img/testimonials/neal_frank.jpg', video => [id => 'XtCjFs4YlIg'], name => 'Neal Frank', ],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'indicate', img => $basePath.'/img/pages/tools/simple-dialog/indicator-old.png', img_url =>[url => $basePath.'/img/pages/tools/simple-dialog/indicator-old.png', target => '_blank'] ],
+    [name => 'messages', img => $basePath.'/img/pages/tools/simple-dialog/message.png', img_url =>[url => $basePath.'/img/pages/tools/simple-dialog/message.png', target => '_blank'] ],
+    [name => 'prompt', img => $basePath.'/img/pages/tools/simple-dialog/data.png', img_url =>[url => $basePath.'/img/pages/tools/simple-dialog/data.png', target => '_blank'] ],
+    [name => 'update', img => $basePath.'/img/pages/tools/simple-dialog/language.png', img_url =>[url => $basePath.'/img/pages/tools/simple-dialog/language.png', target => '_blank'] ],
+    [name => 'syntax', img => $basePath.'/img/pages/tools/simple-dialog/syntaxe.png', img_height => '300', img_url =>[url => $basePath.'/img/pages/tools/simple-dialog/syntaxe.png', target => '_blank'] ],
+    [name => 'sympledialog6', img => $basePath.'/img/icons/simple-dialog_icon.svg', img_height => '200' ],
+    [name => 'support', img => $basePath.'/img/pages/tools/simple-dialog/dialog-ios.png', img_height => '250' ],
+    [name => 'progress', img => $basePath.'/img/pages/tools/simple-dialog/progress-pause.png', img_height => '200' ],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+
+{snippet storeForm}
+    {include '../Components/store-section.latte', toolName => $toolName}
+{/snippet}
+
+{capture $downloadVersionsHtml}
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v6.0.6
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2021/09/24"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v606/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v606/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> Dual Core 1.6 GHz processor, 4096 MB RAM, Windows 11 or newer, FileMaker Pro 19.6 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong>1 GHz processor, 2048 MB RAM, Windows 7, FileMaker Pro 16
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn606.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel/Apple Silicon Mac, 4096 MB RAM, macOS Ventura 13 or newer, FileMaker Pro 19.5 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac since 2008, 2048 MB RAM, Mac OS X 10.10 Yosemite, FileMaker Pro 16
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn606.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-4 gr-12@tablet gr-12@mobile">
+                            <h3>iOS</h3>
+                            <ul>
+                                <li>
+                                    FileMaker Pro 19.5 or newer (for creating FileMaker solutions)
+                                </li>
+                                <li>
+                                    macOS 11.3 / Xcode 12 / Swift 5.0 (or <a href="/xgode">build your apps online with Xgode</a>)
+                                </li>
+                                <li>
+                                    iOS 13.0 or newer
+                                </li>
+                                <li>
+                                    developer.apple.com account (for testing and deployment on device)
+                                </li>
+                                <li>
+                                    FileMaker iOS App SDK 19.3 or newer
+                                </li>
+                            </ul>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn606iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v6.0.4
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2019/07/16"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v604/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v604/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> Dual Core 1.6 GHz processor, 4096 MB RAM, Windows 10 or newer, FileMaker Pro 16 Advanced or newer (including FileMaker 19)
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> 1 GHz processor, 2048 MB RAM, Windows 7, FileMaker Pro 14.
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn604.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel Mac, 4096 MB RAM, macOS High Sierra 10.13 or newer, FileMaker Pro 16 Advanced or newer (including FileMaker 19)
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac since 2008, 2048 MB RAM, Mac OS X 10.10 Yosemite, FileMaker Pro 14.
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn604.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-4 gr-12@tablet gr-12@mobile">
+                            <h3>iOS</h3>
+                            <ul>
+                                <li>
+                                    FileMaker Pro or Pro Advanced (for creating FileMaker solutions)
+                                </li>
+                                <li>
+                                    macOS 10.12 / Xcode 8 / Swift 3.0  (or <a href="/xgode">build your apps online with Xgode</a>)
+                                </li>
+                                <li>
+                                    iOS 10.0
+                                </li>
+                                <li>
+                                    developer.apple.com account (for testing and deployment on device)
+                                </li>
+                                <li>
+                                    FileMaker iOS App SDK 18
+                                </li>
+                            </ul>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn604iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v5.0.6
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2018/03/15"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v50/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> Dual Core 1.6 GHz processor, 4096 MB RAM, Windows 10, FileMaker Pro (Advanced) 16 or 17
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> 1 GHz processor, 1 GB RAM, Windows XP SP3, FileMaker Pro 12
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn506.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel Mac, 4096 MB RAM, macOS High Sierra 10.13, FileMaker Pro (Advanced) 16 or 17
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac, 2 GB RAM, Mac OS X 10.8 Mountain Lion, FileMaker Pro 12
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn506.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v4.1.2
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2015/05/13"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v412/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> 1.6 GHz processor, 4096 MB RAM, Windows 7, FileMaker Pro 14 Advanced.
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Windows: 500 MHz processor, 512 MB RAM, Windows XP SP3, FileMaker Pro 10.
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn412.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Intel Mac, 4096 MB RAM, OS X 10.8, FileMaker Pro 14 Advanced.
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Intel Mac, 512 MB RAM, Mac OS X 10.4.11, FileMaker Pro 10.
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn412.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v3.1
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2007/11/26"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v31/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> 1GHz PC with Microsoft Windows XP, FileMaker Pro 9 thru 11
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> 300 MHz Pentium PC with Microsoft Windows 2000, and FileMaker Pro 7.0
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn31.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Power Macintosh G4 or Intel Macintosh with Mac OS X 10.4, FileMaker Pro 9 thru 11
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Power Macintosh G4 with Mac OS X 10.3 or Intel Macintosh with Mac OS 10.4, and FileMaker Pro 7.0
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn31.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v2.8
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2006/04/19"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simpledialog/doc/v28/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> Pentium PC 1 GHz with Windows 2000, FileMaker Pro 8 or 8.5
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Pentium PC 300MHz with Windows 2000, and FileMaker Pro 7
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn28.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Power Macintosh G4 with Mac OS X 10.4 Tiger, FileMaker Pro 8 or 8.5
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Power Macintosh G3 with Mac OS X 10.2.8, and FileMaker Pro 7
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleDialogPlugIn28.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+{/capture}
+{include '../Components/download-section.latte', versionsHtml => $downloadVersionsHtml, toolName => $toolName}
+
+{snippet contactForm}
+   {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}

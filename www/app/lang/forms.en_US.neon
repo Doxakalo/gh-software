@@ -1,0 +1,197 @@
+#MAILCHIMP FORM FOR SUBSCRIBE
+mailchimp-subscribe:
+    items:
+        email:
+            label: "E-mail"
+            placeholder: "Your e-mail"
+            validation:
+                required: "Please enter e-mail address"
+                valid: "Please enter valid e-mail address"
+                maxLength: "Please keep your input under %len% characters."
+
+        name:
+            label: "First name"
+            placeholder: "Your first name"
+            validation:
+                required: "Please enter your first name"
+                maxLength: "Please keep your input under %len% characters."
+
+
+        surname:
+            label: "Last name"
+            placeholder: "Your last name"
+            validation:
+                required: "Please enter your last name"
+                maxLength: "Please keep your input under %len% characters."
+        submit:
+            label: "Subscribe"
+
+    errors:
+        unexpected: "Unexpected error, please contact 24U"
+        email-used: "Your e-mail address is already in use"
+
+#CONTACT FORM
+contact:
+    items:
+        subject2:
+            label: "Subject"
+            placeholder: "Please do not fill"
+
+        number:
+            label: "Number"
+            placeholder: "Your number"
+            validation:
+                required: "Please enter your phone"
+                maxLength: "Please keep your input under %len% characters."
+
+        name:
+            label: "Your name"
+            placeholder: "Your name"
+            validation:
+                required: "Please enter your name"
+                maxLength: "Please keep your input under %len% characters."
+
+        time:
+            label: "Time"
+            placeholder: "Good time to call"
+            validation:
+                required: "Please enter time"
+                maxLength: "Please keep your input under %len% characters."
+
+        timezone:
+            label: "Timezone"
+            placeholder: "Your time zone"
+            validation:
+                required: "Please select timezone where you live"
+                maxLength: "Please keep your input under %len% characters."
+
+        email:
+            label: "E-mail"
+            placeholder: "Your e-mail"
+            validation:
+                required: "Please enter e-mail address"
+                valid: "Please enter valid e-mail address"
+                maxLength: "Please keep your input under %len% characters."
+
+        topic:
+            label: "Topic"
+            placeholder: "Topic to discuss"
+            validation:
+                required: "Please enter topic"
+                maxLength: "Please keep your input under %len% characters."
+
+        message:
+            label: "Message"
+            placeholder: "Type your question here..."
+            placeholder-popup: "Type your message here..."
+            validation:
+                required: "Please enter your message"
+                maxLength: "Please keep your input under %len% characters."
+
+        submit:
+            label: "Send"
+
+    errors:
+        unexpected: "Unexpected error, please contact 24U"
+
+# CLIENT PORTAL FORM - CREATE TICKET
+client-portal-create-ticket:
+    items:
+        email:
+            label: "E-mail"
+            placeholder: "Your e-mail"
+            validation:
+                required: "Please enter e-mail address"
+                valid: "Please enter valid e-mail address"
+
+        topic:
+            label: "Topic"
+            placeholder: "Topic to discuss"
+            validation:
+                required: "Please enter topic"
+
+        message:
+            label: "Message"
+            placeholder: "Type your question here..."
+            placeholder-popup: "Type your message here..."
+            validation:
+                required: "Please enter your message"
+
+        fullname:
+            label: "Name"
+            placeholder: "Your name"
+            validation:
+                required: "Please enter name"
+
+        product:
+            prompt: "-- Choose product --"
+            validation:
+                required: "Please select product"
+
+        premium-support:
+             label: "I want to utilize Premium Support"
+
+        submit:
+            label: "Send question"
+
+    errors:
+        unexpected: "Unexpected error, please contact 24U"
+
+#SUPPORT -  Immediate Help Form
+support-immediate-help:
+    items:
+        submit:
+            label: "Request a call"
+
+
+#NEWS - Shortlink Form
+shortlinks:
+    items:
+        url:
+            label: "Destination Url"
+            placeholder: "Destination Url"
+            validation:
+                required: "Zadejte prosím URL"
+
+        shortlink:
+            label: "Shortlink"
+            placeholder: "Vlastní shortlink"
+
+        category:
+            label: "Category"
+            placeholder: "Category"
+            validation:
+                required: "Zadejte prosím kategorii"
+        note:
+            label: "Note"
+            placeholder: "Note"
+            validation:
+                required: "Zadejte prosím poznámku"
+
+        min_click:
+            label: "Min"
+            placeholder: "Min"
+            validation:
+                required: "Zadejte prosím minimum"
+                minimum: "Minimální hodnota je 0"
+
+        max_click:
+            label: "Max"
+            placeholder: "Max"
+            validation:
+                required: "Zadejte prosím maximum"
+                minimum: "Minimální hodnota je 0"
+
+        days_limit:
+            label: "Interval"
+            placeholder: "Interval"
+            validation:
+                required: "Zadejte prosím počet dní"
+                minimum: "Minimální hodnota je 0"
+
+        submit:
+            label: "Vytvořit shortlink"
+
+    errors:
+        shortcode-exists: "Zvolený shortlink se už používá"
+        unexpected: "Nastala neočekávaná chyba, prosím kontaktujte 24U"

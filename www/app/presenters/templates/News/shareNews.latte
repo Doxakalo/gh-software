@@ -1,0 +1,32 @@
+{block title}{$news->title}{/block}
+{block description}{$news->meta_description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $news->og_title,
+            description => $news->og_description,
+            imageBase => $imageLink,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<h1>{$news->name}</h1>
+<p>
+    {$news->content|noescape}
+</p>
+{var link = null}
+
+{if $news->link_extern !=="" && $news->link_extern !== null}
+    {var $link = $news->link_extern}
+{/if}
+{dump $link}
+<script>
+
+    setTimeout(function () {
+        window.location.href = {if $link !== null} {$news->link_extern} {else} {plink News:detail, url => $news->url} {/if};
+    }, 2000);
+</script>

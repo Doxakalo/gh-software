@@ -1,0 +1,15 @@
+support-options: "Kliknutím na jednu z výše uvedených možností zobrazíte další podrobnosti"
+
+immediate-help:
+    phone-or-skype: "Zadejte své tel. číslo nebo Skype jméno"
+    call-us-directly: "nebo rovnou volejte"
+
+product-support:
+    premium-instruction: "Pokud potřebujete urgentně pomoci, ale nemáte zakoupený premium support, použijte prosím <a href='#' class='item-custom-link' data-id='immediate-help'>formulář pro okamžitou pomoc</a>"
+    form-sent: "Děkujeme za váš dotaz, odpovíme Vám co nejdříve. Pokud se Vám neozveme do 4 pracovních dnů, kontaktujte nás prosím telefonicky."
+    form-sent-urgent: "Děkujeme za Váš dotaz, odpovíme Vám co nejdříve. Pokud se vám neozveme do konce příštího pracovního dne, prosím volejte na telefonní číslo: <a href='tel:+420730152138'>+420 730 152 138</a>"
+
+
+
+
+

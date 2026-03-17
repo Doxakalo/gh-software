@@ -1,0 +1,53 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}Compo Tech PLUS{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="20">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/stories/slides/slide_5_patterngradmask.jpg')">
+    <div class="inner-background cover-parallax adiutor-parallax" style="background-image: url('{$basePath}/img/pages/stories/slides/slide_5_patterngradmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-9@desktop gr-12@mobile cover-parallax-inner">
+                <h1 class="page-title">
+                    {include adiutor_detail_headline}
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+{var $overview = [
+name => 'adiutor_detail-overview',
+testimonials => [
+        [ img => $basePath.'/img/pages/stories/adiutor/video-thumbnail.jpg', video => [id => 'Z2FztHzz_SQ'], name => 'Vladislav Ptašnik', ],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'adiutor_article-about', img => $basePath.'/img/pages/stories/adiutor/about.jpg'],
+    [name => 'adiutor_article-external_help', img => $basePath.'/img/pages/stories/adiutor/board.jpg'],
+    [name => 'adiutor_article-giving_name', img => $basePath.'/img/pages/stories/adiutor/graph.jpg'],
+    [name => 'adiutor_article-opportunity_with_deadline', img => $basePath.'/img/pages/stories/adiutor/ondrejuher.jpg'],
+    [name => 'adiutor_article-ipad_terminal', img => $basePath.'/img/pages/stories/adiutor/ipad.jpg'],
+    [name => 'adiutor_article-back2work', img => $basePath.'/img/pages/stories/adiutor/backtowork.jpg'],
+    [name => 'adiutor_article-coop_24u'],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles, row_color => 'light-blue'}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'true', customDescriptionTranslate => "pages.stories.contact-form.description"}
+{/snippet}

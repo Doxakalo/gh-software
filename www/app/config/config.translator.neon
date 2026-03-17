@@ -1,0 +1,110 @@
+parameters:
+    translator:
+        defaultlang: "en"
+
+        available_languages:
+            - cs
+            - en
+
+        translations:
+            homepage:
+                default:
+                    - en
+                    - cs
+
+            company:
+                default:
+                    - en
+                    - cs
+
+            customapps:
+                default:
+                    - en
+                    - cs
+
+            filemakerconsulting:
+                default:
+                    - en
+                    - cs
+            filemakerlicensing:
+                default:
+                    - en
+                    - cs
+
+            hardwareintegration:
+                default:
+                    - en
+                    - cs
+
+            qualityassurance:
+                default:
+                    - en
+                    - cs
+
+            sla:
+                default:
+                    - en
+                    - cs
+
+            support:
+                default:
+                    - en
+                    - cs
+
+            stories:
+                skilldetail:
+                    - en
+                    - cs
+                list:
+                    - en
+                    - cs
+                jogs:
+                    - en
+                    - cs
+                synetrans:
+                    - en
+                    - cs
+                adiutor:
+                    - en
+                    - cs
+                jennpro:
+                    - en
+                    - cs
+                breedbook:
+                    - en
+                    - cs
+                dartis:
+                    - en
+                    - cs
+            privacypolicy:
+                default:
+                    - en
+                    - cs
+
+            termsofuse:
+                default:
+                    - en
+                    - cs
+
+            cookie:
+                cookie:
+                    - en
+                    - cs
+
+            customstaticpage:
+                oou:
+                    - cs
+                gdpr:
+                    - en
+                xgodeterms:
+                    - en
+            search:
+                default:
+                    - en
+                    - cs
+
+
+
+
+
+

@@ -1,0 +1,98 @@
+errors:
+        unexpected: "Unexpected error, please contact 24U"
+
+no-translation:
+    label: "We are sorry, information on this page is available only in Czech."
+    use-translator: "Use Translator"
+    switch-lang: "Switch to Czech"
+
+logo:
+    back_to_homepage: "Back&nbsp;to&nbsp;<br/>homepage"
+    homepage: "Homepage"
+    go_to_partner_website: "Switch&nbsp;to"
+
+page-title:
+    quality-assurance: "24U Quality Assurance"
+    sla: "24U Service Level Agreements"
+    support: "24U Support"
+    tools: "24U Tools"
+    stories: "24U Our skills"
+    news: "24U News"
+    about-us: "About 24U Company"
+    press: "24U Press Release"
+    press-detail: "Press Release"
+
+page-types:
+    service_page: "Service"
+    product_page: "Product"
+    customer_story: "Customer Story"
+    news_article: "News Article"
+    general_info: "General Info"
+    press_release: "Press Release"
+    legal_info: "Legal Info"
+    other: "Other"
+
+header-menu:
+    capps: "Custom<br />Apps"
+    fmconsulting: "FileMaker<br />Consulting"
+    hwintegration: "Hardware<br />Integration"
+    qa: "Quality<br />Assurance"
+    sla: "SLA"
+    support: "Support"
+    tools: "Tools"
+    devtools: "Developer Tools"
+    fmplugins: "FileMaker plug-ins"
+    stories: "Our skills"
+    news: "News"
+    search-placeholder: "Start Search"
+    company: "Company"
+
+header-menu-mobile:
+    capps: "Custom Apps"
+    fmconsulting: "FileMaker Consulting"
+    hwintegration: "Hardware Integration"
+    qa: "Quality Assurance"
+    sla: "SLA"
+    support: "Support"
+    tools: "Tools"
+    devtools: "Developer Tools"
+    fmplugins: "FileMaker plug-ins"
+    stories: "Stories"
+    news: "News"
+    search-placeholder: "Start Search"
+    company: "Company"
+
+contact-form-section:
+    contact-us: "Contact us"
+    call-us: "Call<br />us"
+    let-us-call: "Let us<br />call you"
+    available-time: "Usually available on working days between 7am and 5pm GMT"
+    we-call-back: "We'll call you back if you call from a discoverable phone number and fail to reach us"
+    form-sent: "Thanks for your inquiry. We will try to reach you at the phone number provided as soon as possible."
+    form-sent2: "Thanks you."
+    privacy-information: "Privacy Information"
+
+footer:
+    question-header: "If you have a question"
+    question-success: "Thanks for submitting your question. We will get back to you as soon as possible. Please feel free to contact us by phone if you don't hear from us within 2-4 business days."
+    contact-us: "Contact us"
+    shedule-call: "Schedule a call"
+    subscription-header: "Stay in touch"
+    subscription-text: "Subscribe to receive news tips and advice from 24U direct to your mailbox"
+    privacy-information: "Privacy Information"
+    all-rights-reserved: "All rights reserved"
+    menu:
+        company: "Company"
+        press: "Press"
+        terms: "Terms of Use"
+        privacy: "Privacy Policy"
+        cookies: "Cookies settings"
+    socials_links:
+        facebook: "https://facebook.com/24usro"
+        twitter: "https://twitter.com/24u"
+        linkedin: "https://linkedin.com/company/24u-s.r.o."
+        youtube: "https://youtube.com/24u"
+
+subscription:
+    subscription-success_send_email: "Please complete your subscription by clicking on the confirmation link we have just sent to your e-mail."
+    subscription-success_no_send_email: "The subscription to the mailing list was successful. Look forward to receiving amazing tips and news."

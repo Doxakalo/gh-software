@@ -1,0 +1,79 @@
+{import 'translate_'.$locale.'.latte'}
+{block content}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="60">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default bottom-arrow-margin" data-position-change="true" style="background-image: url('{$basePath}/img/pages/search/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/search/cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        <strong>{_pages.search.default.section-header}</strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="spacing search-results">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 gr-12@mobile">
+
+                {if !empty($pagesCount) && $terms !== ""}
+
+                    <h2>
+                        {if $pagesCount > 4}
+                            {_pages.search.default.find_results.showing_more}
+                            {$pagesCount}
+                            {_pages.search.default.find_results.results}
+                        {elseif $pagesCount > 1}
+                            {_pages.search.default.find_results.showing_2_5}
+                            {$pagesCount}
+                            {_pages.search.default.find_results.results_2_5}
+                        {else}
+                            {_pages.search.default.find_results.showing}
+                            {$pagesCount}
+                            {_pages.search.default.find_results.result}
+                        {/if}
+
+                        {_pages.search.default.find_results.for} "{$terms}"
+                    </h2>
+
+                    <table>
+                            {foreach $pages as $page}
+                                <tr class="result">
+                                    {ifset $page->type}
+                                        {var $type = 'generic.page-types.' . $page["type"]}
+                                    {/ifset}
+                                    <td><span class="search-mark-pageType">{ifset $type}{$type|translate|replace:' ','&nbsp;'|noescape}{/ifset}</span></td>
+                                    <td>
+                                        <a href="{$page["url"]}">{if !empty($page["headline"])}{$page["headline"]|replace:'&nbsp;',' '|replace:'®',''|replace:'&reg;',''|noescape}{else}{$page["title"]}{/if}</a>
+                                        {var $availableLang = 'pages.search.default.available-in-lang-' . $page["language_content"]}
+                                        {if $page["language"] != $page["language_content"]}<span class="search-mark-noTranslation">{$availableLang|translate}</span>{/if}
+                                    </td>
+                                </tr>
+                            {/foreach}
+                    </table>
+                {else}
+                    <div class="no-results">
+                        {include no_results}
+                    </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+</section>
+

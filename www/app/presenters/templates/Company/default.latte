@@ -1,0 +1,336 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}{_generic.page-title.about-us}{/block}
+{block description}
+    24U s.r.o. is a customer-oriented company, based in Prague, Czech Republic, active on Czech and global IT market since February 2000. 24U Software is a division of 24U, focusing on development, modification, and maintenance of custom software solutions, mostly integrated information systems and database, web, and native business applications.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_generic.page-title.about-us}{/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => "24U s.r.o. is a customer-oriented company, based in Prague, Czech Republic, active on Czech and global IT market since February 2000. 24U Software is a division of 24U, focusing on development, modification, and maintenance of custom software solutions, mostly integrated information systems and database, web, and native business applications.",
+            imagePath => $appConfig["og"]["image"],
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="25">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default bottom-arrow-margin" data-position-change="true" style="background-image: url('{$basePath}/img/pages/company/cover_objectmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/company/cover_objectmask.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        <strong>{_pages.company.section-header}</strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="spacing detail blue">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include about_24u}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="arrow spacing detail" data-anchor="countries">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include countries}
+                <img src="{$basePath}/img/pages/company/customers-map_v12.jpg" alt="Map"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="arrow spacing detail lighter-blue" data-anchor="experience">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include fm_experience}
+                <img src="{$basePath}/img/pages/company/fm-versions-icons2-v3.png" alt="FM Version Icons"/>
+                <img src="{$basePath}/img/pages/company/belt_700x400.png" alt="FM Belt"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section data-anchor="claris" class="arrow spacing detail">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include claris_partner}
+            </div>
+        </div>
+        <div class="logos row row-align-middle">
+            <div class="gr-12 text-center gr-12@tablet gr-12@mobile mt-1">
+                <img src="{$basePath}/img/pages/company/ClarisPlatinum.png" alt="FBA - Plat - Logo"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="arrow spacing detail lighter-blue" data-anchor="certified">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include fm_developers}
+            </div>
+        </div>
+        <div class="row row-align-middle">
+            <div class="gr-12 text-center gr-12@tablet gr-12@mobile mt-1">
+                <img class="logos" src="{$basePath}/img/pages/company/Claris-Developer-Badge@1x.png"  srcset="{$basePath}/img/pages/company/Claris-Developer-Badge@1x.png, {$basePath}/img/pages/company/Claris-Developer-Badge@2x.png 2x" alt="Certified - Developer - Claris"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="arrow spacing detail" data-anchor="technology">
+    <div class="container">
+        <div class="row">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center mb-1">
+                {include technology}
+            </div>
+            <div class="editor-content gr-7 suffix-1 gr-12@mobile suffix-0@mobile text-left">
+                {include technology_list}
+            </div>
+            <div class=" gr-4 gr-12@mobile text-right@mobile-center">
+                <img class="limited-height-625" src="{$basePath}/img/pages/company/integrating_variety_technologies_vertical2.jpg" alt=""/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="arrow spacing detail lighter-blue" data-anchor="sw_testing">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include sw_testing}
+                <img src="{$basePath}/img/pages/company/sw_testing-tagcloud.png" alt="Technologies & Tools"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="arrow spacing detail" data-anchor="plugins">
+    <div class="container">
+        <div class="row">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include plugins}
+            </div>
+        </div>
+        <div class="our-products row row-align-middle">
+            <div class=" editor-content gr-7 suffix-1 gr-12@mobile suffix-0@mobile text-left">
+                {include plugins_list}
+            </div>
+            <div class="tool-logos gr-4 gr-12@mobile">
+                <div class="row-logo row">
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:bridge-for-arduino">
+                            <img src="{$basePath}/img/icons/bridge_for_arduino_icon.svg" alt=""/>
+                        </a>
+                    </div>
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:bridge-for-phidgets">
+                            <img src="{$basePath}/img/icons/phidgets_purple_icon.svg" alt=""/>
+                        </a>
+                    </div>
+                </div>
+                <div class="row-logo row">
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:gonector">
+                            <img src="{$basePath}/img/icons/gonector_icon.svg" alt=""/>
+                        </a>
+                    </div>
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:phoneCompanion">
+                            <img src="{$basePath}/img/icons/phone-companion_icon.svg" alt=""/>
+                        </a>
+                    </div>
+                </div>
+                <div class="row-logo row">
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:simpleDialog">
+                            <img src="{$basePath}/img/icons/simple-dialog_icon.svg" alt=""/>
+                        </a>
+                    </div>
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:simpleFile">
+                            <img src="{$basePath}/img/icons/simple-file_icon.svg" alt=""/>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="row-logo row">
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:simpleTalk">
+                            <img src="{$basePath}/img/pages/tools/simpletalk/og_image.png" alt=""/>
+                        </a>
+                    </div>
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:simpleHASP">
+                            <img src="{$basePath}/img/pages/tools/simple-hasp/og_image.png" alt=""/>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="row-logo row">
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:simpleSound">
+                            <img src="{$basePath}/img/pages/tools/simple-sound/og_image.png" alt=""/>
+                        </a>
+                    </div>
+                    <div class="gr-6 text-center">
+                        <a n:href="Tools:toolbox">
+                            <img src="{$basePath}/img/pages/tools/toolbox/og_image.png" alt=""/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section class="arrow spacing detail lighter-blue" data-anchor="devcons">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include devcons}
+                <div class="row">
+                    <div class="editor-content gr-7 suffix-1 gr-12@mobile suffix-0@mobile text-left">
+                        {include devcons_list}
+                    </div>
+                    <div class=" gr-4 gr-12@mobile">
+                        <img src="{$basePath}/img/pages/company/devcon_2012.jpg" alt="DevCon 2012"/>
+                        <img src="{$basePath}/img/pages/company/devcon_2015.jpg" alt="DevCon 2015"/>
+                        <img src="{$basePath}/img/pages/company/devcon_2017.jpg" alt="DevCon 2017"/>
+                        <img src="{$basePath}/img/pages/company/devcon_2019.jpg" alt="DevCon 2019"/>
+                        <img src="{$basePath}/img/pages/company/pause_on_error.jpg" alt="Pause On Error"/>
+                        <img src="{$basePath}/img/pages/company/tech_net.jpg" alt="TechNet"/>
+                        <img src="{$basePath}/img/pages/company/fmk_logo.png" alt="FileMaker Konferenz"/>
+                        <a href="{$basePath}/img/pages/company/meeting-2021-01-19-progress.jpg" data-lightbox="image-1">
+                            <img src="{$basePath}/img/pages/company/meeting-2021-01-19-progress_preview.jpg" alt="FileMaker Performance Lab Meeting"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section class="arrow spacing detail" data-anchor="ebooks">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include ebooks}
+                <div class="ebooks_container gr-10 gr-12@tablet gr-12@mobile prefix-1 suffix-1 text-center mt-1">
+                    <div class="row row-align-center">
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/svatecni" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/svatecni.png" alt="Sváteční - spolehlivé recepty, rady a postupy"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/legendy-svetove-kuchyne" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/legendy-svetove-kuchyne.png" alt="Legendy světové kuchyně"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/grilovani-tipy-a-postupy-krok-za-krokem" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/grilovani.png" alt="Grilování - tipy a postupy krok za krokem"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/jednoduse-a-dokonale-ryby-drubez-zverina" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/ryby_druber_zverina.png" alt="Jednoduše a dokonale - Ryby, Drůbež, Zvěřina"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/snadno-a-rychle-3" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/snadno_rychle_3.png" alt="Snadno& Rychle 3"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/sladke-poklady-klasicke-ceske-a-moravske-kuchyne" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/poklady.png" alt="Sladké POKLADY české a moravské kuchyně"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/jednoduse-a-dokonale-maso" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/maso.png" alt="Jednoduše a dokonale - Maso"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/jednoduse-a-dokonale-zelenina" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/zelenina.png" alt="Jednoduše a dokonale - Zelenina a luštěniny"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/jednoduse-a-dokonale-kure" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/kure.png" alt="Jednoduše a dokonale - Kuře"/></a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/velka-kucharka-cech-a-moravy" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/velka_kucharka.png" alt="Velká kuchařka Čech a Moravy"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/prazska-kucharka" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/prazska-kucharka.png" alt="Pražská kuchařka"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/jidlo-sro" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/jidlo-s-r-o.png" alt="Jídlo s.r.o."/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/snadno-a-rychle-2" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/snadno_rychle_2.png" alt="Snadno & Rychle 2"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/snadno-a-rychle" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/snadno_rychle.png" alt="Snadno & Rychle"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/sushi-doma-krok-za-krokem" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/sushi.png" alt="{$locale === "cs" ? "Sushi doma":"Sushi at home"}"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/klenoty-klasicke-evropske-kuchyne" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/klenoty.png" alt="Klenoty klasické evropské kuchyně"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/kouzlo-kuchyne-cech-a-moravy" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/kouzlo.png" alt="Kouzlo kuchyně Čech a Moravy"/>
+                        </a>
+                        <a class="gr-2 gr-3@tablet gr-6@mobile" href="https://nejlepsikucharky.cz/kniha/poklady-klasicke-ceske-kuchyne" target="_blank">
+                            <img src="{$basePath}/img/pages/company/ebooks/poklady_2.png" alt="Poklady klasické české kuchyně"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="arrow spacing end detail lighter-blue" data-anchor="iso">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include iso_certified}
+            </div>
+        </div>
+        <div class="logos row row-align-middle">
+            <div class="gr-12 gr-12@tablet gr-12@mobile text-center">
+                <img class="limited-width-300" src="{$basePath}/img/pages/company/iso.png" alt="ISO"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slider-panel arrow video-switch-arrows testimonial-swiper-video ">
+    {var $testimonials = [
+    [quote => 'jeff_england', img => $basePath.'/img/testimonials/jeff_england.jpg', video => [id => 'zwsonEo2Go8']],
+    [quote => 'craig_cuttler', img => $basePath.'/img/testimonials/craig_cuttler.jpg', video => [id => 'E1ZzV8-vA8o']],
+    [quote => 'jacques_kirouac', img => $basePath.'/img/testimonials/jacques_kirouac.jpg', video => [id => '53A9RU00jJ8']],
+    [quote => 'pep_espuyes', img => $basePath.'/img/testimonials/pepe_espunyes.jpg'],
+    [quote => 'graham_lindsay', img => $basePath.'/img/testimonials/graham_lindsay.jpg', video => [id => 'TCTXNlx5-8I']],
+    [quote => 'duncan_mcdavid', img => $basePath.'/img/testimonials/duncan_mcdavid.jpg', video => [id => '6cyY3URjoOg']],
+    ] }
+    {import '../Components/testimonials.latte'}
+    {include testimonial-swiper, $testimonials}
+</section>

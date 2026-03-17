@@ -1,0 +1,378 @@
+{block title}{_generic.page-title.tools}{/block}
+{block description}
+    Based on our almost 33 years of experience with FileMaker Platform we developed several tools which can make your everyday life much easier. Here you can find all our plug-ins or apps which we develop for you.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_generic.page-title.tools}{/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => "Based on our almost 33 years of experience with FileMaker Platform we developed several tools which can make your everyday life much easier. Here you can find all our plug-ins or apps which we develop for you.",
+            imagePath => $appConfig["og"]["image"],
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="70">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cover-sticky" id="fixedCover-2">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover sticky" id="staticCover-1" style="background-image: url('{$basePath}/img/pages/tools/cover_patternmask.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 cover-parallax-inner">
+                <h1 class="page-title">
+                    <strong>Developer Tools</strong>
+                    <div class="description">
+                        Develop and maintain better custom apps with less effort by&nbsp;using our tools and expertise
+                    </div>
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items bottom-arrow-margin">
+    <div class="container">
+        <div class="row row-full before-arrow">
+            <div class="no-gutter gr-12 gr-12@mobile">
+                <div class="item divider first spacing-for-arrow" data-href="{link FileMakerLicensing:default}">
+                    <img src="{$basePath}/img/icons/fm2024logo.png" class="limited-height-130 mb-1" alt="LogMonitor">
+                    <h2>{_pages.fm-licensing.default.header-title|noescape}</h2>
+                    <p>
+                        The world’s leading Workplace Innovation Platform. Get a new FileMaker license or renew an existing one.
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="FileMakerLicensing:default#contact" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items bottom-arrow-margin light-blue">
+    <div class="container">
+        <div class="row row-full before-arrow">
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider first spacing-for-arrow" data-href="/fmbench">
+                    <img src="{$basePath}/img/icons/bench_icon.svg" class="limited-height-130 mb-1@mobile" alt="24U FM Bench">
+                    <h2>FM Bench</h2>
+                    <p class="limited">
+                        Audit and analyze your FileMaker solution and users behavior.
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:bench#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider last spacing-for-arrow" data-href="/benchtest">
+                    <img src="{$basePath}/img/icons/benchtest_icon_big.png" class="limited-height-130 mb-1" alt="Xgode">
+                    <h2>BenchTest</h2>
+                    <p>
+                        Compare Performance of FileMaker Techniques, Versions and Configurations
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:benchTest#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items bottom-arrow-margin">
+    <div class="container">
+        <div class="row row-full before-arrow">
+            <div class="no-gutter gr-12 gr-12@mobile">
+                <div class="item divider last spacing-for-arrow" data-href="/xgode">
+                    <img src="{$basePath}/img/icons/xgode_icon.svg" class="limited-height-130 mb-1" alt="Xgode">
+                    <h2>Xgode</h2>
+                    <p>
+                        Build native iOS app from FileMaker Go online in 15 minutes.
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:xgode#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items bottom-arrow-margin  light-blue">
+    <div class="container">
+        <div class="row row-full before-arrow">
+
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider first spacing-for-arrow" data-href="/fmrestor">
+                    <img src="{$basePath}/img/icons/restor_green_icon.svg" class="limited-height-130 mb-1" alt="fmRESTor">
+                    <h2>fmRESTor</h2>
+                    <p>
+                        Access your FileMaker data from PHP or JavaScript without having to learn the FileMaker Data API.
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:fmRESTor#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider last spacing-for-arrow" data-href="{link Tools:logMonitor}">
+                    <img src="{$basePath}/img/pages/tools/logmonitor/icon.png" class="limited-height-130 mb-1" alt="LogMonitor">
+                    <h2>LogMonitor</h2>
+                    <p>
+                        Get notified (only) when your server needs your attention
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:logMonitor#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section style="overflow: hidden"  data-anchor="plugins">
+    <div class="cover sticky sticky-parallax" id="staticCover-2" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 sticky-parallax-inner">
+                <h2 class="page-title">
+                    <strong>FileMaker plug-ins</strong>
+                    <div class="description">
+                        Extending the FileMaker platform by high-quality ease-to-use plug-ins for over 18 years
+                    </div>
+
+
+                </h2>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+{*<section class="tools-items">
+    <div class="item full last" data-href="/gonector">
+        <div class="container">
+            <div class="row row-full row-align-middle">
+                <div class="prefix-2 prefix-0@mobile gr-2 gr-12@mobile text-center">
+                    <img src="{$basePath}/img/icons/gonector_icon.svg" class="limited-height-130 mb-1@mobile" alt="Gonector">
+                </div>
+                <div class="gr-6 gr-12@mobile gr-centered@mobile content text-left@mobile-center">
+                    <h2>Gonector</h2>
+                    <p class="limited">
+                        Connect anything to your mobile FileMaker app.
+                        RFID/NFC scanner, Barcode scanner, Receipt printer, Weighing scale, Payment terminal…
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:gonector#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>*}
+
+<section class="tools-items">
+    <div class="container">
+        <div class="row row-full">
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider first" data-href="{link Tools:bridgeForArduino}">
+                    <img src="{$basePath}/img/icons/bridge_for_arduino_icon.svg" class="limited-height-130 mb-1" alt="Bridge for Arduino">
+                    <h2>Bridge for Arduino</h2>
+                    <p>
+                        Extend your apps with the popular open-source hardware platform
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:bridgeForArduino#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider last" data-href="{link Tools:bridgeForPhidgets}">
+                    <img src="{$basePath}/img/icons/phidgets_purple_icon.svg" class="limited-height-130 mb-1" alt="Bridge for Phidgets">
+                    <h2>Bridge for Phidgets</h2>
+                    <p>
+                        Sense and control the physical world with smart Phidgets devices
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:bridgeForPhidgets#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items  light-blue">
+    <div class="container">
+        <div class="row row-full">
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider first" data-href="{link Tools:gonector}">
+                    <img src="{$basePath}/img/icons/gonector_icon.svg" class="limited-height-130 mb-1@mobile" alt="Gonector">
+                    <h2>Gonector</h2>
+                    <p class="limited">
+                        Connect anything to your mobile FileMaker app.
+                        RFID/NFC scanner, Barcode scanner, Receipt or label printer, Weighing scale, Payment terminal…
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:gonector#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider last" data-href="/phonecompanion">
+                    <img src="{$basePath}/img/icons/phone-companion_icon.svg" class="limited-height-130 mb-1" alt="SimpleFile">
+                    <h2>Phone Companion</h2>
+                    <p>
+                        Your system can know who’s calling even before you know it.
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:phoneCompanion#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items">
+    <div class="container">
+        <div class="row row-full">
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider first" data-href="/simpledialog">
+                    <img src="{$basePath}/img/icons/simple-dialog_icon.svg" class="limited-height-130 mb-1" alt="SimpleDialog">
+                    <h2>SimpleDialog</h2>
+                    <p>
+                        Interact with users via professionally looking dialogs. Easily
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:simpleDialog#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider last" data-href="/simplefile">
+                    <img src="{$basePath}/img/icons/simple-file_icon.svg" class="limited-height-130 mb-1" alt="SimpleFile">
+                    <h2>SimpleFile</h2>
+                    <p>
+                        Create, delete, copy, move, rename, read and edit files and folders. Easily
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:simpleFile#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items light-blue">
+    <div class="container">
+        <div class="row row-full">
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider first" data-href="/simpletalk">
+                    <img src="{$basePath}/img/icons/simple-talk_icon.svg" class="limited-height-130 mb-1" alt="PhoneCompanion">
+                    <h2>SimpleTalk</h2>
+                    <p>
+                        Make your app talk to other apps or devices over network. Easily
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:simpleTalk#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider last" data-href="/simplehasp">
+                    <img src="{$basePath}/img/pages/tools/simple-hasp/og_image.png" class="limited-height-130 mb-1" alt="SimpleTalk">
+                    <h2>SimpleHASP</h2>
+                    <p>
+                        Protect data and intellectual property with hardware dongles.
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:simpleHASP#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tools-items">
+    <div class="container">
+        <div class="row row-full">
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider first" data-href="/simplesound">
+                    <img src="{$basePath}/img/pages/tools/simple-sound/og_image.png" class="limited-height-130 mb-1" alt="PhoneCompanion">
+                    <h2>SimpleSound</h2>
+                    <p>
+                        Make your custom app heard. Easily
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:simpleSound#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+            <div class="no-gutter gr-6 gr-12@mobile">
+                <div class="item divider last" data-href="/toolbox">
+                    <img src="{$basePath}/img/pages/tools/toolbox/og_image.png" class="limited-height-130 mb-1" alt="SimpleTalk">
+                    <h2>Toolbox</h2>
+                    <p>
+                        Use missing FileMaker features. Today
+                    </p>
+                    <p class="mb-0">
+                        <a n:href="Tools:toolbox#buy" class="button mb-0">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="spacing light-blue">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12 text-center">
+                <h2 class="large">
+                    Looking for something not listed above? <strong>Contact us</strong> with your requirements, we can develop a <strong>custom plug-in or tool</strong> tailored to your specific
+                    needs.
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'false'}
+{/snippet}
+
+
+<!-- Page - Tools - List
+<a n:href="Tools:detail">Tool - Detail</a>
+<br/><br/><br/> Products -->

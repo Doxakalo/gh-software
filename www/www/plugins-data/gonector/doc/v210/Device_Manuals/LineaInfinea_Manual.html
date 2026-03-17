@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+
+	<title>LineaInfinea Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for Linea or Infinea device</h1>
+<p>
+<a href="../../Support/LP6_User_Manual.pdf">Product information</a>
+</p>
+
+<h2>Limitations</h2>
+<ul>
+    <li>Detailed limits for the RFID cards are found <a href="../GonectorSyntax.html#technicalParameters">here</a>. We recommend to use NTAGs. Namely NFC Forum Type 2 Tags. (They fall into the category Mifare Ultralight but they are NDEF formatted)</li>
+    <li>Infinea X has RFID antenna exactly bellow iPhones native NFC scanner -> When Infinea X initiates RFID antenna ( Gonector_Read or Gonector_SetScriptEvent ) it leads to triggering of iOS NFC detection and iOS opens ApplePay view. Workaround is to remove all cards added to iOS Wallet application.</li>
+</ul>
+
+<h2>Connecting the Linea or Infinea device</h2>
+<p>
+To successfully connect the Linea or Infinea device it is necessary to call function Gonector_Connect( "LineaInfinea" ) and press a hardware button. For Linea Pro 7 it is the button on the right hand side of the device.
+
+</p>
+
+<h4>Connection troubleshooting guide</h4>
+
+<ul>
+  <li>Open Settings of the iOS device</li>
+  <li>Open the General tab on the iOS device</li>
+  <li>Open About on the iOS device</li>
+  <li>Scroll down and see if the device is mentioned in the list of options</li>
+  <li>If the device is not visible in the list of options, try to press the hardware button mentioned in the specification of the device as a startup button</li>
+  <li>If the device is still not visible in the list of options, try reconnecting the device by removing it completely</li>
+  <li>If the device is still not visible in the list of options, try to restart the iOS device</li>
+  <li>If the device is still not visible in the list of options, try upgrading the firmware of the iOS device</li>
+  <li>If the device is still not visible in the list of options, contact the supplier at https://stimare.net/contact-us/
+  <li>If the device is visible in the list of options but it is not possible to use the function Gonector_Connect successfully, please contact our support at support@24usoftware.com</li>
+</ul>
+
+<h2>Solving issues with Linea or Infinea device</h2>
+<p>
+	<ul>
+		<li><i>Device is connected to iOS, but i cannot use the device and cannot get firmwareVersion neither</i><br>
+			Linea and Infinea devices use special protocol for communication, which has to be specified in your app. Into the .plist file of the project in Xcode, add new Row with the value "Supported external accessory protocol" and add the Strings:
+		<ul>
+		    <li>"com.datecs.linea.pro.msr"</li>
+		    <li>"com.datecs.linea.pro.bar"</li>
+
+        </ul>
+		</li>
+		<li><i>I cannot read some of the supported barcodes</i><br>
+		Barcodes Codabar, Code93 and ITF14 are disabled by default for Linea Pro 7. To initiate reading it is necessary to read following <a href="../../Support/LP7_User_Config.pdf">codes</a></li>
+
+
+	</ul>
+</p>
+
+<h2>Apple App Store Requirements</h2>
+
+<p>
+  If you build an app for any Infinite Peripherals device and are going to distribute your app on the App Store, you will need to register the app with Infinite Peripherals in order to obtain MFi Authorization<br><br>
+  You can do so through the Infinite Peripherals website at https://developer.ipcmobile.com/profile/. Infinite Peripherals will provide you with an identification number (PPID) that you have to include in review notes when submitting your app<br><br>
+  Select "Yes" for the "Bluetooth feature" option when registering your app as some of the supported devices use Bluetooth with a non-standard profile for communication.<br><br>
+
+  <b>NOTE:</b> If you already did this step for IPC DPP-255 printer or Infinea mPos device in the same App you do not have to do this again for LineaInfinea device
+</p>
+
+
+<h2 id="security">Security</h2>
+<h4>LineaInfinea stripe key guide</h4>
+<p>To manipulate the key for stripe reading you have two functions: Gonector_Set( "deviceStripeKey" ; ... ) and Gonector_Set( "connectionStripeKey" ; ... ).<br>
+Function Gonector_Set( "deviceStripeKey" ; ... ) stores the StripeKey directly in the device and so the plugin has no access to this key.<br>
+After every Gonector_Connect function you should set the same key with function Gonector_Set("connectionStripeKey" ; ... ) for stripe reading.<br>
+In fact the StripeKey is not used to decrypt the card. The StripeKey is used as a "Loading key" and at the same time a random session key is created and stored in the device and the plugin.<br>
+The StripeKey is never stored in the plugin.<br>
+Like this the plugin does not know the StripeKey and the user does not know the session key.<br>
+The device knows both keys and is able to provide handling for both keys.<br>
+As soon as the function Disconnect is called the session key disappears.<br>
+Those mechanics are provided by the device and they serve to protect the credit card data.<br>
+The plugin was designed to comply with those rules.</p>
+
+<p>How to use the StripeKey:</p>
+<ul>
+  <li>1. Set a unique stripe key in the device with Gonector_Set( "deviceStripeKey" ; ... )</li>
+  <li>2. Use the stripe key to set a session key in the plugin with Gonector_Set("connectionStripeKey" ; ... )</li>
+  <li>Repeat step 2. after every disconnect</li>
+</ul>
+
+<p><b>Note: You don't need to set the deviceStripeKey anymore unless it becomes reasonable according to <a href="//24usw.com/fcid">PCI compliance</a>.</b></p>
+
+<h2 id="developerkey">App Developer Key</h2>
+<ul>
+    <li>Create an account at <a href="https://developer.ipcmobile.com">Infinite Peripherals developer portal</a> </li>
+    <li>After you account is approved you can create an app developer key in your main profile page</li>
+    <li>Bundle ID Name for your generated key has to be the same as the bundle id of your app</li>
+    <li>Before you use any Linea or Infinea device you have to first call:<br/>
+        <b>Gonector_Set("appDevKey" ; "" ; "&lt;your app dev key&gt;")</b>
+</ul>
+
+
+
+</body>
+</html>

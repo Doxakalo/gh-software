@@ -1,0 +1,1097 @@
+parameters:
+    stores:
+
+        # SimpleTalk
+        im_support:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Pay for our emergency aid"
+                    type: "services"
+
+                  items:
+                      24UEAI15:
+                          editable: true
+                          min_quantity: 4
+                          show_more_info: true
+        # XGODE
+        xgd:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "SLI" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Subscription"
+                    type: "license"
+
+                  items:
+                      24UXGDMON:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+                          max_quantity: 1
+
+                      24UXGDQRT:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+                          max_quantity: 1
+
+                      24UXGDANN: # Xgode Indefinite Annual Subscription
+                          editable: true
+                          show_more_info: true
+                          selected: true
+                          min_quantity: 1
+                          max_quantity: 1
+
+                - setup:
+                    section_type: "SLI" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional Services"
+                    type: "license"
+
+                  items:
+                      24UVPFREE:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+        # SimpleTalk
+        stl:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "License"
+                    type: "license"
+
+                  items:
+                      24USTLAC:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          min_quantity: 1
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+        # LogMonitor
+        lmr:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "SLI" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional Services"
+                    type: "license"
+
+                  items:
+                      24UVPFREE:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+        # fmRESTor
+        fmr:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "SLI" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional Services"
+                    type: "license"
+
+                  items:
+                      24UVPFREE:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+        # fmRESTor
+        bts:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "SLI" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional Services"
+                    type: "license"
+
+                  items:
+                      24UVPFREE:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+                      24UFMBSOP15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 10
+                          max_quantity: 50
+
+        # Toolbox
+        tbx:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24UTBXAC:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: "24UPRS15E"
+                          min_quantity: 1
+
+                      24UTBXAS:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: "24UPRS15S"
+                          min_quantity: 1
+
+                      24UTBXA20:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A20
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UTBXA100: # 24UTBX30I100
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A100
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UTBXA500: # 24UTBX30I500
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A500
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UTBXAUNL: # 24UTBX30IUNL
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15AU
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15S:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A20:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A100:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A500:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15AU:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+        # SimpleFile
+        sfi:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24USFIAC:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          min_quantity: 1
+
+                      24USFIAS:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15S
+                          min_quantity: 1
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15S:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15: # 24UEAI15
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+        # Phone Companion
+        phc:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24UPHC30ET:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          paired_with: 24UPHC30ST
+                          paired_min_quantity: 1
+                          min_quantity: 1
+
+                      24UPHC30ST:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15S
+                          min_quantity: 1
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15S:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+        # SimpleDialog
+        sdi:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24USDIAC:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          min_quantity: 1
+
+                      24USDIA20:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A20
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24USDIA100:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A100
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24USDIA500:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A500
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24USDIAUNL:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15AU
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A20:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A100:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A500:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15AU:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+        # GONECTOR
+        gon:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24UGONYA20:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A20
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UGONYA100:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A100
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UGONYA500:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A500
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UGONYAUNL:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15AU
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UGONYAPTR: # Gonector Payment Terminals Edition
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: "24UPRSGPT"
+                          min_quantity: 1
+                          max_quantity: 1
+
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15A20"
+
+                  items:
+                      24UPRS15A20:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A100:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A500:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15AU:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRSGPT:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+
+        # Bridge for Phidgets
+        phd:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24UPHD40C:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          min_quantity: 1
+
+                      24UPHD40D:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15D
+                          min_quantity: 1
+
+                      24UPHD40S:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15S
+                          min_quantity: 1
+
+                      24UPHD40I20:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A20
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UPHD40I100:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A100
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UPHD40I500:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15A500
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                      24UPHD40IUNL:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15AU
+                          min_quantity: 1
+                          max_quantity: 1
+                          custom_fields:
+                              - "bundleId"
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15D:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A20:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15S:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A100:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15A500:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15AU:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+        # Bridge for Arduino
+        ard:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24UARD10C:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          min_quantity: 1
+
+                      24UARD10D:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15D
+                          min_quantity: 1
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15D:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+        #Simple HASP
+        shs:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24USHSAC:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          min_quantity: 1
+
+                      24USHSAS:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15S
+                          min_quantity: 1
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15S:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+
+
+        # SimpleSound
+        snd:
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24USNDAC:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15E
+                          min_quantity: 1
+
+                      24USNDAS:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UPRS15S
+                          min_quantity: 1
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UPRS15E"
+
+                  items:
+                      24UPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UPRS15S:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4
+        # FM Bench
+        fmb:
+
+            setup:
+
+            sections:
+                - setup:
+                    section_type: "CLA" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Licenses"
+                    type: "license"
+
+                  items:
+                      24UFMB13E1:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UFMBPRS15E
+                          min_quantity: 1
+
+                      24UFMB13S1: # 24UFMB13S1
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UFMBPRS15S
+                          min_quantity: 1
+
+                      24UFMB13D10:
+                          editable: true
+                          show_more_info: true
+                          same_quantity_for: 24UFMBPRS15D
+                          min_quantity: 1
+
+                - setup:
+                    section_type: "CHK" # SLI - Select Only One Item ; CLA - Classic ; CHK - Checkboxes
+                    headline: "Optional services"
+                    type: "services"
+                    global_premium_support: true
+                    global_premium_support_source: "24UFMBPRS15E"
+
+                  items:
+                      24UFMBPRS15E:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UFMBPRS15S:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UFMBPRS15D:
+                          editable: false
+                          show_more_info: true
+                          premium_support: true
+                          min_quantity: 1
+
+                      24UFMBBIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 1
+
+                      24UFMBCIM15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 2
+                          max_quantity: 9
+
+                      24UFMBSOP15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 10
+                          max_quantity: 50
+
+                      24UPRESUP:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 8
+
+                      24UEAI15:
+                          editable: true
+                          show_more_info: true
+                          min_quantity: 4

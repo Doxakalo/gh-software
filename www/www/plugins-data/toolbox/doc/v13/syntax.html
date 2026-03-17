@@ -1,0 +1,519 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>24U Toolbox Plug-In 1.3.0 Syntax</title>
+    <script>
+	function changeColor()
+	{
+	  var tags = document.getElementsByTagName('*');
+	  var tcl = " news_highlight ";
+	  for(i=0,j=0; i<tags.length; i++) 
+	  { 
+	    var test = " " + tags[i].className + " ";
+	    if (test.indexOf(tcl) != -1)
+	    {
+		  if(tags[i].style.backgroundColor=="")
+		  {
+		     tags[i].style.backgroundColor="yellow";
+		     tags[i].style.color="red";
+		  }
+		  else
+		  {
+		     tags[i].style.backgroundColor="";
+		     tags[i].style.color="";
+		  }
+	    }
+	  }
+	}
+	</script>
+    <style type="text/css" media="screen">
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h2 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param_width { font-family: monospace; width: 180px; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      .t_path { font-family: monospace; font-size: 12px; color: #1F1F1F }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+    -->
+    </style>
+
+  </head>
+
+<body>
+<h1>24U Toolbox Plug-In 1.3.0 Syntax</h1>
+
+<form><input type="button" value="Highlight changes in the new version"	onClick='javascript:changeColor()'></form>
+	
+<h2>Toolbox_Version( { versionFormat } )</h2>
+<p class="f_intro">Returns version string of the active 24U Toolbox Plug-In, formatted as requested by the parameter.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">versionFormat</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number. Default value.</td></tr>
+<tr valign="top"><td class="t2_param">"long"</td><td>To get the plug-in name followed by its version number.</td></tr>
+<tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform the code is currently running on.</td></tr>
+<tr valign="top"><td class="t2_param">"autoupdate"</span></td><td><span>To get autoupdate compatible (comparable) version number.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function is very important and its output format is uniform in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker Pro. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+<h3>Result</h3>
+<p> Returns requested version format or platform. If this function returns "?" then the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.<p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Version( "long" )</span><br>
+This returns the plug-in name and its version. In this case it is "24U Toolbox Plug-In 1.3.0".</p>
+<p><span class="syntax_hl">Toolbox_Version( "platform" )</span><br>
+Returns "Mac OS X" or "Windows" depending on the platform the plug-in is currently running.</p>
+<p><span class="syntax_hl">Toolbox_Version( "autoupdate" )</span><br>
+Returns "01010300" for the plug-in version 1.1.3.</p>
+
+<h2>Toolbox_Register( {validSerialNumber} )</h2>
+<p class="f_intro">Attempts to unlock (register) your copy of 24U Toolbox Plug-In with the specified code. <p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr><td class="t_param">validSerialNumber</td><td>The valid code to unlock the full version of the plug-in. This parameter is optional in Filemaker Server for server registration - it tries to register with available serial numbers.</td></tr>
+</table>
+<h3>Description</h3>
+<p>If the code is valid, 24U Toolbox Plug-In gets unlocked and stays in this state until you quit the FileMaker Pro application, deactivate the plug-in, or the registration code expires. While unlocked, 24U Toolbox Plug-In is fully functional and does not bother the user with a shareware reminder.</p>
+<h3>Result</h3>
+<p> It returns 0 if the plug-in was successfully registered. Status code 57005 means the plug-in expired and 52973 means the license number for the specified code has been exceeded. Without parameters function checks plug-in registration and reloads serial numbers from the 24UServerReg.txt on server. It returns registration warning as Toolbox_Get( "registrationWarning" ). <p>
+<h3>Examples</h3>
+
+
+<p><span class="syntax_hl">Toolbox_Register( "TBX10J-CM244H-U4UGBN" )</span><br>
+This function will register the plug-in with serial number TBX10J-CM244H-U4UGBN. This method is useful when you register the plug-in with developer license but it can be used for end-user licenses as well.</p>
+<p><span class="note">Note: </span>All serial numbers here are only for demonstration purposes. They will not work in real plug-in.</p>
+
+
+<h2>Toolbox_ExecuteSQL( SQLCommand { ; fieldSeparator { ; recordSeparator } } )</h2>
+<p class="f_intro">Tells the plug-in to execute SQL command and returns the result.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">SQLCommand</td><td>The SQL command which should be executed.</td></tr>  
+<tr valign="top"><td class="t_param">fieldSeparator</td><td>Optional field separator. Only the first character is used. The default field separator is a "Tab".</td></tr>    
+<tr valign="top"><td class="t_param">recordSeparator</td><td>Optional record separator. Only the first character is used. The default record separator is a line break.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command tries to execute SQL command and returns the result. If an array of multiple records is a result of the command, it is returned as tab delimited text with records separated by returns, unless custom separators are specified.</p>
+<h3>Result</h3>
+<p>The function returns the result of the SQL Command. In the case of error, the function returns negative error code.</p>
+<p><span class="syntax_hl">Toolbox_ExecuteSQL( "select * from FileMaker_Tables" )</span><br>
+Returns a list of FileMaker tables.</p>
+
+
+<h2>Toolbox_DoSystemScript( scriptText ; scriptInterpreter )</h2>
+<p class="f_intro">Tells the plug-in to launch the specified script in the system shell.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">scriptText</td><td>The text of the script that should be run.</td></tr>  
+<tr valign="top"><td class="t_param">scriptInterpreter</td><td>The interpreter that should run the script.</td></tr>    
+</table>
+</p>
+<h3>Possible values for <span class="p_hl">scriptInterpreter</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left" width="130">scriptInterpreter</th><th align="left" width="130">Script type</th><th align="left">Description and platform</th></tr>  
+<tr valign="top"><td nowrap><tt>"APPLE"</tt></td><td>Apple script</td><td>The scriptText is an AppleScript. Available on MAC OS X.</td></tr>        
+<tr valign="top"><td nowrap><tt>"BASH"</tt></td><td>Bash script</td><td>The scriptText is a Bash Script. Available on MAX OS X.</td></tr>
+<tr valign="top"><td nowrap><tt>"PHP"</tt></td><td>PHP script</td><td>The scriptText is a PHP Script. Available on MAX OS X.</td></tr>
+<tr valign="top"><td nowrap><tt>"BAT"</tt></td><td>Bat script</td><td>The scriptText is a bat text file. Available on Windows.</td></tr>    
+<tr valign="top"><td nowrap><tt>"VBS"</tt></td><td>Visual Basic script</td><td>The scriptText is a Visual Basic Script. Available on Windows.</td></tr>
+</table>
+</p>
+<h3>Description</h3>
+<p>The function starts the script and waits until it finishes. Then it returns the text that has been printed on the standard output.</p>
+<h3>Result</h3>
+<p>Result of the script. It is usually the text that is printed by the script into the standard output. In the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_DoSystemScript( "DIR C:" ; "BAT" )</span><br>
+This executes specified BAT script that should list all directories and files in the root directory of disk C: on Windows.</p>
+<p><span class="syntax_hl">Toolbox_DoSystemScript( "echo HELLO" ; "BASH" )</span><br>
+This executes specified BASH script that should write "HELLO" to the standard output. The function should return "HELLO".</p>
+<p><span class="syntax_hl">Toolbox_DoSystemScript( "php C:\php.php" ; "BAT" )</span><br>
+This executes BAT script that runs PHP script on Windows (only if PHP is correctly installed in system).</p>
+
+<h2>Toolbox_DoFileMakerScript( scriptName { ; scriptParameter } { ; delayOrTime } )</h2>
+<p class="f_intro">Tells the plug-in to launch the FileMaker script.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of the script that should be executed. If the name is not valid, the function returns an error -50.</td></tr>    
+<tr valign="top"><td class="t_param">scriptParameter</td><td>Any data that should be sent to the script as a parameter. No parameter is default.</td></tr>
+<tr valign="top"><td class="t_param">delayOrTime</td><td>The time interval after that the script should be executed, or TimeStamp value. In the first case use FileMaker number i.e. 1.8. Time is in [s]. Time must be a positive number. If the time delay for execution is longer than 1 day, a warning -1001 is generated, and the script is scheduled anyway. In the second case use FileMaker TimeStamp value.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command tries to schedule or launch the FileMaker script. If delayOrTime parameter is not specified, the script should run immediately.</p>
+<h3>Result</h3>
+<p>The function returns 0 if it managed to execute or schedule the script. In the case of error, the function returns negative error code.</p>
+<h3>Attention</h3>
+<p>The Toolbox plug-in cannot remember scheduled scripts if FileMaker is restarted.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" )</span><br>
+This tries to execute the script named "Default Script" instantly.</p>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" ; "105" )</span><br>
+This tries to execute the script named "Default Script" instantly. The script receives a parameter with value 105.</p>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" ; "230" ; 10.5 )</span><br>
+This tries to schedule the script named "Default Script". The script receives a parameter with value 230. The script will be executed 10.5 seconds after this command being executed.</p></p>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" ; "50" ; GetAsTimestamp( "3/10/2012 11:30 AM" ))</span><br>
+This tries to schedule the script named "Default Script". The script receives a parameter with value 50. The script will be executed 3/10/2012 at 11:30 AM.</p>
+
+<h2>Toolbox_GetNameForIP( hostIP )</h2>
+<p class="f_intro">Gets hostname for the given IP.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">hostIP</td><td>The source IP address.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Uses DNS service of the operating system to obtain the name for the given IP.</p>
+<h3>Result</h3>
+<p>The function returns a hostname. In the case of error, the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetNameForIP( "209.85.149.99" )</span><br>
+Returns DNS record for IP Address 209.85.149.99.</p>
+
+<h2>Toolbox_GetIPforName( hostName )</h2>
+<p class="f_intro">Gets IP for the given hostname.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">hostName</td><td>The source hostname.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Uses DNS service of the operating system to obtain the IP for the given name.</p>
+<h3>Result</h3>
+<p>The function returns host IP. In the case of error, the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetIPforName( "www.24u.cz" )</span><br>
+Returns an IP Address for hostname "www.24u.cz".</p>
+
+<h2>Toolbox_GetClientPublicIPAddress</h2>
+<p class="f_intro">Gets your public ip address.</p>
+<h3>Description</h3>
+<p>This command tries to get your internet public ip address. If you are not behind NAT the returned address is the same as the address from your network interface. Otherwise it returns the address of frontmost NAT in your network.</p>
+<h3>Result</h3>
+<p> The function returns your public ip address. In the case of error, the function returns negative error code.</p>
+<h3>Attention</h3>  
+<p>If this command does not work in your system it may be due wrong firewall setting. Please enable two way communication for your FileMaker Pro in your firewall setting to get this command to work.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetClientPublicIPAddress</span><br>
+Returns your public ip address.</p>
+
+<h2>Toolbox_GetSpecialWindows</h2>
+<p class="f_intro">Gets a list of opened special FileMaker windows.</p>
+<h3>Description</h3>
+<p>This command tries to get a list of special FileMaker windows such as "Data Viewer" and "Script Debugger" etc.</p>
+<h3>Attention</h3>  
+<p>This command is disabled on server.</p>
+<h3>Result</h3>
+<p>The function returns a value list of the special FileMaker windows delimited by the line break.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetSpecialWindows</span><br>
+Returns "Data viewer" if it is opened.</p>
+
+<h2>Toolbox_GetPrinterNames</h2>
+<p class="f_intro">Gets a list of installed printers.</p>
+<h3>Description</h3>
+<p>This command tries to get a list of printers currently installed in the system.</p>
+<h3>Result</h3>
+<p>The function returns the list of printers currently installed in the system. The printer names are delimited by line break.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetPrinterNames</span><br>
+Returns the list of printers currently installed in the system.</p>
+    
+<h2>Toolbox_GetDefaultPrinter</h2>
+<p class="f_intro">Gets the default printer.</p>
+<h3>Description</h3>
+<p>This command gets the name of default printer currently used in the system.</p>
+<h3>Result</h3>
+<p>The function returns the name of default printer of the current session. If no printer is set as default, the function returns "".</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetDefaultPrinter</span><br>
+Returns the name of default printer of the current session.</p>
+    
+<h2>Toolbox_SetDefaultPrinter( printerName )</h2>
+<p class="f_intro">Sets specified printer as a default printer.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">printerName</td><td>The identifier of the printer which should be set as default.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command  sets the printer described in printerName parameter as a default printer in the system.</p>
+<h3>Result</h3>
+<p>The function returns the name of the printer which was actually set. In the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Note</h3>
+<p>Use Toolbox_GetPrinterNames to obtain the list of printers and choose one line as a parameter for this function.</p> 
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_SetDefaultPrinter( "HP710" )</span><br>
+Sets a "HP710" as a new default printer for the system or returns "?" if "HP710" cannot be the default one.</p>   
+    
+<h2>Toolbox_SetScriptShortcut( key ; scriptName { ; scriptParameter } { ; scriptControl } )</h2>
+<p class="f_intro">Assigns a keyboard shortcut for script. All keyboard shortcuts are forgotten when FileMaker quits.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">key</td><td>The keyboard shortcut in format Modifier &amp; " " &amp; rawKey. Modifier can be: "", "shift", "ctrl", "alt", "super" or their combination like "shift alt" or "ctrl alt". The "super" key means Apple key on Mac or Windows key on Windows. RawKey can be any key from keyboard + some special keys: "F1" - "F13", "enter", "esc", "pageup", "pagedown", "up", "down", "left", "right", "delete", "backspace", "space", "tab". RawKey parameter is case insenstive.</td></tr>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of script which should be triggered.</td></tr>
+<tr valign="top"><td class="t_param">scriptParameter</td><td>The optional script parameter.</td></tr>
+<tr valign="top"><td class="t_param">scriptControl</td><td>This optional parameter tells FileMaker how to handle another runing scripts,when script specified in this command is triggered. Possible values are: "Halt", "Exit", "Resume", "Pause".</td></tr>
+</table>
+<h3>Description</h3>
+<p>Assigns a keyboard shortcut for script. All keyboard shortcuts are forgotten when FileMaker quits.</p>
+<h3>Result</h3>
+<p> The function returns 0 if event is successfully installed or uninstalled. In case of error the function returns negative error code.</p>
+<h3>Attention</h3>  
+<p>Keys "F8" - "F13" are usually reserved for system functions on Mac OS X. Shortcuts will interfere with these functions.</p>
+<p>This command is disabled on server.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_SetScriptEvent( "ctrl alt F1" ; "Default Script" )</span><br>
+This installs the script named "Default Script" for shortcut "ctrl+alt+F1". When this shortcut is pressed, the script will be triggered.</p>
+<p><span class="syntax_hl">Toolbox_SetScriptEvent( "ctrl alt F1" ; "" )</span><br>
+This removes all installed scripts for shortcut "ctrl+alt+F1".</p>
+<p><span class="syntax_hl">Toolbox_SetScriptEvent( "" ; "" )</span><br>
+This removes all installed scripts for all previously inserted shortcuts.</p>
+
+<h2>Toolbox_RegExp_PatternCount( text ; searchPattern )</h2>
+<p class="f_intro">Finds a defined regular expression pattern in the text and returns the number of occurrences.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">text</td><td>The source text where to perform find.</td></tr>
+<tr valign="top"><td class="t_param">searchPattern</td><td>Regular expression defining what to find.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function will find a defined regular expression pattern in the text and returns the number of occurrences. Text in "searchPattern" parameter can be styled. If so the function will become style sensitive.</p>
+<h3>Result</h3>
+<p>The function return the number of occurrences found. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_RegExp_PatternCount( "I was born in USA 12/02/1973." ; "([0-9]{1,2})[./-]([0-9]{1,2})[./-]([0-9]{2}|[0-9]{4})" )</span><br>
+Returns 1 because there is one date in the string.</p>
+
+<h2>Toolbox_RegExp_Substitute( text ; searchPattern ; replaceString1 { ; replaceString2 ... } )</h2>
+<p class="f_intro">Finds and replaces pattern in specified text.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">text</td><td>The source text where to perform find &amp; replace.</td></tr>
+<tr valign="top"><td class="t_param">searchPattern</td><td>Regular expression defining what to find.</td></tr>
+<tr valign="top"><td class="t_param">replaceString1</td><td>Text which will replace found string.</td></tr>
+<tr valign="top"><td class="t_param">replaceString2 ...</td><td>The next text to replace found string. The number of strings should be the same as the regular expression needs.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function finds and replaces found text. Text in "searchPattern" parameter can be styled. If so the function will become style sensitive.</p>
+<h3>Result</h3>
+<p> The function returns text with replaced patterns. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_RegExp_Substitute( "I was born in USA 12/02/1973." ; "([0-9]{1,2})[./-]([0-9]{1,2})[./-]([0-9]{2}|[0-9]{4})" ; "10" ; "12" ; "2008" )</span><br>
+Returns "I was born in USA 10/12/2008.".</p>
+
+<h2>Toolbox_MergeText( text )</h2>
+<p class="f_intro">This function finds values in the FileMaker text and replaces them by their values.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">text</td><td>Text which should be searched and merged. All &lt;&lt;fieldname&gt;&gt; parts are substituted by the real value of the fieldname. All &lt;&lt;$variable_name&gt;&gt; parts will be substituted by the real value of the variable.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function finds values in the FileMaker text and replaces them by their values. All values are calculated only once. If the value contains the style this style is used. Otherwise the original style is preserved.</p>
+<h3>Result</h3>
+<p>The function returns merged text. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_MergeText( "There are &lt;&lt;NumberField&gt;&gt; records." )</span><br>
+If the field named NumberField contains number 5 it returns "There are 5 records.".</p>
+
+<h2>Toolbox_ValueType( value )</h2>
+<p class="f_intro"><span>This function returns the type of its parameter.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">value</td><td>FileMaker value which type you want to obtain.</td></tr>
+</table>
+<h3>Description</h3>
+<p>The function determines the type of its parameter. It can be FileMaker Text, Number, Date, Time, Timestamp or Container. This can be useful when you need precisely control script or custom function which is dependent on parameter type.</p>
+<h3>Result</h3>
+<p>The function always return FileMaker text and never fails. It can return "Text", "Number", "Date", "Time", "Timestamp", "Container" or "" for unknown type.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_ValueType( "There are 5 records." )</span><br>
+Returns "Text" because input value type is FM text.</p>
+
+<h2>Toolbox_LockWindows( { windowList } )</h2>
+<p class="f_intro">It will lock all active windows or all windows with title defined in windowList.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">windowList</td><td>This optional parameter strictly define which windows should be locked. Use value list delimited by a line break.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command tries to lock all active windows or all windows with title defined in windowList.<br>
+Locked windows cannot be focused by keyboard or mouse action. Focused windows will remain its focus even if FileMaker tries to change it.<br>
+All new FileMaker windows (created by script for example) are locked automatically if windowList is not defined. Otherwise the plug-in will not lock any other window than defined ones.<br>
+Dialog windows of Script Maker, Script Debugger, Data Viewer etc. are not locked.</p>
+<h3>Result</h3>
+<p> The function returns 0 if it managed to lock down all defined FileMaker windows. In the case of error, the function returns negative error code. In FileMaker Pro 11 and newer the function does nothing and returns status code -4 (not implemented).</p>    
+<h3>Attention</h3>  
+<p> This command is useful only on Mac OS X on FileMaker Pro 8.5 - 10. Previous or next FileMaker Pro versions are not supported. It prevents from switching focus and it is an expert feature. Use it on your own risk!</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_LockWindows</span><br>
+Start effects described in description and returns 0.</p>
+
+<h2>Toolbox_UnlockWindows( { windowList } )</h2>
+<p class="f_intro">Unlocks windows previously locked by Toolbox_LockWindows or all locked windows with title defined in windowList.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">windowList</td><td>This optional parameter strictly define which windows should be unlocked. Use value list delimited by a line break.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Unlock windows previously locked by Toolbox_LockDown. If no window is locked it does nothing.</p>
+<h3>Result</h3>
+<p> The function returns 0 if it managed to unlock all defined FileMaker windows. In the case of error, the function returns negative error code. It always attempt to unlock the windows even in the case of error. If the function is not supported it returns error -4 (not implemented).</p>  
+<h3>Attention</h3>  
+<p> This command is useful only on Mac OS X on FileMaker Pro 8.5 - 10. Previous or next FileMaker versions are not supported. Use it on your own risk!</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_UnlockWindows</span><br>
+Unlocks FileMaker windows. You can click to them, change focus and work normally.</p>
+        
+<h2>Toolbox_Get( selector )</h2>
+<p class="f_intro">This function returns Toolbox Plug-In internal parameters.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>What parameter to get.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">selector</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left" width="130">selector</th><th align="left">Description</th></tr>  
+<tr valign="top"><td nowrap><tt>"isLocked"</tt></td><td>If the Plug-in locked FileMaker windows it returns 1, otherwise 0.</td></tr>        
+<tr valign="top"><td nowrap><span><tt>"lastError"</tt></span></td><td><span>Returns the Plug-In last error.</span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"lastErrorMessage"</tt></span></td><td><span>Returns the Plug-In last error message.</span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"registrationWarning"</tt></span></td><td><span>Check registration status and returns number which means: 0 - Plug-In registered and fully operational, 1 - Plug-In in Demo mode, 2 - License number exceeded, 3 - Plug-In expired.</span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"stderr"</tt></span></td><td><span>Returns standard error output of the last executed script. Supported are Bash and PHP. </span></td></tr>
+</table>
+<h3>Description</h3>
+<p>Generic function to get various plug-in parameters.</p>
+<h3>Result</h3>
+<p>The function returns state of required parameter. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code. <span class="syntax_hl">Toolbox_Get( "lastError" )</span> never fails.</p>  
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Get( "lastError" )</span><br>
+Returns last function error code or 0 if last function was performed properly.</p>
+
+
+<h2>Toolbox_Set( selector ; newValue )</h2>
+<p class="f_intro"><span>This function sets Toolbox Plug-In internal parameters.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>What parameter to set.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">selector</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left" width="130">selector</th><th align="left">Description</th></tr>         
+<tr valign="top"><td nowrap><span><tt>"globalDieInterval"</tt></span></td><td><span>Global variable can be set to be automatically erased when their parent database file is closed. The plug-in uses polling mechanism to determine if the file has been closed (evaluating function DatabaseNames). This interval specifies how often is should check the file is closed. The default value is 60 seconds and you can specify even fraction of seconds to be perfectly accurate. However try to keep it as long as possible (ones of seconds at least). The polling requires system resources and calling this often will slow down the FileMaker Pro application. </span></td></tr>
+</table>
+<h3>Description</h3>
+<p>Generic function to get various plug-in parameters.</p>
+<h3>Result</h3>
+<p>The function returns state of required parameter. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code. <span class="syntax_hl">Toolbox_Get( "lastError" )</span> never fails.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Set( "globalDieInterval" ; 9.5 )</span><br>
+Sets parameter "globalDieInterval" to 9.5 seconds.</p>
+
+<h2>Toolbox_SetGlobal( key ; value { ; moreOptions } )</h2>
+<p class="f_intro"><span>Stores global value which can be read on any database.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">key</td><td>Unique key to the dictionary of values. This key should be unique across all opened databases.</td></tr>
+<tr><td class="t_param">value</td><td>FileMaker field or variable. Field / variable type is also stored.</td></tr>
+<tr><td class="t_param">moreOptions</td><td>Options to specify some special behavior for previous key-value combination.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">moreOptions</span> parameter.</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left" width="130">value</th><th align="left">description</th></tr>          
+<tr valign="top"><td nowrap><span><tt>"dieOnClose"</tt></span></td><td><span>The current key-value combination will be erased when you close the current database.</span></td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to store global value which can be obtained by <span class="syntax_hl">Toolbox_GetGlobal( key )</span> in any opened database. If "dieOnClose" is not specified the key-value combination will live until the FileMaker application is closed. Specifying the "dieOnClose" parameter will cause the plug-in will periodically check if the database file is opened (the plug-in will use Get( FileName ) and DatabaseNames functions from FileMaker calculation engine) and erase key-value combination if the database has been closed. The plug-in is not able to distinguish between two different databases with the same name.</p>
+<p>To manually delete value stored under a key call <span class="syntax_hl">Toolbox_SetGlobal( key ; "" )</span>. To manually delete all global values call <span class="syntax_hl">Toolbox_SetGlobal( "" ; "" )</span>.</p>
+<h3>Result</h3>
+<p>The function returns the actual value which has been set under the key. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_SetGlobal( "g_UserContext" ; "user-defined-context-1" )</span><br>
+This will set value "user-defined-context-1" under the key "g_UserContext". It can be read by calling <span class="syntax_hl">Toolbox_GetGlobal( "g_UserContext" )</span> in any opened solution.</p>
+<p><span class="syntax_hl">Toolbox_SetGlobal( "g_UserContext" ; "user-defined-context-1" ; "dieOnClose" )</span><br>
+This will set value "user-defined-context-1" under the key "g_UserContext". It can be read by calling <span class="syntax_hl">Toolbox_GetGlobal( "g_UserContext" )</span> in any opened solution. If the database file, where Toolbox_SetGlobal has been called, is closed, the value "user-defined-context-1" will be reset to "". There is the maximum time interval between file closing and value erasing. This interval can be set by Toolbox_Set( "globalDieInterval" ; newInterval ) and by default it is set to 60 seconds.</p>
+<p><span class="syntax_hl">Toolbox_SetGlobal( "g_Picture" ; PictureField )</span><br>
+The plug-in will store content of PictureField into into the global dictionary under the key "g_Picture". This container can be loaded any time from any opened solution until the FileMaker application is closed or value reset.</p>
+
+<h2>Toolbox_GetGlobal( key )</h2>
+<p class="f_intro"><span>Loads global value previously stored by Toolbox_SetGlobal.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">key</td><td>Unique key to the dictionary of values. This key should be unique across all opened databases.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to load global value previously stored by Toolbox_SetGlobal.</p>
+<h3>Result</h3>
+<p>The function returns the actual value for key. If the key has not been specified the function returns "". In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetGlobal( "g_UserContext" )</span><br>
+The function returns actual value of global key "g_UserContext".</p>
+
+<h2>Toolbox_GetTimestamp</h2>
+<p class="f_intro"><span>Basic function for time measurement.</span></p>
+<h3>Description</h3>
+<p>This function uses most precise functions of the operating system to obtain current time (now). It creates a FileMaker timestamp which contains fractions of seconds so it can be used to measure time with more accuracy than one second. The function is also very fast: its execution time is approx. 30 &micro;s long.</p>
+<h3>Result</h3>
+<p>FileMaker Timestamp with current time.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetTimestamp</span><br>
+Returns most accurate timestamp. In the time of writing this manual it was: 27.5.2011 17:27:03,873641 (the timestamp is formatted using current, Czech locale).</p>
+
+<h2><span class="news_highlight">Toolbox_Encode( encoding ; text )</span></h2>
+<p class="f_intro">The function for text encoding.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">encoding</td><td>The encoding of the input text and the encoding of the result.</td></tr>
+<tr><td class="t_param">text</td><td>The input text to be encoded.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">encoding</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left" width="130">encoding</th><th align="left">Description</th></tr>
+<tr valign="top"><td nowrap><tt>"UTF-8 to Base64"</tt></td><td>The encoding of the input text is assumed to be UTF-8 and the encoding of the result will be Base64.</td></tr>        
+</table>
+<h3>Description</h3>
+<p>This function encodes given input text to specified encoding. For decoding see <span class="syntax_hl">Toolbox_Decode</span>.</p>
+<h3>Result</h3>
+<p>The function returns encoded input text. In the case of an error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code. Also note, that empty input text may not be well defined for various encodings.</p>  
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Encode("UTF-8 to Base64" ; "Text to be encoded.")</span><br>
+Returns "VGV4dCB0byBiZSBlbmNvZGVkLg==".</p>
+<p><span class="syntax_hl">Toolbox_Encode("UTF-8 to Base64" ; "")</span><br>
+Returns "".</p>
+
+<h2><span class="news_highlight">Toolbox_Decode( encoding ; text )</span></h2>
+<p class="f_intro">The function for text decoding.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">encoding</td><td>The encoding of the input text and the encoding of the result.</td></tr>
+<tr><td class="t_param">text</td><td>The input text to be decoded.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">encoding</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left" width="130">encoding</th><th align="left">Description</th></tr>
+<tr valign="top"><td nowrap><tt>"Base64 to UTF-8"</tt></td><td>The encoding of the input text is assumed to be Base64 and the encoding of the result will be UTF-8.</td></tr>        
+</table>
+<h3>Description</h3>
+<p>This function decodes given input text to specified encoding. For encoding see <span class="syntax_hl">Toolbox_Encode</span>.</p>
+<h3>Result</h3>
+<p>The function returns decoded input text. In the case of an error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code. Also note, that empty input text may not be well defined for various encodings.</p>  
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Decode("Base64 to UTF-8" ; "QmFzZTY0IGVuY29kZWQgdGV4dC4=")</span><br>
+Returns "Base64 encoded text.".</p>
+
+</body>
+</html>

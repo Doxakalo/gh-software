@@ -1,0 +1,55 @@
+{import 'translate_en.latte'}
+
+{block title}LED Strip Controller{/block}
+
+{block content}
+
+<section class="cover-sticky ledcontroller-sticky" id="fixedCover" data-image-position-horizontal="40">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/product-pages/led-strip/ledstripcontroller_header.jpg')">
+    <div class="inner-background cover-parallax ledcontroller-parallax" style="background-image: url('{$basePath}/img/pages/product-pages/led-strip/ledstripcontroller_header.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-9@desktop gr-12@mobile cover-parallax-inner">
+                <h1 class="page-title">
+                    <strong>LED Strip Controller</strong>
+                    <div class="description">
+                        Control LED lights<br/>
+                        with a custom app
+                    </div>
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{var $overview = [
+name => 'led_detail-overview'
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'led_article-addressing', img => $basePath.'/img/pages/product-pages/led-strip/ledstripcontroller_addressing.jpg', img_height => '350'],
+    [name => 'led_article-integration', img => $basePath.'/img/pages/product-pages/led-strip/ledstripcontroller_json.png', img_height => '350'],
+    [name => 'led_article-colors', img => $basePath.'/img/pages/product-pages/led-strip/ledstripcontroller_colors.png', img_height => '350'],
+    [name => 'led_article-variety', img => $basePath.'/img/pages/product-pages/led-strip/ledstripcontroller_pozetta.jpg', img_height => '350'],
+    [name => 'led_article-solution'],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles, row_color => 'light-blue'}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'true', customDescriptionTranslate => "pages.tools.led.contact-form.description"}
+{/snippet}

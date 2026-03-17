@@ -1,0 +1,84 @@
+{block title}Tracksy - Track goods, assets, orders and people using RFID{/block}
+{block description}Tracksy is a complete software & hardware solution for tracking and locating goods, assets, orders and people within controlled space, leveraging RAIN UHF RFID.{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "Tracksy - Track your stuff using RFID",
+            description => "Tracksy is a complete software & hardware solution for tracking and locating goods, assets, orders and people within controlled space, leveraging RAIN UHF RFID technology, ready to integrate with existing systems based on Claris FileMaker, SQL or REST API.",
+            imagePath => "img/icons/tracksy_icon.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+{* VIDEO - DETECT RESOLUTION *}
+{if $detect['platformDevice'] === "tablet"}
+    {var $videoResolution = "640"}
+{elseif $detect['platformDevice'] === "phone"}
+    {var $videoResolution = "640"}
+{else}
+    {var $videoResolution = "640"}
+{/if}
+
+{import '../Components/tools_videoplayer.latte'}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/tracksy/tracksy-header.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/tracksy/tracksy-header.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-1 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/tracksy_icon_small.png" alt=""/>
+            </div>
+            <div class="gr-6 ml-2 ml-0@mobile gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        tracks your stuff<br>so you don’t have to
+                    </div>
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/tracksy_en.latte'}
+{var $overview = [
+    name => 'overview',
+    testimonials => [
+        [ img => $basePath.'/img/pages/tools/tracksy/video_preview.jpg?v=2', video => [id => 'nURB2BdhT6Y'], name => 'Tracksy tracks goods, assets, orders and people using Claris FileMaker and RAIN UHF RFID'],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'track_anything', img => $basePath.'/img/pages/tools/tracksy/track-anything.jpg' ],
+    [name => 'print_rfid', img => $basePath.'/img/pages/tools/tracksy/printing-labels.jpg' ],
+    [name => 'track_stuff', img => $basePath.'/img/pages/tools/tracksy/antenna.jpg' ],
+    [name => 'locate_stuff', img => $basePath.'/img/pages/tools/tracksy/locate.jpg' ],
+    [name => 'manage_all', img => $basePath.'/img/pages/tools/tracksy/standalone.png' ],
+    [name => 'integrate', img => $basePath.'/img/pages/tools/tracksy/integrate.png' ],
+    [name => 'whatsnew', img => $basePath.'/img/pages/tools/tracksy/zebra-compatible-logo.png' ],
+    [name => 'end_to_end'],
+    [name => 'demo'],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'false'}
+{/snippet}

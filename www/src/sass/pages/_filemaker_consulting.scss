@@ -1,0 +1,246 @@
+body[data-template="filemaker-consulting"] {
+	section {
+		h2 {
+			&.large {
+				font-size: 1.1em;
+			}
+		}
+		&.spacing {
+			padding: 4em 0;
+
+			@include g-state(tablet) {
+				padding: (4em * $scaleRatioTablet) 0;
+			}
+
+			@include g-state(mobile) {
+				padding: (4em * $scaleRatioMobile) 0;
+				background-color: $colorWhite;
+			}
+
+			&.detail {
+				padding: 3em 0 5em;
+
+				@include g-state(tablet) {
+					padding: (3em * $scaleRatioTablet) 0 (5em * $scaleRatioTablet);
+				}
+
+				@include g-state(mobile) {
+					padding: (3em * $scaleRatioMobile) 0 (5em * $scaleRatioMobile);
+				}
+
+				.image-left {
+					padding-right: round($arrowBaseWidth)/2;
+
+					@include g-state(desktop) {
+						padding-right: round($arrowBaseWidth * $arrowScaleDesktop)/2;
+					}
+
+					@include g-state(tablet) {
+						padding-right: round($arrowBaseWidth * $arrowScaleTablet)/2;
+					}
+
+					@include g-state(mobile) {
+						padding-right: 1em;
+						padding-left: 1em;
+					}
+
+				}
+
+				.content-left {
+					padding-right: 0;
+					padding-top: 1em;
+
+					@include g-state(mobile) {
+						padding-right: 1em;
+						padding-left: 1em;
+					}
+				}
+
+				.image-right {
+					padding-left: round($arrowBaseWidth)/2;
+
+					@include g-state(desktop) {
+						padding-left: round($arrowBaseWidth * $arrowScaleDesktop)/2;
+					}
+
+					@include g-state(tablet) {
+						padding-left: round($arrowBaseWidth * $arrowScaleTablet)/2;
+					}
+
+					@include g-state(mobile) {
+						padding-right: 1em;
+						padding-left: 1em;
+					}
+				}
+
+				.content-right {
+					padding-top: 1em;
+					padding-left: 0;
+
+					@include g-state(mobile) {
+						padding-right: 1em;
+						padding-left: 1em;
+					}
+				}
+
+				img.filemaker-logo {
+					width: 100%;
+					height: 100%;
+					max-width: 160px;
+					max-height: 160px;
+					object-fit: contain;
+					object-position: center;
+				}
+
+				img {
+					max-width: 100%;
+			  
+					&.limited-height-130 {
+					   max-height: 130px;
+					}
+			  
+					&.limited-height-200 {
+					   max-height: 200px;
+					}
+			  
+					&.limited-height-250 {
+					   max-height: 250px;
+					}
+			  
+					&.limited-height-300 {
+					   max-height: 300px;
+					}
+			  
+					&.limited-height-350 {
+					   max-height: 350px;
+					}
+			  
+					&.limited-height-400 {
+					   max-height: 400px;
+					}
+			  
+					&.limited-height-450 {
+					   max-height: 450px;
+					}
+				 }
+			}
+		}
+
+		.tile {
+			.go2form {
+				cursor: pointer;
+			}
+		}
+		&.info {
+			background-color: $colorBlue;
+			text-align: center;
+			width: 100%;
+
+			.item {
+				@include g-grid(1,5);
+				@include flex-grow(1 !important);
+				padding-left: 0;
+				padding-right: 0;
+				text-align: center;
+				position: relative;
+
+				@include g-state(desktop tablet mobile) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+
+				@include g-state(mobile) {
+					@include g-grid(1,3);
+					max-width: 100%;
+					&:last-of-type {
+						padding-bottom: 0em;
+					}
+				}
+				
+				@include g-state(mobileSmall) {
+					@include g-grid(1,2);
+					max-width: 100%;
+					&:last-of-type {
+						padding-bottom: 0em;
+					}	
+				}
+
+				a {
+					padding: 3em 0 5em;
+					display: inline-block;
+					text-decoration: none;
+					height: 100%;
+					width: 100%;
+
+					&:hover {
+						background-color: lighten($colorBlue, 10);
+					}
+
+					@include g-state(mobile) {
+						height: auto;
+					}
+				}
+
+				h2,
+				span,
+				p {
+					color: $colorWhite;
+					margin-bottom: .3em;
+				}
+
+				h2,
+				span {
+					font-size: 3.5em;
+					font-weight: $fwLight;
+				}
+
+				img {
+					max-height: 45px;
+					max-width: 75px;
+					margin-bottom: 1em;
+				}
+
+				p {
+					max-width: 10em;
+					margin: 0 auto;
+					font-weight: $fwNormal;
+				}
+			}
+		}
+		&.contact {
+			.text-form {
+				a {
+					color: white;
+					font-weight: bold;
+				}
+			}
+			form {
+				margin-bottom: 0;
+
+				input[type="text"],
+				input[type="email"],
+				input[type="tel"],
+				input[type="number"],
+				input[type="search"],
+				input[type="time"],
+				textarea {
+					@include input-placeholder {
+						color: rgba($colorOrange, .6);
+					}
+				}
+			}
+			select {
+				background-color: rgba($colorWhite, .6);
+				color: $colorOrange;
+				font-weight: $fwNormal;
+
+				@include input-placeholder {
+					color: rgba($colorOrange, .6);
+				}
+			}
+			.open-arrow {
+				background-color: #ec8a59;
+			}
+		}
+	}
+}

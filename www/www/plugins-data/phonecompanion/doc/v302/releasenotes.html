@@ -1,0 +1,155 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>24U Phone Companion Release Notes</title>
+  <STYLE TYPE="text/css" MEDIA=screen>
+    body { padding: 1em }
+    p { margin-top: 0px; margin-bottom: 0px; }
+    .title { margin-top: 0px; margin-bottom: 16px; }
+    ul { margin-top: 0px; margin-bottom: 16px; }
+  </STYLE>
+</head>
+
+
+<body>
+	
+<tt>
+
+<b>24U Phone Companion Release Notes</b><br>
+    
+<p class="title">This is a brief history of important changes across released versions.</p>
+
+<p><b>3.0.2</b></p>
+<ul>
+    <li>Updated license handling/and activation for eSellerate end-of-life</li>
+	<li>Minor performance and FileMaker 18 compatibility improvements</li>
+</ul>
+
+<p><b>3.0.1</b></p>
+<ul>
+    <li>Plug-in binaries for Mac and Windows are now code-signed</li>
+</ul>
+
+<p><b>3.0</b></p>
+<ul>
+    <li>The minimum supported version of FileMaker Pro is now 16</li>
+    <li>Some plugin functions can be now called as FileMaker Script Steps</li>
+    <li>Phone_Get("lastErrorMessage") now displays messages correctly</li>
+    <li>Time out error message improved.</li>
+    <li>Added support for VOIP systems using SNOM phones, successfully tested with <a href="https://www.ringcentral.com">RingCentral</a></li>
+	<li>Distribution Archive now includes the latest TeamCall 3.8.19</li>
+    <li>The 24U Phone Companion now supports more PBX models and phones!</li>
+    <li>List of new devices:</li>
+        <ul>
+            <li>Aastra Business Phone</li>
+            <li>Aastra 1xx</li>
+            <li>OpenCom 1xx</li>
+            <li>Alcatel 4x00</li>
+            <li>Avaya Integral i33 (Tenovis)</li>
+            <li>Avaya Integral i55 LX (Tenovis)</li>
+            <li>Avaya ACM: S8300/8500/8700/8800</li>
+            <li>Avaya AES</li>
+            <li>Avaya AURA Communications Manager</li>
+            <li>Avaya CS1000 (Communications Server 1000)</li>
+            <li>Cisco Unified Communications Manager (CUCM)</li>
+            <li>Deutsche Telekom T-Octopus Fxx (except for F50)</li>
+            <li>Deutsche Telekom Octopus CM</li>
+            <li>Deutsche Telekom Octopus EP</li>
+            <li>Deutsche Telekom T-Comfort Pro S</li>
+            <li>Innovaphone IP302, IP305, IP800, IP810</li>
+            <li>Innovaphone IP0010, IP1060, IP3010, IP6010</li>
+            <li>Innovaphone IP0011</li>
+            <li>Mitel MiVoice Business</li>
+            <li>Mitel MiVoice MX-ONE</li>
+            <li>Mitel 104, 108, 112</li>
+            <li>Mitel 800</li>
+            <li>Mitel Business Phone</li>
+            <li>Mitel MD 110</li>
+            <li>Mitel Office 400 Virtual Applicance, 415, 430, 470</li>
+            <li>Mitel OpenCom 1xx</li>
+            <li>Mitel OpenCom 510</li>
+            <li>Mitel OpenCom X320</li>
+            <li>Nortel Meridian1 with Symposium Server</li>
+            <li>Nortel CS1000</li>
+            <li>Panasonic KX-NS300, KX-NS500, KX-NS700, KX-NS1000</li>
+            <li>Panasonic KX-NSX1000, KX-NSX2000</li>
+            <li>Siemens HiPath 500</li>
+            <li>Siemens HiPath 520, 540, 580</li>
+            <li>Siemens HiPath 2000</li>
+            <li>Siemens HiPath 3xxx</li>
+            <li>Siemens HiPath 4000 V1, V2</li>
+            <li>Siemens HiPath 4000 V3, V4, V5 without "CAP inside"</li>
+            <li>Siemens HiPath 4000 V5 with "CAP inside", V6, V7</li>
+            <li>Siemens HiPath 5000</li>
+            <li>Siemens HiPath Office ME/EE</li>
+            <li>Siemens OpenOffice ME/EE</li>
+            <li>Siemens OpenScape 4000 V7 and newer</li>
+            <li>Siemens OpenScape Business S, X3 / X3R, X5 / X5R, X8</li>
+            <li>Siemens OpenScape Office MX/LX/HX</li>
+            <li>Siemens OpenScape Voice</li>
+            <li>Siemens Realitis</li>
+            <li>Teles C5</li>
+            <li>SNOM 300</li>
+            <li>SNOM 715</li>
+
+        </ul>
+    </li>
+</ul>
+
+<p><b>2.1.1</b></p>
+<ul>
+  <li>Fixed registration issue on Windows 10</li>
+  <li>Fixed registration window on Mac</li>
+</ul>
+
+<p><b>2.1</b></p>
+<ul>
+  <li>Support for 64-bit architecture</li>
+  <li>Numbers starting with 0 are now handled correctly</li>
+  <li>Additional middleware error codes documented</li>
+  <li>Improved registration interface</li>
+  <li>Removed support for FileMaker 11</li>
+</ul>
+
+<p><b>2.0</b></p>
+<ul>
+  <li>Processing unknown messages from the server using raw events mechanism</li>
+  <li>Sending raw commands back to server</li>
+  <li>Dialed number sent as a parameter for incoming call and answer call events</li>
+  <li>List of monitored devices fixed</li>
+  <li>Implementation schemes added to documentation</li>
+  <li>Installers removed. Custom installation of middleware by user</li>
+</ul>
+
+<p><b>1.0.3</b></p>
+
+<ul>
+  <li>Fixed problems with doubled events</li>
+  <li>List of supported PBX updated</li>
+</ul>
+
+<p><b>1.0.2</b></p>
+
+<ul>
+  <li>Plug-In installer upgraded</li>
+  <li>List of supported PBX updated</li>
+</ul>
+
+<p><b>1.0.1</b></p>
+
+<ul>
+  <li>Fixed problems with TeamCall Server</li>
+  <li>Simple CRM Example upgraded</li>
+</ul>
+
+<p><b>1.0</b></p>
+
+<ul>
+  <li>Initial release</li>
+</ul>
+	
+</tt>
+
+</body>
+</html>

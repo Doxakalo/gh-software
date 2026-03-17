@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>24U Phone Companion 3.0 Syntax</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script>
+		/* toggle function for long tables etc. */
+		function showItems(className) {
+	        var tags = document.getElementsByTagName('*');
+	        var tcl = " " + className + " ";
+	        for (i = 0, j = 0; i < tags.length; i++) {
+	            var test = " " + tags[i].className + " ";
+	            if (test.indexOf(tcl) != -1) {
+	                if (tags[i].style.display == "none") {
+	                	tags[i].style.display = "inline";
+	                }
+	                else {
+	                	tags[i].style.display = "none";
+	                }
+	            }
+	        }
+		}
+		
+		/* Simple highlight toggle only: */		
+        function changeColor() {
+            var tags = document.getElementsByTagName('*');
+			var classes = ["rev8", "rev9", "rev10", "rev11"];
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + " ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].style.backgroundColor == "") {
+	                        tags[i].style.backgroundColor = "#FFFFA0";
+	                        tags[i].style.color = "black";
+	                    }
+	                    else {
+	                        tags[i].style.backgroundColor = "";
+	                        tags[i].style.color = "";
+	                    }
+	                }
+	            }
+			})
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + "x ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].classList.contains("striked")) {
+	                        tags[i].classList.remove("striked");
+	                    }
+	                    else {
+	                        tags[i].classList.add("striked");
+	                    }
+	                }
+	            }
+			})
+        }
+		
+		/* New revisioning functions: */
+		function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+						tags[i].classList.add(toggleClass);
+					}
+					else {
+						tags[i].classList.remove(toggleClass);
+					}
+                }
+            }
+		}
+		
+        function showRevision(revNumber) {
+			var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+			// Reset all to latest revision:
+			for (var i=1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions 
+				toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+			}
+			
+			// Highlight current revision: 
+			toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+			toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+			
+			// Revert future revisions:
+			for (var i=revNumber+1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+			}
+        }
+        function showRevisions(revStart, revLast) {
+            var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+            // Reset all to latest revision:
+            for (var i=1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+            }
+
+            // Highlight all changes from revision revStart to the current revision(revLast):
+            for(var i = revStart; i <= revLast; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "add");
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "add");
+            }
+
+            // Revert future revisions:
+            for (var i=revNumber+1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+            }
+        }
+	</script>
+	<style type="text/css">
+
+		/* Texts from old revisions are removed by default: */
+		.rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x, 
+		.rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }	
+		/* Highlighting classes handled by js: */
+		.highlighted { background-color: #FFFFA0; color: black; }	
+		.striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }	
+		.ignoreStriked { }	
+		.highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */	
+		li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */	
+		span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */	
+		td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+		tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+		.hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+
+	</style>
+		
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+
+      .ios {color: black; background-color: pink;}
+      li  			{ margin: 0.2em 0em ;}
+      xmp             { font-size: 12px; margin-left: 40px; margin-top: 6px; color: darkblue; }
+      table, td, th, tr { border: 1px solid #808080; margin-top:1em; padding:0.3em; border-collapse: collapse; }
+      th			 	{ font-weight:bold; text-decoration:none;}
+    -->
+    </STYLE>
+  
+</head>
+
+<body>  
+<h1>24U Phone Companion 3.0 Syntax</h1>
+<form>
+<!-- <input type="button" value="Highlight changes in the latest version" onclick='javascript: showRevision(6)'> -->
+	<input type="button" value="Highlight all changes since plugin version 2.0" onclick='javascript: showRevisions(1, 6)'><br/>
+</form>
+
+<p class="f_intro rev6">Specification revision: <b>6</b>, 2018-07-03.</p>
+
+<p class="f_intro">Created by: <a href="mailto:lukas.liebzeit@24usoftware.com">Lukáš Liebzeit</a>, <span class="rev1"><a href="mailto:martin.vrany@24usoftware.com">Martin Vraný</a></span>, Zdenek Hejl, ©2018 24U Software.</p>
+
+
+
+<h2>1. 24U Phone Companion <span class="rev1">3.0</span> Syntax</h2>
+
+
+
+
+
+
+
+<h3 id="Phone_Version">Phone_Version( { versionFormat } )</h3>
+<p class="f_intro">Returns version string of the active 24U PhoneCompanion Plug-In, formatted as requested by the parameter.</p>
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+    <tr>	<td class="t_param">versionFormat</td><!-- Next 2 columns are optional - added by ZH 2013-12 -->	<td>string</td>	<td>[enum]</td>	<td>Defines the format of the returned version.</td></tr>
+</table>  
+  
+<h4>Parameter values for <span class="p_hl">versionFormat</span></h4>
+<table>
+	<tr class="">	<td class="t2_param">"short"</td>	<td>To get just the version number. Default value.</td>	</tr>
+	<tr class="">	<td class="t2_param">"long"</td>	<td>To get the plug-in name followed by its version number.</td>	</tr>
+	<tr class="">	<td class="t2_param">"platform"</td>	<td>To get the platform of the code currently running.</td>	</tr>
+	<tr class="">	<td class="t2_param">"autoupdate"</td>	<td>To get autoupdate compatible (comparable) version number.</td>	</tr>
+</table>
+      
+<h4>Description</h4>
+<p>This function is very important and it has the same output format in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+  
+<h4>Result</h4>
+<p>Returns requested version format or platform. If this function returns "?", then the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.</p>
+  
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Version( "long" )</span><br>This will return the plug-in name and its version. In this case it is 24U PhoneCompanion Plug-In 3.0
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_Version( "platform" )</span><br>Returns "Mac OS X" , because no other platform is allowed.
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_Version( "autoupdate" )</span><br><span class="rev1">Returns 03000000 for version 3.0.0 of the plug-in.</span>
+</p>    
+    
+
+<h3 id="Phone_Register">Phone_Register ( selector ) </h3>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers.</p>
+  
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">selector</td>	<td>string</td>	<td></td>	<td>Define the type of operation.</td>	</tr>
+</table>  
+  
+<h4>Parameter values for <span class="p_hl">selector</span></h4>
+<table>
+	<tr class="">	<td class="t2_param">SerialNumber</td>	<td>Register given SerialNumber and return an error code.</td>	</tr>
+	<tr class="">	<td class="t2_param">EmailAddress</td>	<td>Tries to activate with given email address and return an error code. Trial version is valid only after you confirm email</td>	</tr>
+    <tr class=""><td class="t2_param">Hash</td><td>Activate a serial number with a hash received from 24U. Used for offline activation.</td></tr>
+	<tr class="">	<td class="t2_param">"Registration Window"</td>	<td>Show the "Registration window" and return 0.</td>	</tr>
+	<tr class="">	<td class="t2_param">"About Window"</td>	<td>Show the "About window" and return 0.</td>	</tr>
+    <tr class="">	<td class="t2_param">"Status"</td>	<td>Return the actual registration state of the plugin: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td>	</tr>
+	<tr class="">	<td class="t2_param">"Unregister"</td>	<td>Unregister all serial numbers related to the product and return an error code. Note: after this trial version days wont come back.</td>	</tr>
+    <tr class=""><td class="t2_param">"Info"</td><td>Returns current plugin status and its registered serial numbers.</td></tr>
+    <tr class=""><td class="t2_param">"ActivationChallenge"</td><td>Returns generated challenge string. This string is sent to 24U.</td></tr>
+    <tr class=""><td class="t2_param">"Purchase" ; webAddress</td><td>Opens web browser with given webAddress. Given webAddress should point to 24U Store. <span>This functionality is not implemented for FileMaker Server and Linux.</span></td>
+</table>
+
+<h4>Description</h4>
+<p>Use this function to register or unregister 24U PhoneCompanion Plug-In, to get information about current registration state, or to invoke GUI providing basic registration information and purchase capabilities.</p>
+  
+<h4>Result</h4>
+<p>Returns zero or error code depending on the selector.</p>
+  
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Register( "address@example.com" )</span><br>This will send on email address@example.com confirmation, if you confirm than you will get trial version on this product verified by this email. Note: In case of trial version only few steps can be processed.
+</p>    
+
+<p>
+  <span class="syntax_hl rev1">Phone_Register( "PHC30C050-ABCD-1234-QWER-ASDF" )</span><br>This will register this product. Registration will allow you use all features of this product.
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_Register( "Unregister" )</span><br>This will remove all registration of this product.
+</p>    
+
+
+
+
+<h3 id="Phone_Connect">Phone_Connect( "serverIP" ; "serverPort" { ; "timeout" } )</h3>
+<p class="f_intro">Connect to STLI server.</p>
+
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">"serverIP"</td>	<td>string</td>	<td></td>	<td>The IP address of the server.</td>	</tr>
+	<tr>	<td class="t_param">"serverPort"</td>	<td>string</td>	<td></td>	<td>The port of the server.</td>	</tr>
+	<tr>	<td class="t_param">"timeout"</td>	<td>string</td>	<td></td>	<td>The timeout for connection. Use float number in seconds. The default value is 3s.<br><b class="rev4">Note: macOS keeps its sockets open when internet is disabled after connection.</b></td>	</tr>
+</table>  
+
+<h4>Description</h4>
+<p><p>Call this function establish TCP connection to STLI server. This server is needed to control the line. All phone functions will work only if the plug-in is properly connected.</p></p>
+  
+<h4>Result</h4>
+<p>Function returns 0 in case of success or one of the <a href=#ErrorCodes>error codes</a>.</p>
+  
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Connect( "10.0.0.2" ; 26535 )</span><br>The plug-in will attempt to connect to server with IP 10.0.0.2 on port 26535.
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_Connect( "132.65.28.17" ; 25001 ; 9.5 )</span><br>The plug-in will attempt to connect to server with IP 132.65.28.17 on port 25001 with 9.5 seconds timeout.
+</p>    
+
+
+
+
+
+
+<h3 id="Phone_Disconnect">Phone_Disconnect</h3>
+<p class="f_intro">Disconnect from STLI server.</p>
+
+<h4>Description</h4>
+<p>This function will cause that TCP connection to STLI server will be terminated. Use this function when you no longer need phone services.</p>
+  
+<h4>Result</h4>
+<p>Function returns 0 if the connection was terminated. It returns 0 even if there was no previous connection. Error code is returned when the connection was not terminated in the standard way (abnormal termination).</p>
+  
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Disconnect</span><br>Function has no parameters. This will always terminate the connection and return status code.
+</p>    
+    
+
+
+
+
+
+
+<h3 id="Phone_Dial">Phone_Dial ( localDevice ; calledDirectoryNumber )</h3>
+<p class="f_intro">Dials a specified telephone number on the specified calling device.</p>
+
+<h4>Parameters</h4>
+<table>
+	<tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">localDevice</td>	<td>string</td>	<td></td>	<td>The phone number of device from which the call originates. The device must be local.</td>	</tr>
+	<tr>	<td class="t_param">calledDirectoryNumber</td>	<td>string</td>	<td></td>	<td>Indicates the device to which the call should be directed. The number should direct to local or external device.</td>	</tr>
+</table>  
+
+<h4>Description</h4>
+<p>This function will dial the number on the local phone. The format should be FileMaker text. It can contain all numbers, "*", "#" and "+".</p>
+  
+<h4>Result</h4>
+<p>Function returns 0 if the number was successfully dialed. It doesn't matter if the other side accepted the call or not. If some error occurred (line is not ready, server is not ready, line was forcefully disconnected or similar) the status number is returned.</p>
+  
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Dial( "11" ; "17" )</span><br>This will dial the number 17 on the device with number 11.
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_Dial( "103" ; "05555925" )</span><br>You can use any number for outside calls. This will dial 05555925 number on the device with local number 103.
+</p>    
+
+
+
+
+
+
+
+
+<h3 id="Phone_Answer">Phone_Answer ( localDevice )</h3>
+<p class="f_intro">Answers (off-hook) an incoming call.</p>
+
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">localDevice</td>	<td>string</td>	<td></td>	<td>The local device which should answer the call.</td>	</tr>
+</table>  
+
+<h4>Description</h4>
+<p>The called local device should be able to accept incoming call. It should be either speakerphone or headset equipped phone. The local device should be monitored for incoming calls. Use <span class="syntax"><a href=#Phone_SetScriptEvent>Phone_SetScriptEvent</a></span> function to monitor incoming calls.</p>
+  
+<h4>Result</h4>
+<p>Function returns 0 if the call was successfully accepted. It the device cannot accept call or another problem occurred than the status code is returned.</p>
+  
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Answer( "19" )</span><br>This will accept the call on the local device with number 19.
+</p>    
+
+
+
+
+
+
+
+
+
+<h3 id="Phone_HangUp">Phone_HangUp ( localDevice ) </h3>
+<p class="f_intro">Hang up a call.</p>
+
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">localDevice</td>	<td>string</td>	<td></td>	<td>The local device which should hang up.</td>	</tr>
+</table>  
+  
+<h4>Description</h4>
+<p>This function will hang up a call on the local phone. The call should be properly established and local device should be monitored with some event. Use <span class="syntax"><a href=#Phone_SetScriptEvent>Phone_SetScriptEvent</a></span> to start monitoring events.</p>
+  
+<h4>Result</h4>
+<p>Function returns 0 if the phone was properly hanged up. In case of error the function returns negative error code.</p>
+  
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_HangUp( "19" )</span><br>This will hang up a call on the phone with number 19.
+</p>    
+
+
+
+
+
+
+
+<h3 id="Phone_RawCommand">Phone_RawCommand ( commandString )</h3>
+<p class="f_intro">Sends a raw command to the server.</p>
+  
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">commandString</td>	<td>string</td>	<td></td>	<td>The command string. In case of hosted PBX, it requires the command to be placed as a string containing serialised JSON object.</td>	</tr>
+</table>
+
+<h4>Description</h4>
+<p>This function can be used to send low level commands directly to the server.</p>
+<h4>Result</h4>
+<p>Function returns 0 if the command was successfully sent. It doesn't matter if the other side accepted the command. Note: This function does not wait for response. Use <span class="syntax"><a href=#Phone_SetScriptRawEvent>Phone_SetScriptRawEvent</a></span> in conjunction with raw commands to catch server responses</p>
+
+<h4>Examples</h4>
+<p>TeamCall and TeamCall Express:<br>
+  <span class="syntax_hl">Phone_RawCommand( "HoldCall 199348" )</span><br>Send command "HoldCall" with number 199348 to the server. Do not wait for reply. What the server will do is undefined.<br><br>
+  Phone Companion Server:<br>
+  <span class="rev1"><span class="syntax_hl">Phone_RawCommand( "{\"method\" : \"GET\", \"resource\" : \"/restapi?name=24u\"}" )</span><br>Send HTTP request directly to the provider. Phone Companion Server returns 24U STLI success message in case of 200 OK response family at the provider. And error message in all other scenarios.</span>
+</p>    
+
+
+
+
+
+
+<h3 id="Phone_SetScriptEvent">Phone_SetScriptEvent ( localDevice ; event ; scriptName )</h3>
+<p class="f_intro">Tell the plug-in to launch the script when specified event is triggered from outside.</p>
+  
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">localDevice</td>	<td>string</td>	<td></td>	<td>The phone number of the device for which the event will be triggered.</td>	</tr>
+	<tr>	<td class="t_param">event</td>	<td>string</td>	<td>[enum]</td>	<td>The type of the event which should be installed. See table below for possible types.</td>	</tr>
+	<tr>	<td class="t_param">scriptName</td>	<td>string</td>	<td></td>	<td>The name of the script which should be triggered.</td>	</tr>
+</table>  
+
+<h4>Parameter values for <span class="p_hl">event</span></h4>
+<table>
+	<tr class="">	<td class="t2_param">"onIncomingCall"</td>	<td>Run the script on incoming call from outside.	</td>	</tr>
+	<tr class="">	<td class="t2_param">"onAnswerCall"</td>	<td>Run the script when incoming call is answered.</td>	</tr>
+	<tr class="">	<td class="t2_param">"onHangUp"</td>	<td>Run the script on hang up.</td>	</tr>
+	<tr class="">	<td class="t2_param">"onCalling"</td>	<td>Run the script when when the call is made from the phone.</td>	</tr>
+</table>
+
+<h4>Description</h4>
+<p>The function will call the specified script when the event of the specified type occurs. The script will receive a parameter which contains the number of controlled phone on the first line and the phone number of the second side on the second line. <br/> <br/>To remove event for some number call <span class="syntax">Phone_SetScriptEvent( localDevice ; event  ; "" )</span>. <br/>To remove all events for some number call <span class="syntax">Phone_SetScriptEvent( localDevice ; "" ; "" )</span>. <br/><span>To remove all events for all numbers call <span class="syntax">Phone_SetScriptEvent( "" ; "" ; "" )</span> </span></p>
+
+<h4>Result</h4>
+<p>Function returns 0 if event is successfully installed or uninstalled. In case of error the function returns negative error code.</p>
+
+<h4>Note</h4>
+<p>Each triggered script from plug-in receives script parameter which can be read by <span class="syntax"><a href=#Phone_Get>Phone_Get( ScriptParameter )</a></span> script step. The parameter consists of several lines of text. See the notes below to learn what each line of script parameter means (parameters are sorted from the first line) :</p>
+
+<h4>Parameters passed to the "onIncomingCall" handler</h4>
+<table>      
+	<tr>	<td class="t2_param">localDevice</td>	<td>The local device which registered incoming call.</td>	</tr>
+	<tr>	<td class="t2_param">callerID</td>	<td>The number of the caller.</td>	</tr>
+	<tr>	<td class="t2_param">calledID</td>	<td>The number of line which received the call. This parameter is optional. It is filled only on PBXs where it is supported. <span class="rev5">Hosted PBX currently does not support calledID.</span></td>  </tr>
+</table>      
+      
+<h4>Parameters passed to the "onAnswerCall" handler</h4>
+<table>      
+	<tr>	<td class="t2_param">localDevice</td>	<td>The local device which registered incoming call.</td>	</tr>
+  	<tr>	<td class="t2_param">callerID</td>	<td>The number of the caller.</td>	</tr>
+  	<tr>	<td class="t2_param">calledID</td>	<td>The number of line which received the call. This parameter is optional. It is filled only on PBXs where it is supported. <span class="rev5">Hosted PBX currently does not support calledID.</span></td>	</tr>
+</table>      
+
+<h4>Parameters passed to the "onHangUp" handler</h4>
+<table>      
+	<tr>	<td class="t2_param">localDevice</td>	<td>The local device which where the event happened.</td>	</tr>
+</table>      
+
+<h4>Parameters passed to the "onCalling" handler</h4>
+<table>      
+	<tr>	<td class="t2_param">localDevice</td>	<td>The local device which is used right now for outgoing call.</td>	</tr>
+	<tr>	<td class="t2_param">calledID</td>	<td>The number where the call directs.</td>	</tr>      
+</table>
+
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_SetScriptEvent( "19" ; "onAnswerCall" ; "Save answered call" )</span><br>This will install the script named "Save answered call" for the local device with number 19.
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_SetScriptEvent( "105" ; "onCalling" ; "Show announcement" )</span><br>The script "Show announcement" will be called every time the user makes a call from the phone with number 105.
+</p>    
+
+
+
+
+
+
+
+
+
+<h3 id="Phone_SetScriptRawEvent">Phone_SetScriptRawEvent ( pattern ; scriptName )</h3>
+<p class="f_intro">Tell the plug-in to launch the script when it receives a message which corresponds to regular expression.</p>
+
+<h4>Parameters</h4>
+<table>
+	<tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">pattern</td>	<td>string</td>	<td></td>	<td>Regular expression pattern. If incoming message matches this pattern, the script is triggered. To disable the filter set this parameter to "".</td>	</tr>
+	<tr>	<td class="t_param">scriptName</td>	<td>string</td>	<td></td>
+	<td>The name of the script which should be triggered.</td>	</tr>
+</table>  
+
+<h4>Description</h4>
+<p>This function is similar to <span class="syntax"><a href=#Phone_SetScriptEvent>Phone_SetScriptEvent</a></span>. It does not recognize the meaning of events. It just filters them using regular expressions and triggers the script on match. It is recommended to always use some kind of filter. Using this function without filter can slowdown FileMaker application.  <br/><br/>To remove triggers with some script name call <span class="syntax">Phone_SetScriptRawEvent( "" ; scriptName )</span>.  <br/><span>To remove all triggers use <span class="syntax">Phone_SetScriptRawEvent( "" ; "" )</span></span>.</p>
+
+<h4>Result</h4>
+<p>Function returns 0 if script trigger is successfully installed or uninstalled. In case of error the function returns negative error code.</p>
+  
+<h4>Note</h4>
+<p>Each triggered script from plug-in receives script parameter which can be read by Get( ScriptParameter )script step. The parameter contains the message which triggered the script. The message is read into the FileMaker using UTF-8 encoding.</p>
+
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_SetScriptRawEvent( "^[Ff]ailed .*" ; "Handle Failed Call" )</span><br>Call the script "Handle Failed Call" when incoming message contains word Failed or failed on the start.
+</p>    
+
+<p>  
+  <span class="syntax_hl">Phone_SetScriptRawEvent( "^[Dd]evice[Ii]nformation 34 .*" ; "Read Phone Information" )</span><br>The script "Read Phone Information" will be called every time something happens on phone with number 34.
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_SetScriptRawEvent( "" ; "Read Phone Information" )</span><br>The script "Read Phone Information" will not be triggered in the future. It will be removed from all pattern queues.
+</p>    
+
+<p>
+  <span class="syntax_hl">Phone_SetScriptRawEvent( "^[Ff]ailed .*" ; "" )</span><br>All scripts triggered by "^[Ff]ailed .*" regular expression will be removed from the queue. No such script will be called in the future.
+</p>    
+
+
+
+
+
+
+<h3 id="Phone_Get">Phone_Get ( what )</h3>
+<p class="f_intro">Function to get plug-in or phone server settings and other useful data.</p>
+
+<h4>Parameters</h4>
+<table>
+	<tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">what</td>	<td>string</td>	<td></td>	<td>What parameter to get.</td>	</tr>
+</table>  
+
+<h4>Parameter values for <span class="p_hl">what</span></h4>
+<table>
+	<tr class="">	<td class="t2_param">"lastError"</td>	<td>Returns the error code of the last error. If no error occurred 0 is returned. It does not change the value of lastError.</td>	</tr>
+	<tr class="">	<td class="t2_param">"lastErrorMessage"</td>	<td>Returns the error message string of the last error. If no error occurred "" is returned. It does not change the value of lastError.</td>	</tr>
+	<tr class="">	<td class="t2_param">"log"</td>	<td>Returns log.</td>	</tr>
+	<tr class="">	<td class="t2_param">"serverStatus"</td>	<td>Returns either "connected" or "disconnected".</td>	</tr>
+	<tr class="">	<td class="t2_param">"monitoredDevices"</td>	<td>Returns a value list of the devices which are currently monitored for events. The value list is delimited by line break.</td>	</tr>
+	<tr class="">	<td class="t2_param">"serverResponseTimeout"</td>	<td>Default 3 seconds. How long Phone Companion waits for reply from the middleware.</td>	</tr>
+	<tr class="">	<td class="t2_param">"serverCommunicationDelay"</td>	<td>If Phone companion sends more than one message it waits very short time between each message. Use this parameter to obtain this value in seconds.</td>	</tr>
+
+	<tr class="rev6">	<td class="t2_param">"inlineDocumentation"</td>		<td>Returns "on" or "off" based on status of inlineDocumentation in Plug-In.</td>	</tr>
+</table>
+
+<h4>Description</h4>
+<p>Use this function to get important parameters.</p>
+
+<h4>Result</h4>
+<p>Function returns data if everything is OK. In case of error, the function returns "?".  Use <span class="syntax"><a href=#Phone_Get>Phone_Get</a></span> with parameter "lastError" to obtain the error code.</p>
+
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Get( "lastError"  )</span><br>Returns last function error code or 0 if last function was performed properly.
+</p>    
+
+
+
+
+
+
+
+
+
+<h3 id="Phone_Set">Phone_Set ( what ; newValue )</h3>
+<p class="f_intro">Set plug-in or phone server settings and other useful parameters.</p>
+  
+<h4>Parameters</h4>
+<table>
+    <tr>	<th>Name</th>	<th>Datatype</th>	<th>Condition</th>	<th>Description</th>	</tr>
+	<tr>	<td class="t_param">what</td>	<td>string</td>	<td></td>	<td>What data to set.</td>	</tr>
+	<tr>	<td class="t_param">newValue</td>	<td>string</td>	<td></td>	<td>The new value for data.</td>	</tr>
+</table>  
+
+<h4>Parameter values for <span class="p_hl">what</span></h4>
+<table>
+	<tr class="">	<td class="t2_param">"serverResponseTimeout"</td>	<td>Sets how long Phone Companion waits for reply from TeamCall Server or Express. The time is in seconds and the default value is 3 s.</td>	</tr>
+	<tr class="">	<td class="t2_param">"serverCommunicationDelay"</td>	<td>If Phone companion sends more than one message it waits very short time between each message. The default value is 0.1 s. Use longer delays if the middleware is not able to react to fast communication.
+  		</td>
+	</tr>
+	<tr class="rev6">	<td class="t2_param">"inlineDocumentation"</td>	<td>Allows to turn off or on inlineDocumentation. Possible values are "on" or "off".</td>	</tr>
+</table>
+      
+<h4>Description</h4>
+<p>Use this function to set important parameters. Default communication delays and timeouts are set to work on local area networks. You can set longer values on slower networks (slow wireless networks) but the plug-in reactions will be also slower. Try to keep serverCommunicationDelay parameter as low as possible. Setting it too high (>1s) will essentially delay plug-in responses and probably will not help on broken link.</p>
+
+<h4>Result</h4>
+<p>Function returns the real value of parameter if everything is OK. In case of error the function returns "?". Use <span class="syntax"><a href=#Phone_Get>Phone_Get</a></span> with parameter "lastError" to obtain the error code.</p>
+
+<h4>Examples</h4>
+<p>
+  <span class="syntax_hl">Phone_Set( "serverResponseTimeout" ; 4.5 )</span><br>he plug-in will wait for each answer from TeamCall up to 4.5 seconds. This also means that FileMaker will frozen for 4.5 seconds if TeamCall does not respond - do not set it too high.
+</p>    
+
+<div class="rev2">
+	<h2>2. Script Steps</h2>
+	<p>
+	Since version 16 of FileMaker Pro and FileMaker Pro Advanced new feature called "External script steps" has been added. This feature allows plug-in to offer its functionality as FileMaker script steps.<br>
+	
+	In PhoneCompanion 3.0 external script steps for some of our plug-in functions were added. Following table shows, which functions of plug-in can be also called as script step.
+	
+		<table>
+			<tr>	<th>Plug-In function</th>	<th>Script Step</th>	</tr>
+
+			<tr class="rev3x">	<td><a href="#Phone_Version">Phone_Version</a></td>	<td>Phone Version</td>	</tr>
+
+			<tr>	<td><a href="#Phone_Register" style="">Phone_Register</a></td>		<td>Phone Register</td>	</tr>
+			<tr>	<td><a href="#Phone_Connect">Phone_Connect</a></td>					<td>Phone Connect</td>	</tr>
+			<tr>	<td><a href="#Phone_Disconnect">Phone_Disconnect</a></td>			<td>Phone Disconnect</td>	</tr>
+			<tr>	<td><a href="#Phone_Dial">Phone_Dial</a></td>						<td>Phone Dial</td>	</tr>
+			<tr>	<td><a href="#Phone_Answer">Phone_Answer</a></td>					<td>Phone Answer</td>	</tr>
+			<tr>	<td><a href="#Phone_HangUp">Phone_HangUp</a></td>					<td>Phone HangUp</td>	</tr>
+
+			<tr>	<td><a class="rev3" href="#Phone_SetScriptEvent">Phone_SetScriptEvent</a></td>	<td>Phone Set Script Event</td>	</tr>
+			<tr>	<td><a class="rev3" href="#Phone_SetScriptRawEvent">Phone_SetScriptRawEvent</a></td>	<td>Phone Set Script Raw Event</td>	</tr>
+			<tr>	<td><a class="rev3" href="#Phone_Set">Phone_Set</a></td>				<td>Phone Set Option</td>	</tr>
+			<tr>	<td><a class="rev3" href="#Phone_RawCommand">Phone_RawCommand</a></td>		<td>Phone Send Raw Command</td>	</tr>
+		</table>
+	</p>
+</div>
+
+
+
+
+
+
+
+<h2 id="ErrorCodes">3. Error Codes Table</h2>
+
+<p class="f_intro">Here is the list of all error codes which can be returned by the plug-in. The error codes are derived from MacErrors.h header file from Mac OS. Plug-in's custom error codes are positive numbers in the range between 2400 and 9999. If function fails it either returns "?" signaling an error or it returns the error code directly. If it returns "?" you can use <span class="syntax_hl">Phone_Get( "lastError" )</span> to obtain the code.</p>
+
+<table id="ErrorTable">
+  <tr>	<th>Code</th>	<th>Description</th>	<th></th>	</tr>
+  <tr>	<td class="b_technical">0</td>	<td class="b_technical">Success</td>	<td>The given action succeeded and/or there is no problem with proceeding with another.</td>	</tr>
+  <tr>	<td class="b_technical">-4</td>	<td class="b_technical">Not implemented</td>	
+  	<td>If you see this error please report the error and steps to reproduce it to <a href="mailto:support@24usoftware.com">24U Support</a>. 
+  	This error should never be invoked in the released version of the plug-in.</td>	</tr>
+  <tr>	<td class="b_technical">-50</td>	<td class="b_technical">Wrong parameter</td>	<td>If you see this error please check documentation for correct usage of the plug-in.</td>	</tr>
+  <tr>	<td class="b_technical">2400</td>	<td class="b_technical">Unknown error</td>	
+  	<td>An unknown error occurred. If you see this error please report the error and steps to reproduce it to <a href="mailto:support@24usoftware.com">24U Support</a>. 
+  	We will try to identify error conditions and add the error to this list with a new error code assigned.</td>	</tr>
+  <tr>	<td class="b_technical">2420</td>	<td class="b_technical">Wrong script name</td>	<td>Unknown script name was passed to plug-in.</td>	</tr>
+  <tr>	<td class="b_technical">2421</td>	<td class="b_technical">Wrong event name</td>	<td>Unknown event name was passed to plug-in.</td>	</tr>
+  <tr>	<td class="b_technical">2430</td>	<td class="b_technical">STLI: Already monitored</td>	<td>The extension is already monitored from another session.</td>	</tr>
+  <tr>	<td class="b_technical">2431</td>	<td class="b_technical">STLI: No device</td>	<td>There is no such device.</td>	</tr>
+  <tr>	<td class="b_technical">2432</td>	<td class="b_technical">STLI: No monitor</td>	<td>The extension is not monitored in this session.</td>	</tr>
+  <tr>	<td class="b_technical">2433</td>	<td class="b_technical">STLI: Unavailable request</td>	<td>Request not supported, disabled or invalid.</td>	</tr>
+  <tr>	<td class="b_technical">2434</td>	<td class="b_technical">STLI: Pending request</td>	<td>Another session is currently waiting for the same request with the same parameters.</td>	</tr>
+  <tr>	<td class="b_technical">2435</td>	<td class="b_technical">STLI: No connection</td>	<td>Request not executed, there's no connection at the device.</td>	</tr>
+  <tr>	<td class="b_technical">2436</td>	<td class="b_technical">STLI: No call</td>	<td>Request not executed, there's no call at the device.</td>	</tr>
+  <tr>	<td class="b_technical">2437</td>	<td class="b_technical">STLI: Link out of service</td>	<td>The request cannot be executed because there is no connection to PBX.</td>	</tr>
+  <tr>	<td class="b_technical">2438</td>	<td class="b_technical">STLI: Invalid parameter</td>	<td>Wrong parameter value was passed in raw command.</td>	</tr>
+  <tr>	<td class="b_technical">2439</td>	<td class="b_technical">STLI: Invalid number of parameters</td>	<td>Wrong number of parameters was passed in raw command.</td>	</tr>
+  <tr>	<td class="b_technical">2440</td>	<td class="b_technical">STLI: Invalid forwarding feature</td>	<td>Unknown parameter for request SetForwarding.</td>	</tr>
+  <tr>	<td class="b_technical">2441</td>	<td class="b_technical">STLI: Invalid device feature</td>	<td>Unknown parameter for request SetDeviceFeature.</td>	</tr>
+  <tr>	<td class="b_technical">2442</td>	<td class="b_technical">STLI: Invalid agent state</td>	<td>Unknown parameter for request SetAgentState.</td>	</tr>
+  <tr>	<td class="b_technical">2443</td>	<td class="b_technical">STLI: Invalid command</td>	<td>Invalid command could not be processed.</td>	</tr>
+  <tr>	<td class="b_technical">2444</td>	<td class="b_technical">STLI: Internal demoversion</td>	<td>Only one device can be monitored with this demo version.</td>	</tr>
+  <tr>	<td class="b_technical">2445</td>	<td class="b_technical">STLI: No multiple instance</td>	<td>Extension is already monitored in this session.</td>	</tr>
+  <tr>	<td class="b_technical">2446</td>	<td class="b_technical">STLI: Unknown error</td>	<td>An unrecognized error occurred.</td>	</tr>
+  <tr>	<td class="b_technical">2450</td>	<td class="b_technical">Middleware Error</td>	<td>Error on middleware communication occurred. Read "lastErrorMessage" to get exact error string.</td>	</tr>
+  <tr class="rev4">	<td class="b_technical">-3256</td>	<td class="b_technical">Socket is not connected</td>	<td>The plugin is not connected to the server.</td>	</tr>
+  <tr class="rev4">	<td class="b_technical">-3259</td>	<td class="b_technical">Time out</td>	<td>The server didn't reply within the timeout period.</td>	</tr>
+    <tr>	<td class="b_technical">24001</td>	<td class="b_technical">Demo mode expired</td>	<td>If you want to keep using the plug-in, you must register it or buy it for particular environment.</td>	</tr>
+  <tr>	<td class="b_technical">24002</td>	<td class="b_technical">Product expired</td>	<td>Trial period is over. If you want to keep using the product, you must buy it for particular environment.</td>	</tr>
+  <tr>	<td class="b_technical">24003</td>	<td class="b_technical">SN limit was met</td>	<td>The serial number is already registered on too many computers.</td>	</tr>
+  <tr>	<td class="b_technical">24004</td>	<td class="b_technical">Product is dead</td>	<td>The product expired and cannot be used any more. Please download the new version from <a href="//24usw.com/188d7">24U Software</a>.</td>	</tr>
+  <tr>	<td class="b_technical">24005</td>	<td class="b_technical">Invalid serial number</td>	<td>Serial number you entered is not valid.</td>	</tr>
+  <tr>	<td class="b_technical">24006</td>	<td class="b_technical">Activation failed</td>	<td>Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</td>	</tr>    
+  <tr>	<td class="b_technical">24007</td>	<td class="b_technical">Deactivation failed</td>	<td>Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</td>	</tr>
+  <tr>	<td class="b_technical">24008</td>	<td class="b_technical">Unknown serial number</td>	<td>The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</td>	</tr>
+  <tr>	<td class="b_technical">24009</td>	<td class="b_technical">Blacklisted serial number</td>	<td>The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</td>	</tr>
+  <tr>	<td class="b_technical">24010</td>	<td class="b_technical">eSellerate engine not installed</td>	<td> This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</td>	</tr>
+</table>
+
+</body>
+</html>

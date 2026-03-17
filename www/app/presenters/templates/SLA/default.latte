@@ -1,0 +1,207 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}{_generic.page-title.sla}{/block}
+{block description}
+
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_generic.page-title.sla}{/capture}
+                {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/sla/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/sla/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/sla/og_images/og_image_3.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => "We'll monitor and maintain your business critical FileMaker system and provide hotline you can call to guarantee required uptime and availability. Chose what service parameters are important for your business and contact us with your inquiry.",
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="cover default extended has-video">
+    <div class="video-container overlay overlay-light cover-parallax">
+
+        {if $detect['platformDevice'] === "tablet"}
+            {var $videoResolution = "1024"}
+        {elseif $detect['platformDevice'] === "phone"}
+            {var $videoResolution = "640"}
+        {else}
+            {var $videoResolution = "1920"}
+        {/if}
+        <video class="video-js" playsinline
+               data-setup='{
+					"controls": false,
+					"autoplay": {if $detect['isFirefox'] === "true"}"true"{else}"muted"{/if},
+					"preload": false,
+					"loop": "loop",
+					"aspectRatio":"16:9",
+					"fluid": true
+				   }'
+               poster="{$basePath}/video/sla/preview/sla_preview_{$videoResolution}.jpg?v=1">
+            <source src="{$basePath}/video/sla/sla_{$videoResolution}.mp4?v=1" type="video/mp4">
+            <source src="{$basePath}/video/sla/sla_{$videoResolution}.webm?v=1" type="video/webm">
+            <div class="vjs-no-js" style="background-image: url('{$basePath}/video/sla/preview/sla_preview_{$videoResolution}.jpg')"></div>
+        </video>
+    </div>
+    <div class="container cover-content">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                    {include sla-headline}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="spacing detail blue">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content order-first order-last@mobile gr-12 gr-12@mobile text-left text-left@mobile-center">
+                {include sla-overview-text}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services arrow">
+    <div class="container">
+        <div class="row">
+            <div class="gr-12">
+                <div class="row mb-1">
+                    <div class="gr-4 text-center hide show@mobile">
+                        <a href="#" class="tab" data-tab-link="bronze"><img src="{$basePath}/img/icons/bronze_medal.svg" alt="Bronze medal">{_pages.sla.default.service-table.headline.bronze}</a>
+                    </div>
+                    <div class="gr-4 text-center hide show@mobile">
+                        <a href="#" class="tab active" data-tab-link="silver"><img src="{$basePath}/img/icons/silver_medal.svg" alt="Silver medal">{_pages.sla.default.service-table.headline.silver}</a>
+                    </div>
+                    <div class="gr-4 text-center hide show@mobile">
+                        <a href="#" class="tab" data-tab-link="gold"><img src="{$basePath}/img/icons/gold_medal.svg" alt="Gold medal">{_pages.sla.default.service-table.headline.gold}</a>
+                    </div>
+                </div>
+                <table class="table-tabs-content silver-tab-content active">
+                    <thead>
+                    <tr>
+                        <th>
+                            {_pages.sla.default.service-table.headline.label}
+                        </th>
+                        <th class="bronze">
+                            <img src="{$basePath}/img/icons/bronze_medal.svg" alt="Bronze medal">
+                        </th>
+                        <th class="silver">
+                            <img src="{$basePath}/img/icons/silver_medal.svg" alt="Silver medal">
+                        </th>
+                        <th class="gold">
+                            <img src="{$basePath}/img/icons/gold_medal.svg" alt="Gold medal">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="bronze color-bronze">{_pages.sla.default.service-table.headline.bronze}</td>
+                        <td class="silver color-silver">{_pages.sla.default.service-table.headline.silver}</td>
+                        <td class="gold color-gold">{_pages.sla.default.service-table.headline.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.response_time.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.response_time.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.response_time.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.response_time.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.workaround_time.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.workaround_time.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.workaround_time.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.workaround_time.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.resolution_time.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.resolution_time.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.resolution_time.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.resolution_time.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.hotline.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.hotline.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.hotline.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.hotline.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.uptime_monitoring.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.uptime_monitoring.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.uptime_monitoring.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.uptime_monitoring.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.personal_check.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.personal_check.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.personal_check.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.personal_check.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.offsite_backups.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.offsite_backups.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.offsite_backups.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.offsite_backups.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.online_help.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.online_help.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.online_help.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.online_help.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.request_summary.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.request_summary.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.request_summary.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.request_summary.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.monthly_capacity.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.monthly_capacity.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.monthly_capacity.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.monthly_capacity.gold}</td>
+                    </tr>
+                    <tr>
+                        <td>{_pages.sla.default.service-table.floating_capacity.label}</td>
+                        <td class="bronze">{_pages.sla.default.service-table.floating_capacity.bronze}</td>
+                        <td class="silver">{_pages.sla.default.service-table.floating_capacity.silver}</td>
+                        <td class="gold">{_pages.sla.default.service-table.floating_capacity.gold}</td>
+                    </tr>
+                    <!--<tr><td>Floating capacity</td><td>None</td><td>1 month</td><td>3 months</td></tr>
+                    <tr><td>Prepaid monthly support time</td><td>2 hours</td><td>4 hours</td><td>8 hours</td></tr>
+                    <tr><td>Prepaid monthly development time</td><td>1 man day</td><td>3 man days</td><td>10 man days</td></tr>-->
+
+                    </tbody>
+                    <tfoot>
+                        <tr><td colspan="4">&nbsp;</td></tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{snippet contactForm}
+    {include '../Components/contact-form-orange.latte', headline => 'false', description => 'false'}
+{/snippet}
+
+<section class="slider-panel end testimonial-swiper-video">
+    {var $testimonials = [
+        [quote => 'duncan_mcdavid', img => $basePath.'/img/testimonials/duncan_mcdavid.jpg', video => [id => '6cyY3URjoOg']],
+        [quote => 'randy_leclaire', img => $basePath.'/img/testimonials/randy_LeClaire-edited.jpg'],
+        [quote => 'jiri_simak', img => $basePath.'/img/testimonials/jiri_simak_preview.jpg', video => [id => 'rgqwmu6W-rM']],
+        [quote => 'patrick_brenton', img => $basePath.'/img/testimonials/patrick_brenton.jpg'],
+        [quote => 'world_wide_distributor'],
+        [quote => 'john_mikton', img => $basePath.'/img/testimonials/john_mikton.jpg'],
+    ] }
+    {import '../Components/testimonials.latte'}
+    {include testimonial-swiper, $testimonials}
+</section>

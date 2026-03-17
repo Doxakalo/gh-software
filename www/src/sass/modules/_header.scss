@@ -1,0 +1,442 @@
+header {
+  $initialHeight: 85px;
+  background-color: $navColor;
+  color: $navColorText;
+  opacity: 1;
+  font-size: .8em;
+  position: static;
+  height: $initialHeight;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 199;
+
+  .lang {
+    position: absolute;
+    height: 100%;
+    right: -30px;
+    @include g-state(desktop) {
+      right: -25px;
+    }
+    &:hover{
+      a {
+        color: $colorWhite;
+        font-weight: $fwBold;
+      }
+      .active{
+        a {
+          color: rgba($colorWhite, .5);
+          font-weight: $fwNormal;
+        }
+      }
+    }
+    > ul{
+      position: relative;
+      top: 50%;
+      @include translateY(-50%);
+
+      > li {
+        width: 100%;
+        padding: 0.15em 0;
+
+        a {
+          color: rgba($colorWhite, .5);
+          text-decoration: none;
+          display: block;
+          &:hover{
+            color: $colorWhite;
+          }
+        }
+        &.active{
+          font-weight: $fwBold;
+          a {
+            color: rgba($colorWhite, .8);
+          }
+        }
+      }
+    }
+  }
+  @include g-state(mobile) {
+    height: 55px;
+  }
+
+  &.stuck {
+    position: fixed;
+    top: 0;
+  }
+
+  @include g-state(desktopLarge) {
+    font-size: .8em;
+  }
+
+  .container {
+    position: relative;
+
+    .inner {
+      height: $initialHeight;
+
+      @include g-state(mobile) {
+        height: 55px;
+      }
+    }
+  }
+
+  a.logo {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 120px;
+    float: left;
+    z-index: 1;
+  }
+
+
+  a.logo {
+    height: 100%;
+    width: 100%;
+    float: left;
+    z-index: 2;
+
+    &.partnerLogo {
+      width: 66px;
+      @include transform(scale(1));
+
+      &:hover {
+        @include transform(scale(1.1));
+
+        #partnerLogo {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  #logo {
+    @include transform(translateY(-50%) translateX(calc(-50% + 0.5px)) translateZ(0) scale(1, 1));
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 45px;
+    z-index: 2;
+    padding-bottom: 1px;
+
+    @include g-state(tablet mobile) {
+      //height: 33px;
+    }
+  }
+
+  #partnerLogo {
+    @include transform(translateY(-50%));
+
+    position: absolute;
+    top: 50%;
+    height: 26px;
+    z-index: 2;
+    opacity: 0.5;
+    @include transition(opacity 1s);
+    @include g-state(tablet mobile) {
+      height: 26px;
+    }
+  }
+
+  .search-wrapper {
+    position: absolute;
+    height: 100%;
+    right: 0;
+    width: 0;
+    @include transition(width 1s);
+
+    .search-wrapper-inner {
+      //height: 100%;
+      height: 42px;
+      position: relative;
+      //@include transition(width 1s);
+      top: 50%;
+      margin-top: -21px;
+
+      #search {
+        @include transition(width 1s, background-color 1s, margin-top 1s);
+        //@include translateY(-50%);
+        position: absolute;
+        top: 0;
+        width: 0;
+        height: 40px;
+        right: 0;
+        border-radius: 3px;
+
+        #searchIcon {
+          height: 27px;
+          opacity: 0.6;
+          cursor: pointer;
+          //@include translateY(-50%);
+          @include transition(opacity 1s);
+          position: absolute;
+          top: 6px;
+          z-index: 2;
+          left: -40px;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        #closeIcon {
+          position: absolute;
+          right: 15px;
+          width: 15px;
+          height: 15px;
+          top: 13px;
+          cursor: pointer;
+          z-index: 2;
+          opacity: 0;
+          @include transition(opacity 1s);
+        }
+
+        #searchBar {
+          vertical-align: top;
+          color: #fff;
+          height: 100%;
+          font-size: 15px;
+          background-color: transparent;
+          padding: 0;
+          width: 0;
+          pointer-events: none;
+          opacity: 0;
+          @include transition(opacity 1s, width 1s, padding-left 1s, padding-right 1s);
+
+          @include input-placeholder {
+            color: darken($colorLightBlue5, 4);
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+
+
+  &.activeSearch {
+    nav {
+      opacity: 0;
+      pointer-events: none;
+      cursor: none;
+      @include transition(opacity 1s);
+    }
+
+    .search-wrapper {
+      width: 100%;
+      @include transition(width 1s);
+
+      .search-wrapper-inner {
+        #search {
+          width: 70%;
+          background-color: $colorLightBlue3;
+          @include transition(width 1s, background-color 1s);
+
+          #searchBar {
+            width: 100%;
+            padding-left: 10px;
+            padding-right: 10px;
+            pointer-events: auto;
+            opacity: 1;
+            @include transition(opacity 1s, width 1s, padding-left 0.2s, padding-right 1s);
+          }
+
+          #searchIcon, #closeIcon {
+            @include transition(opacity 1s);
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  &.scroll {
+    .container {
+      #logo {
+        margin-top: 4px;
+      }
+
+      #search {
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
+#menuIcon {
+  position: relative;
+  height: 100%;
+  width: 45px;
+  float: right;
+
+  img {
+    transform: translateY(-50%);
+    position: absolute;
+    top: 50%;
+    height: 40px;
+
+    &.menuCloseIcon {
+      opacity: 0;
+    }
+
+    &.menuOpenIcon {
+      opacity: 1;
+    }
+
+    &.menuCloseIcon, &.menuCloseIcon {
+      @include transition(opacity 0.3s);
+    }
+  }
+
+  &[data-active="true"] {
+    img {
+      &.menuOpenIcon {
+        opacity: 0;
+      }
+
+      &.menuCloseIcon {
+        opacity: 1;
+      }
+
+      &.menuCloseIcon, &.menuCloseIcon {
+        @include transition(opacity 1s);
+      }
+    }
+  }
+}
+
+#mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $colorBlue;
+  display: none;
+  z-index: 199;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+
+  > ul {
+    margin: 0;
+    padding-left: 0;
+    list-style-type: none;
+    width: 100%;
+    padding-bottom: 5px;
+
+
+    &.lang {
+      text-align: center;
+      padding-bottom: 200px;
+
+      > li {
+        text-align: center;
+        display: inline-block;
+        margin-right: 1em;
+
+        a {
+          background: none;
+          border: none;
+          display: inline-block;
+
+        }
+
+        &.active {
+          font-weight: bold;
+        }
+
+        &:after {
+          content: '|';
+          display: inline-block;
+          margin-left: 1em;
+          color: rgba($colorWhite, .5);
+        }
+
+        &:last-of-type {
+          margin-right: 0;
+
+          &:after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    > li {
+      text-align: left;
+      position: relative;
+
+      > a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 9px;
+        background-color: #5089C2;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        &.highlight {
+          font-weight: bold;
+        }
+      }
+
+      .openDropDown {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 70px;
+        text-align: center;
+        height: 100%;
+
+        img {
+          width: 12px;
+          margin-top: 7px;
+          transform: rotate(90deg);
+          @include transition(transform 1s);
+        }
+
+        &.active {
+          img {
+            transform: rotate(270deg);
+            @include transition(transform 1s);
+          }
+        }
+      }
+
+      &.dropdown-menu {
+        display: none;
+
+        .dropdown-section {
+          color: white;
+          text-decoration: none;
+          display: block;
+          padding: 9px;
+          padding-left: 25px;
+          background-color: #5089C2;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        ul {
+          li {
+            a {
+              color: white;
+              text-decoration: none;
+              display: block;
+              padding: 9px;
+              padding-left: 50px;
+              background-color: #326CA4;
+              border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.partnerLogo {
+  img {
+    margin-top: 0.3em;
+  }
+}

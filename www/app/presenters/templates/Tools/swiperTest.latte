@@ -1,0 +1,104 @@
+{block title}Gonector{/block}
+{block description}
+    Gonector is a FileMaker plug-in that allows a native application for iPhone or iPad to communicate directly with mobile hardware devices.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "Gonector - Connect professional mobile devices to the FileMaker platform",
+            description => "Gonector is a FileMaker plug-in that allows a native application for iPhone or iPad to communicate directly with mobile hardware devices.",
+            imagePath => "img/pages/tools/gonector/og_image.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+
+{block content}
+
+{* VIDEO - DETECT RESOLUTION *}
+{if $detect['platformDevice'] === "tablet"}
+    {var $videoResolution = "640"}
+{elseif $detect['platformDevice'] === "phone"}
+    {var $videoResolution = "640"}
+{else}
+    {var $videoResolution = "640"}
+{/if}
+
+{import '../Components/tools_videoplayer.latte'}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/gonector_icon.svg" alt="Gonector">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Connect professional mobile devices to the FileMaker platform
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <div class="button download-button">Download</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/swiper_test_en.latte'}
+{var $overview = [
+    name => 'overview',
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'swipertest', img => $basePath.'/img/pages/tools/simpletalk/video_preview_telnet.png',
+        video-compilation => [
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'printer', videoResolution => $videoResolution],
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'ingenico', videoResolution => $videoResolution],
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'barcode_scan', videoResolution => $videoResolution],
+            [videoType => "video-yt", id => '4JbepdzYMXk', title=> 'Video Preview Telnet', button-dark=>"true" ],
+            [videoType => "video-yt", id => '4JbepdzYMXk', title=> 'Video Preview Telnet', button-dark=>"true" ],
+            [videoType => "video-yt", id => '4JbepdzYMXk', title=> 'Video Preview Telnet', button-dark=>"true" ],
+        ]
+    ],
+    [name => 'swipertest', img => $basePath.'/img/pages/tools/simpletalk/video_preview_telnet.png',
+        video-compilation => [
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'printer', videoResolution => $videoResolution],
+            [videoType => "video-yt", id => '4JbepdzYMXk', title=> 'Video Preview Telnet', button-dark=>"true" ],
+            [videoType => "video-yt", id => '4JbepdzYMXk', title=> 'Video Preview Telnet', button-dark=>"true" ],
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'barcode_scan', videoResolution => $videoResolution],
+
+]
+    ],
+    [name => 'swipertest', img => $basePath.'/img/pages/tools/simpletalk/video_preview_telnet.png',
+        video-compilation => [
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'printer', videoResolution => $videoResolution],
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'printer', videoResolution => $videoResolution],
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'printer', videoResolution => $videoResolution],
+            [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'printer', videoResolution => $videoResolution],
+            [videoType => "video-yt", id => '4JbepdzYMXk', title=> 'Video Preview Telnet', button-dark=>"true" ],
+            [videoType => "video-yt", id => '4JbepdzYMXk', title=> 'Video Preview Telnet', button-dark=>"true" ],
+        ]
+    ],
+]}
+{import '../Components/articles.latte'}
+{include article-list, $articles}

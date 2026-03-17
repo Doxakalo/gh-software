@@ -1,0 +1,298 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>24U Phone Companion - Compatible PBX</title>
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      body { background-color: #FFFFFF; padding: 0.1em 1em 1em 1em }
+      #container { max-width: 60em;}
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px; }
+      h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h2 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      .phcCompatible { font-family: "Lucida Grande", Arial, sans-serif; color: #0066BB }
+      .phcTested { font-family: "Lucida Grande", Arial, sans-serif; color: #00AA00 }
+      .phcIncompatible { font-family: "Lucida Grande", Arial, sans-serif; color: #DD0000 }
+      .phcChecking { font-family: "Lucida Grande", Arial, sans-serif; color: #FF9900 }
+      .phcLikelyCompatible { font-family: "Lucida Grande", Arial, sans-serif; color: #9933FF }
+      .phcLikelyIncompatible { font-family: "Lucida Grande", Arial, sans-serif; color: #FF9933 }
+      table { margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; ; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+	  .webdiff, .webdiff td { background-color: #ffC0A0;}
+	  .new, .new td { background-color: yellow;}
+/*       .newnew, .newnew td { background-color: #80FF80;} */
+      .new30, .new30 td { background-color: #80FF80;}
+    
+    -->
+    </STYLE>
+  </head>
+
+<body>
+    
+<div id="container">
+
+<h1>24U Phone Companion - Compatible PBX as per TeamCall 3.8.19</h1>
+
+<p>24U Phone Companion uses ilink TeamCall Lite as a middleware to communicate with your PBX. TeamCall Lite is a limited addition of TeamCall and is available in 2 modification. TeamCall Express only works on Windows with TAPI drivers installed and connects to the PBX via USB or serial port. TeamCall Server is available for macOS, Windows, and Linux and connects to the PBX via TCP/IP.</p>
+
+<p>Up to date online version of this list can be found on 24U Website: <a href="http://www.24usoftware.com/support/PBXSupport">http://www.24usoftware.com/support/PBXSupport</a>.</p>
+
+<p>The green rows are the systems added in version 3.0.</p>
+
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left" width="250">PBX Model</th><th align="left" width="120">Status</th><th align="left" width="200">Operating System</th><th align="left">Additional requirements</th></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>3Com NBX V3000</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>TAPI/WAV, NBX TAPI Service Provider</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>Asterisk Open Source PBX</td><td class="phcTested">Tested</td><td>macOS, Linux, Windows</td><td><a href="http://www.xtelsio.com/en/products/ast_tsp/tapi_for_asterisk.htm" target="_blank">xtelsio TAPI driver</a> installed on a Windows computer</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="new30"><td>Alcatel 4x00</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Alcatel CSTA licenses</td></tr>
+<tr valign="top"><td>Alcatel Office E</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Alcatel CSTA licenses</td></tr>
+<tr valign="top"><td>Alcatel OmniPCX Office</td><td class="phcTested">Tested</td><td>macOS, Linux, Windows</td><td>Alcatel CSTA licenses</td></tr>
+<tr valign="top"><td>Alcatel OmniPCX Enterprise</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Alcatel CSTA licenses</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>Allworx 24x</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td><a href="http://www.allworx.com/products/business-phone-system-software/tapi-tsp">TAPI Drivers</a></td></tr>
+<tr valign="top" class="newnew"><td>Allworx 6x</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td><a href="http://www.allworx.com/products/business-phone-system-software/tapi-tsp">TAPI Drivers</a></td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>Argent Office</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top" class="newnew"><td>Aspect Unified IP system</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>AT&amp;T Partner 2</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>Auerswald COMpact 5010 VoIP</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>LAN TAPI licenses</td></tr>
+<tr valign="top"><td>Auerswald COMpact 5020 VoIP</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>LAN TAPI licenses</td></tr>
+<tr valign="top"><td>Auerswald COMmander Basic.2</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>LAN TAPI licenses</td></tr>
+<tr valign="top"><td>Auerswald COMmander Basic.2 19"</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>LAN TAPI licenses</td></tr>
+<tr valign="top"><td>Auerswald COMmander Business</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>LAN TAPI licenses</td></tr>
+<tr valign="top"><td>Auerswald COMmander Business 19"</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>LAN TAPI licenses</td></tr>
+
+<tr valign="top" id="avaya"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>Avaya MultiVantage S8x00 series</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Avaya Communication Manager 2.x or higher, C-LAN board, CTI Server AES with DLG license, ASAI (core) license</td></tr>
+<tr valign="top"><td>Avaya IP Office (Pro, 500, 500v2)</td><td class="phcTested">Tested</td><td>Windows</td><td>TAPI Link Pro</td></tr>
+<tr valign="top"><td>Avaya IP Office 403</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>Avaya IP Office TAPI2 Service Provider, "Third Party" version, CTI Link Pro License</td></tr>
+
+<tr valign="top"><td>Avaya Partner 2</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>Avaya Integral i5 (Tenovis)</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Tenovis Connection NT</td></tr>
+<tr valign="top"><td>Avaya Integral i55 (Tenovis)</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Tenovis Connection NT</td></tr>
+<tr valign="top" class="new30"><td>Avaya Integral i33 (Tenovis)</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Tenovis Connection NT</td></tr>
+<tr valign="top" class="new30"><td>Avaya Integral i55 LX (Tenovis)</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Tenovis Connection NT</td></tr>
+<tr valign="top" class="new30"><td>Avaya AURA</td><td class="phcCompatible">Compatible</td><td>Linux, Windows</td><td>TeamCall CA Avaya</td></tr>
+<tr valign="top" class="new30"><td>Avaya CS1000 (Communications Server 1000)</td><td class="phcCompatible">Compatible</td><td>Linux, Windows</td><td>TeamCall CA Nortel</td></tr>
+<tr valign="top"><td>Avaya BCM 50</td><td class="phcTested">Tested</td><td>Windows</td><td>LAN CTE Toolkit</td></tr>
+<tr valign="top"><td>Avaya BCM 200</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>LAN CTE Toolkit</td></tr>
+<tr valign="top"><td>Avaya BCM 450</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>LAN CTE Toolkit</td></tr>
+<tr valign="top"><td>Avaya Norstar</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>Norstar CTA</td></tr>
+
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>Cisco 1700</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>Cisco Callmanager, Tapi Service Provider with multiline support</td></tr>
+<tr valign="top"><td>Cisco CallManager</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>none</td></tr>
+<tr valign="top" ><td>Cisco CallManager Express</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>none</td></tr>
+<tr valign="top"><td>Cisco Unified Communication 500</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="new30"><td>Cisco Unified Communications Manager (CUCM)</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>TeamCall CA Cisco, TeamCall LinkTSP</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="newnew"><td>Customer Interaction Center</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>Microsoft TAPI Integration Support</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>Deutsche Telekom T-Octopus E30</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>HG1500 board</td></tr>
+<tr valign="top"><td>Deutsche Telekom T-Octopus E930</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>HG1500 board</td></tr>
+<tr valign="top" class="new30"><td>Deutsche Telekom T-Octopus Fxx (except for F50)</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>HG1500 board</td></tr>
+<tr valign="top"><td>Deutsche Telekom T-Octopus Open</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>CSTA server licenses</td></tr>
+<tr valign="top" class="new30"><td>Deutsche Telekom Octopus CM</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>TeamCall CA Cisco, TeamCall LinkTSP</td></tr>
+<tr valign="top" class="new30"><td>Deutsche Telekom Octopus EP</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Deutsche Telekom T-Comfort Pro S</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class = "newnew"><td>Easy vPaBX from Gintel</td><td class = "phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>ESI IVX 72e</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>TAPI Drivers, Check specific functionality with vendor</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>Fonality PBXtra</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td><a href="http://help.pbxtra.com/Troubleshooting/CRM_Integration_Guide">CRM Integration</a></td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>Funkwerk Elmeg ITC-88 International</td><td class="phcTested">Tested</td><td>Windows</td><td>TAPI Drivers</td></tr>
+
+<tr valign="top" class="new30"><td>Innovaphone IP302, IP305, IP800, IP810</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>TeamCall CA Innovaphone, TeamCall LinkTSP</td></tr>
+<tr valign="top" class="new30"><td>Innovaphone IP0010, IP0011, IP1060, IP3010, IP6010</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>TeamCall CA Innovaphone, TeamCall LinkTSP</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="newnew"><td>Hybrex G1E Plus</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>T-Server Ver6, ATC TSP, serial card</td></tr>
+<tr valign="top" class="newnew"><td>Hybrex G1E-GDS (G1E Plus M)</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>T-Server Ver6, ATC TSP, serial card</td></tr>
+<tr valign="top"><td>Hybrex GDS </td><td class="phcTested">Tested</td><td>Windows 32bit</td><td>T-Server Ver6, ATC TSP</td></tr>
+
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top" class = "newnew"><td>LG Ericsson IP-LDK-60</td><td class = "phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class = "newnew"><td>LG Nortel iPECS</td><td class = "phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>Mitel Aastra 800</td><td class="phcTested">Tested</td><td>macOS, Linux, Windows</td><td>Software Release 9, CSTA Licence, Administrator password</td></tr>
+<tr valign="top"><td>Mitel Aastra 5000</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Software Release 9, CSTA Licence, Administrator password</td></tr>
+<tr valign="top" class = "new30"><td>Mitel Aastra Business Phone</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>BusinessLink or 3rd party multiline TAPI driver (Windows 32bit)</td></tr>
+<tr valign="top" class = "new30"><td>Mitel Aastra 1xx</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>CSTA Licence, Administrator password</td></tr>
+<tr valign="top"><td>Mitel 3300 IP Communications Platform</td><td class="phcTested">Tested</td><td>Windows</td><td>Mitel Himalaya</td></tr>
+<tr valign="top"><td>Mitel 5000(MiVoice Office 250)</td><td class="phcCompatible">Compatible</td><td></td><td></td></tr>
+<tr valign="top" class="new30"><td>Mitel MiVoice Business</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Mitel MiVoice MX-ONE</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Mitel MD 110</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Mitel Office 400 Virtual Applicance, 415, 430, 470</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td>CTI-User must be set up, CTI-UserID + password required</td></tr>
+<tr valign="top" class="new30"><td>Mitel DeTeWe OpenCom 1xx</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Mitel DeTeWe OpenCom 510</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Mitel DeTeWe OpenCom X320</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top"><td>Mitel OpenCom 1010</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>OIP Server</td></tr> 
+<tr valign="top"><td>Mitel OpenCom 1100/1200/1300</td><td class="phcCompatible">Compatible</td><td>Windows</td><td>OIP Server</td></tr> 
+<tr valign="top"><td>Mitel Ascotel IntelliGate 150</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>OIP server</td></tr>
+<tr valign="top"><td>Mitel Ascotel IntelliGate 300</td><td class="phcTested">Tested</td><td>Windows 32bit</td><td>OIP server</td></tr>
+<tr valign="top"><td>Mitel Ascotel IntelliGate 2025</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>OIP server</td></tr>
+<tr valign="top"><td>Mitel Ascotel IntelliGate 2045</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>OIP server</td></tr>
+<tr valign="top"><td>Mitel Ascotel IntelliGate 2065</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>OIP server</td></tr>
+<tr valign="top"><td>Mitel Ericsson MD 110</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>ApplicationLink</td></tr>
+<tr valign="top"><td>Mitel Ericsson MX-ONE</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>ApplicationLink</td></tr>
+<tr valign="top"><td>Mitel Ericsson BusinessPhone</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td>none</td></tr>
+
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>NEC Aspire</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>none</td></tr>
+<tr valign="top"><td>NEC DSX</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>NEC Univerge SV8100</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>Same Tapi as XN120, TAPI license for PBX, Network card of IP address</td></tr>
+<tr valign="top" class="newnew"><td>NEC SL1000/SL1100</td><td class="phcLikelyCompatible">Likely compatible</td><td>Windows 32bit</td><td class="phcChecking"> Checking... </td></tr>
+<tr valign="top" class="newnew"><td>NEC IPK Electra Elite</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>First party TAPI only</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>Panasonic KX-TDA 600</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>TAPI Drivers</td></tr> 
+<tr valign="top"><td>Panasonic KX-TDA 100/200</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td>KX-TDA0410X CTI board</td></tr>
+<tr valign="top"><td>Panasonic KX-TDA 15</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>TAPI Drivers</td></tr>
+<tr valign="top"><td>Panasonic KX-TDA 30</td><td class="phcTested">Tested</td><td>Windows 32bit</td><td>TAPI Drivers</td></tr>
+<tr valign="top"><td>Panasonic KX-TDA 50</td><td class="phcCompatible">Compatible</td><td>Windows 32bit</td><td>TAPI Drivers</td></tr>
+
+<tr valign="top"><td>Panasonic KX-TDE 100/200</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td>KX-TDA0410X CTI board</td></tr>
+
+<tr valign="top"><td>Panasonic KX-NCP500</td><td class="phcTested">Tested</td><td>Linux, macOS, Windows</td><td>TAPI Drivers</td></tr>
+
+<tr valign="top"><td>Panasonic KX-NCP500 Express</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td>TAPI Drivers</td></tr>
+<tr valign="top"><td>Panasonic KX-NCP1000</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td>TAPI Drivers</td></tr>
+<tr valign="top" class="new30"><td>Panasonic KX-NS300, KX-NS500, KX-NS700, KX-NS1000</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Panasonic KX-NSX1000, KX-NSX2000</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="newnew"><td>Samsung DCS 816</td><td class="phcLikelyCompatible">Likely compatible</td><td></td><td >Serial Interface Module, TAPI drivers</td></tr>
+<tr valign="top" class="newnew"><td>Samsung OfficeServ (iDCS) 500</td><td class="phcLikelyCompatible">Likely compatible</td><td></td><td></td></tr>
+<tr valign="top" class="newnew"><td>Samsung OfficeServ 7100</td><td class="phcLikelyCompatible">Likely compatible</td><td></td><td></td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>Siemens -> <a href="#unify">Unify</a>.</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"><td>ShoreTel IP phone system</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Special version of TeamCall Server for Phone Companion.</td></tr>
+<tr valign="top"><td>ShoreTel Unified Communications Platform</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td> ShoreTel Release 7.5 or higher. Special version of TeamCall Server for Phone Companion.</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="newnew"><td>Switchvox PBX</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>TalkSwitch 240vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 244vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 248vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 280vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 284vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 288vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 480vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 484vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 488vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 840vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 844vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>TalkSwitch 848vs phone system</td><td class="phcIncompatible">Incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="newnew"><td>Tekelec T6000</td><td class="phcLikelyCompatible">Likely compatible</td><td>Windows 2000, 2003, XP</td><td>VOSS TAPI Service Provider</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top" class="new30"><td>Teles C5</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>Tenovis Integral -> <a href="#avaya">Avaya</a>.</td></tr>
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top"class="newnew"><td>Toshiba Strata CTX670</td><td class="phcLikelyCompatible">Likely compatible</td><td></td><td></td></tr>
+<tr valign="top" class="newnew"><td>Toshiba Strata DK 424</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="newnew"><td>Trixbox CE</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top" id="unify"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top"><td>Unify Hicom 150 E OfficeCom</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Xpress@LAN or LIM-LAN (none in Linux)</td></tr>
+<tr valign="top"><td>Unify Hicom 150 E OfficePro</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Xpress@LAN or LIM-LAN (none in Linux)</td></tr>
+<tr valign="top"><td>Unify Hicom 150 E OfficePoint</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Xpress@LAN or LIM-LAN</td></tr>
+<tr valign="top"><td>Unify Hicom 300 (from 2.0)</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>CAP 2.0 with CA</td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath 500, 520, 540, 580</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath 2000</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top"><td>Unify Hipath 2030</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>Board: HG1500 or LIM-LAN, For external calls only ISDN point-to-point calls are supported.</td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath 3xxx</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top"><td>Unify Hipath 4000</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td>CAP 2.0 with CA</td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath 4000 V1, V2</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath 4000 V3, V4, V5 without "CAP inside"</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath 4000 V5 with "CAP inside", V6, V7</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath 5000</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top"><td>Unify Hipath 8000</td><td class="phcCompatible">Compatible</td><td>macOS, Linux, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify HiPath Office ME/EE</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify OpenOffice ME/EE</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify OpenScape 4000 V7 and newer</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify OpenScape Business S, X3 / X3R, X5 / X5R, X8</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td>"Booster-Board" or "Booster-Server" is required, CSTA-license is included, but must be activated, CSTA-user must be created, CSTA userID + pw required</td></tr>
+<tr valign="top" class="new30"><td>Unify OpenScape Office MX/LX/HX</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify OpenScape Voice</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+<tr valign="top" class="new30"><td>Unify Realitis</td><td class="phcCompatible">Compatible</td><td>Linux, macOS, Windows</td><td></td></tr>
+
+
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Wave™ IP</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Xcelerator™ IP</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Comdial&reg; DX-120™</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Comdial FX II™</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Comdial MP5000™</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical TeleVantage&reg;</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Vodavi&reg; Starplus&reg; STS™</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Vodavi Telenium&reg; IP</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top" class="newnew"><td>Vertical Vodavi XTS&reg;-IP</td><td class="phcLikelyIncompatible">Likely incompatible</td><td>none</td><td>none</td></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr><td colspan=4><u>Directly supported phones:</u></td></tr>
+<tr valign="top"><th align="left" width="250">Phone Model</th><th align="left" width="120">Status</th><th align="left" width="200">Operating System</th><th align="left">Additional requirements</th></tr>
+<tr valign="top"><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr valign="top" class="new30"><td>SNOM 300</td><td class="phcTested">Tested</td><td>macOS, Windows</td><td>Ethernet</td></tr>
+<tr valign="top" class="new30"><td>SNOM 715</td><td class="phcTested">Tested</td><td>macOS, Windows</td><td>Ethernet</td></tr>
+<tr valign="top" class="new30"><td>Other SNOM phones</td><td class="phcLikelyCompatible">Likely compatible</td><td>macOS, Windows</td><td>Ethernet</td></tr>
+
+
+</table>
+
+<p>The above list indicates the current known compatibility status and operating system support for PBX models which we have already checked or are checking against compatibility with TeamCall and 24U Phone Companion. If your PBX model is not listed at all, please <a href="http://www.24uSoftware.com/email.php?id=support&subject=Phone+Companion+PBX+compatibility">contact us</a> to find out if 24U Phone Companion will work with your PBX.<br><br>
+
+Last update: 2019-03-08</p>
+
+</div>
+
+
+</body>
+</html>

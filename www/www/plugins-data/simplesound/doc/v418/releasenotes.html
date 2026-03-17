@@ -1,0 +1,132 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>24U SimpleSound Plug-In Release Notes</title>
+<style type="text/css">
+body { padding: 1em; }
+#container { max-width: 60em;}
+</style>
+</head>
+<body>
+<div id="container">
+	
+<tt>
+<b>24U SimpleSound Plug-In Release Notes</b><br>
+<p>
+This is a brief history of important changes across released versions.</p>
+
+<p><b>4.1.8</b></p>
+- Support for Apple Silicon/M1 processors<br>
+
+
+<p><b>4.1.7</b></p>
+- Updated license handling/and activation for eSellerate end-of-life<br>
+- Minor performance and FileMaker 18 compatibility improvements<br>
+
+<p><b>4.1.6</b></p>
+- Plug-in binaries for Mac and Windows are now code-signed<br>
+
+<p><b>4.1.5</b></p>
+ - Fixed issue causing crash on macOS 10.13 High Sierra 
+
+<p><b>4.1.4</b></p>
+ - ID3 tags in MP3 files can now be read and written on FileMaker Server as well<br>
+ - Added Support for ID3 Tag APIC (allows to add/extract pictures into/from MP3)<br>
+ - Added Support for ID3 TIT2 tags longer than 30 characters<br>
+ - Added inline documentation<br>
+ - Fixed crashes when setting ID3 USLT tags<br> 
+
+ 
+<p><b>4.0.0</b></p>
+ - Added support for 64-bit FileMaker&reg Pro and FileMaker Pro Advanced<br>
+ - Playback functionality completely rewritten, few issues fixed in the process<br>
+ - Quicktime framework dropped, Windows version now uses DirectShow, Mac version uses AV Foundation<br>
+ - Added support for more ID3 tags<br>
+ - Added documentation of possible error codes<br>
+ - Removed recording functionality<br>
+ - Removed palindrome playback option<br>
+ - Improved registration process <br>
+
+<p><b>3.0.2</b></p>
+
+- Works with FileMaker 11.0 and 12.0<br>
+- Works with FileMaker 13.0 except recording on Mac
+
+<p><b>3.0.1</b></p>
+
+- Plug-In crashes FileMaker Pro on exit when registered via dialog<br>
+- Memory leak when recording to the container fixed<br>
+- Pausing playback does not cause crashes
+
+<p><b>3.0</b></p>
+
+- Runs natively on both PowerPC and Intel based Macs<br>
+- Works with FileMaker 7.0, 8.0 and 8.5<br>
+- Values of ID3 tags can be read and written<br>
+- Sounds can be played back from a container instead of an external file<br>
+- Sounds can be recorded to a container instead of an external file<br>
+- Both playback and recording can be paused and resumed later<br>
+- Playback can be started from a specified offset<br>
+- Current playback or recording offset can be obtained<br>
+- Sound files can be specified with several types of paths, such as FileMaker path or URL to a local file <br>
+- Plenty of sound properties, such as length, format, sample size and sampling rate can be obtained<br>
+- When playing multiple sounds at once, specified sound can be stopped or paused or resumed
+
+<p><hr size=1></p>
+
+
+<p><b>2.7.2</b></p>
+
+- improved stability when playing MP3 for a longer time<br>
+- recording to file and to memory has been improved on Windows<br>
+- synchronous playback can be interupted by pressing ESC on Windows and Cmd+. on Mac<br>
+- deep paths > 255 characters supported on Mac OS X<br>
+
+<p><b>2.7.1</b></p>
+
+- improved overal stability on computers connected to network<br>
+- improved stability of registration on Mac OS 9<br>
+- single registration code generated for all plug-ins in a pack is now recognized<br>
+
+<p><b>2.7</b></p>
+
+- the plug-in is now fully functional in FileMaker 7<br>
+- initialization and registration of the plug-in is much faster now<br>
+
+<p><b>2.1</b></p>
+
+- background sounds/music can now be looped<br>
+- developer license splash dialog display can now be disabled<br>
+- developer license splash dialog is now displayed at quit time<br>
+
+<p><b>2.0</b></p>
+
+- added sound recording capabilities<br>
+- standardized syntax to use a single PlaySound function<br>
+- files can be referenced by relative and absolute paths<br>
+- audio files can be anywhere on the user's hard disk<br>
+- all QuickTime-supported audio formats (including MP3) can be played on all platforms<br>
+- improved stability of asynchronous sound playback<br>
+- completely new tutorial<br>
+- pre-configured 24U Plug-In AutoInstaller is now part of the distribution<br>
+- registering the plug-in with a developer license now causes a splash dialog to appear<br>
+
+<p><hr size=1></p>
+
+<p><b>1.1</b></p>
+
+- added asynchronous (background) sound playback capability<br>
+
+<p><b>1.0.1</b></p>
+
+- added compatibility with FileMaker 5.5 on Mac OS X<br>
+
+<p><b>1.0</b></p>
+
+- initial release<br>
+
+</tt>
+
+</div>
+</body>
+</html>

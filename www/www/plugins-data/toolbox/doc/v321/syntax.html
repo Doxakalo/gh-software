@@ -1,0 +1,994 @@
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+    <script>
+		/* toggle function for long tables etc. */
+		function showItems(className) {
+	        var tags = document.getElementsByTagName('*');
+	        var tcl = " " + className + " ";
+	        for (i = 0, j = 0; i < tags.length; i++) {
+	            var test = " " + tags[i].className + " ";
+	            if (test.indexOf(tcl) != -1) {
+	                if (tags[i].style.display == "none") {
+	                	tags[i].style.display = "inline";
+	                }
+	                else {
+	                	tags[i].style.display = "none";
+	                }
+	            }
+	        }
+		}
+
+		/* Simple highlight toggle only: */
+        function changeColor() {
+            var tags = document.getElementsByTagName('*');
+			var classes = ["new"];
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + " ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].style.backgroundColor == "") {
+	                        tags[i].style.backgroundColor = "#FFFFA0";
+	                        tags[i].style.color = "black";
+	                    }
+	                    else {
+	                        tags[i].style.backgroundColor = "";
+	                        tags[i].style.color = "";
+	                    }
+	                }
+	            }
+			})
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + "x ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].classList.contains("striked")) {
+	                        tags[i].classList.remove("striked");
+	                    }
+	                    else {
+	                        tags[i].classList.add("striked");
+	                    }
+	                }
+	            }
+			})
+        }
+
+		/* New revisioning functions: */
+		function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+						tags[i].classList.add(toggleClass);
+					}
+					else {
+						tags[i].classList.remove(toggleClass);
+					}
+                }
+            }
+		}
+
+        function showRevision(revNumber) {
+			var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+			// Reset all to latest revision:
+			for (var i=1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+				toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+			}
+
+			// Highlight current revision:
+			toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+			toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+
+			// Revert future revisions:
+			for (var i=revNumber+1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+			}
+        }
+    </script>
+    <style type="text/css">
+
+		/* Texts from old revisions are removed by default: */
+		.rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x,
+		.rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }
+		/* Highlighting classes handled by js: */
+		.highlighted { background-color: #FFFFA0; color: black; }
+		.striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }
+		.ignoreStriked { }
+		.highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */
+		li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */
+		span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */
+		td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+		tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+		.hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+
+    </style>
+
+    <style type="text/css" media="screen">
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h2 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+	  .syntax_hl.big { font-size: 16px; }
+	  .exampleTitle { font-family: monospace; font-size: 16px}
+	  .t_param { font-family: monospace; font-size: 12px; color: maroon }
+      td.t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon; vertical-align:top;}
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param_width { font-family: monospace; width: 180px; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      .t_path { font-family: monospace; font-size: 12px; color: #1F1F1F }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline; text-align:left; }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+	  center { font-size: 14px; }
+    -->
+    </STYLE>
+
+    <title>24U Toolbox Plug-In 3.2 Syntax</title>
+  </head>
+<body>
+<h1 class="rev1">24U Toolbox Plug-In 3.2 Syntax</h1>
+
+<p class="f_intro">Specification revision:
+  <span class="rev1"><b>1</b>, 2020-12-10</span>
+  <br/><br/>
+
+<input type="button" value="Highlight changes in the new version"	onClick='javascript:changeColor()'><br><br>
+
+<div>
+    <h1>Hosting friendly functionality</h1>
+    <p> In order for plugin function to work on the FileMaker Server you have to create a config file on FMS and set the read permission to everyone:</p>
+
+    <ul>
+        <li><b>macOs:</b>&nbsp;/Library/FileMaker Server/Data/24U/24uPluginsAllowedFunctions.txt</li>
+        <li><b>win:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C:\Program Files\FileMaker\FileMaker Server\Data\24U\24uPluginsAllowedFunctions.txt</li>
+        <li><b>linux:</b>&nbsp;&nbsp;&nbsp;&nbsp;/opt/FileMaker/FileMaker Server/Data/24U/24uPluginsAllowedFunctions.txt</li>
+    </ul>
+    <p>Toolbox plugin functions won't work on server in these cases:</p>
+    <ul>
+        <li>File 24uPluginsAllowedFunctions.txt doesn't exist</li>
+        <li>Plugin doesn't have permission to read 24uPluginsAllowedFunctions.txt</li>
+        <li>The record in the file 24uPluginsAllowedFunctions.txt with the database name and the list of allowed function doesn't exist</li>
+    </ul>
+
+
+    <h3>Format of 24uPluginsAllowedFunctions.txt file</h3>
+    <p>Every line represent one database, first is the name of the database <span class="rev9">(with suffix .fmp12) </span>followed by tabulator and then function names separated by '|' (vertical bar).<br />
+        Or name of the database <span class="rev9">(with suffix .fmp12) </span>followed by tabulator and then the word "any" if you want to allow all the plugin functions.
+        You can find template of 24uPluginsAllowedFunctions.txt in Examples.</p>
+
+    <h3 class="rev1">Example</h3>
+    <p>In following example:
+    <ul>
+        <li>Solution MyFileMakerDatabaseOnServer.fmp12 is allowed to use all the functions of any of the 24U plugins</li>
+        <li>Solution MyOtherFileMakerDatabaseOnServer.fmp12 is allowed to use functions Toolbox_Set, Toolbox_GetNameForIP and Toolbox_GetGlobal. Calling function other then those 3 will fail</li>
+
+   <!-- <p><img src=".pictures/24uPluginsAllowedFunctions.png" width="600"></p> -->
+   <p>MyFileMakerDatabaseOnServer.fmp12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;any<br />
+      MyOtherFileMakerDatabaseOnServer.fmp12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toolbox_Set|Toolbox_GetNameForIP|Toolbox_GetGlobal</p>
+
+
+
+</div>
+
+<h2>Toolbox_Version( { versionFormat } )</h2>
+<p class="f_intro">Returns version string of the active 24U Toolbox Plug-In, formatted as requested by the parameter.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">versionFormat</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number. Default value.</td></tr>
+<tr valign="top"><td class="t2_param">"long"</td><td>To get the plug-in name followed by its version number.</td></tr>
+<tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform the code is currently running on.</td></tr>
+<tr valign="top"><td class="t2_param">"autoupdate"</span></td><td><span>To get autoupdate compatible (comparable) version number.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function is very important and its output format is uniform in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker Pro. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+<h3>Result</h3>
+<p> Returns requested version format or platform. If this function returns "?" then the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.<p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Version( "long" )</span><br>
+This returns the plug-in name and its version. In this case it is "24U Toolbox Plug-In 3.0".</p>
+<p><span class="syntax_hl">Toolbox_Version( "platform" )</span><br>
+Returns "Mac OS X", "iOS"<span class="new rev1">, "Linux"</span> or "Windows" depending on the platform the plug-in is currently running.</p>
+<p><span class="syntax_hl">Toolbox_Version( "autoupdate" )</span><br>
+Returns "01010300" for the plug-in version 1.1.3.</p>
+
+
+<div>
+<h2 id="Toolbox_Register">Toolbox_Register ( selector )</h2>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers.</p>
+<h3>Parameter values for <span class="p_hl">selector</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr class="">    <td class="t2_param">SerialNumber</td>    <td>Register given SerialNumber and return an error code.</td>    </tr>
+    <tr class="">    <td class="t2_param">EmailAddress</td>    <td>Tries to activate with given email address and return an error code. Trial version is valid only after you confirm email</td>    </tr>
+    <tr class=""><td class="t2_param">Hash</td><td>Activate a serial number with a hash received from 24U. Used for offline activation.</td></tr>
+    <tr class="">    <td class="t2_param">"Registration Window"</td>    <td>Show the "Registration window" and return 0.</td>    </tr>
+    <tr class="">    <td class="t2_param">"About Window"</td>    <td>Show the "About window" and return 0.</td>    </tr>
+    <tr class="">    <td class="t2_param">"Status"</td>    <td>Return the actual registration state of the plugin: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td>    </tr>
+    <tr class="">    <td class="t2_param">"Unregister"</td>    <td>Unregister all serial numbers related to the product and return an error code. Note: after this trial version days wont come back.</td>    </tr>
+    <tr class=""><td class="t2_param">"Info"</td><td>Returns current plugin status and its registered serial numbers.</td></tr>
+    <tr class=""><td class="t2_param">"ActivationChallenge"</td><td>Returns generated challenge string. This string is sent to 24U.</td></tr>
+    <tr class=""><td class="t2_param">"Purchase" ; webAddress</td><td>Opens web browser with given webAddress. Given webAddress should point to 24U Store. <span>This functionality is not implemented for FileMaker Server and Linux.</span></td>
+</table>
+
+<h3>Description</h3>
+<p><span>Use this function to register or unregister 24U Toolbox Plug-In, to get information about current registration state, or to invoke GUI providing basic registration information and purchase capabilities.</span></p>
+<h3>Result</h3>
+<p><span>Returns zero or <a href="#errors">error code</a> depending on the selector.</span></p>
+<h3>Examples</h3>
+<p><span><span class="syntax_hl">Toolbox_Register( "TBX30I-BXMWC-VNW7W-L8AJS-3KGX3-VWG84" )</span></span><br />
+  <span>This function will register the iOS plug-in with serial number TBX30I-BXMWC-VNW7W-L8AJS-3KGX3-VWG84.</span></p>
+<p><span><span class="syntax_hl">Toolbox_Register( "TBX25C016-BXMW-VNW7-L8AJ-3KGX-VWG8" )</span></span><br />
+  <span>This function will register the plug-in with client serial number TBX25C016-BXMW-VNW7-L8AJ-3KGX-VWG8 for 16 users.</span></p>
+<p><span><span class="syntax_hl">Toolbox_Register( "user@mail.com" )</span></span><br />
+  <span>In case you do not have a serial number but you want to try the plug-in out, use the string with your email address as selector.</span></p>
+<p><span><span class="syntax_hl">Toolbox_Register( "unregister" )</span></span><br />
+  <span>This function will unregister every serial number related to 24U Toolbox Plug-In.</span></p>
+<p><span><span class="syntax_hl">Toolbox_Register( "About window" )</span></span><br />
+  <span>Similar to opening FileMaker preferences, navigating to the Plug-Ins tab and double-clicking on 24U Toolbox Plug-In.</span></p>
+<p><span><span class="note">Note: </span>All serial numbers here are only for demonstration purposes. They will not work in the plug-in.</span></p>
+
+
+<h2>Toolbox_ExecuteSQL( SQLCommand { ; fieldSeparator { ; recordSeparator } } )</h2>
+<p class="f_intro">Tells the plug-in to execute SQL command and returns the result.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">SQLCommand</td><td>The SQL command which should be executed.</td></tr>
+<tr valign="top"><td class="t_param">fieldSeparator</td><td>Optional field separator. Only the first character is used. The default field separator is a "Tab".</td></tr>
+<tr valign="top"><td class="t_param">recordSeparator</td><td>Optional record separator. Only the first character is used. The default record separator is a line break.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command tries to execute SQL command and returns the result. If an array of multiple records is a result of the command, it is returned as tab delimited text with records separated by returns, unless custom separators are specified.</p>
+<h3>Result</h3>
+<p>The function returns the result of the SQL Command. In the case of error, the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_ExecuteSQL( "select * from FileMaker_Tables" )</span><br>
+Returns a list of FileMaker tables.</p>
+
+
+<h2>Toolbox_DoSystemScript( scriptText ; scriptInterpreter )</h2>
+<p class="f_intro">Tells the plug-in to launch the specified script in the system shell.</p>
+<p><span class="note">Note: </span>Toolbox_DoSystemScript is not supported in iOS<span class="new rev1"> and Linux</span> version.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">scriptText</td><td>The text of the script that should be run.</td></tr>
+<tr valign="top"><td class="t_param">scriptInterpreter</td><td>The interpreter that should run the script.</td></tr>
+</table>
+</p>
+<h3>Possible values for <span class="p_hl">scriptInterpreter</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th width="130">scriptInterpreter</th><th width="130">Script type</th><th>Description and platform</th></tr>
+<tr valign="top"><td nowrap><tt>"APPLE"</tt></td><td>Apple script</td><td>The scriptText is an AppleScript. Available on MAC OS X.</td></tr>
+<tr valign="top"><td nowrap><tt>"BASH"</tt></td><td>Bash script</td><td>The scriptText is a Bash Script. Available on MAC OS X.</td></tr>
+<tr valign="top"><td nowrap><tt>"PHP"</tt></td><td>PHP script</td><td>The scriptText is a PHP Script. Available on MAC OS X.</td></tr>
+<tr valign="top"><td nowrap><tt>"BAT"</tt></td><td>Bat script</td><td>The scriptText is a bat text file. Available on Windows.</td></tr>
+<tr valign="top"><td nowrap><tt>"VBS"</tt></td><td>Visual Basic script</td><td>The scriptText is a Visual Basic Script. Available on Windows.</td></tr>
+</table>
+</p>
+<h3>Description</h3>
+<p>The function starts the script and waits until it finishes. Then it returns the text that has been printed on the standard output.</p>
+<h3>Result</h3>
+<p>Result of the script. It is usually the text that is printed by the script into the standard output. In the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_DoSystemScript( "DIR C:" ; "BAT" )</span><br>
+This executes specified BAT script that should list all directories and files in the root directory of disk C: on Windows.</p>
+<p><span class="syntax_hl">Toolbox_DoSystemScript( "echo HELLO" ; "BASH" )</span><br>
+This executes specified BASH script that should write "HELLO" to the standard output. The function should return "HELLO".</p>
+<p><span class="syntax_hl">Toolbox_DoSystemScript( "php C:\php.php" ; "BAT" )</span><br>
+This executes BAT script that runs PHP script on Windows (only if PHP is correctly installed in system).</p>
+
+<h2>Toolbox_DoFileMakerScript( scriptName { ; scriptParameter } { ; delayOrTime } )</h2>
+<p class="f_intro">Tells the plug-in to launch the FileMaker script. <b class="news_highlight">Note: FileMaker scripts cannot be performed on FileMaker Server.</b></p>
+<p class="new rev1"><span class="note">Note: </span>Toolbox_DoFileMakerScript is not supported in Linux version.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of the script that should be executed. If the name is not valid, the function returns an error -50.</td></tr>
+<tr valign="top"><td class="t_param">scriptParameter</td><td>Any data that should be sent to the script as a parameter. No parameter is default.</td></tr>
+<tr valign="top"><td class="t_param">delayOrTime</td><td>The time interval after that the script should be executed, or TimeStamp value. In the first case use FileMaker number i.e. 1.8. Time is in [s]. Time must be a positive number. If the time delay for execution is longer than 1 day, a warning -1001 is generated, and the script is scheduled anyway. In the second case use FileMaker TimeStamp value.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command tries to schedule or launch the FileMaker script. If delayOrTime parameter is not specified, the script should run immediately.</p>
+<h3>Result</h3>
+<p>The function returns 0 if it managed to execute or schedule the script. In the case of error, the function returns negative error code.</p>
+
+<h3>Attention</h3>
+<p>The Toolbox plug-in cannot remember scheduled scripts if FileMaker is restarted.<br>
+<b>Note: Scheduled FileMaker scripts are called only when FileMaker is in IDLE state. Therefore FileMaker script execution can be further delayed if FileMaker is busy. On iOS it can take longer.</b></br>
+<b>Note: This function doesn't work on FileMaker Server.</b>
+</p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" )</span><br>
+This tries to execute the script named "Default Script" instantly.</p>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" ; "105" )</span><br>
+This tries to execute the script named "Default Script" instantly. The script receives a parameter with value 105.</p>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" ; "230" ; 10.5 )</span><br>
+This tries to schedule the script named "Default Script". The script receives a parameter with value 230. The script will be executed 10.5 seconds after this command being executed.</p></p>
+<p><span class="syntax_hl">Toolbox_DoFileMakerScript( "Default Script" ; "50" ; GetAsTimestamp( "3/10/2012 11:30 AM" ))</span><br>
+This tries to schedule the script named "Default Script". The script receives a parameter with value 50. The script will be executed 3/10/2012 at 11:30 AM.</p>
+
+<h2>Toolbox_GetNameForIP( hostIP )</h2>
+<p class="f_intro">Gets hostname for the given IP.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">hostIP</td><td>The source IP address.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Uses DNS service of the operating system to obtain the name for the given IP.</p>
+<h3>Result</h3>
+<p>The function returns a hostname. In the case of error, the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetNameForIP( "209.85.149.99" )</span><br>
+Returns DNS record for IP Address 209.85.149.99.</p>
+
+<h2>Toolbox_GetIPforName( hostName )</h2>
+<p class="f_intro">Gets IP for the given hostname.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">hostName</td><td>The source hostname.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Uses DNS service of the operating system to obtain the IP for the given name.</p>
+<h3>Result</h3>
+<p>The function returns host IP. In the case of error, the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetIPforName( "www.24u.cz" )</span><br>
+Returns an IP Address for hostname "www.24u.cz".</p>
+
+<h2>Toolbox_GetClientPublicIPAddress</h2>
+<p class="f_intro">Gets your public ip address.</p>
+<h3>Description</h3>
+<p>This command tries to get your internet public ip address. If you are not behind NAT the returned address is the same as the address from your network interface. Otherwise it returns the address of frontmost NAT in your network.</p>
+<h3>Result</h3>
+<p> The function returns your public ip address. In the case of error, the function returns negative error code.</p>
+<h3>Attention</h3>
+<p>If this command does not work in your system it may be due wrong firewall setting. Please enable two way communication for your FileMaker Pro in your firewall setting to get this command to work.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetClientPublicIPAddress</span><br>
+Returns your public ip address.</p>
+
+<h2>Toolbox_GetSpecialWindows</h2>
+<p class="f_intro">Gets a list of opened special FileMaker windows.</p>
+<p><span class="note">Note: </span>Toolbox_DoSystemScript is not supported in iOS<span class="new rev1"> and Linux</span> version.</p>
+<h3>Description</h3>
+<p>This command tries to get a list of special FileMaker windows such as "Data Viewer" and "Script Debugger" etc.</p>
+<h3>Attention</h3>
+<p>This command is disabled on server.</p>
+<h3>Result</h3>
+<p>The function returns a value list of the special FileMaker windows delimited by the line break.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetSpecialWindows</span><br>
+Returns "Data viewer" if it is opened.</p>
+
+<h2>Toolbox_GetPrinterNames</h2>
+<p class="f_intro">Gets a list of installed printers.</p>
+<p><span class="note">Note: </span>Toolbox_DoSystemScript is not supported in iOS<span class="new rev1"> and Linux</span> version.</p>
+<h3>Description</h3>
+<p>This command tries to get a list of printers currently installed in the system.</p>
+<h3>Result</h3>
+<p>The function returns the list of printers currently installed in the system. The printer names are delimited by line break.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetPrinterNames</span><br>
+Returns the list of printers currently installed in the system.</p>
+
+<h2>Toolbox_GetDefaultPrinter</h2>
+<p class="f_intro">Gets the default printer.</p>
+<p><span class="note">Note: </span>Toolbox_DoSystemScript is not supported in iOS<span class="new rev1"> and Linux</span> version.</p>
+<h3>Description</h3>
+<p>This command gets the name of default printer currently used in the system.</p>
+<h3>Result</h3>
+<p>The function returns the name of default printer of the current session. If no printer is set as default, the function returns "".</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetDefaultPrinter</span><br>
+Returns the name of default printer of the current session.</p>
+
+<h2>Toolbox_SetDefaultPrinter( printerName )</h2>
+<p class="f_intro">Sets specified printer as a default printer.</p>
+<p><span class="note">Note: </span>Toolbox_DoSystemScript is not supported in iOS<span class="new rev1"> and Linux</span> version.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">printerName</td><td>The identifier of the printer which should be set as default.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command  sets the printer described in printerName parameter as a default printer in the system.</p>
+<h3>Result</h3>
+<p>The function returns the name of the printer which was actually set. In the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Note</h3>
+<p>Use Toolbox_GetPrinterNames to obtain the list of printers and choose one line as a parameter for this function.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_SetDefaultPrinter( "HP710" )</span><br>
+Sets a "HP710" as a new default printer for the system or returns "?" if "HP710" cannot be the default one.</p>
+
+<h2>Toolbox_SetScriptShortcut( key ; scriptName { ; scriptParameter } { ; scriptControl } )</h2>
+<p class="f_intro">Assigns a keyboard shortcut for script. All keyboard shortcuts are forgotten when FileMaker quits.</p>
+<p><span class="note">Note: </span>Toolbox_DoSystemScript is not supported in iOS<span class="new rev1"> and Linux</span> version.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">key</td><td>The keyboard shortcut in format Modifier &amp; " " &amp; rawKey. Modifier can be: "", "shift", "ctrl", "alt", "super" or their combination like "shift alt" or "ctrl alt". The "super" key means Apple key on Mac or Windows key on Windows. RawKey can be any key from keyboard + some special keys: "F1" - "F13", "enter", "esc", "pageup", "pagedown", "up", "down", "left", "right", "delete", "backspace", "space", "tab". RawKey parameter is case insenstive.</td></tr>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of script which should be triggered.</td></tr>
+<tr valign="top"><td class="t_param">scriptParameter</td><td>The optional script parameter.</td></tr>
+<tr valign="top"><td class="t_param">scriptControl</td><td>This optional parameter tells FileMaker how to handle another runing scripts,when script specified in this command is triggered. Possible values are: "Halt", "Exit", "Resume", "Pause".</td></tr>
+</table>
+<h3>Description</h3>
+<p>Assigns a keyboard shortcut for script. All keyboard shortcuts are forgotten when FileMaker quits.</p>
+<h3>Result</h3>
+<p> The function returns 0 if event is successfully installed or uninstalled. In case of error the function returns negative error code.</p>
+<h3>Attention</h3>
+<p>Keys "F8" - "F13" are usually reserved for system functions on Mac OS X. Shortcuts will interfere with these functions.</p>
+<p>This command is disabled on server.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_SetScriptShortcut( "ctrl alt F1" ; "Default Script" )</span><br>
+This installs the script named "Default Script" for shortcut "ctrl+alt+F1". When this shortcut is pressed, the script will be triggered.</p>
+<p><span class="syntax_hl">Toolbox_SetScriptShortcut( "ctrl alt F1" ; "" )</span><br>
+This removes all installed scripts for shortcut "ctrl+alt+F1".</p>
+<p><span class="syntax_hl">Toolbox_SetScriptShortcut( "" ; "" )</span><br>
+This removes all installed scripts for all previously inserted shortcuts.</p>
+
+<h2>Toolbox_RegExp_PatternCount( text ; searchPattern )</h2>
+<p class="f_intro">Finds a defined regular expression pattern in the text and returns the number of occurrences.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">text</td><td>The source text where to perform find.</td></tr>
+<tr valign="top"><td class="t_param">searchPattern</td><td>Regular expression defining what to find.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function will find a defined regular expression pattern in the text and returns the number of occurrences. Text in "searchPattern" parameter can be styled. If so the function will become style sensitive.</p>
+<h3>Result</h3>
+<p>The function return the number of occurrences found. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_RegExp_PatternCount( "I was born in USA 12/02/1973." ; "([0-9]{1,2})[./-]([0-9]{1,2})[./-]([0-9]{2}|[0-9]{4})" )</span><br>
+Returns 1 because there is one date in the string.</p>
+
+<h2>Toolbox_RegExp_Substitute( text ; searchPattern ; replaceString1 { ; replaceString2 ... } )</h2>
+<p class="f_intro">Finds and replaces pattern in specified text.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">text</td><td>The source text where to perform find &amp; replace.</td></tr>
+<tr valign="top"><td class="t_param">searchPattern</td><td>Regular expression defining what to find.</td></tr>
+<tr valign="top"><td class="t_param">replaceString1</td><td>Text which will replace found string.</td></tr>
+<tr valign="top"><td class="t_param">replaceString2 ...</td><td>The next text to replace found string. The number of strings should be the same as the regular expression needs.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function finds and replaces found text. Text in "searchPattern" parameter can be styled. If so the function will become style sensitive.</p>
+<h3>Result</h3>
+<p> The function returns text with replaced patterns. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_RegExp_Substitute( "I was born in USA 12/02/1973." ; "([0-9]{1,2})[./-]([0-9]{1,2})[./-]([0-9]{2}|[0-9]{4})" ; "10" ; "12" ; "2008" )</span><br>
+Returns "I was born in USA 10/12/2008.".</p>
+
+<h2>Toolbox_MergeText( text )</h2>
+<p class="f_intro">This function finds values in the FileMaker text and replaces them by their values.</p>
+<p class="new rev1"><span class="note">Note: </span>Toolbox_MergeText is not supported in Linux version.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">text</td><td>Text which should be searched and merged. All &lt;&lt;fieldname&gt;&gt; parts are substituted by the real value of the fieldname. All &lt;&lt;$variable_name&gt;&gt; parts will be substituted by the real value of the variable.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function finds values in the FileMaker text and replaces them by their values. All values are calculated only once. If the value contains the style this style is used. Otherwise the original style is preserved.</p>
+<h3>Result</h3>
+<p>The function returns merged text. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_MergeText( "There are &lt;&lt;NumberField&gt;&gt; records." )</span><br>
+If the field named NumberField contains number 5 it returns "There are 5 records.".</p>
+
+<h2>Toolbox_ValueType( value )</h2>
+<p class="f_intro"><span>This function returns the type of its parameter.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">value</td><td>FileMaker value which type you want to obtain.</td></tr>
+</table>
+<h3>Description</h3>
+<p>The function determines the type of its parameter. It can be FileMaker Text, Number, Date, Time, Timestamp or Container. This can be useful when you need precisely control script or custom function which is dependent on parameter type.</p>
+<h3>Result</h3>
+<p>The function always return FileMaker text and never fails. It can return "Text", "Number", "Date", "Time", "Timestamp", "Container" or "" for unknown type.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_ValueType( "There are 5 records." )</span><br>
+Returns "Text" because input value type is FM text.</p>
+
+
+<h2>Toolbox_Get( selector )</h2>
+<p class="f_intro">This function returns Toolbox Plug-In internal parameters.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>What parameter to get.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">selector</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th width="130">selector</th><th>Description</th></tr>
+<tr valign="top"><td nowrap><span><tt>"lastError"</tt></span></td><td><span>Returns the Plug-In last error.</span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"lastErrorMessage"</tt></span></td><td><span>Returns the Plug-In last error message.</span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"registrationWarning"</tt></span></td><td><span>The selector has been deprecated in favor of <span class="syntax_hl"><a href="#Toolbox_Register">Toolbox_Register("Status")</a></span>.</span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"stderr"</tt></span></td><td><span>Returns standard error output of the last executed script. Supported are Bash and PHP. </span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"inlineDocumentation"</tt></span></td><td><span>Returns "on" or "off" based on status of inlineDocumentation in Plug-In. <b>This selector doesn't work on FileMaker Server.</b></span></td></tr>
+</table>
+<h3>Description</h3>
+<p>Generic function to get various plug-in parameters.</p>
+<h3>Result</h3>
+<p>The function returns state of required parameter. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code. <span class="syntax_hl">Toolbox_Get( "lastError" )</span> never fails.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Get( "lastError" )</span><br>
+Returns last function error code or 0 if last function was performed properly.</p>
+
+
+<h2>Toolbox_Set( selector ; newValue )</h2>
+<p class="f_intro"><span>This function sets Toolbox Plug-In internal parameters.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>What parameter to set.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">selector</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th width="130">selector</th><th>Description</th></tr>
+<tr valign="top"><td nowrap><span><tt>"globalDieInterval"</tt></span></td><td><span>Global variable can be set to be automatically erased when their parent database file is closed. The plug-in uses polling mechanism to determine if the file has been closed (evaluating function DatabaseNames). This interval specifies how often is should check the file is closed. The default value is 60 seconds and you can specify even fraction of seconds to be perfectly accurate. However try to keep it as long as possible (ones of seconds at least). The polling requires system resources and calling this often will slow down the FileMaker Pro application. </span></td></tr>
+<tr valign="top"><td nowrap><span><tt>"inlineDocumentation"</tt></span></td><td><span>Allows to turn off or on inlineDocumentation. Possible values are "on" or "off". <b>This selector doesn't work on FileMaker Server.</b></span></td></tr>
+</table>
+<h3>Description</h3>
+<p>Generic function to get various plug-in parameters.</p>
+<h3>Result</h3>
+<p>The function returns state of required parameter. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Set( "globalDieInterval" ; 9.5 )</span><br>
+Sets parameter "globalDieInterval" to 9.5 seconds.</p>
+
+<h2>Toolbox_SetGlobal( key ; value { ; moreOptions } )</h2>
+<p class="f_intro"><span>Stores global value which can be read on any database.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">key</td><td>Unique key to the dictionary of values. This key should be unique across all opened databases.</td></tr>
+<tr><td class="t_param">value</td><td>FileMaker field or variable. Field / variable type is also stored.</td></tr>
+<tr><td class="t_param">moreOptions</td><td>Options to specify some special behavior for previous key-value combination.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">moreOptions</span> parameter.</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th width="130">value</th><th>description</th></tr>
+<tr valign="top"><td nowrap><span><tt>"dieOnClose"</tt></span></td><td><span>The current key-value combination will be erased when you close the current database.</span></td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to store global value which can be obtained by <span class="syntax_hl">Toolbox_GetGlobal( key )</span> in any opened database. If "dieOnClose" is not specified the key-value combination will live until the FileMaker application is closed. Specifying the "dieOnClose" parameter will cause the plug-in will periodically check if the database file is opened (the plug-in will use Get( FileName ) and DatabaseNames functions from FileMaker calculation engine) and erase key-value combination if the database has been closed. The plug-in is not able to distinguish between two different databases with the same name.</p>
+<p>To manually delete value stored under a key call <span class="syntax_hl">Toolbox_SetGlobal( key ; "" )</span>. To manually delete all global values call <span class="syntax_hl">Toolbox_SetGlobal( "" ; "" )</span>.</p>
+<h3>Result</h3>
+<p>The function returns the actual value which has been set under the key. In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_SetGlobal( "g_UserContext" ; "user-defined-context-1" )</span><br>
+This will set value "user-defined-context-1" under the key "g_UserContext". It can be read by calling <span class="syntax_hl">Toolbox_GetGlobal( "g_UserContext" )</span> in any opened solution.</p>
+<p><span class="syntax_hl">Toolbox_SetGlobal( "g_UserContext" ; "user-defined-context-1" ; "dieOnClose" )</span><br>
+This will set value "user-defined-context-1" under the key "g_UserContext". It can be read by calling <span class="syntax_hl">Toolbox_GetGlobal( "g_UserContext" )</span> in any opened solution. If the database file, where Toolbox_SetGlobal has been called, is closed, the value "user-defined-context-1" will be reset to "". There is the maximum time interval between file closing and value erasing. This interval can be set by Toolbox_Set( "globalDieInterval" ; newInterval ) and by default it is set to 60 seconds.</p>
+<p><span class="syntax_hl">Toolbox_SetGlobal( "g_Picture" ; PictureField )</span><br>
+The plug-in will store content of PictureField into into the global dictionary under the key "g_Picture". This container can be loaded any time from any opened solution until the FileMaker application is closed or value reset.</p>
+
+<h2>Toolbox_GetGlobal( key )</h2>
+<p class="f_intro"><span>Loads global value previously stored by Toolbox_SetGlobal.</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">key</td><td>Unique key to the dictionary of values. This key should be unique across all opened databases.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to load global value previously stored by Toolbox_SetGlobal.</p>
+<h3>Result</h3>
+<p>The function returns the actual value for key. If the key has not been specified the function returns "". In the the case of error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetGlobal( "g_UserContext" )</span><br>
+The function returns actual value of global key "g_UserContext".</p>
+
+<h2>Toolbox_GetTimestamp</h2>
+<p class="f_intro"><span>Basic function for time measurement.</span></p>
+<h3>Description</h3>
+<p>This function uses most precise functions of the operating system to obtain current time (now). It creates a FileMaker timestamp which contains fractions of seconds so it can be used to measure time with more accuracy than one second. The function is also very fast: its execution time is approx. 30 &micro;s long.</p>
+<h3>Result</h3>
+<p>FileMaker Timestamp with current time.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_GetTimestamp</span><br>
+Returns most accurate timestamp. In the time of writing this manual it was: 27.5.2011 17:27:03,873641 (the timestamp is formatted using current, Czech locale).</p>
+
+<h2><span >Toolbox_Encode( encoding ; text )</span></h2>
+<p class="f_intro">This function encodes text.</p>
+<p class="new rev1"><span class="note">Note: </span>Toolbox_Encode is not supported in Linux version.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">encoding</td><td>The encoding of the input text and the encoding of the result.</td></tr>
+<tr><td class="t_param">text</td><td>The input text to be encoded.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">encoding</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th width="130">encoding</th><th>Description</th></tr>
+<tr valign="top"><td nowrap><tt>"UTF-8 to Base64"</tt></td><td>The encoding of the input text is assumed to be UTF-8 and the encoding of the result will be Base64.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function encodes given input text to specified encoding. For decoding see <span class="syntax_hl">Toolbox_Decode</span>.</p>
+<h3>Result</h3>
+<p>The function returns encoded input text. In the case of an error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code. Also note, that empty input text may not be well defined for various encodings.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Encode("UTF-8 to Base64" ; "Text to be encoded.")</span><br>
+Returns "VGV4dCB0byBiZSBlbmNvZGVkLg==".</p>
+<p><span class="syntax_hl">Toolbox_Encode("UTF-8 to Base64" ; "")</span><br>
+Returns "".</p>
+
+<h2><span >Toolbox_Decode( encoding ; text )</span></h2>
+<p class="f_intro">This function decodes text.</p>
+<p class="new rev1"><span class="note">Note: </span>Toolbox_Decode is not supported in Linux version.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">encoding</td><td>The encoding of the input text and the encoding of the result.</td></tr>
+<tr><td class="t_param">text</td><td>The input text to be decoded.</td></tr>
+</table>
+<h3>Possible values for <span class="p_hl">encoding</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th width="130">encoding</th><th>Description</th></tr>
+<tr valign="top"><td nowrap><tt>"Base64 to UTF-8"</tt></td><td>The encoding of the input text is assumed to be Base64 and the encoding of the result will be UTF-8.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function decodes given input text to specified encoding. For encoding see <span class="syntax_hl">Toolbox_Encode</span>.</p>
+<h3>Result</h3>
+<p>The function returns decoded input text. In the case of an error, the function returns "?". Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code. Also note, that empty input text may not be well defined for various encodings.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Toolbox_Decode("Base64 to UTF-8" ; "QmFzZTY0IGVuY29kZWQgdGV4dC4=")</span><br>
+Returns "Base64 encoded text.".</p>
+
+<div>
+
+
+<h2><span>Toolbox_GetAsHTML( variableName { ;  tags { ;  classes { ;  styles } } } )</span></h2>
+<p class="f_intro">This function converts rich-text to HTML with CSS.
+	Converting works in 4 stages:
+	 <ul><li>First, the HTML tags are determined based on <span class="t_param">tags</span> parameter,</li>
+		 <li>than the remaining unused formattings are converted to CSS classes as defined in <span class="t_param">classes</span> parameter,</li>
+		 <li>than the remaining unused formattings are converted to inline CSS styles based on <span class="t_param">styles</span> parameter,</li>
+		 <li>other unused formattings are not used for output styling. </li>
+		</ul>
+</p>
+<p class="f_intro">
+		Default values produce HTML tags compliant with HTML5 standard and
+			CSS styles that are supported at least by Chrome, Firefox and Safari webbrowsers. <br>
+		<span>
+			Two special characters &lt; and &gt; from input text are automatically replaced with HTML entities &amp;lt; and &amp;gt; <br>
+		</span>
+		Encoding of text is not changed.
+		</span>
+		<br>
+		<span>
+		Several special characters from input text are automatically replaced by HTML entities or HTML tags as described in following table.
+		</span>
+		<table>
+			<tr><th>Input</th><th>Replacement</th></tr>
+			<tr><td> &lt;</td><td>&amp;lt;</td></tr>
+			<tr><td> &gt;</td><td>&amp;gt;</td></tr>
+			<tr><td> &amp;</td><td>&amp;amp;</td></tr>
+			<tr><td>non-breaking space  - Char(160)</td><td>&amp;nbsp;</td></tr>
+			<tr><td>line break - Char(8232)</td><td>&lt;br/&gt;</td></tr>
+		</table>
+</p>
+
+
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=8>
+<tr><th>Parameter</th><th>Description</th><th style="width:10em">Delimiter character</th><th style="width:13em">Value for converting all supported</th>
+	<th style="width:10em">Value for no converting</th><th style="width:10em">Default value</th><th style="width:10em">Example</th></tr>
+
+	<tr><td class="t_param">variableName</td><td>Name of variable (that contains formatted text) given as string. <br>
+												Formatted text inserted directly will not support alignment of paragraphs. <br>
+												<a href="#variableName">More about input formats.</a><br>
+												This is the only required parameter. </td>
+		<td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td><u><span style="color:#008000;">Hello </span><b>world<sup>2</sup></b></u></td>
+	</tr>
+
+	<tr><td class="t_param">tags</td><td>List of all <a href="#GetAsHTML_supported">text formattings</a> that should be converted to HTML tags.<br>
+		For default value, these HTML tags will be used in this order:<br>
+		&lt;p&gt;, &lt;b&gt;, &lt;i&gt;, &lt;u&gt;, &lt;s&gt;, &lt;mark&gt;, &lt;sup&gt;, &lt;sub&gt;.<br>
+	</td><td>&para;</td><td>"all"</td><td>""</td><td>"all"</td><td>"bold+underline=h1<br>underline=u<br>bold=strong"</td></tr>
+
+<tr><td class="t_param">classes</td><td>List of all <a href="#GetAsHTML_supported">text formattings</a> that should be converted to custom-named CSS classes.
+	</td></td><td>&para;</td><td>"all=somePrefix"</td><td>""</td><td>"all=tbx"</td><td>"bold+italic=myImportantComments<br>bold=myBoldClass<br>italic=myCommentClass"</td><td>
+</td></tr>
+
+<tr><td class="t_param">styles</td><td>List of all <a href="#GetAsHTML_supported">text formattings</a> that should be converted into inline CSS styles. <br>
+	</td></td><td>&para;</td><td>"all"</td><td>""</td><td>"all"</td><td>"condense<br>uppercase<br>lowercase"</td></tr>
+</table>
+
+<h3 id="GetAsHTML_supported">Supported <span class="p_hl"> text formattings</span></h3>
+
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th width="200">Basic</th><th width="200">Lining*</th><th width="200">Spacing</th><th width="200">Letters</th><th width="200">Paragraph alignment**</th><th width="200">With value***</th></tr>
+<tr valign="top"><td>bold					</td><td>underline						</td><td>condense	</td><td>smallcaps	</td><td>left	</td><td>color	</td></tr>
+<tr valign="top"><td>italic					</td><td>wordunderline					</td><td>extend		</td><td>uppercase	</td><td>center	</td><td>font	</td></tr>
+<tr valign="top"><td>highlight				</td><td>doubleunderline				</td><td>superscript</td><td>lowercase	</td><td>right	</td><td>size	</td></tr>
+<tr valign="top"><td>						</td><td>strikethrough					</td><td>subscript	</td><td>titlecase	</td><td>full	</td><td>		</td></tr>
+
+
+</table>
+
+<p> Unsupported text formattings: line spacing, vertical alignment (top, center, bottom).</p>
+
+<p>* Combination of (double)underlining and strikethrough can cause partial or wrong results in some webbrowsers.</p>
+
+<p>** Paragraph alignment can't be combined with other text formattings in
+	<span class="syntax_hl">tags</span>, <span class="syntax_hl">classes</span> or <span class="syntax_hl">style</span> parameters (using the + delimiter).</p>
+
+<p>*** Color, font and size cannot be further parametrized, please see examples below on how to use them.</p>
+
+<h3 id="variableName">Supported <span class="p_hl">variableName</span> types</h3>
+
+<p class="exampleTitle">Toolbox_GetAsHTML("$myTextVariable")</p>
+<ul>
+	<li>Variable name given as string (inside quotes) produces the best results including paragraphs and text alignment.</li>
+</ul>
+
+<p class="exampleTitle">Toolbox_GetAsHTML(Let($ToolboxInput=solution::textField;"$ToolboxInput"))</p>
+<ul>
+	<li>Text field on input is stored inside local variable $ToolboxInput and than passed to the plugin. This is eqvivalent to the previous one, so this also supports paragraphs and text alignment.</li>
+</ul>
+
+<p class="exampleTitle">Toolbox_GetAsHTML("<u><span style="color:#008000;">Hello </span><b>world<sup>2</sup></b></u>")</p>
+<ul>
+	<li>Text inserted directly will produce HTML with line breaks but it will not contain paragraphs and text alignment.</li>
+</ul>
+
+
+<h3>Result</h3>
+<p>The function returns decoded input text. In the case of an error, the function returns "?".
+	Use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the error code. </p>
+
+
+
+<h3>Example 1</h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("$ToolboxInput")</p>
+
+<p> All transformations are enabled and as much as possible text formatting is preserved.<br>
+	If variable $ToolboxInput contains "<b>Bold</b> and <u>underlined</u> text" than  the result will be:</p>
+<pre style="padding:0.5em 6em">
+&lt;p&gt;&lt;b&gt;Bold&lt;/b&gt; and &lt;u&gt;underlined&lt;/u&gt; text&lt;/p&gt;
+</pre>
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+<p><b>Bold</b> and <u>underlined</u> text</p>
+</div>
+
+
+
+
+<h3>Example 2</h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("<span style="color:#008000;">Hello</span><b> world<sup>2</sup></b>" ; "all" ; ""; "all")</p>
+
+<p> All transformations are enabled except creating CSS classes.
+	The result will be:</p>
+<pre style="padding:0.5em 6em">
+&lt;span style="color:#ff2712;"&gt;Hello&lt;/span&gt;&lt;b&gt; world&lt;/b&gt;&lt;b&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/b&gt;
+</pre>
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+<span style="color:#008000;">Hello</span><b> world</b><b><sup>2</sup></b>
+</div>
+
+
+<h3>Example 3</h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("<b>Bold</b> and <u>underlined</u> text"; "bold=strong"; "underline=myClass" ; "") </p>
+
+<p>Only the &ltstrong&gt; tag will be created (2nd parameter) and there will be only one class for underlined text (3rd parameter),
+	all other text formattings are discarded because forbidden inline styling in the last parameter.
+	The result will be:</p>
+<pre style="padding:0.5em 6em">
+&lt;style type="text/css"&gt;
+.myClass { text-decoration:underline; }
+&lt;/style&gt;
+&lt;strong&gt;Bold&lt;/strong&gt; and &lt;span class="myClass"&gt;underlined&lt;/span&gt; text
+</pre>
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+<style type="text/css">
+.myClass { text-decoration:underline; }
+</style>
+<strong>Bold</strong> and <span class="myClass">underlined</span> text
+</div>
+
+<h3>Example 4</h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("<i style="color:#008000">Green italic</i> and <u><b>underlined</b></u> text"; ""; "underline+bold=myImportantClass" ; "color") </p>
+
+<p>No tag will be created (2nd parameter) and there will be only one class for both underlined and bold text (3rd parameter),
+	color will be the only inlined css style, other formattings are discarded.
+	The result will be:</p>
+<pre style="padding:0.5em 6em">
+&lt;style type="text/css"&gt;
+.myImportantClass { font-weight:bold;text-decoration:underline; }
+&lt;/style&gt;
+&lt;span style="color:#66b132;"&gt;Green italic&lt;/span&gt; and &lt;span class="myImportantClass"&gt;important&lt;/span&gt; text.
+</pre>
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+<style type="text/css">
+.myImportantClass { font-weight:bold;text-decoration:underline; }
+</style>
+<span style="color:#008000;">Green italic</span> and <span class="myImportantClass">important</span> text.
+</div>
+
+
+<h3>Example 5 - simple reformatting </h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("<i style="color:#008000">Green italic</i> and <u><b>underlined</b></u> text"; "bold=i"; "" ; "") </p>
+
+<p>Italic HTML tag will be used for bold text and all other formatting is discarded.
+	HTML tags are not styled to match the original appearance.
+	The result will be:</p>
+<pre style="padding:0.5em 6em">
+Green italic and &lt;i&gt;important&lt;/i&gt; text
+</pre>
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+Green italic and <i>important</i> text
+</div>
+
+<h3>Example 6 - style ambiguity </h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("Colors: <span style="color:#ff0000;">red</span> + <span style="color:#0000ff;">blue</span> = <span style="color:#800080;">purple</span>"; "color=u"; "" ; "") </p>
+
+<p>Color, font and size text formattings are simplified so they do not require parameter.
+	When one of these text formattings are used in <span class="syntax_hl">tags</span> parameter, the actual value of the style is discarded.
+	You can preserve the value by using the <span class="syntax_hl">classes</span> or the <span class="syntax_hl">styles</span> parameter.
+	Result of this example will be:</p>
+<pre style="padding:0.5em 6em">
+Colors: &lt;u&gt;red&lt;/u&gt; + &lt;u&gt;blue&lt;/u&gt; = &lt;u&gt;purple&lt;/u&gt;
+</pre>
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+Colors: <u>red</u> + <u>blue</u> = <u>purple</u>
+</div>
+
+
+<h3>Example 7 - style ambiguity </h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("Colors: <span style="color:#ff0000;">red</span> + <span style="color:#0000ff;">blue</span> = <span style="color:#800080;">purple</span>"; ""; "color=myColorClass" ; "") </p>
+
+<p> In this case, color will styled using classes with given prefix.
+	The result will be:</p>
+<pre style="padding:0.5em 6em">
+&lt;style type="text/css"&gt;
+.myColorClass { color: #ff0000; }
+.myColorClass1 { color: #0000ff; }
+.myColorClass2 { color: #800080; }
+&lt;/style&gt;
+Colors: &lt;span class="myColorClass"&gt;red&lt;/span&gt; + &lt;span class="myColorClass1"&gt;blue&lt;/span&gt; = &lt;span class="myColorClass2"&gt;purple&lt;/span&gt;
+</pre>
+
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+<style type="text/css">
+.myColorClass { color: #ff0000; }
+.myColorClass1 { color: #0000ff; }
+.myColorClass2 { color: #800080; }
+</style>
+Colors: <span class="myColorClass">red</span> + <span class="myColorClass1">blue</span> = <span class="myColorClass2">purple</span>
+</div>
+
+<h3>Example 8 - style ambiguity </h3>
+<p class="exampleTitle">Toolbox_GetAsHTML("Colors: <span style="color:#ff0000;">red</span> + <span style="color:#0000ff;">blue</span> = <span style="color:#800080;">purple</span>"; ""; "" ; "all") </p>
+
+<p> In this case, color will styled using inline styles.
+	The result will be:</p>
+
+<pre style="padding:0.5em 6em">
+Colors: &lt;span style="color:#ff0000;"&gt;red&lt;/span&gt; + &lt;span style="color:#0000ff;"&gt;blue&lt;/span&gt; = &lt;span style="color:#800080;"&gt;purple&lt;/span&gt;
+</pre>
+
+<p>That should look in webbrowser similarly to this:</p>
+
+<div style="padding:0.5em 5em">
+Colors: <span style="color:#ff0000;">red</span> + <span style="color:#0000ff;">blue</span> = <span style="color:#800080;">purple</span>
+</div>
+
+
+<h3>Example 9 - more lines of text</h3>
+
+<p class="exampleTitle">Toolbox_GetAsHTML( "$ToolboxInput" ; "center=center"; "right=myRightAlignClass") </p>
+
+<p> Default HTML tag for paragraph is &lt;p&gt; and this one will be used for the first (left aligned) paragraph here. <br>
+	Centered text is forced to use deprecated &lt;center&gt; tag
+	and CSS class myRightAlignClass will be used for all right alligned text. <br>
+	Inline css styles will be used for all other supported styling because of missing 4th parameter that defaults to "all". <br>
+
+	<br>
+	Assuming variable $ToolboxInput is containing this text:
+</p>
+<div style="padding:0.5em 5em; width:40em;font-size:10px;">
+	<p>First line with some <span style="font-weight:bold">formatted</span> text.</p>
+	<p style="text-align:center;">Centered line.</p>
+	<p style="text-align:right;">Final line aligned to right.</p>
+</div>
+
+<p> Than the result will be:</p>
+
+<pre style="padding:0.5em 6em">
+&lt;style type="text/css"&gt;
+.myRightAlignClass { text-align:right; }
+&lt;/style&gt;
+&lt;p&gt;First line with some &lt;span style="font-weight:bold"&gt;formatted&lt;/span&gt; text.&lt;/p&gt;
+&lt;center&gt;Centered line.&lt;/center&gt;
+&lt;p class="myRightAlignClass"&gt;Final line aligned to right.&lt;/p&gt;
+</pre>
+
+<p>That should look in webbrowser similarly to this (depending on available width and webviewer's support for old &ltcenter&gt; tag):</p>
+
+<div style="padding:0.5em 5em; width:13em;font-size:10px;">
+	<style type="text/css">
+	.myRightAlignClass { text-align:right; }
+	</style>
+	<p>First line with some <span style="font-weight:bold">formatted</span> text.</p>
+	<center>Centered line.</center>
+	<p class="myRightAlignClass">Final line aligned to right.</p>
+</div>
+
+
+
+<h3>Example 10 - complete HTML page </h3>
+
+<p class="exampleTitle">
+
+	Base64Decode ( Toolbox_Encode ( "UTF-8 to Base64" ; "&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=\"UTF-8\"&gt;&lt;title&gt;Hello world&lt;/title&gt;&lt;/head&gt;&lt;body&gt;" & Toolbox_GetAsHTML ( $myStyledText ) & "&lt;/body&gt;&lt;/html&gt;" ) ) ; "helloworld.html" )
+
+</p>
+
+<p>
+	This example produces complete HTML page from variable $myStyledText and returns it as a container.
+	You should see a file named "helloworld.html" by setting the result of this example into a container field.<br>
+	You can save the file on a disk by selecting "Export Field Contents..." from field's context menu or you can set the container to be saved on disk by making the field external in field's storage options.
+</p>
+
+
+</div><!--- /highlighting -->
+
+
+<h2 id="errors">Error Codes Table</h2>
+<p class="f_intro">Here is the list of all error codes which can be returned from the plug-in. The error codes are derived from MacErrors.h header file from Mac OS. If function fails it either returns "?" signaling error or it directly returns the error code. If it returns "?" you can use <span class="syntax_hl">Toolbox_Get( "lastError" )</span> to obtain the code.</p>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th width="70">Code</th><th>Description</th></tr>
+
+<tr valign="top"><td class="b_technical"><span>0</span></td><td class="b_technical"><span>No error.</span></td><td><span>All requested actions were successful.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>-4</span></td><td class="b_technical"><span>Not implemented.</span></td><td><span>The function is not implemented on this platform.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>-50</span></td><td class="b_technical"><span>Parameter error.</span></td><td><span>Wrong number, type, value or order of parameter(s). Please check parameters against the documantation again.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>2400</span></td><td class="b_technical"><span>Unknown error.</span></td><td><span>Unexpected (probably system related) error occured.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24001</span></td><td class="b_technical"><span>Demo mode expired.</span></td><td><span>If you want to keep using the plug-in, you must register it or buy it for particular environment.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24002</span></td><td class="b_technical"><span>Product expired.</span></td><td><span>Trial period is over. If you want to keep using the product, you must buy it for particular environment.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24003</span></td><td class="b_technical"><span>SN limit was met.</span></td><td><span>The serial number is already registered on too many computers.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24004</span></td><td class="b_technical"><span>Product is dead.</span></td><td><span>The product expired and cannot be used any more. Please download the new version from <a href="http://www.24usoftware.com/">24U Software</a>.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24005</span></td><td class="b_technical"><span>Invalid serial number.</span></td><td><span>Serial number you entered is not valid.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24006</span></td><td class="b_technical"><span>Activation failed.</span></td><td><span>Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24007</span></td><td class="b_technical"><span>Deactivation failed.</span></td><td><span>Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24008</span></td><td class="b_technical"><span>Unknown serial number.</span></td><td><span>The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24009</span></td><td class="b_technical"><span>Blacklisted serial number.</span></td><td><span>The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span>24010</span></td><td class="b_technical"><span>eSellerate engine not installed.</span></td><td><span>This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</span></td></tr>
+</table>
+
+
+</body>
+</html>

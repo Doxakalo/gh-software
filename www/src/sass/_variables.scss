@@ -1,0 +1,52 @@
+// Main colors
+$colorWhite: #FFFFFF;
+$colorBlack: #000000;
+$colorLightBlue6: #eef7fe;
+$colorLightBlue5: #c6def2;
+$colorLightBlue4: #e4f3ff;
+$colorLightBlue3: #3895E2;
+$colorLightBlue2: #4d92cc;
+$colorLightBlue: #3584c6;
+$colorBlue: #2E7DBF;
+$colorBlueHover: lighten($colorBlue, 15);
+$colorGreen: #509e00;
+$colorFlatGreen: #44af79;
+$colorRed: #de2c2c;
+$colorDarkRed: #c83a3b;
+$colorOrange: #e5763f;
+$colorGrey: #757575;
+$colorMediumGrey: #4a4a4a;
+$colorDarkGrey: #3a3a3a;
+$colorGold: #d6a80e;
+$colorSilver: #929292;
+$colorBronze: #a16214;
+
+// Other colors
+$navColor: $colorBlue;
+$navColorText: $colorWhite;
+
+// Font-weight variables
+$fwLight: 300;
+$fwNormal: 400;
+$fwBold: 600;
+
+$lineHeightNormal: 1.4;
+$lineHeightExtraCondensed: 1.15;
+$lineHeightCondensed: 1.3;
+$lineHeightExtended: 1.5;
+
+$letterSpacingBodyText: 0.012em;
+$letterSpacingHeader: 0.025em;
+
+// Animation duration
+$hoverAnimationDuration: 300ms;
+$focusAnimationDuration: 200ms;
+
+// Responsive scale ratio
+$scaleRatioTablet: 0.7;
+$scaleRatioMobile: .5;
+
+// Other
+$inputBorderWidth: 2px;
+$colorOverlayDark: rgba($colorBlack, 0.75);
+$colorOverlayLight: rgba($colorWhite, 0.75);

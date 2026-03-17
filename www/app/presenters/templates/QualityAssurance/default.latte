@@ -1,0 +1,256 @@
+{import 'translate_'.$locale.'.latte'}
+{block title}{_pages.qa.metadata.title}{/block}
+{block description}{_pages.qa.metadata.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.qa.metadata.title}{/capture}
+        {capture $description}{_generic.page-title.quality-assurance}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/qa/og_images/og_image_qa_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/qa/og_images/og_image_qa_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/qa/og_images/og_image_qa_3.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/qa/og_images/og_image_qa_4.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="cover default extended">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/qa/qa_header.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        {_pages.qa.header-title}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="info arrow">
+    <div class="container">
+        <div class="row row-align-center">
+            <div class="item">
+                <a n:href="Company:default#sw_testing">
+                    <span class="counterHiddenElement">+</span><span class="number_counter" data-number-counter="true" data-number-counter-delay="300">10</span><span class="counterTempHiddenElement">+</span>
+                    <p>{_pages.qa.counters.countries|noescape}</p>
+                </a>
+            </div>
+
+            <div class="item">
+                <a n:href="Company:default#sw_testing">
+                    <span class="counterHiddenElement">+</span><span data-number-counter="true" data-number-counter-delay="600">15</span><span class="counterTempHiddenElement">+</span>
+                    <p>{_pages.qa.counters.xp|noescape}</p>
+                </a>
+            </div>
+            <div class="item">
+                <a n:href="Company:default#sw_testing">
+                    <span class="counterHiddenElement">+</span><span data-number-counter="true" data-number-counter-delay="900">25</span><span class="counterTempHiddenElement">+</span>
+                    <p>{_pages.qa.counters.testers|noescape}</p>
+                </a>
+            </div>
+            <div class="item">
+                <a n:href="Company:default#sw_testing">
+                    <span class="counterHiddenElement">+</span><span data-number-counter="true" data-number-counter-delay="1200" data-number-counter-tick="20">100</span><span class="counterTempHiddenElement">+</span>
+                    <p>{_pages.qa.counters.projects|noescape}</p>
+                </a>
+            </div>
+            <div class="item">
+                <a n:href="Company:default#sw_testing">
+                    <span class="counterHiddenElement">+</span><span data-number-counter="true" data-number-counter-delay="1500" data-number-counter-tick="3">500</span><span class="counterTempHiddenElement">+</span>
+                    <p>{_pages.qa.counters.releases|noescape}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{snippet contactForm}
+    {include '../Components/contact-form-orange.latte', headline => 'false', description => 'false'}
+{/snippet}
+
+<section class="tile-panel arrow">
+    <div class="row">
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/teamwork/teamwork.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/teamwork/teamwork_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include teamwork_preview}</div>
+                    <div class="detail">{include teamwork_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/professionality/professionality.jpg')">
+        
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/professionality/professionality_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include professionality_preview}</div>
+                    <div class="detail">{include professionality_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="true">
+            <div class="showMore overlay blue"
+               style="background-image: url('{$basePath}/img/pages/qa/card_boxes/test-strategy/test-strategy.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/test-strategy/test-strategy_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include test_strategy_preview}</div>
+                    <div class="detail">{include test_strategy_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/flexibility/flexibility.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/flexibility/flexibility_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include flexibility_preview}</div>
+                    <div class="detail">{include flexibility_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/test-setup/test-setup.jpg')">
+        
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/test-setup/test-setup_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include test_setup_preview}</div>
+                    <div class="detail">{include test_setup_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/waterfall/waterfall.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/waterfall/waterfall_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include waterfall_preview}</div>
+                    <div class="detail">{include waterfall_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/agility/agility.jpg')">
+        
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/agility/agility_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include agility_preview}</div>
+                    <div class="detail">{include agility_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="true">
+            <div class="showMore overlay blue"
+               style="background-image: url('{$basePath}/img/pages/qa/card_boxes/sw-hw/sw-hw.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/sw-hw/sw-hw_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include swhw_preview}</div>
+                    <div class="detail">{include swhw_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <div class="showMore overlay blue"
+               style="background-image: url('{$basePath}/img/pages/qa/card_boxes/automation/automation.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/automation/automation_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include automation_preview}</div>
+                    <div class="detail">{include automation_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/tools/tools.jpg')">
+
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/tools/tools_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include tools_preview}</div>
+                    <div class="detail">{include tools_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="true">
+            <div class="showMore overlay blue"
+               style="background-image: url('{$basePath}/img/pages/qa/card_boxes/platforms/platforms.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/platforms/platforms_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include platforms_preview}</div>
+                    <div class="detail">{include platforms_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/training/training.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/training/training_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include training_preview}</div>
+                    <div class="detail">{include training_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <div class="showMore overlay blue" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/certification/certification.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/certification/certification_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include certification_preview}</div>
+                    <div class="detail">{include certification_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <div class="showMore overlay blue"
+               style="background-image: url('{$basePath}/img/pages/qa/card_boxes/performance-tests/performance-tests.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/performance-tests/performance-tests_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include perfomance_test_preview}</div>
+                    <div class="detail">{include perfomance_test_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <div class="showMore overlay blue"  style="background-image: url('{$basePath}/img/pages/qa/card_boxes/penetration-tests/penetration-tests.jpg')">
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/qa/card_boxes/penetration-tests/penetration-tests_rollover.jpg')"></div>
+                <div class="content">
+                    <div class="preview">{include penetration_test_preview}</div>
+                    <div class="detail">{include penetration_test_details}</div>
+                    <div class="read_more">{_pages.qa.card-boxes.button}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

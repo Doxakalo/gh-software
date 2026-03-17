@@ -1,0 +1,92 @@
+{block overview-headline}Bridge for Arduino Overview{/block}
+{block overview}
+    <h2>{include overview-headline}</h2>
+    <p>Bridge for Arduino enables <a n:href="FileMakerLicensing:default">FileMaker Pro</a> to <strong>interact with custom hardware devices</strong>
+        based on the popular <strong>open-source Arduino platform</strong> while maintaining the <strong>ease of use</strong> typical for
+        FileMaker development. Our plug-in lets you easily:</p>
+        <div class="editor-content">
+            <ul>
+                <li>Read from Arduino pins to process <strong>digital signals</strong> and <strong>sensor values</strong></li>
+                <li>Write directly to Arduino pins to <strong>control various electrical devices</strong></li>
+                <li>Control servo and stepper motors to <strong>automate moving parts of robots and machines</strong></li>
+                <li>Display text on an LCD display to <strong>provide custom user interface such as cashbox</strong></li>
+                <li>Connect Arduino boards over network to <strong>control and monitor distant devices</strong></li>
+                <li>Install 24U’s firmware to Arduino to <strong>avoid having to write your own C code</strong></li>
+            </ul>
+        </div>
+{/block}
+
+{block read_write-headline}Read and Write to Arduino Pins{/block}
+{block read_write}
+    <h2>{include read_write-headline}</h2>
+    <p>
+        Bridge for Arduino lets you directly control individual input/output pins on the Arduino Uno or compatible board. Each pin can be set to work as input or output for either digital
+        or analog signals.
+    </p>
+    <p class="p-bold">
+        By directly accessing each pin you can switch lights or doors, control machines, or collect data from sensors, such as temperature, force, or pressure. This way your app can
+        directly control or monitor things like an automated production line.
+    </p>
+{/block}
+
+{block servo-headline}Control Servo Motors{/block}
+{block servo}
+    <h2>{include servo-headline}</h2>
+    <p>With Bridge for Arduino you can make Arduino board rotate a servo motor to specific angle or by specific angle, simply by passing the desired angle value to the plug-in.</p>
+    <p class="p-bold">By controlling motors and actuators your custom FileMaker app can literally move things in the physical world, such as window shaders, machine parts, or even push
+        packages to or from racks or conveyor belts.</p>
+{/block}
+
+{block stepper-headline}Move Things with Stepper Motors{/block}
+{block stepper}
+    <h2>{include stepper-headline}</h2>
+    <p> Bridge for Arduino enables FileMaker Pro to control stepper motors via Arduino simply by telling the plug-in your desired acceleration, maximum velocity and target position. </p>
+    <p class="p-bold"> By simply controlling servo motors your custom FileMaker app can physically move even things requiring low-to-medium acceleration, high holding torque, and precise
+        positioning, such as conveyor belts, automated CNC lathes or cutters.</p>
+{/block}
+
+{block lcd-headline}Display Text on LCD Display{/block}
+{block lcd}
+    <h2>{include lcd-headline}</h2>
+    <p>
+        Displaying your own text can be as easy as supplying the text as a parameter to the Bridge for Arduino plug-in function.
+    </p>
+    <p class="p-bold">
+        Integrating LCD displays with your custom apps lets you create fully customized hardware terminals, such as cashier or access controller, and even control multiple terminals from a
+        single copy of FileMaker Pro.
+    </p>
+{/block}
+
+{block ethernet-headline}Connect Arduino via Ethernet{/block}
+{block ethernet}
+    <h2>{include ethernet-headline}</h2>
+    <p>
+        After you attach the popular Ethernet Shield module to your Arduino and configure it over USB, Bridge for Arduino will let you to control the board over TCP/IP.
+    </p>
+    <p class="p-bold">
+        By connecting Arduino to the network, you can easily control it from a FileMaker app running far away, or even from different computers. You can also easily control multiple
+        different Arduino boards from one place.
+    </p>
+{/block}
+
+{block wifi-headline}Connect Arduino via Wi-Fi{/block}
+{block wifi}
+    <h2>{include wifi-headline}</h2>
+    <p>
+        Bridge for Arduino lets you to communicate with your Arduino board also wirelessly, using the popular ESP-01 Wi-Fi module.
+    </p>
+    <p class="p-bold"> Wi-Fi support lets you build custom hardware devices, even battery-powered, and still easily control them directly from FileMaker Pro, without using any cables.
+    </p>
+{/block}
+
+
+{block firmware-headline}24U’s Firmware for Arduino{/block}
+{block firmware}
+    <h2>{include firmware-headline}</h2>
+    <p>
+        By default, Arduino boards come free of any software and you have to write your own code to make them do something. Bridge for Arduino comes with a ready-to-use firmware you can just install and start using.
+    </p>
+    <p class="p-bold">
+        By providing a ready-to-use firmware we have saved you from having to write a single line of C code, letting you to focus on your use case and easily control your devices directly from FileMaker Pro.
+    </p>
+{/block}

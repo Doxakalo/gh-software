@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+
+	<title>IPC DPP-255 Printers Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for IPC DPP-255 Printers</h1>
+<p>
+<a href="../../Support/DPP-255_User_Manual.pdf">Product information</a>
+</p>
+
+<h2>Limitations</h2>
+<ul>
+    <li>There is know bug in manufacturer SDK: When you try to print long piece of text without any spaces or newlines and you use multiple font settings for this text, it will be printed with broken word wrapping.</li>
+</ul>
+
+<h2>Connecting the IPC DPP-255 Printers</h2>
+<ul>
+	<li>Turn on your printer</li>
+	<li>Go to Settings -> Bluetooth and pair you printer with iOS</li>
+	<li>Call function Gonector_Get("devices") to get deviceName of your printer</li>
+	<li>Call function Gonector_Connect("") with name you received in previous step</li>
+</ul>
+
+
+<h2>Solving issues with IPC DPP-255 Printers</h2>
+<p>
+	<ul>
+		<li><i>Device is connected to iOS, but i cannot use the device and cannot get firmwareVersion neither</i><br>
+			IPC DPP-255 Printers use special protocol for communication, which has to be specified in your app. Into the .plist file of the project in Xcode, add new Row with the value "Supported external accessory protocol" and add the Strings:
+		<ul>
+		    <li>"com.ipc.imperea.controls"</li>
+		    <li>"com.ipc.imperea.bootloader"</li>
+        </ul>
+		</li>
+		
+
+	</ul>
+</p>
+
+<h2>Apple App Store Requirements</h2>
+
+<p>
+  If you build an app for any Infinite Peripherals device and are going to distribute your app on the App Store, you will need to register the app with Infinite Peripherals in order to obtain MFi Authorization<br><br>
+  You can do so through the Infinite Peripherals website at https://developer.ipcmobile.com/profile/. Infinite Peripherals will provide you with an identification number (PPID) that you have to include in review notes when submitting your app<br><br>
+  Select "Yes" for the "Bluetooth feature" option when registering your app as some of the supported devices use Bluetooth with a non-standard profile for communication.<br><br>
+
+  <b>NOTE:</b> If you already did this step for Infinea mPos device or LineaInfinea device in the same App you do not have to do this again for IPC DPP-255 Printers
+</p>
+
+<h2 id="developerkey">App Developer Key</h2>
+<ul>
+    <li>Create an account at <a href="https://developer.ipcmobile.com">Infinite Peripherals developer portal</a> </li>
+    <li>After you account is approved you can create an app developer key in your main profile page</li>
+    <li>Bundle ID Name for your generated key has to be the same as the bundle id of your app</li>
+    <li>Before you use any Linea or Infinea device you have to first call:<br/>
+        <b>Gonector_Set("appDevKey" ; "LineaInfinea" ; "&lt;your app dev key&gt;")</b>
+</ul>
+
+
+
+</body>
+</html>

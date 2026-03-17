@@ -1,0 +1,291 @@
+.video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999999;
+  border: none;
+  //outline: 2px solid $colorBlue !important;
+  outline-offset: -1px;
+}
+section:not(.slider-panel){
+  .video {
+    width: 101%;
+    left: -0.5%;
+    @include g-state(desktopLarge desktop tablet mobile mobileSmall) {
+      width: 101%;
+    }
+  }
+  &.showBig{
+    .video{
+      outline: 2px solid $colorBlack !important;
+      width: 101% !important;
+      left: -0.5%;
+      @include g-state(desktopLarge desktop tablet mobile mobileSmall) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.video-container {
+  position: relative;
+  overflow: hidden;
+
+  video {
+    width: 100%;
+    height: 100%;
+  }
+
+  &.overlay {
+    &:after {
+      display: block;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: -100px; // negative scroll extra overlap
+      background-color: $colorOverlayDark;
+      pointer-events: none;
+    }
+  }
+  &.overlay-light {
+    &:after {
+      background-color: $colorOverlayLight;
+    }
+  }
+
+  .vjs-no-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+ul.share-links {
+  li {
+    display: block;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 0.5em;
+
+    a {
+      $size: 20px;
+
+      display: block;
+      width: $size;
+      height: $size;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      &.share{
+        background-color: #329af2;
+        border-radius: 4px;
+      }
+      &.facebook {
+        background-image: image-url('icons/facebook.svg');
+      }
+
+      &.twitter {
+        background-image: image-url('icons/twitter.svg');
+      }
+
+      &.linkedin {
+        background-image: image-url('icons/linkedin.svg');
+      }
+      &.shortlink {
+        background-image: image-url('icons/sharelink.svg');
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+ul.tags {
+  margin-bottom: 1em;
+
+  li {
+    display: inline-block;
+    margin-bottom: 0.5em;
+    @extend small;
+
+    a {
+      display: inline-block;
+      white-space: no-wrap;
+      text-decoration: none;
+      padding: 0.25em 0.5em 0.2em;
+      @include border-radius(3px);
+      background-color: $colorLightBlue4;
+
+      &:hover {
+        background-color: $colorBlue;
+        color: $colorWhite;
+      }
+    }
+  }
+}
+
+// special variant for use inside cover with tabs + parallax
+.inner-background {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.tile-parallax {
+  top: -14vh;
+  bottom: -14vh;
+}
+
+.tile-parallax-inner {
+  // tile parallax content
+}
+
+.no-click {
+  pointer-events: none;
+}
+
+/*
+  Swiper customizations
+*/
+.swiper-container {
+  &:not(.small) {
+    .swiper-button-prev,
+    .swiper-button-next {
+      $sliderArrowWidth: 2.857em;
+      $sliderArrowHeight: 2.857em;
+      @include transition($hoverAnimationDuration opacity ease-in-out);
+      @include transform(translateY(-50%));
+      @include border-radius(50%);
+      top: 50%;
+      opacity: .5;
+      background-size: 40%;
+      width: $sliderArrowWidth;
+      height: $sliderArrowHeight;
+      padding: .5em;
+      background-color: $colorWhite;
+      background-repeat: no-repeat;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      @include g-state(tablet) {
+        width: ($sliderArrowWidth * $scaleRatioTablet);
+        height: ($sliderArrowHeight * $scaleRatioTablet);
+      }
+
+      @include g-state(mobile) {
+        width: ($sliderArrowWidth * $scaleRatioMobile);
+        height: ($sliderArrowHeight * $scaleRatioMobile);
+      }
+    }
+  }
+  &.small {
+    .swiper-button-prev,
+    .swiper-button-next {
+      $sliderArrowWidth:1em;
+      $sliderArrowHeight: 1em;
+      @include transition($hoverAnimationDuration opacity ease-in-out);
+      @include border-radius(50%);
+      top: 50%;
+      opacity: .5;
+      background-size: 40%;
+      width: $sliderArrowWidth;
+      height: $sliderArrowHeight;
+      padding: .5em;
+      background-color: $colorWhite;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+.swiper-button-prev, .swiper-button-next{
+  &.swiper-button-disabled{
+    opacity: 0.0 !important;
+  }
+ }
+.swiper-button-prev {
+  background-image: image-url('icons/left_arrow_icon.svg');
+  background-position: 40% center;
+  border: 1px solid $colorWhite;
+}
+
+.swiper-button-next {
+  background-image: image-url('icons/right_arrow_icon.svg');
+  background-position: 60% center;
+  border: 1px solid $colorWhite;
+}
+
+/*
+  Video.js skin cusromization
+*/
+.video-js {
+  .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    border: none;
+    font-size: 18px;
+    background-color: unset;
+    line-height: unset;
+    height: unset;
+    width: unset;
+    display: unset;
+    position: unset;
+    top: unset;
+    left: unset;
+    padding: unset;
+    cursor: unset;
+    opacity: unset;
+    border: unset;
+    background-color: unset;
+    border-radius: unset;
+    transition: unset;
+
+    .vjs-icon-placeholder:before {
+        display: block;
+        content: '';
+        position: absolute;
+        @include transform(translate(-50%, -50%));
+        top: 50%;
+        left: 50%;
+        background-image: image-url('icons/play_icon.svg');
+        width: 5em;
+        height: 5em;
+        background-size: cover;
+        opacity: .5;
+    }
+
+    &:hover {
+      background-color: rgba($colorWhite, 0.5);
+    }
+  }
+  &.vjs-playing{
+    .vjs-big-play-button{
+      display: none;
+    }
+  }
+}

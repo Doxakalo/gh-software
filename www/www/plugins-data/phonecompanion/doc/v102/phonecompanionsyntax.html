@@ -1,0 +1,223 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>24U Phone Companion 1.0 Syntax</title>
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h2 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+    -->
+    </STYLE>
+  </head>
+
+<body>  
+<h1>24U Phone Companion 1.0 Syntax</h1>
+
+<h2>Phone_Version( { versionFormat } )</h2>
+<p class="f_intro">Returns version string of the active 24U Phone Companion, formatted as requested by the parameter.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">versionFormat</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number. Default value.</td></tr>
+<tr valign="top"><td class="t2_param">"long"</td><td>To get the plug-in name followed by its version number.</td></tr>
+<tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform of the code currently running.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function is very important and it has the same output format in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+<h3>Result</h3>
+<p>Returns requested version format or platform. If this function returns "?" than the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.<p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Version( "long" )</span><br>
+This will return the plug-in name and its version. In this case it is "24U Phone Companion 1.0".</p>
+<p><span class="syntax_hl">Phone_Version( "platform" )</span><br>
+Returns "Mac OS X" or "Windows" depending on the platform the plug-in is currently running.</p>
+
+<h2>Phone_Register( originalSerialNumber { & " " & upgradeSerialNumber... } )</h2>
+<p class="f_intro">Attempts to unlock (register) your copy of 24U Phone Companion with the specified code.<p> 
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">originalSerialNumber</td><td>The original (non upgrade) code to unlock the full version of the plug-in.</td></tr>
+<tr><td class="t_param">upgradeSerialNumber</td><td>The upgrade code to unlock the full version of the plug-in.</td></tr>
+</table>
+<h3>Description</h3>
+<p>If the code(s) is valid, 24U Phone Companion gets unlocked and stays in this state until you quit the FileMaker Pro application, deactivate the plug-in, or the registration code expires. While unlocked, 24U Phone Companion is fully functional and does not bother the user with a shareware reminder.</p>
+<h3>Result</h3>
+<p>Returns a non-zero error code when the serial numbers are wrong if the numbers cannot be used. Returns 0 if the plug-in was successfully registered.<p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Register( "PHC10J-CM244H-U4UGBN" )</span><br>
+This function will register the plug-in with serial number PHC10J-CM244H-U4UGBN. This method is useful when you register the plug-in with developer license but it can be used for end-user licenses as well.</p>
+<p><span class="syntax_hl">Phone_Register( "PHC10J-CM244H-U4UGBN PHC20J-BTPDSK-D3AJ9C" )</span><br>
+Use combination of serial numbers delimited by empty space to register using upgrade code. The first code must be the original one, all other codes should be upgrade codes.</p>
+<p><span class="syntax_hl">Phone_Register( "PHC10J-CM244H-U4UGBN PHC20J-BTPDSK-D3AJ9C PHC30J-5B4J7Z-W9KFNS" )</span><br>
+The example of using one original number and two upgrade numbers. The original is for version 1.0 and upgrades are for 2.0 and 3.0.</p>
+<p><span class="note">Note: </span>All serial numbers here are only for demonstration purposes. They will not work in real plug-in.</p>
+
+<h2>Phone_Connect( serverIP ; serverPort { ; timeout } )</h2>
+<p class="f_intro">Connect to STLI server.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">serverIP</td><td>The IP address of the server.</td></tr>
+<tr valign="top"><td class="t_param">serverPort</td><td>The port of the server.</td></tr>
+<tr valign="top"><td class="t_param">timeout</td><td>The timeout for connection. Use float number in seconds. The default value is 3s.</td></tr>     
+</table>
+<h3>Description</h3>
+<p>Call this function establish TCP connection to STLI server. This server is needed to control the line. All phone functions will work only if the plug-in is properly connected.</p>
+<h3>Result</h3>
+<p>Function returns 0 id connection was successfully established. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Connect( "10.0.0.2" ; 26535 )</span><br>
+The plug-in will attempt to connect to server with IP 10.0.0.2 on port 26535.</p>
+<p><span class="syntax_hl">Phone_Connect( "132.65.28.17" ; 25001 ; 9.5 )</span><br>
+The plug-in will attempt to connect to server with IP 132.65.28.17 on port 25001 with 9.5 seconds timeout.</p>
+
+<h2>Phone_Disconnect</h2>
+<p class="f_intro">Disconnect from STLI server.</p>
+<h3>Description</h3>
+<p>This function will cause that TCP connection to STLI server will be terminated. Use this function when you no longer need phone services.</p>
+<h3>Result</h3>
+<p>Function returns 0 if the connection was terminated. It returns 0 even if there was no previous connection. Error code is returned when the connection was not terminated in the standard way (abnormal termination).</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Disconnect</span><br>
+Function has no parameters. This will always terminate the connection and return status code.</p>
+
+<h2>Phone_Dial( localDevice ; calledDirectoryNumber )</h2>
+<p class="f_intro">Dials a specified telephone number on the specified calling device.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">localDevice</td><td>The phone number of device from which the call originates. The device must be local.</td></tr>
+<tr valign="top"><td class="t_param">calledDirectoryNumber</td><td>Indicates the device to which the call should be directed. The number should direct to local or external device.</td></tr>  
+</table>
+<h3>Description</h3>
+<p>This function will dial the number on the local phone. The format should be FileMaker text. It can contain all numbers, "*", "#" and "+".</p>
+<h3>Result</h3>
+<p>Function returns 0 if the number was successfully dialed. It doesn't matter if the other side accepted the call or not. If some error occurred (line is not ready, server is not ready, line was forcefully disconnected or similar) the status number is returned.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Dial( "11" ; "17" )</span><br>
+This will dial the number 17 on the device with number 11.</p>
+<p><span class="syntax_hl">Phone_Dial( "103" ; "05555925" )</span><br>
+You can use any number for outside calls. This will dial 05555925 number on the device with local number 103.</p>
+
+<h2>Phone_Answer( localDevice )</h2>
+<p class="f_intro">Answers (off-hook) an incoming call.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">localDevice</td><td>The local device which should answer the call.</td></tr>  
+</table>
+<h3>Description</h3>
+<p>The called local device should be able to accept incoming call. It should be either speakerphone or headset equipped phone. The local device should be monitored for incoming calls. Use Phone_SetScriptEvent function to monitor incoming calls.</p>
+<h3>Result</h3>
+<p>Function returns 0 if the call was successfully accepted. It the device cannot accept call or another problem occurred than the status code is returned.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Accept( "19" )</span><br>
+This will accept the call on the local device with number 19.</p>
+
+<h2>Phone_HangUp( localDevice )</h2>
+<p class="f_intro">Hang up a call.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">localDevice</td><td>The phone number of the local device which should hang up.</td></tr>  
+</table>
+<h3>Description</h3>
+<p>This function will hang up a call on the local phone. The call should be properly established and local device should be monitored with some event. Use Phone_SetScriptEvent to start monitoring events.</p>
+<h3>Result</h3>
+<p>Function returns 0 if the phone was properly hanged up. In case of error the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_HangUp( "19" )</span><br>
+This will hang up a call on the phone with number 19.</p>
+
+<h2>Phone_SetScriptEvent( localDevice ; event ; scriptName )</h2>
+<p class="f_intro">Tell the plug-in to launch the script when specified event is triggered from outside.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">localDevice</td><td>The phone number of the device for which the event will be triggered.</td></tr>
+<tr valign="top"><td class="t_param">event</td><td>The type of the event which should be installed. See table below for possible types.</td></tr>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of the script which should be triggered.</td></tr>  
+</table>
+<h3>Parameter values for <span class="p_hl">event</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">event</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"onIncomingCall"</td><td>Run the script on incoming call from outside.</td></tr>    
+<tr valign="top"><td class="t2_param">"onAnswerCall"</td><td>Run the script when incoming call is answered.</td></tr>
+<tr valign="top"><td class="t2_param">"onHangUp"</td><td>Run the script on hang up.</td></tr>
+<tr valign="top"><td class="t2_param">"onCalling"</td><td>Run the script when when the call is made from the phone.</td></tr>  
+</table>
+<h3>Description</h3>
+<p>The function will call the specified script when the event of the specified type occurs. The script will receive a parameter which contains the number of controlled phone on the first line and the phone number of the second side on the second line.</p>
+<p>To remove event for some number call  <span class="syntax">Phone_SetScriptEvent( localDevice ; event  ; "" )</span>.<br>
+To remove all events for some number call <span class="syntax">Phone_SetScriptEvent( localDevice ; "" ; "" )</span>.<br>
+To remove all events for all numbers call <span class="syntax">Phone_SetScriptEvent( "" ; "" ; "" )</span>.</p>
+<h3>Result</h3>
+<p>Function returns 0 if event is successfully installed or uninstalled. In case of error the function returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_SetScriptEvent( "19" ; "onAnswerCall" ; "Save answered call" )</span><br>
+This will install the script named "Save answered call" for the local device with number 19.</p>
+<p><span class="syntax_hl">Phone_SetScriptEvent( "105" ; "onCalling" ; "Show announcement" )</span><br>
+The script "Show announcement" will be called every time the user makes a call from the phone with number 105.</p>
+
+<h2>Phone_Get( what )</h2>
+<p class="f_intro">Function to get plug-in or phone server settings and other useful data.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">what</td><td>Which data should be get.</td></tr>     
+</table>
+<h3>Parameter values for <span class="p_hl">what</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"lastError"</td><td>Returns the error code of the last error. If no error occurred 0 is returned.</td></tr>
+<tr valign="top"><td class="t2_param">"serverStatus"</td><td>Returns the status of the server. Can be "connected" or "disconnected".</td></tr>
+<tr valign="top"><td class="t2_param">"monitoredDevices"</td><td>Returns a value list of the devices which are currently monitored for events. See function <span class="syntax">Phone_SetScriptEvent</span> to see how to install the event handler script. The value list is delimited by line break.</td></tr>
+<tr valign="top"><td class="t2_param">"serverResponseTimeout"</td><td>Gets the time how long Phone Companion waits for reply from TeamCall Server or Express.</td></tr>
+<tr valign="top"><td class="t2_param">"serverCommunicationDelay"</td><td>If Phone companion sends more than one message it waits very short time between each message. Use this parameter to obtain this value in seconds.</td></tr>           
+</table>
+<h3>Description</h3>
+<p>Use this function to get important parameters.</p>
+<h3>Result</h3>
+<p>Function returns data if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phone_Get("lastError")</span> for more detailed error description.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Get( "lastError" )</span><br>
+Returns the error code of the last command. For example -50.</p>
+
+<h2>Phone_Set( what ; newValue )</h2>
+<p class="f_intro">Set plug-in or phone server settings and other useful parameters.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">what</td><td>Which data should be set.</td></tr> 
+<tr valign="top"><td class="t_param">newValue</td><td>The new value for data.</td></tr>    
+</table>
+<h3>Parameter values for <span class="p_hl">what</span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"serverResponseTimeout"</td><td>Sets how long Phone Companion waits for reply from TeamCall Server or Express. The time is in seconds and the default value is 3 s.</td></tr>
+<tr valign="top"><td class="t2_param">"serverCommunicationDelay"</td><td>If Phone companion sends more than one message it waits very short time between each message. The default value is 0.1 s. Use longer delays if TeamCall is not able to react to fast communication.</td></tr>       
+</table>
+<h3>Description</h3>
+<p>Use this function to set important parameters. Default communication delays and timeouts are set to work on local area networks. You can set longer values on slower networks (slow wireless networks) but the plug-in reactions will be also slower. Try to keep <span class="t2_param">serverCommunicationDelay</span> parameter as low as possible. Setting it too high (>1s) will essentially delay plug-in responses and probably will not help on broken link.</p>
+<h3>Result</h3>
+<p>Function returns the real value of parameter if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phone_Get("lastError")</span> for more detailed error description.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phone_Set( "serverResponseTimeout" ; 4.5 )</span><br>
+The plug-in will wait for each answer from TeamCall up to 4.5 seconds. This also means that FileMaker will frozen for 4.5 seconds if TeamCall does not respond - do not set it too high.</p>
+
+</body>
+</html>

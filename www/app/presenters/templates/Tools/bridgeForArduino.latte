@@ -1,0 +1,161 @@
+{block title}Bridge for Arduino - Extend your custom apps with the popular open-source hardware{/block}
+{block description}
+    This plug-in lets you connect different kinds of Arduino to your computer and interact with them directly from FileMaker Pro.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "Bridge for Arduino",
+            description => "This plug-in lets you connect different kinds of Arduino to your computer and interact with them directly from FileMaker Pro.",
+            imagePath => "img/icons/bridge_for_arduino_icon.svg",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+{* VIDEO - DETECT RESOLUTION *}
+{if $detect['platformDevice'] === "tablet"}
+    {var $videoResolution = "640"}
+{elseif $detect['platformDevice'] === "phone"}
+    {var $videoResolution = "640"}
+{else}
+    {var $videoResolution = "640"}
+{/if}
+
+{import '../Components/tools_videoplayer.latte'}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/bridge_for_arduino_icon.svg" alt=""/>
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Extend your custom apps<br/>
+                        with the popular open-source hardware
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <div class="button download-button">Download</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/bridgeForArduino_en.latte'}
+{var $overview = [
+    name => 'overview',
+    testimonials => [
+        [ img => $basePath.'/img/pages/tools/bridge-for-arduino/video_preview.jpg', video => [id => 'R0Xibly1O1s'], name => 'Joe King', ],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'read_write', video-mp4 => [folderName => 'bridge-for-arduino', fileNamePrefix=> 'LED_button', videoResolution => $videoResolution]],
+    [name => 'servo', video-mp4 => [folderName => 'bridge-for-arduino', fileNamePrefix=> 'servo', videoResolution => $videoResolution]],
+    [name => 'stepper', video-mp4 => [folderName => 'bridge-for-arduino', fileNamePrefix=> 'stepper', videoResolution => $videoResolution]],
+    [name => 'lcd', video-mp4 => [folderName => 'bridge-for-arduino', fileNamePrefix=> 'LCD', videoResolution => $videoResolution]],
+    [name => 'ethernet', video-mp4 => [folderName => 'bridge-for-arduino', fileNamePrefix=> 'Arduino_Ethernet', videoResolution => $videoResolution]],
+    [name => 'wifi', video-mp4 => [folderName => 'bridge-for-arduino', fileNamePrefix=> 'Arduino_WIFI_v5', videoResolution => $videoResolution]],
+    [name => 'firmware', img => $basePath.'/img/pages/tools/bridge-for-arduino/firmware.png' ],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+{snippet storeForm}
+    {include '../Components/store-section.latte', toolName => $toolName}
+{/snippet}
+
+{capture $downloadVersionsHtml}
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v1.0.1
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2021/09/24"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/bridge-for-arduino/doc/v101/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/bridge-for-arduino/doc/v101/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                            <a href="{$basePath}/plugins-data/bridge-for-arduino/doc/v101/supporteddevices.html" target="_blank" class="button download-tech-doc">Show supported devices</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> Dual Core 1.6 GHz processor, 4096 MB RAM, Windows 11 or newer, FileMaker Pro 19.6 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> 1 GHz processor, 2048 MB RAM, Windows 8, FileMaker Pro 16
+                            </p>
+                            <a href="{$basePath}/download/BridgeForArduino101.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel/Apple Silicon Mac, 4096 MB RAM, macOS Monterey 12 or newer, FileMaker Pro 19.6 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac since 2008, 2048 MB RAM, macOS 10.13 High Sierra, FileMaker Pro 16
+                            </p>
+                            <a href="{$basePath}/download/BridgeForArduino101.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+{/capture}
+{include '../Components/download-section.latte', versionsHtml => $downloadVersionsHtml, toolName => $toolName}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}

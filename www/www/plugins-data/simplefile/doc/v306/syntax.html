@@ -1,0 +1,712 @@
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>24U SimpleFile Plug-In 3.0 Syntax</title>
+    <script>
+	function changeColor()
+	{
+	  var tags = document.getElementsByTagName('*');
+	  var tcl = " news_highlight ";
+	  for(i=0,j=0; i<tags.length; i++) 
+	  { 
+	    var test = " " + tags[i].className + " ";
+	    if (test.indexOf(tcl) != -1)
+	    {
+		  if(tags[i].style.backgroundColor=="")
+		  {
+		     tags[i].style.backgroundColor="yellow";
+		  }
+		  else
+		  {
+		     tags[i].style.backgroundColor="";
+		  }
+	    }
+	  }
+	}
+	</script>
+    <style type="text/css" media="screen">
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h2 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param_width { font-family: monospace; width: 180px; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      .t_path { font-family: monospace; font-size: 12px; color: #1F1F1F }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+    -->
+    </style>
+  </head>
+
+<body>  
+<h1>24U SimpleFile Plug-In 3.0 Syntax</h1>
+
+<form><input type="button" value="Highlight changes in the new version"	onClick='javascript:changeColor()'></form>
+
+<h2>SFile_Version( { versionFormat } )</h2>
+<p class="f_intro">Returns version string of the active 24U SimpleFile Plug-In, formatted as requested by the parameter.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+  <tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">versionFormat</span></h3>
+<table border="0" cellspacing="4" cellpadding="0">
+  <tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number. Default value.</td></tr>
+  <tr valign="top"><td class="t2_param">"long"</td><td>To get the plug-in name followed by its version number</td></tr>
+  <tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform of the code currently running</td></tr>
+  <tr valign="top"><td class="t2_param">"autoupdate"</td><td>To get autoupdate compatible (comparable) version number.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This function is very important and it has the same output format in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+<h3>Result</h3>
+<p>Returns requested version format or platform. If this function returns "?" than the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Version( "long" )</span><br />
+This will return the plug-in name and its version. In this case it is "24U SimpleFile Plug-In 3.0".</p>
+<p><span class="syntax_hl">SFile_Version( "platform" )</span><br />
+Returns "Mac OS X" or "Windows" depending on the platform the plug-in is currently running.</p>
+<p><span class="syntax_hl">SFile_Version( "autoupdate" )</span><br />
+Returns "02030400" for the plug-in version 2.3.4.</p>
+
+<div class="news_highlight">
+<h2>SFile_Register ( <span class="">selector</span> )</h2>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers.</p>
+<table>
+<tr class="">    <td class="t2_param">SerialNumber</td>    <td>Register given SerialNumber and return an error code.</td>    </tr>
+<tr class="">    <td class="t2_param">EmailAddress</td>    <td>Tries to activate with given email address and return an error code. Trial version is valid only after you confirm email</td>    </tr>
+<tr class=""><td class="t2_param">Hash</td><td>Activate a serial number with a hash received from 24U. Used for offline activation.</td></tr>
+<tr class="">    <td class="t2_param">"Registration Window"</td>    <td>Show the "Registration window" and return 0.</td>    </tr>
+<tr class="">    <td class="t2_param">"About Window"</td>    <td>Show the "About window" and return 0.</td>    </tr>
+<tr class="">    <td class="t2_param">"Status"</td>    <td>Return the actual registration state of the plugin: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td>    </tr>
+<tr class="">    <td class="t2_param">"Unregister"</td>    <td>Unregister all serial numbers related to the product and return an error code. Note: after this trial version days wont come back.</td>    </tr>
+<tr class=""><td class="t2_param">"Info"</td><td>Returns current plugin status and its registered serial numbers.</td></tr>
+<tr class=""><td class="t2_param">"ActivationChallenge"</td><td>Returns generated challenge string. This string is sent to 24U.</td></tr>
+<tr class=""><td class="t2_param">"Purchase" ; webAddress</td><td>Opens web browser with given webAddress. Given webAddress should point to 24U Store. <span>This functionality is not implemented for FileMaker Server and Linux.</span></td>
+</table>
+</div>
+
+<h3>Description</h3>
+<p><span class="news_highlight">Use this function to register or unregister 24U SimpleFile Plug-In, to get information about current registration state, or to invoke GUI providing basic registration information and purchase capabilities.</span></p>
+<h3>Result</h3>
+<p><span class="news_highlight">Returns zero or <a href="#error">error code</a> depending on the selector.</span></p>
+<h3>Examples</h3>
+<p><span class="news_highlight"><span class="syntax_hl">SFile_Register( "SFI25C016-BXMW-VNW7-L8AJ-3KGX-VWG8" )</span></span><br />
+  <span class="news_highlight">This function will register the plug-in with client serial number SFI25C016-BXMW-VNW7-L8AJ-3KGX-VWG8 for 16 users.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">SFile_Register( "user@mail.com" )</span></span><br />
+  <span class="news_highlight">In case you do not have a serial number but you want to try the plug-in out, use the string with your email address as selector.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">SFile_Register( "unregister" )</span></span><br />
+  <span class="news_highlight">This function will unregister every serial number related to 24U SimpleFile Plug-In.</span></p>
+<p><span class="news_highlight"><span class="syntax_hl">SFile_Register( "About window" )</span></span><br />
+  <span class="news_highlight">Similar to opening FileMaker preferences, navigating to the Plug-Ins tab and double-clicking on 24U SimpleFile Plug-In.</span></p>
+<p><span class="news_highlight"><span class="note">Note: </span>All serial numbers here are only for demonstration purposes. They will not work in the plug-in.</span></p>
+
+
+<h2>SFile_Choose( itemKind <span class="news_highlight"> { ; prompt { ; initialPath { ; additionalOptions } } } </span>)</h2>
+<p class="f_intro">Displays a system dialog for choosing an existing file or folder or a destination for a new file.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+    <tr valign="top">
+    <td class="t_param">itemKind</td>
+    <td>The kind of the item(s) you would like the user to choose.</td>
+  </tr>    
+    <tr valign="top">
+    <td class="t_param"><span class="news_highlight">prompt</span></td>
+    <td><span class="news_highlight">A string containing custom title of the invoked dialog.</span></td>
+  </tr>
+    <tr valign="top">
+    <td class="t_param"><span class="news_highlight">initialPath</span></td>
+    <td><span class="news_highlight">The initial path the dialog will use. To learn more about valid path types in SimpleFile, see: <a href="#paths">Paths in SimpleFile</a></span></td>
+  </tr>
+    <tr valign="top">
+    <td class="t_param"><span class="news_highlight">additionalOptions</span></td>
+    <td><span class="news_highlight">Suggested name of a file to be created if <span class="t_param">itemKind</span> is "new" or<br />
+      a string specifying allowed extensions the user will be able to choose from if itemKind is "file" or "files". Use '|' character as separator.</span></td>
+  </tr>
+</table>
+
+</table>
+<h3>Parameter values for <span class="p_hl">itemKind</span></h3>
+<table border="0" cellspacing="4" cellpadding="0">
+  <tr valign="top">
+    <td class="t2_param">"file"</td>
+    <td>To choose one existing file.</td>
+  </tr>
+  <tr valign="top">
+    <td class="t2_param">"folder"</td>
+    <td>To choose one existing folder.</td>
+  </tr>
+  <tr valign="top">
+    <td class="t2_param">"new"</td>
+    <td>To open system dialog with new file (Save As... dialog).</td>
+  </tr>
+  <tr valign="top">
+    <td class="t2_param">"files"</td>
+    <td>To choose multiple existing files.</td>
+  </tr>
+  <tr valign="top">
+    <td class="t2_param">"folders"</td>
+    <td>To choose multiple existing folders (only on Mac OS X).</td>
+  </tr>
+</table>
+
+<h3>Description</h3>
+<p>Use this function to invoke operating system dialog to Open or Save file or folder.</p>
+
+<h3>Result</h3>
+<p>Function returns a value list of native full paths chosen by the user. If user clicks cancel button the function returns -128. In the case of error the function returns negative error code.</p>
+
+<h3>Examples</h3>
+
+<p><span class="syntax_hl">SFile_Choose( "new" )</span><br />
+Function invokes "Save As..." dialog where you can specify the name of the new file or folder.</p>
+
+<p><span class="syntax_hl"><span class="news_highlight"> SFile_Choose ( "file" ; "PROMPT" ; "/Users/Tommy/Desktop" ; "pdf|rtf" )</span></span><br />
+<span class="news_highlight">Function invokes "Open..." dialog with title "PROMPT" at Tommy's Desktop and lets the user open files with extensions "pdf" or "rtf". </span></p>
+
+<p><span class="syntax_hl"><span class="news_highlight"> SFile_Choose ( "new" ; "PROMPT" ; "/Users/Tommy/Desktop" ; "New.txt" )</span></span><br />
+<span class="news_highlight">Invokes "Save..." dialog with title "PROMPT" at Tommy's Desktop and suggests the user to create a file with name "New.txt". </span></p>
+
+
+
+<h2>SFile_New( path { ; itemKind } )</h2>
+<p class="f_intro">Creates new folder (default) or empty file on the specified path.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>The path to new file or folder. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">itemKind</td><td>Specifies what can be created. Can be either <span class="t2_param">"folder"</span> (default) or <span class="t2_param">"file"</span>.</td></tr> 
+</table>
+<h3>Description</h3>
+<p>Use this function to create the new file or folder. If the file / folder already exists error -48 is returned and no new item is created. Using <span class="syntax">SFile_Choose( "new" )</span> is recommended to obtain valid path.</p>
+<h3>Result</h3>
+<p>Function returns 0 if file or folder was created. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_New( "C:\\Users\\me\Documents\\TextFile.txt" ; "file" )</span><br />
+This will create a new text file in Documents folder of the user "me" in Windows Vista or 7.</p>
+<p><span class="syntax_hl">SFile_New( "/Users/me/Documents/NewFolder" ; "folder" )</span><br />
+This will create a new folder "NewFolder" in Documents folder of user "me" on Mac OS X.</p>
+<p><span class="syntax_hl">SFile_New( "Log.txt" ; "file" )</span><br />
+This will create a new file named "Log.txt" on the same folder where current active FileMaker solution is.</p>
+
+
+<h2>SFile_Delete( path )</h2>
+<p class="f_intro">Deletes specified file or folder, recursively if it is not empty.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>The path to existing file or folder. To see valid path type look go to: <a href="#paths">Paths in SimpleFile</a></td></tr>   
+</table>
+<h3>Description</h3>
+<p>This function deletes specified existing file or folder. It can be very dangerous if misused - it recursively deletes folders. The function does not follow symbolic links however. It uses operating system functions so the file or folder will be moved to Trash and not deleted irreversibly.</p>
+<h3>Result</h3>
+<p>Function returns 0 if the file or folder was deleted. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Delete( "C:\\Users\\me\\Documents\\OldNastyFile.doc" )</span><br />
+The file "OldNastyFile.doc" in path "C:\Users\me\Documents" will be deleted in Windows.</p>
+<p><span class="syntax_hl">SFile_Delete( "/Users/me/WrongScript.command" )</span><br />
+The script file "WrongScript.command" in path "/Users/me" will be deleted in Mac OS X.</p>
+<p><span class="syntax_hl">SFile_Delete( "Something" )</span><br />
+The item named "Something" will be deleted. The plug-in tries to find file or folder named "Something" in the same folder as currently running FileMaker solution. If it finds file or folder it will delete it.</p>
+
+
+<h2>SFile_Copy( sourcePath ; targetPath )</h2>
+<p class="f_intro">Duplicates specified file, or folder including all contents.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">sourcePath</td><td>The path to source file or folder. To see valid path types go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">targetpath</td><td>The path to destination file or folder</td></tr> 
+</table>
+<h3>Description</h3>
+<p>If targetPath specifies an existing folder, source item is copied into the target under the source's original name. If targetPath specifies a non-existing item in an existing folder, the source item is copied under new name specified by the targetPath. Fails if target item already exists (error -48).</p>
+<h3>Result</h3>
+<p>Function returns 0 if the item was duplicated. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Copy( "C:\\Users\\me\\Documents\\OldNastyFile.doc" ; "C:\\Users\\you\\Documents\\NewNiceFile.doc" )</span><br />
+Duplicates "OldNastyFile.doc" to the new file "NewNiceFile.doc".</p>
+<p><span class="syntax_hl">SFile_Copy( "pictures/BigPicture.jpg" ; "/Volumes/ImgVolume" )</span><br />
+The file "BigPicture.jpg" stored in folder "pictures", which is in the same folder as the solution, will be copied into folder "/Volumes/ImgVolume".</p>
+
+
+<h2>SFile_Move( sourcePath ; targetPath )</h2>
+<p class="f_intro">Moves or renames specified file or folder.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">sourcePath</td><td>The path to source file or folder. To see valid path types go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">targetPath</td><td>The path to destination file or folder</td></tr>  
+</table>
+<h3>Description</h3>
+<p>If targetPath specifies an existing folder, source item is moved into the target under the source's original name. If targetPath specifies a non-existing item in an existing folder, the source item is moved and renamed to a new name specified by the targetPath. <span class="news_highlight">Note, that targetPath may be a relative path as well. For more info about this feature and its limitations, see: <a href="#paths">Paths in SimpleFile</a>.</span> Fails if target item exists (error -48), or if the target item's volume is different from the source item's volume (error -1303). In this case use <span class="syntax">SFile_Copy( sourcePath ; targetPath )</span> and <span class="syntax">SFile_Delete( sourcePath )</span> instead.</p>
+<h3>Result</h3>
+<p>Function returns 0 if the file or folder has been moved. Otherwise it returns negative error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Move( "FileWithBadName.dat" ; "FileWithGoodName.dat" )</span><br />
+This will rename the file with name "FileWithBadName.dat" to "FileWithGoodName.dat" in the current folder of the solution.</p>
+<p><span class="syntax_hl">SFile_Move( "C:\\Temp\\game_config_backup.ini" ; "C:\\Game\\SomeGame\\GameConfig.ini" )</span><br />
+Move file "game_config_backup.ini" to the folder "C:\Game\SomeGame\" and rename it to "GameConfig.ini".</p>
+<p><span class="syntax_hl">SFile_Move( "C:\\Temp\\game_config_backup.ini" ; "D:\\Game\\SomeGame\\GameConfig.ini" )</span><br />
+Will fail with -1303 because source and target volumes (drives) do not match.</p>
+
+
+<h2>SFile_Read( path { ; startIndex { ; maxLength } } { ; encoding } )</h2>
+<p class="f_intro">Reads file or folder content.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>Path to file in any supported form. To see valid path types go to: <a href="#paths">Paths in SimpleFile</a>. <span class="news_highlight">In case the path points to a folder, the rest of the parameters are ignored.</span></td></tr>
+<tr valign="top"><td class="t_param">startIndex</td><td>Specifies byte offset in file. The first byte of file is on offset 0. The negative number is counted from the end of the file: -1 is the last byte of the file. The default value is 0.</td></tr>
+<tr valign="top"><td class="t_param">maxLength</td><td>Number of bytes to read from file. The default value is "all" which means that all bytes to the end of the file will be read.</td></tr>
+<tr valign="top"><td class="t_param">encoding</td><td>Specifies text encoding for text file or file type for binary files. <span class="news_highlight">To see all possible encodings see <a href="#encodings">Encodings list</a>.<br />If the encoding is not specified, the plugin tries to guess the encoding from the files extension. In case the file has unknown extension, SFile_Read returns nothing.</span></td></tr>
+</table>
+<h3>Description</h3>
+<p>This is a universal reader of files and folders. It can read any file, text or binary and it can list the contents of the folder.</p>
+<h3>Result</h3>
+<p>The function returns bytes or characters read from the file. In the case of error the function returns "?" and error code is set. Use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Read( "SomeText.txt" )</span><br />
+Read contents of the file "SomeText.txt" in the same folder as the solution. Plug-In uses default values, this means it presumes that: Encoding is default system (Mac-Roman on Mac, CP-1252 on Windows) and file type is Text.</p>
+<p><span class="syntax_hl">SFile_Read( "SomeText.txt" ; 25 ; 1000 )</span><br />
+Similar to previous example. The plug-in will start reading from 25th byte of file and reads only 1000 bytes.</p>
+<p><span class="syntax_hl">SFile_Read( "/Library/Preferences/Configuration.conf" ; 42 ; 80 ; "utf-8" )</span><br />
+This command will return the content of the file "Configuration.conf" from folder /Library/Preferences/. Data are from 42nd byte. It reads only 80 bytes and decode the text from utf-8 encoding.</p>
+<p><span class="syntax_hl">SFile_Read( "file:///Library/Preferences/Configuration.conf" ; -80 ; 80 ; "utf-8" )</span><br />
+Very similar to previous example demonstrating another path type. It reads last 80 bytes in file and decode the text from utf-8 encoding.</p>
+<p class="news_highlight"><span class="syntax_hl">SFile_Read( "." )</span><br />
+This command will return carriage-return-separated names of files in the folder the current solution is in.</p>
+
+
+<h2>SFile_Write( path ; data { ; startIndex } { ; encoding } )</h2>
+<p class="f_intro">Reads file or folder content.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>Path to file in any supported form. To see valid path types go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">data</td><td>FileMaker field containing data which should be written to file.</td></tr>
+<tr valign="top"><td class="t_param">startIndex</td><td>Specifies byte offset in file. The first byte of file is on offset 0. The negative number is counted from the end of the file: -1 is the "byte" right after the last byte of the file. The default value is 0. All bytes from FileMaker rewrites the content of the file.</td></tr>
+<tr valign="top"><td class="t_param">encoding</td><td>Specifies text encoding for text file or file type for binary files. Default values are listed in the next table. To see all possible encodings go to <a href="#encodings">Encodings list</a></td></tr>
+</table>
+<h3>Default file encoding used in <span class="p_hl">encoding</span> parameter for <span class="p_hl">data</span>.</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th align="left">FileMaker Field Type</th><th align="left">Written file type</th></tr>  
+<tr><td class="t2_param">Text, Number, Date, Time, Timestamp</td><td>The contents of the field is written to text file with default operating system encoding.</td></tr>
+<tr><td class="t2_param">Container with general file</td><td>The file is written to disk in an unchanged form.</td></tr>
+<tr><td class="t2_param">Container with picture</td><td>The picture will be written to file using the same type it is stored inside the container.</td></tr>
+<tr><td class="t2_param">Container with sound</td><td>The sound file will be written to file using the same type it is stored inside the container.</td></tr>
+<tr><td class="t2_param">Container with link</td><td>Linked file, if available, will be copied "as is" to the target path.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to write to existing files or to create the new one. The function is able to write binary data from container but don't use it to convert binary data between formats. If you use SFile_Read to load jpg picture this function cannot convert it to gif for example.</p>
+<h3>Result</h3>
+<p>The function returns the number of bytes / characters which were actually written. In the case of error the function returns "?" and error code is set. Use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Write( "C:\\Documents\\TextFile.txt" ; "Hello World!" )</span><br />
+This function will create (or rewrite) the file "TextFile.txt" to "C:\Documents" folder and it writes text "Hello World!" into this file using operating system default encoding.</p>
+<p><span class="syntax_hl">SFile_Write( "notes.txt" ; "Interesting note" )</span><br />
+Writes text "Interesting note" into file "notes.txt" in the same folder as the solution.</p>
+<p><span class="syntax_hl">SFile_Write( "/var/logs/log.txt" ; "09:31 - Something happened\n" ; -1 ; "utf-8" )</span><br />
+This will append the text "09:31 - Something happened" to the end of the file "log.txt" stored inside "/var/logs" and moves cursor to the next line in file. The text will be written using UTF-8 encoding.</p>
+<p><span class="syntax_hl">SFile_Write( "picture.jpg" ; pictureContainer ; "image" )</span><br />
+Writes picture from container to file.</p>
+<p><span class="syntax_hl">SFile_Write( "picture.jpg" ; fmTextField ; "hex-dump" )</span><br />
+Text in the text field must be in the hex-dump form, for example: "FE ED 03 DE AD 42 ...". The plug-in will process each hex number (two characters [0-9,A-F,a-f]) into binary file. All non-hex characters (white spaces, newlines etc...) are ignored.</p>
+<p class="news_highlight"><span class="syntax_hl">SFile_Write( $path ; $content &amp; char(13) &amp; char(10) )</span><br />
+This function will write contents of variable $content followed by proper Windows new line sequence (CR+LF) to the file located at $path. Most of the Mac appliations should work with it too, but using only LF character (char(10)) is recommended on Mac and Linux.<p>
+
+
+<h2>SFile_Convert( sourcePath ; targetPath { ; name ; value } { ; name ; value } ... )</h2>
+<p class="f_intro">Converts various file formats and change its internal attributes.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">sourcePath</td><td>The path to source file. To see valid path types go to: <a href="#paths">Paths in SimpleFile</a></td></tr>
+<tr valign="top"><td class="t_param">targetPath</td><td>The path to destination file.</td></tr>
+<tr valign="top"><td class="t_param">name</td><td>The name of the parameter to be altered. Available options depend on the file type.</td></tr>
+<tr valign="top"><td class="t_param">value</td><td>Desired new value of the specified parameter.</td></tr>
+</table>
+<h3>Supported parameter names for file types.</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th align="left">File Type</th><th></th><th align="left">Parameter</th><th></th><th align="left">Description</th></tr>  
+<tr><td colspan="2" class="t2_param">Picture</td><td colspan="2">"width"</td><td>Function will change width of the picture.</td></tr>
+<tr><td colspan="2" class="t2_param">Picture</td><td colspan="2">"height"</td><td>Function will change height of the picture.</td></tr>
+<tr><td colspan="2" class="t2_param">Picture</td><td colspan="2">"proportional"</td><td>1 (default) to maintain aspect ratio when resizing picture, 0 to stretch. When both width and height are specified and propotional scaling is on, picture will be fitted to the rectangle specified by width and height.</td></tr>
+<tr><td colspan="2" class="t2_param">Picture</td><td colspan="2">"exif-rotate"</td><td>The destination picture will be hard rotated to direction specified in exif data of the source picture. If the source has no exif data, this parameter will be ignored.</td></tr>
+</table>
+<h3>Description</h3>
+<p>The file on sourcePath is read and recognized automatically. Plug-in version 2.0 supports only conversions listed above. More conversion can be added in the future version. If no conversion is necessary the file will be simply copied as is.</p>
+<h3>Result</h3>
+<p>The function returns 0 if if the conversion / copy has been successful. In the case of error the function returns non zero status code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Convert( "bigPicture.jpg" ; "thumbnail.jpg" ; "height" ; 24 )</span><br />
+The "bigPicture.jpg" will be converted and saved to "thumbnail.jpg". The picture height will be changed to 24 pixels preserving aspect ratio.</p>
+<p><span class="syntax_hl">SFile_Convert( "photograph.jpg" ; "thumbnail.jpg" ; "exif-rotate" ; 1 ; "width" ; 24 )</span><br />
+The "photograph.jpg" will be converted and saved to "thumbnail.jpg". The picture will be rotated according to exif meta data and than it will be resized so its width will be 24 pixels preserving aspect ratio.</p>
+<p><span class="syntax_hl">SFile_Convert( "original.png" ; "deformed.png" ; "proportional" ; 0 ; "width" ; 120 ; "height" ; 120 )</span><br />
+The "original.png" will be resized to 120x120 pixels and saved to "deformed.png". Aspect ratio is not preserved.</p>
+<p><span class="syntax_hl">SFile_Convert( "original.png" ; "not_deformed.png" ; "proportional" ; 1 ; "width" ; 120 ; "height" ; 120 )</span><br />
+The "original.png" will be resized to fit bounding box 120x120 pixels and saved to "not_deformed.png". Aspect ratio is preserved.</p>
+
+
+<h2>SFile_Open( path <class class="news_highlight">{ ; pathToApplication }</class> )</h2>
+<p class="f_intro"><span class="news_highlight">Opens the file or folder using either the default application specified by operating system or by the application specified by the user.</span></p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>The path to file or folder which should be opened. See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+<tr valign="top" class="news_highlight"><td class="t_param">pathToApplication</td><td>The path to the application the file (or folder) should be opened with. See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Launches default application to open the file or folder on the path. Folders are opened in OS default File Manager.</p>
+<h3>Result</h3>
+<p>The function returns 0 if the file or folder has been successfully opened. In the case of error the function returns non zero status code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Open( "picture.jpg" )</span><br />
+The picture.jpg should be placed in the same folder as the current active FileMaker solution. On Mac OS X this will probably call Preview.app which will show the file picture.jpg. On Windows the default picture viewer will be opened with the file.</p>
+<p class="news_highlight"><span class="syntax_hl">SFile_Open( "picture.jpg" ; "/Applications/Safari.app" )</span><br />
+On Mac OS X this will call Safari.app which will show the file picture.jpg.</p>
+<p class="news_highlight"><span class="syntax_hl">SFile_Open( "picture.jpg" ; "C:\\Program Files\\Internet Explorer\\iexplore.exe" )</span><br />
+On Windows this will call Internet Explorer which will show the file picture.jpg.</p>
+<p><span class="syntax_hl">SFile_Open( "." )</span><br />
+The dot points to current folder so current folder will be opened with the default file manager of the operating system (Finder on Mac OS X and Explorer on Windows).</p>
+
+
+<div class="news_highlight">
+<h2 class="news_highlight">SFile_Reveal( path )</h2>
+<p class="f_intro"><span class="news_highlight">Opens the file's containing folder and selects it.</span></p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>The path to file or folder which should be opened. See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Opens file's containing folder in OS default file manager and selects the file.</p>
+<h3>Result</h3>
+<p>The function returns 0 if the folder has been successfully opened. In the case of error the function returns non zero status code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Reveal( "~/Documents/file.pages" )</span><br />
+On Mac OS X, the function will open Documents folder and highlights file.pages (if it exists).</span><br />
+<p><span class="syntax_hl">SFile_Reveal( "C:\\Documents and Settings\\Public\\Pictures" )</span><br />
+On Windows, the function will open Public folder and highlights Pictures folder (if it exists).</span><br />
+</div>
+
+<div class="news_highlight">
+<h2>SFile_Run( path { ; arguments } )</h2>
+<p class="f_intro"><span class="news_highlight">Runs the application with given arguments.</span></p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>The path to the application which should be opened. See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+<tr valign="top"><td class="t_param">arguments</td><td>Unescaped arguments delimited by carriage return which should be passed to the application. For example: "first argument¶second argument¶third argument".</td></tr>
+</table>
+<h3>Description</h3>
+<p>Runs the application with given arguments similar to running the application directly from the command line.</p>
+<h3>Result</h3>
+<p>The function returns 0 if the application described by path exists and was executed. In case of an error the function returns non-zero status code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Run("/Applications/iTunes.app" ; "Users/admin/Music/Favorite music.mp3")</span><br />
+On Mac, if iTunes is not opened and the file exist, it will play the file in iTunes. Note, that there is no need to escape the space in the argument list.
+</p>
+<p><span class="syntax_hl">SFile_Run( "C:\\Program Files\\Internet Explorer\\iexplore.exe" ; "-extoff¶-private¶ http://24usoftware.com" )</span><br />
+On Windows, it will open 24U software webpage in Internet Explorer in private mode with extensions turned off.
+</p>
+</div>
+
+
+<h2>SFile_Mount( URL { ; <span class="news_highlight">mountDirPath</span>} { ; username ; password } )</h2>
+<p class="f_intro">Mounts network volume to specified mount point in file system.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">URL</td><td>URL of the network volume. Use format default for each operating system. The plug-in is able to translate OS specific identifiers for Samba volumes: "smb://host" and "\\host" are interchangeable.</td></tr>
+<tr valign="top"><td class="t_param  news_highlight">mountDirPath</td><td>The path to the folder where the user has right to mount network drive. <span class="news_highlight">When not specified, "/Volumes/" folder is used on Mac OS X</span> and first available drive letter on Windows.<br /><b>Note:</b> The mounted volume may not appear on the user's desktop when non-default mount path is used.<br />See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+<tr valign="top"><td class="t_param">username</td><td>Optional username. The default username is the username under which FileMaker Pro runs.</td></tr>
+<tr valign="top"><td class="t_param">password</td><td>Optional password. The default password is the password of user under which FileMaker Pro runs.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command will use OS capabilities to mount network volume to the file system. The user must have permissions to mount to specific mountDirPath.</p>
+<h3>Result</h3>
+<p>The function returns the full path to the newly mounted network disk. In the case of error the function returns "?" and error code is stored. Use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain the error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Mount( "\\fileserver.com\share" ; "Share" )</span><br />
+The plug-in will attempt to mount network volume "share" on host "fileserver.com" to the folder "Share" which must exist in the same folder as the active FileMaker solution. It uses current system username and password.</p>
+<p><span class="syntax_hl">SFile_Mount( "smb://fileserver.com/share" ; "Share" )</span><br />
+This command does the same as previous command. Both commands work the same on both platforms, Mac OS X and Windows. The plug-in internally translates URL types to be compatible with underlying OS.</p>
+<p><span class="syntax_hl">SFile_Mount( "http://fileserver.com/share" ; "Share" )</span><br />
+Attempts to mount WebDAV volume to the file system. This command will probably work only on Mac OS X. On Windows the plug-in tries to mount the drive and if Windows fails it returns error -35 (No such volume)</p>
+<div class="news_highlight"><p><span class="syntax_hl">SFile_Mount( "smb://fileserver.com/share" ; "Login" ; "Password" )</span><br />
+The plug-in will attempt to mount network volume "share" on host "fileserver.com" using "Login" and "Password" as login and password.</p></div>
+
+
+<h2>SFile_Unmount( mountPath )</h2>
+<p class="f_intro">Unmounts mounted volume from the filesystem.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">mountPath</td><td>The path to the mounted folder. See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+</table>
+<h3>Description</h3>
+<p>This command will use OS capabilities to unmount volume from the file system. The user must have permissions to unmount the specific mountPath.</p>
+<h3>Result</h3>
+<p>The function returns 0 if the volume has been successfully unmounted or non-zero error code in the case of failure.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Unmount( "Share" )</span><br />
+This will unmount mounted volume "Share" in the same folder as current active FileMaker solution.</p>
+<p><span class="syntax_hl">SFile_Unmount( "/Volumes/NetworkDrive" )</span><br />
+This will unmount mounted volume on absolute path "/Volumes/NetworkDrive" on Mac OS X. On Windows it tries to unmount folder "C:\Volumes\NetworkDrive" and if it does not find such folder it returns error -43.</p>
+<p><span class="syntax_hl">SFile_Unmount( "N:" )</span><br />
+This will unmount mounted volume "N:" on Windows. On Mac OS X it tries to unmount folder named "/Volumes/N". It returns -43 if no such folder exists.</p>
+
+
+<h2>SFile_Get( selector { ; path } { ; parameter } )</h2>
+<p class="f_intro">Gets important internal parameters of the plug-in and information about storage system.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">selector</td><td>The name of the parameter which should be get.</td></tr>
+<tr valign="top"><td class="t_param">path</td><td>The path to file in supported form. See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">selector</span></h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th align="left">selector</th><th align="left">Description</th></tr>
+<tr valign="top"><td class="t2_param" width="120">"lastError"</td><td>Returns the status code of the last performed plug-in function.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"lastErrorMessage"</td><td>Returns description of the last error generated by the plug-in.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"type"</td><td>The Parameter should be FileMaker container. Returns type of the contents of FileMaker container. See <a href="#container-types">List of recognized container types</a> below.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"kind"</td><td>Returns "file" if the path specifies an existing file "folder" if the path specifies an existing folder. Symbolic links are considered as files and Mac OS X volumes as folders. Returns error if the object does not exist.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"created"</td><td>Returns item's creation date &amp; time as timestamp.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"modified"</td><td>Returns item's modification date &amp; time as timestamp.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"size"</td><td>Returns item's total size in bytes. For folder it sums up all file sizes in the folder and subfolders.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"data-size"</td><td>Returns item's data fork size in bytes. The same as "size" on Windows. For folder it sums up all file data sizes in the folder and subfolders.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"resource-size"</td><td>Returns item's resource fork size in bytes. Returns 0 on Windows. For folder it sums up all file resource sizes in the directory and subfolders.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"available-space"</td><td>Returns available space in bytes on the volume where path points to.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"owner"</td><td>Returns item's owner.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"group"</td><td>Returns item's group.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"owner-rights"</td><td>Returns item's owner access rights.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"group-rights"</td><td>Returns item's group access rights.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"everyone-rights"</td><td>Returns item's access rights.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">pathType</td><td>Converts path from one type to another. See below for the list of supported path types.</td></tr>
+</table>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th align="left">pathType</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param" width="120">"fsspec"</td><td>Returns Macintosh fsspec. This is unique file or folder identifier used in old Mac OS. Today it is obsolete<span class="news_highlight"> and it will not work with 64-bit binaries</span>. The format is: "fsspec:VolumeID:FolderID:FileName". On Windows the FileName contains full path to the file and VolumeID and FolderID are 0.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"native-relative"</td><td>Relative path in the form native to the system. The same as "win-relative" on Windows and "unix-relative" on Mac OS X.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"native-full"</td><td>Full path in the form native to the system. The same as "win-full" on Windows and "unix-full" on Mac OS X.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"win-relative"</td><td>Relative path in the form native to Windows. The backslash is used as a separator.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"win-full"</td><td>Full path in the form native to Windows. Unix paths are converted by changing slashes to backslashes and by adding "C:" before the path.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"unix-relative"</td><td>Relative path in the form native to Unix. The slash is used as a separator.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"unix-full"</td><td>Full path in the form native to Unix. To convert Windows path, volume identifier is removed, backslashes changed to slashes.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"FileMaker"</td><td>Full local path in the form native to FileMaker Pro.</td></tr>
+<tr valign="top"><td class="t2_param" width="120">"URL"</td><td>Full local path in the URL form. The plug-in tries to conform to conventions of underlying operating system.</td></tr>
+</table>
+<h3>Description</h3>
+<p>Use this function to get important parameters of files, folders and system settings.</p>
+<h3>Result</h3>
+<p>The function returns actual value of the parameter. In the case of error the function returns "?" and error code is set. Use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Get( "created" ; "C:\\Windows" )</span><br />
+Returns the date and time when the Windows folder was created (probably the time when Windows was installed).</p>
+<p><span class="syntax_hl">SFile_Get( "available-space" ; "D:\\" )</span><br />
+Returns the number of free bytes available on disk D: on Windows.</p>
+<p><span class="syntax_hl">SFile_Get( "owner-rights" ; "/Users/me/Documents/myDocument.pages" )</span><br />
+Returns "read|write|delete" if you are owner of this bundle / file.</p>
+<p><span class="syntax_hl">SFile_Get( "type" ; pictureContainer )</span><br />
+Returns "PNGf" if the container has a picture which has been initially loaded from png picture file.</p>
+<p><span class="syntax_hl">SFile_Get( "FileMaker" ; "/Users/Pete/file.txt" )</span><br />
+Returns <span class="t_path">"file:/Macintosh HD/Users/Pete/file.txt"</span> on Mac OS X if the system disk is named <span class="t_path">"Macintosh HD"</span>. On Windows it returns <span class="t_path">"file:/C:/Users/Pete/file.txt"</span> if system disk is <span class="t_path">C:</span>.</p>
+<p><span class="syntax_hl">SFile_Get( "FileMaker" ; "C:\\Users\\Pete\\file.txt" )</span><br />
+Returns <span class="t_path">"file:/Macintosh HD/Users/Pete/file.txt"</span> on Mac OS X if the system disk is named <span class="t_path">"Macintosh HD"</span>. On Windows it returns <span class="t_path">"file:/C:/Users/Pete/file.txt"</span>.</p>
+<p><span class="syntax_hl">SFile_Get( "native-full" ; "/Users/Pete/file.txt" )</span><br />
+Returns <span class="t_path">"/Users/Pete/file.txt"</span> on Mac OS X. On Windows it returns <span class="t_path">"C:\Users\Pete\file.txt"</span>.</p>
+<p><span class="syntax_hl">SFile_Get( "native-full" ; "C:\\Users\\Pete\\file.txt" )</span><br />
+Returns <span class="t_path">"/Users/Pete/file.txt"</span> on Mac OS X. On Windows it returns <span class="t_path">"C:\Users\Pete\file.txt"</span>.</p>
+<p><span class="syntax_hl">SFile_Get( "win-full" ; "/Users/Pete/file.txt" )</span><br />
+Returns <span class="t_path">"C:\Users\Pete\file.txt"</span> on both platforms.</p>
+<p><span class="syntax_hl">SFile_Get( "URL" ; "/Users/Pete/file.txt" )</span><br />
+Returns <span class="t_path">"file:///Users/Pete/file.txt"</span> on both platforms.</p>
+<p><span class="syntax_hl">SFile_Get( "URL" ; "C:\\Users\\Pete\\file.txt" )</span><br />
+Returns <span class="t_path">"file:///Users/Pete/file.txt"</span> on Mac OS X. On Windows it returns <span class="t_path">"file://C:/Users/Pete/file.txt"</span></p>
+<p><span class="syntax_hl">SFile_Get( "native-full" ; "file.txt" )</span><br />
+Suppose the current active solution in FileMaker is placed in folder <span class="t_path">"/Users/Pete"</span> on Mac OS X or <span class="t_path">"C:\Users\Pete"</span> on Windows. The functions returns <span class="t_path">"/Users/Pete/file.txt"</span> on Mac OS X. On Windows the returned value is <span class="t_path">"C:\Users\Pete\file.txt"</span>.</p>
+<p><span class="syntax_hl">SFile_Get( "unix-full" ; "file.txt" )</span><br />
+Suppose the current active solution in FileMaker is placed in folder <span class="t_path">"/Users/Pete"</span> on Mac OS X or <span class="t_path">"C:\Users\Pete"</span> on Windows. The functions returns <span class="t_path">"/Users/Pete/file.txt"</span> on both platforms.</p>
+<p><span class="syntax_hl">SFile_Get( "native-full" ; "../Suzan/file.txt" )</span><br />
+Suppose the current active solution in FileMaker is placed in folder <span class="t_path">"/Users/Pete"</span> on Mac OS X or <span class="t_path">"C:\Users\Pete"</span> on Windows. The functions returns <span class="t_path">"/Users/Suzan/file.txt"</span> on Mac OS X. On Windows the returned value is <span class="t_path">"C:\Users\Suzan\file.txt"</span>.</p>
+
+
+<h2>SFile_Set( selector ; path ; newValue )</h2>
+<p class="f_intro">Sets important internal parameters of the plug-in and information about storage system.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">selector</td><td>Which data should be set.</td></tr>
+<tr valign="top"><td class="t_param">path</td><td>The file or folder which parameters should be changed. See <a href="#paths">Paths in SimpleFile</a> for the list of valid path types.</td></tr>
+<tr valign="top"><td class="t_param">newValue</td><td>The new value of the parameter.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">selector</span></h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th align="left">selector</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"created"</td><td>Sets the file creation date and time. Use FileMaker timestamp stored in newValue parameter.</td></tr>
+<tr valign="top"><td class="t2_param">"modified"</td><td>Sets the file modification date and time. Use FileMaker timestamp stored in newValue parameter.</td></tr>
+<tr valign="top"><td class="t2_param">"owner"</td><td>Sets the file owner. You must have the permission to change owner.</td></tr>
+<tr valign="top"><td class="t2_param">"group"</td><td>Sets the file group. You must have the permission to change group.</td></tr>
+<tr valign="top"><td class="t2_param">"owner-rights"</td><td>Sets the file permissions for owner. You must have the permission to change permissions.</td></tr>
+<tr valign="top"><td class="t2_param">"group-rights"</td><td>Sets the file permissions for group. You must have the permission to change permissions.</td></tr>
+<tr valign="top"><td class="t2_param">"everyone-rights"</td><td>Sets the file permissions for everyone. You must have the permission to change permissions.</td></tr>         
+</table>
+<h3>Description</h3>
+<p>Use this function to set important parameters.</p>
+<h3>Result</h3>
+<p>The function returns actual value of the parameter. In the case of error the function returns "?" and error code is set. Use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Set( "owner" ; "/Users/me/Documents/someFile.txt" ; "me" )</span><br />
+Changes file owner of the file on path <span class="t_path">"/Users/me/Documents/someFile.txt"</span> to "me".</p>
+<p><span class="syntax_hl">SFile_Set( "everyone-rights" ; "C:\\Documents and Settings\\me\\Documents\\someFile.txt" ; "read|write|delete" )</span><br />
+Everyone can read file, write to file and delete file "someFile.txt".</p>
+
+
+
+<div class="news_highlight">
+<h2>SFile_Compress( archivePath ; sourcePath )</h2>
+<p class="f_intro">Zip the source file or folder to target archive file.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">archivePath<td>Name of the target zip file to store the compressed data. The path should contain the extension .zip.</td></tr>
+<tr valign="top"><td class="t_param">sourcePath</td><td>The path to the file or folder you want to compress.</td></tr>
+</table>
+
+<h3>Description</h3>
+<p>Use this function to compress a file or folder.</p>
+<h3>Result</h3>
+<p>The function returns 0. In the case of error the function sets error code. Use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Compress( "Test/archive.zip" ; "Users/me/Documents/file.txt" )</span><br />
+Compresses the file /Users/me/Documents/file.txt into Test/archive.zip.</p>
+
+<p><span class="syntax_hl">SFile_Compress( "Test/archive.zip" ; "Users/me/Documents/folder" )</span><br />
+Compresses the content of /Users/me/Documents/folder into Test/archive.zip recursively.</p>
+</div>
+
+
+<div class="news_highlight">
+<h2>SFile_Decompress( path { ; targetDirectory } )</h2>
+<p class="f_intro">Unzip the source archive file to target folder.</p>
+<h3>Parameters</h3>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><td class="t_param">path</td><td>Which archive should be decompressed.</td></tr>
+<tr valign="top"><td class="t_param">targetDirectory</td><td>Name of the folder to store the unzipped content of source archive. The parent folders of the output folder must exist. </td></tr>
+</table>
+
+<h3>Description</h3>
+<p>Use this function to decompress an archive.</p>
+<h3>Result</h3>
+<p>The function returns 0. In the case of error the function sets error code. Use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">SFile_Decompress( "Users/me/Documents/archive.zip" ; "Users/me/Documents/output" )</span><br />
+Decompresses /Users/me/Documents/archive.zip recursively and puts the content into /Users/me/Documents/output.</p>
+</div>
+
+
+
+<a name="paths" />
+<h2>Paths in SimpleFile</h2>
+<p class="f_intro">SimpleFile accepts and converts many path types. Here are some examples of paths:</p>
+<table border="0" cellspacing="4" cellpadding="0" frame="void" rules="rows">
+<tr valign="top"><th align="left">Path Example</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param" width="180">"C:\folder\file.ext"</td><td>The Windows full path. Use this type on Windows when you want to specify the exact file or folder position. On Mac OS X SimpleFile tries to convert path to this form: <span class="t_path">"/folder/file.ext"</span>.</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"/folder/file.ext"</td><td>Standard unix full path. Use this type on Mac OS X to specify exact file or folder position. On Windows SimpleFile tries to convert the path to the form: <span class="t_path">"C:\folder\file.ext"</span>.</td></tr>
+<tr valign="top"><td class="t2_param" width="180">"folder\file.ext"<br />"folder/file.ext"</td><td>The Windows or Mac relative path respectively. Use this type to specify path to file or folder relative to position of the active solution <span class="news_highlight">if the script runs on client. In server side scripts, CWP and IWP they are relative to <a href="//24usw.com/cmqy">Get(FileMakerPath)</a>. In WebDirect, relative paths are not supported.</span><br />
+  On Mac OS X SimpleFile tries to convert this form to the Unix one: <span class="t_path">"folder/file.ext"</span>.<br />On Windows SimpleFile tries to convert this form to the Windows one: <span class="t_path">"folder\file.ext"</span>.</td></tr>
+<tr valign="top"><td class="t2_param" width="180"><span class="news_highlight">"file:/volume/folder/file.ext"</span></td><td>This is the FileMaker path format. This format can be used in both platforms and it is converted to native full path.</td></tr>
+<tr valign="top"><td class="t2_param" width="180"><span class="news_highlight">"file:///path/to/file.ext"</span></td><td>URL used on unix. 24U SimpleFile Plug-In can read local files using URL. Use the same format as in your internet browser for local files.</td></tr>
+
+<tr valign="top"><td class="t2_param" width="180">"fsspec:-100:883688:file.ext"</td><td>The old Macintosh FSSpec. This format is obsolete. It has been used in old Mac OS prior to Mac OS X. If you try to use this on Windows SimpleFile will take the only the last part and tries to use it as relative or absolute path.</td></tr>         
+</table>
+<h3>Paths to directories</h3>
+<p>Paths to directories have the same form as paths to files. Paths to directories are not ended by slash or backslash except paths in FileMaker format which end with slash.</p>
+
+
+<a name="permissions" />
+<h2>File Permissions in SimpleFile</h2>
+<p class="f_intro">24U SimpleFile Plug-In is a part of FileMaker Pro (client side) or FileMaker Server (server side) or Web Publishing Engine (server side) process. All credentials granted to these processes are also valid for the plug-in.</p>
+<p class="f_intro">In FileMaker Server on Mac OS X the folder /Library/FileMaker Server/Data is accessible by the plug-in. You can specify more files and folder by adding them to fmsadmin group.</p>
+<p class="f_intro">In FileMaker Server on Windows the folder C:\Program Files\FileMaker\FileMaker Server\Data is accessible by the plug-in. You can specify more files and folder by adding them to fmsadmin group.</p>
+</table>
+
+
+<a name="encodings" />
+<h2>Valid Encodings</h2>
+<p class="f_intro">This is the list of valid encodings.</p>
+<table border="0" cellspacing="4" cellpadding="0" frame="void" rules="rows">
+<tr valign="top"><th align="left">what</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param_width">"default",<br /> "text"</td><td>The system default encoding for text files. On english system it is "x-mac-roman" on Mac and "windows-1252" on Windows.</td></tr>
+<tr valign="top"><td class="t2_param_width">"hex-dump"</td><td>Useful for reading binary files. The content is returned in hex numbers delimited by space.</td></tr>
+<tr valign="top"><td class="t2_param_width">"base64"</td><td>Useful for reading binary files. The content is returned in ASCII characters.</td></tr>
+<tr valign="top"><td class="t2_param_width">"utf-16"</td><td>Text files encoded in 16-bit encoding.</td></tr>
+<tr valign="top"><td class="t2_param_width">"utf-8"</td><td>Utf-8 unicode encoding. The number of bytes is not equal to number of characters.</td></tr>
+<tr valign="top"><td class="t2_param_width">"x-mac-roman",<br /> "x-mac-arabic",<br /> "x-mac-centraleurroman",<br /> "x-mac-chinesesimp",<br /> "x-mac-chinesetrad",<br /> "x-mac-cyrillic",<br /> "x-mac-greek",<br /> "x-mac-hebrew",<br /> "x-mac-japanese",<br /> "x-mac-korean",<br /> "x-mac-turkish"</td><td>Macintosh 8-bit encodings. The first is the most used.</td></tr>
+<tr valign="top"><td class="t2_param_width">"dos",<br /> "windows-1252",<br /> "windows-1250",<br /> "windows-1251",<br /> "windows-1253",<br /> "windows-1254",<br /> "windows-1255",<br /> "windows-1256",<br /> "windows-1257"</td><td>Windows 8-bit encodings. Windows-1252 is used in the English version of Windows..</td></tr>
+<tr valign="top"><td class="t2_param_width">"iso-8859-15",<br /> "iso-8859-2",<br /> "iso-8859-3",<br /> "iso-8859-4",<br /> "iso-8859-5",<br /> "iso-8859-6",<br /> "iso-8859-7",<br /> "iso-8859-8",<br /> "iso-8859-9"</td><td>The encodings defined by the ISO standard.</td></tr>
+<tr valign="top"><td class="t2_param_width">"euc-jp",<br /> "euc-kr",<br /> "gb2312",<br /> "johab"</td><td>The other text encodings.</td></tr>
+<tr valign="top"><td class="t2_param_width">"image"</td><td>The image type. The result of the function will be the FileMaker container filled with image.</td></tr>
+<tr valign="top"><td class="t2_param_width">"jpeg"</td><td>The jpeg image type. The result of the function will be the FileMaker container filled with jpeg image.</td></tr>
+<tr valign="top"><td class="t2_param_width">"gif"</td><td>The gif image type. The result of the function will be the FileMaker container filled with gif image.</td></tr>
+<tr valign="top"><td class="t2_param_width">"png"</td><td>The png image type. The result of the function will be the FileMaker container filled with png image.</td></tr>
+<tr valign="top"><td class="t2_param_width">"bmp"</td><td>The bmp image type. The result of the function will be the FileMaker container filled with bmp image.</td></tr>
+<tr valign="top"><td class="t2_param_width">"x-pict"</td><td>The Macintosh picture type. The result of the function will be the FileMaker container filled with Macintosh picture. FileMaker is able to show Macintosh picture in the container only on Mac.</td></tr>
+<tr valign="top"><td class="t2_param_width">"file"</td><td>The general file type. The result of the function will be the FileMaker container with the file icon.</td></tr>
+<tr valign="top"><td class="t2_param_width">"rtf"</td><td>The rich text format. Use this format to write styled FileMaker text into rtf file.</td></tr>
+</table> 
+
+
+<a name="container-types" />
+<h2>Recognized FileMaker Container Types</h2>
+<p class="f_intro">This is the list of recognized FileMaker Container types.</p>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th align="left">Type</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"FILE"</td><td>Generic file with unknown type</td></tr>
+<tr valign="top"><td class="t2_param">"JPEG"</td><td>JPEG Picture</td></tr>
+<tr valign="top"><td class="t2_param">"PNGf"</td><td>PNG Picture</td></tr>
+<tr valign="top"><td class="t2_param">"GIFf"</td><td>GIF Picture</td></tr>
+<tr valign="top"><td class="t2_param">"BMPf"</td><td>BMP Picture</td></tr>
+<tr valign="top"><td class="t2_param">"PICT"</td><td>PICT Picture</td></tr>
+<tr valign="top"><td class="t2_param">"TIFF"</td><td>TIFF Picture</td></tr>
+</table>
+<p class="f_intro">Other container types may be returned if they are natively supported by your version of FileMaker Pro and your operating system, but correct recognition of them by this function is not guaranteed.</p>
+
+
+<a name="error" />
+<h2>Error Codes Table</h2>
+<p class="f_intro">Here is the list of all error codes which can be returned from the plug-in. The error codes are derived from MacErrors.h header file from Mac OS. Plug-In's custom error codes are positive numbers in range between 2400 and 9999. If function fails it either returns "?" signaling error or it directly returns the error code. If it returns "?" you can use <span class="syntax_hl">SFile_Get( "lastError" )</span> to obtain the code.</p>
+<table border="0" cellspacing="4" cellpadding="0">
+<tr valign="top"><th align="left" width="70">Code</th><th align="left">Description</th></tr>
+<tr valign="top"><td class="b_technical">-4</td><td class="b_technical">Not implemented</td><td>If you see this error please report the error and steps to reproduce it to <a href="mailto:support@24usoftware.com">24U Support</a>. This error should never be invoked in the release version of the plug-in.</td></tr>
+<tr valign="top"><td class="b_technical">-33</td><td class="b_technical">Directory full</td><td>No new file or directory can be added to the directory because file system limits number of nodes. This is a very rare error in modern file systems (HFS+ or NTFS). It can be seen on old flash drives with FAT16 filesystem.</td></tr>
+<tr valign="top"><td class="b_technical">-34</td><td class="b_technical">Disk full</td><td>No new file or directory can be added to the disk because it is full. Make some space on the disk and try again.</td></tr>
+<tr valign="top"><td class="b_technical">-35</td><td class="b_technical">No such volume</td><td>You are trying to access volume which doesn't exist.</td></tr>
+<tr valign="top"><td class="b_technical">-36</td><td class="b_technical">IO found</td><td>Something bad and undefined happened during IO operation. Try it again and if it doesn't help check your file system.</td></tr>
+<tr valign="top"><td class="b_technical">-43</td><td class="b_technical">File not found</td><td>The function needs existing file or folder but it is not able to find it.</td></tr>
+<tr valign="top"><td class="b_technical">-45</td><td class="b_technical">File is locked</td><td>The function needs to access the file which is locked.</td></tr>
+<tr valign="top"><td class="b_technical">-47</td><td class="b_technical">File is busy</td><td>The function cannot delete the file which is opened. Check other applications opened files.</td></tr>
+<tr valign="top"><td class="b_technical">-48</td><td class="b_technical">Duplicate filename</td><td>You are trying to rename the file to the name of some existing file. Choose another name or rename the existing file.</td></tr>
+<tr valign="top"><td class="b_technical">-50</td><td class="b_technical">Parameter error</td><td>One or more parameters of the function are not in correct format. Function needs more / less parameters. Syntax of the function is wrong.</td></tr>
+<tr valign="top"><td class="b_technical">-52</td><td class="b_technical">File position error</td><td>Read / Write function cannot access this position in the file.</td></tr>
+<tr valign="top"><td class="b_technical">-53</td><td class="b_technical">Volume on line error</td><td>The volume has been ejected and plug-in cannot access it.</td></tr>
+<tr valign="top"><td class="b_technical">-54</td><td class="b_technical">Permission error</td><td>The plug-in has permission problem accessing the file.</td></tr>
+<tr valign="top"><td class="b_technical">-1303</td><td class="b_technical">Different volume</td><td>Cannot move files or folders between different volumes. Use copy command instead.</td></tr>
+<tr valign="top"><td class="b_technical">2400</td><td class="b_technical">Unknown error</td><td>An unknown error occurred. If you see this error please report the error and steps to reproduce it to <a href="mailto:support@24usoftware.com">24U Support</a>. We will try to identify error conditions and add the new error code to this list.</td></tr>
+
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24001</span></td><td class="b_technical"><span class="news_highlight">Demo mode expired.</span></td><td><span class="news_highlight">If you want to keep using the plug-in, you must register it or buy it for particular environment.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24002</span></td><td class="b_technical"><span class="news_highlight">Product expired.</span></td><td><span class="news_highlight">Trial period is over. If you want to keep using the product, you must buy it for particular environment.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24003</span></td><td class="b_technical"><span class="news_highlight">SN limit was met.</span></td><td><span class="news_highlight">The serial number is already registered on too many computers.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24004</span></td><td class="b_technical"><span class="news_highlight">Product is dead.</span></td><td><span class="news_highlight">The product expired and cannot be used any more. Please download the new version from <a href="//24usw.com/188d7">24U Software</a>.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24005</span></td><td class="b_technical"><span class="news_highlight">Invalid serial number.</span></td><td><span class="news_highlight">Serial number you entered is not valid.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24006</span></td><td class="b_technical"><span class="news_highlight">Activation failed.</span></td><td><span class="news_highlight">Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24007</span></td><td class="b_technical"><span class="news_highlight">Deactivation failed.</span></td><td><span class="news_highlight">Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24008</span></td><td class="b_technical"><span class="news_highlight">Unknown serial number.</span></td><td><span class="news_highlight">The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24009</span></td><td class="b_technical"><span class="news_highlight">Blacklisted serial number.</span></td><td><span class="news_highlight">The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</span></td></tr>
+<tr valign="top"><td class="b_technical"><span class="news_highlight">24010</span></td><td class="b_technical"><span class="news_highlight">eSellerate engine not installed.</span></td><td><span class="news_highlight">This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</span></td></tr>
+</table>
+
+
+
+</body>
+</html>

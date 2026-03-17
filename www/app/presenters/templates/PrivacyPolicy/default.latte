@@ -1,0 +1,61 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}
+    {_pages.privacy.metadata.title}
+{/block}
+{block description}
+    {_pages.privacy.metadata.description}
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.privacy.metadata.og.title}{/capture}
+        {capture $description}{_pages.privacy.metadata.og.description}{/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            imagePath => $appConfig["og"]["image"],
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/privacy-policy/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/privacy-policy/cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        <strong>{_pages.privacy.section-header|noescape}</strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="privacy-policy">
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="gr-12 editor-content privacy-policy">
+                    {include privacy_policy_content}
+                </div>
+            </div>
+        </div>
+    </article>
+</section>

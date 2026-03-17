@@ -1,0 +1,96 @@
+{block title}{_pages.fm-consulting.metadata.title}{/block}
+{block description}{_pages.fm-consulting.metadata.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.fm-consulting.metadata.og.title}{/capture}
+        {capture $description}{_pages.fm-consulting.metadata.og.description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/filemaker-consulting/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/filemaker-consulting/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/filemaker-consulting/og_images/og_image_3.jpg'>
+        {/capture}
+        {include meta-og,
+        type => $appConfig["og"]["type"],
+        title => $title,
+        description => $description,
+        ogMediaHTML => $ogMediaHtml,
+        siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="spacing detail">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content text-center gr-6 gr-8@tablet prefix-2@tablet gr-12@mobile prefix-0@mobile prefix-3">
+
+                {snippet cancelSubscription}
+                    <div class="row">
+                        <div class="gr-12">
+                            {ifset $cancelSubriptionSentSucess}
+                                {if $cancelSubriptionSentSucess === true}
+                                        {if $numberOfActiveSubscription === 0}
+                                            <h1>Your subscription was not found
+
+                                            </h1>
+                                    <p>We could not find any active subscription associated with the provided e-mail/order. Please <a  n:href="Support:default">contact our support</a> if you need any more assistance. Thank you.</p>
+                                        {elseif $numberOfActiveSubscription === 1}
+                                            <h1>Your subscription was succesfully canceled</h1>
+                                    <p>Your subscription for {$subscriptionsToCancel[0]["display"]} was succesfully canceled. You should get an e-mail confirmation of the cancellation within a few minutes. If you don't get the confirmation or if you need any more assistance, please <a n:href="Support:default">contact our support</a>. Thank you.</p>
+                                        {else}
+                                            <h1>Cancel of your subscription requires our assiassistance</h1>
+
+                                            <p>We found more than 1 active subscription associated with the provided e-mail/order. Our team will follow up with you within the next few days to make sure we cancel the correct subscription(s).</p>
+                                        {/if}
+
+                                {/if}
+                            {else}
+                                <h1>You can unsubscribe here</h1>
+                                <p>
+                                    We’re sorry to see you go, but we understand. Before you decide to go, let us to assure you that you can contact HOnza Koudelka, head of the 24U Software, and ask about anything you would like to know. Feel free to grab a time slot in his calendar and <a href="//24usw.com/ttsales" target="_blank" class="GA_TimeTrade_log"><b>schedule a 30-minute free consultation with him</b></a>.
+                                </p>
+                                <p>
+                                    If you are sure just now that you want to unsubscribe, please <b>fill in</b> the following two fields (or at least one of them) and <b>press the button</b>. Thank you anyway and we wish you all the best...
+                                </p>
+                            {/ifset}
+                        </div>
+                    </div>
+                {ifset $cancelSubriptionSentSucess}
+                    <a n:href="CancelSubscription:default" class="button">Try again</a>
+                    {else}
+                    <div class="form-container cancel-subscription-form form-sent">
+                        {form cancelSubscriptionForm data-validationType => 'fields', class => 'ajax mb-1'}
+                            <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                <li n:foreach="$form->errors as $error">{$error}</li>
+                            </ul>
+                            <div class="row row-align-middle">
+                                <div class="gr-6 gr-12@mobile no-gutter-left text-left text-left@mobile-center no-gutter-right@mobile">
+
+                                    <label>
+                                        {input order_number}
+                                    </label>
+                                </div>
+                                <div class="gr-6 gr-12@mobile no-gutter-right text-right text-right@mobile-center no-gutter-left@mobile">
+
+                                    <label>
+                                        {input email}
+                                    </label>
+                                </div>
+                                <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                    <label>
+                                        <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                    </label>
+                                </div>
+                                <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                    {input process}
+                                </div>
+                            </div>
+                        {/form}
+                    </div>
+                {/ifset}
+                {/snippet}
+            </div>
+        </div>
+    </div>
+</section>

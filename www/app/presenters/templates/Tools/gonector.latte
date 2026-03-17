@@ -1,0 +1,475 @@
+{block title}Gonector{/block}
+{block description}
+    Gonector is a FileMaker plug-in that allows a native application for iPhone or iPad to communicate directly with mobile hardware devices.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "Gonector - Connect professional mobile devices to the FileMaker platform",
+            description => "Gonector is a FileMaker plug-in that allows a native application for iPhone or iPad to communicate directly with mobile hardware devices.",
+            imagePath => "img/pages/tools/gonector/og_image.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+
+{block content}
+
+{* VIDEO - DETECT RESOLUTION *}
+{if $detect['platformDevice'] === "tablet"}
+    {var $videoResolution = "640"}
+{elseif $detect['platformDevice'] === "phone"}
+    {var $videoResolution = "640"}
+{else}
+    {var $videoResolution = "640"}
+{/if}
+
+{import '../Components/tools_videoplayer.latte'}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/icons/gonector_icon.svg" alt="Gonector">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Connect professional mobile devices to the FileMaker platform
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <div class="button download-button">Download</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/gonector_en.latte'}
+{var $overview = [
+    name => 'overview',
+    testimonials => [
+        [ img => $basePath.'/img/pages/tools/gonector/gonector_overview_preview2.jpg', video => [id => 't0hurJkbc34'], name => 'HOnza Koudelka', ],
+        [ img => $basePath.'/img/pages/tools/gonector/gonector_overview_preview.jpg', video => [id => 's-8QM8ZeCoo'], name => 'Joe King', ],
+        [ img => $basePath.'/img/testimonials/mihaela_vigon.jpg', video => [id => 'fBdcHGrIAlI'], name => 'Michaela Vigon', ],
+        [ img => $basePath.'/img/testimonials/richard_carlton.jpg', video => [id => 'lKSg3s8KJsM'], name => 'Richard Carlton', ],
+        [ img => $basePath.'/img/testimonials/alan_preview_gonector.jpg', video => [id => 'g9k-XnPfQAs'], name => 'Allan Meinhart', ],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{* BECAUSE TROUBLES WITH MP4 AND JS SWIPER, IN CASE OF VIDEO COMPILATION IS USED - INITIAL SWIPER SLIDE MUST BE 2nd IN "video-compilation" ARRAY *}
+{var $articles = [
+    [name => 'features'],
+    [name => 'qidmini', video-mp4 => [folderName => 'gonector', fileNamePrefix=> 'qIDmini', videoResolution => $videoResolution]],
+    [name => 'iphone_nfc', video-compilation => [
+        [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'iPhone_NFC', videoResolution => $videoResolution],
+        [videoType => "video-yt", id => 'dQAm4t9sQoQ', title=> 'How to implement NFC reading and writing into custom mobile FileMaker app', img => $basePath.'/img/pages/tools/gonector/nfc-implementation-thumbnail.jpg', button-dark=> "false" ],
+    ]],
+    [name => 'scanners', video-compilation => [
+        [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'barcode_scan', videoResolution => $videoResolution],
+        [videoType => "video-yt", id => 'K438bETB-uI', title=> 'Zebra barcode scanner', img => $basePath.'/img/pages/tools/gonector/zebra_barcode_scanner.jpg', button-dark=> "false" ],
+    ]],
+    [name => 'linea', video-compilation => [
+        [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'LineaPro', videoResolution => $videoResolution],
+        [videoType => "video-yt", id => 'DpMKVphM4wA', title=> 'Learn how to make Claris FileMaker scan barcodes blazingly fast with Linea Pro and Infinea scanners', img => $basePath.'/img/pages/tools/gonector/gonector-lina-pro_infinea-scanners.jpg', button-dark=> "false" ],
+    ]],
+    [name => 'scales', video-mp4 => [folderName => 'gonector', fileNamePrefix=> 'vaha', videoResolution => $videoResolution]],
+    [name => 'label_printer', video-compilation => [
+        [videoType => "video-mp4",  folderName => 'gonector', fileNamePrefix=> 'label_printer', videoResolution => $videoResolution],
+        [videoType => "video-yt", id => '7CGyLulPMTc', title=> 'Gonector Helps FileMaker on iPhone or iPad Print RFID Labels Directly via Bluetooth',  img => $basePath.'/img/pages/tools/gonector/label_printer.jpg', button-dark=> "false" ],
+    ]],
+    [name => 'printer', video-mp4 => [folderName => 'gonector', fileNamePrefix=> 'printer', videoResolution => $videoResolution]],
+    [name => 'ingenico', video-mp4 => [folderName => 'gonector', fileNamePrefix=> 'ingenico', videoResolution => $videoResolution]],
+]}
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+{snippet storeForm}
+    {include '../Components/store-section.latte', toolName => $toolName}
+{/snippet}
+
+{capture $downloadVersionsHtml}
+
+    {*  VERSION 2.1.0  *}
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v2.1.0
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2021/09/21"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/news/gonector-prints-rfid-labels" target="" class="button download-tech-doc">Learn what's new in version 2.1</a>
+                            <a href="{$basePath}/plugins-data/gonector/doc/v210/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/gonector/doc/v210/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> CPU: 1 GHz or faster x86- or x64-bit processor RAM: 2 GB or more, Windows 11 or newer, FileMaker Pro 19.6 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> CPU: 1 GHz or faster x86- or x64-bit processor RAM: 1 GB, Windows 7 SP1 Professional Edition, FileMaker Pro 16 Advanced
+                            </p>
+                            <a href="{$basePath}/download/Gonector21iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel/Apple Silicon Mac, 4 GB RAM, macOS Ventura 13 or newer, FileMaker Pro 19.6 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac, 4 GB RAM, macOS High Sierra 10.13, FileMaker Pro 16 Advanced or newer
+                            </p>
+                            <a href="{$basePath}/download/Gonector21iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile">
+                            <h3>iOS</h3>
+                            <strong>Deploy to:</strong>
+                            <ul>
+                                <li>iOS 13.1 or later</li>
+                            </ul>
+                            <strong>Build using:</strong>
+                            <ul>
+                                <li>macOS 10.14.6+</li>
+                                <li>FileMaker iOS App SDK 19.2.1</li>
+                                <li>FileMaker Pro 19.6 or newer</li>
+                                <li>developer.apple.com account (for testing and deployment on device)</li>
+                                <li>Xcode with Swift version 5</li>
+                            </ul>
+                            <p>or do it easily with <a n:href="Tools:xgode">Xgode</a></p>
+
+                            <a href="{$basePath}/download/Gonector21iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    {*  VERSION 2.0.0  *}
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v2.0.1
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2021/08/31"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/news/gonector-20-doubles-supported-devices" target="" class="button download-tech-doc">Learn what's new in version 2.0</a>
+                            <a href="{$basePath}/plugins-data/gonector/doc/v201/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/gonector/doc/v201/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> CPU: 1 GHz or faster x86-bit or x64-bit processor RAM: 2 GB or more, Windows 10 Pro Edition, FileMaker Pro 19 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> CPU: 1 GHz or faster x86-bit or x64-bit processor RAM: 1 GB, Windows 7 SP1 Professional Edition, FileMaker Pro 16 Advanced
+                            </p>
+                            <a href="{$basePath}/download/Gonector201iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel/Apple Silicon Mac, 4 GB RAM, macOS Big Sur 11.3 or newer, FileMaker Pro 19 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac, 4 GB RAM, Mac OS X 10.12, FileMaker Pro 16 Advanced or later
+                            </p>
+                            <a href="{$basePath}/download/Gonector201iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile">
+                            <h3>iOS</h3>
+                            <strong>Deploy to:</strong>
+                            <ul>
+                                <li>iOS 13.1</li>
+                            </ul>
+                            <strong>Build using:</strong>
+                            <ul>
+                                <li>macOS 10.14.6+</li>
+                                <li>FileMaker Pro or Pro Advanced 18 or newer</li>
+                                <li>FileMaker iOS App SDK 19.0.1 or later</li>
+                                <li>developer.apple.com account (for testing and deployment on device)</li>
+                                <li>Xcode with Swift version 5</li>
+                            </ul>
+                            <p>or do it easily with <a n:href="Tools:xgode">Xgode</a></p>
+
+                            <a href="{$basePath}/download/Gonector201iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    {*  VERSION 1.2.2  *}
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v1.2.2
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2019/06/27"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/gonector/doc/v122/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/gonector/doc/v122/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> CPU: 1 GHz or faster x86- or x64-bit processor RAM: 2 GB or more, Windows 10 Pro Edition or newer, FileMaker Pro 16 Advanced or newer (including FileMaker 19)
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> CPU: 1 GHz or faster x86- or x64-bit processor RAM: 1 GB, Windows 7 SP1 Professional Edition, FileMaker Pro 16 Advanced
+                            </p>
+                            <a href="{$basePath}/download/Gonector122iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel Mac, 4 GB RAM, Mac OS X 10.12 or newer, FileMaker Pro 16 Advanced or newer (including FileMaker 19)
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac, 4 GB RAM, Mac OS X 10.12, FileMaker Pro 16 Advanced
+                            </p>
+                            <a href="{$basePath}/download/Gonector122iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile">
+                            <h3>iOS</h3>
+                            <ul>
+                                <li>
+                                    macOS 10.13
+                                </li>
+                                <li>
+                                    FileMaker Pro or Pro Advanced (for creating FileMaker solutions) 16 or newer
+                                </li>
+                                <li>
+                                    Xcode 9.2 / Swift 3.2 (or <a href="{$basePath}/xgode">build your apps online with Xgode</a>)
+                                </li>
+                                <li>
+                                    iOS 12.1
+                                </li>
+                                <li>
+                                    developer.apple.com account (for testing and deployment on device)
+                                </li>
+                                <li>
+                                    FileMaker iOS App SDK 17.0.4 thru 18
+                                </li>
+                            </ul>
+                            <a href="{$basePath}/download/Gonector122iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    {*  VERSION 1.1.1  *}
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v1.1.1
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2018/07/27"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/gonector/doc/v111/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/gonector/doc/v111/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> CPU: 1 GHz or faster x86- or x64-bit processor RAM: 2 GB, Windows 10 Pro Edition, FileMaker Pro (Advanced) 17 or 18
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> CPU: 1 GHz or faster x86- or x64-bit processor RAM: 1 GB, Windows 7 SP1 Professional Edition, FileMaker Pro 16 Advanced
+                            </p>
+                            <a href="{$basePath}/download/Gonector111iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel Mac, 4 GB RAM, Mac OS X 10.12, FileMaker Pro (Advanced) 17 or 18
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac, 4 GB RAM, Mac OS X 10.12, FileMaker Pro 16 Advanced
+                            </p>
+                            <a href="{$basePath}/download/Gonector111iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+
+                        <div class="gr-4 gr-12@tablet gr-12@mobile">
+                            <h3>iOS</h3>
+                            <ul>
+                                <li>
+                                    macOS 10.13
+                                </li>
+                                <li>
+                                    FileMaker Pro or Pro Advanced (for creating FileMaker solutions) 16
+                                </li>
+                                <li>
+                                    Xcode 9.2 / Swift 3.2 (or <a href="{$basePath}/xgode">build your apps online with Xgode</a>)
+                                </li>
+                                <li>
+                                    iOS 11.3
+                                </li>
+                                <li>
+                                    developer.apple.com account (for testing and deployment on device)
+                                </li>
+                                <li>
+                                    FileMaker iOSAppSDK 17.0.4
+                                </li>
+                            </ul>
+                            <a href="{$basePath}/download/Gonector111iOS.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+{/capture}
+{include '../Components/download-section.latte', versionsHtml => $downloadVersionsHtml, toolName => $toolName}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}

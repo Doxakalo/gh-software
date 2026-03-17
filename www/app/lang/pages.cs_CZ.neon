@@ -1,0 +1,329 @@
+qa:
+    metadata:
+        title: "Information Technology for Education and Business since 2000"
+        description: "Czech supplier of IT solutions and services, expert in Apple, FileMaker, education technology, custom software, hardware integration, software testing, and e-books"
+        og:
+            title: "24U - IT for edu & biz since 2000"
+            description: "Czech supplier of IT solutions and services, expert in Apple, FileMaker, education technology, custom software, hardware integration, software testing, and e-books"
+
+    header-title: "Profesionální testování software pro maximální spolehlivost"
+
+    counters:
+        projects: "projektů<br />testováno"
+        releases: "releasů<br />dokončeno"
+        xp: "let<br />zkušeností"
+        testers: "full time<br />testerů"
+        countries: "zemí<br />světa"
+
+    card-boxes:
+        button: "Klikněte pro více informací"
+
+homepage:
+    metadata:
+        title: ""
+        description: "Software. Hardware. Mobil. Web. FileMaker. Firma. Lidi. Propojíme je, aby spolu pracovali pro Vás."
+        og:
+            title: "24U: Software pro lidi, ne pro počítače"
+            description: "Vynikáme ve vývoji nových a péči o stávající aplikace na míru, optimalizaci jejich rychlosti, odhalování a řešení hrozících rizik, zlepšování spolehlivosti, stability a škálovatelnosti, integraci s dalšími systémy, včetně rozličných hardwarových zařízení, a rozšiřování jejich možností nad očekávání."
+
+    service-tabs:
+        custom_apps:
+            label: "Aplikace<br />na míru"
+            text: "To, že pracujete<br />jinak než ostatní<br />je vaše<br />konkurenční výhoda"
+        fm_consulting:
+            label: "Konzultace<br />FileMaker"
+            text: "Pomůžeme vašim<br />vývojářům<br />postarat se o vaše<br />FileMaker aplikace"
+        hw_integrations:
+            label: "Integrace<br />hardware"
+            text: "Zajistíme, aby<br />vaše systémy<br />úzce spolupracovali<br />s fyzickým světem"
+        sla:
+            label: "Servisní<br />smlouvy"
+            text: "Složte činnosti<br />co byste měli dělat<br />pro své bezpečí<br />na naše bedra"
+
+    card-boxes:
+        button: "Více informací"
+
+company:
+    section-header: "O nás"
+
+stories:
+    meta:
+        title: "24U - Ukázky řešení & naše příběhy"
+        description: "Prozkoumejte naše dovednosti a objevte inspirativní příběhy zákazníků z projektů po celém světě. Od inovativních implementací po úspěšné realizace – podívejte se, co můžeme udělat pro vás"
+    list:
+        headlines:
+            skills:
+                headline: "Ukázky řešení"
+                description: "podívejte se s čím Vám můžeme pomoci"
+            stories:
+               headline: "Příběhy"
+               description: "našich zákazníků a projektů"
+
+        article-read-more: "Zjistit více..."
+        stories-our-clients: "Prozkoumejte příběhy našich klientů"
+
+    skill-detail:
+        back-to-list-button: "Zpět na přehled ukázek řešení"
+        contact-form:
+            description: "Zaujalo Vás toto řešení?<br><strong>Kontaktujte nás</strong> se svými požadavky a my jej přizpůsobíme přesně Vašim potřebám."
+    contact-form:
+        description: "Zaujal Vás příběh našeho zákazníka? Můžeme pomoci i Vám. Zeptejte se nás na to, co Vás zajímá nebo nám napište problém, se kterým se potýkáte. Můžeme vyvinout plug-in nebo nástroj přizpůsobený na míru Vašim konkrétním potřebám."
+
+    dartin:
+        alts:
+            2: "Zdravotnické zařízení, Dartin a FileMaker"
+            3: "Ruud van Donselaar mluví o softwaru FileMaker, Managing Director, Dartin "
+            4: "Detail LifeCard, FileMaker, Dartin"
+            5: "Nová aplikace Dartis ve firmě Dartin, FileMakers"
+            6: "Montážní listy v aplikaci Dartis, FileMaker"
+            7: "Integrovaný systém a správa servisu zdravotnických zařízení, FileMaker"
+
+    dorper:
+        alts:
+            1: "Plemeno ovcí Dorper, Dorper Asociace"
+            2: "Zrod moderní plemenné knihy s pomocí FileMakeru"
+            3: "The Breedbook Dorper Administrator"
+            4: "Plemeno Dorper, pro které je připravena Plemenná kniha"
+            5: "Mgr. Pavel Habětín, Předseda Rady plemenné knihy"
+            6: "Ovečky plemene Dorper a efektivnější chov díky Plemenné knize"
+            7: "Ovce Dorper, které chovají v Dorper Aasociaci"
+            8: "Ing. Jaroslav Rucki, Dorper Asociace"
+
+support:
+    default:
+        immediate_help: "Okamžitá pomoc"
+        sheduled_assistance: "Plánovaný zásah"
+        ongoing_care: "Dlouhodobá péče"
+        product_support: "Podpora k produktům"
+
+sla:
+    default:
+        service-table:
+            headline:
+                label: "Úrovně servisu"
+                bronze: "Bronzová"
+                silver: "Stříbrná"
+                gold: "Zlatá"
+            response_time:
+                label: "Čas na odezvu"
+                bronze: "8 hodin"
+                silver: "2 hodin"
+                gold: "1 hodina"
+            workaround_time:
+                label: "Čas na provizorní řešení"
+                bronze: "16 hodin"
+                silver: "8 hodin"
+                gold: "4 hodin"
+            resolution_time:
+                label: "Čas na finální řešení"
+                bronze: "20 dní"
+                silver: "10 dní"
+                gold: "5 dní"
+            hotline:
+                label: "Dostupnost horké linky"
+                bronze: "Není"
+                silver: "10/5"
+                gold: "24/7"
+            uptime_monitoring:
+                label: "Monitorování dostupnosti"
+                bronze: "Každých 5 minut"
+                silver: "Každých 5 minut"
+                gold: "Každých 5 minut"
+            personal_check:
+                label: "Osobní detailní kontrola"
+                bronze: "Každý měsíc"
+                silver: "Každé 2 týdny"
+                gold: "Každý týden"
+            offsite_backups:
+                label: "Offsite zálohy"
+                bronze: "Není"
+                silver: "Denně"
+                gold: "Podle potřeby"
+            online_help:
+                label: "Online help desk"
+                bronze: "Ano"
+                silver: "Ano"
+                gold: "Ano"
+            request_summary:
+                label: "Detailní shrnutí požadavku"
+                bronze: "Ano"
+                silver: "Ano"
+                gold: "Ano"
+            monthly_capacity:
+                label: "Předplacená měsíční kapacita"
+                bronze: "3 člověkodny"
+                silver: "5 člověkodní"
+                gold: "10 člověkodní"
+            floating_capacity:
+                label: "Převod kapacit mezi měsíci"
+                bronze: "Není"
+                silver: "1 měsíc"
+                gold: "3 měsíce"
+
+customapps:
+    metadata:
+        title: "Aplikace na míru"
+        description: "Vyvineme softwarové aplikace ušité na míru Vašim specifickým potřebám. Používáme platformu FileMaker, abychom dodali řešení rychle a spolehlivě."
+        og:
+            title: "24U: Aplikace na míru"
+            description: "Vyvineme softwarové aplikace ušité na míru Vašim specifickým potřebám. Používáme platformu FileMaker, abychom dodali řešení rychle a spolehlivě. Naši lidé zajistí, že váš software bude pracovat nejlépe. Nechce si vaši aplikaci vytvořit od nás."
+
+    default:
+        header-title: "Vyvineme softwarové aplikace<br />ušité na míru Vašim<br /><strong>specifickým potřebám</strong>"
+
+        service-tabs:
+            effeciency:
+                label: "Efektivita"
+                text: "Používáme<br />platformu FileMaker,<br />abychom dodali<br />výsledek rychle"
+            technology:
+                label: "Technologie"
+                text: "Databáze, web,<br />mobilní zařízení,<br />Mac, Windows,<br />Linux, Raspberry Pi"
+            hw:
+                label: "Hardware"
+                text: "Skenery, tiskárny,<br />senzory, váhy,<br />RFID, NFC<br />a další"
+            redundancy:
+                label: "Zastupitelnost"
+                text: "Na každém projektu<br />vždy pracují<br />nejméně dva<br />vývojáři"
+            reliability:
+                label: "Spolehlivost"
+                text: "Full-time testeři<br />zajišťují,<br />aby náš software<br />pracoval správně"
+
+        articles:
+            read-more: "Více informací"
+
+hw-integrations:
+    metadata:
+        title: "Integrace hardware"
+        description: "Umíme váš software propojit s jakýmkoli hardwarem. Integrujeme mobilní tiskárny, čtečky čárových kódů, RFID a NDC, digitální váhy i různá speciální zařízení."
+        og:
+            title: "24U: Integrace hardware"
+            description: "Umíme váš software propojit s jakýmkoli hardwarem, a tak zefektivnit vaše podnikání. Integrujeme mobilní tiskárny, čtečky čárových kódů, RFID a NDC, platební terminály, digitální váhy i různá speciální zařízení."
+
+    default:
+        header-title: "Získávejte data<br/>z fyzického světa,<br />ovládejte fyzický svět daty"
+
+        card-boxes:
+            mobile_printers:
+                label: "Mobilní tiskárny"
+                text: "Tiskněte účtenky, ať jste kdekoli, přímo z iPhonu nebo iPadu"
+            security_dongles:
+                label: "Bezpečnostní klíče"
+                text: "Ochraňte svá data nebo duševní vlastnictví silným šifrováním v hardwarovém klíči"
+            rfid:
+                label: "RFID a NFC"
+                text: "Sledujte pohyb zboží, majetku a lidí pomocí čtení a zápisu RFID a NFC čipů"
+            barcode:
+                label: "Čtečky čárových kódů"
+                text: "Sledujte pohyb zboží, majetku a lidí pomocí čárových kódů"
+            pay_terminals:
+                label: "Platební terminály"
+                text: "Přijímejte platby kartou přímo do vaší aplikace na iPadu nebo iPhonu"
+            scales:
+                label: "Digitální váhy"
+                text: "Načítejte hmotnost zboží a surovin z malé či velké digitální váhy přímo do vaší aplikace"
+            motors:
+                label: "Servo a krokové motory"
+                text: "Hýbejte věcmi kolem vás pomocí motorů ovládaných přímo z vaší aplikace na míru"
+            smart_cards:
+                label: "Chytré karty"
+                text: "Integrujte do své aplikace chytré karty pro identifikaci či ukládání dat"
+            medical_devices:
+                label: "Zdravotnické přístroje"
+                text: "Poskytněte lepší péči efektivním zpracováním dat z vyšetření pacientů"
+            led_strips:
+                label: "LED pásky"
+                text: "Ovládněte pásky s RGB LED světly pro indikaci pozice nebo statusu či upoutání pozornosti uživatele"
+            lcd:
+                label: "LCD displeje"
+                text: "Zobrazujte data na LCD displejích a implementujte speciální uživatelské rozhraní, jako je např. pokladna"
+            telephony:
+                label: "Telefonie"
+                text: "Když vaše aplikace ví, kdo volá, pomůže vám ušetřit čas a lépe se postarat o zákazníky"
+            arduino:
+                label: "Arduino"
+                text: "Rozšiřte vaše aplikace s populární open-source hardwarovou platformou"
+            raspberry:
+                label: "Raspberry Pi"
+                text: "Nasaďte samostatné chytré řešení integrované s aplikací na míru"
+            sensors:
+                label: "Senzory"
+                text: "Sbírejte data o prostředí, jako je teplota, přímo do vaší databáze"
+            phidgets:
+                label: "Phidgets"
+                text: "Nechte své aplikace vnímat a ovládat fyzický svět s chytrými zařízeními Phidgets"
+
+
+fm-consulting:
+    metadata:
+        title: "Konzultace FileMaker"
+        description: "Naučíme platformu FileMaker pracovat pro vás tak, jak chcete. Máme 30 let zkušeností a každý člen našeho FileMaker týmu je certifikovaný vývojářem."
+        og:
+            title: "24U: Konzultace FileMaker"
+            description: "Naučíme platformu FileMaker pracovat pro vás tak, jak chcete. Máme 30 let zkušeností a každý člen našeho FileMaker týmu je certifikovaný vývojářem, takže dokážeme poskytnout vysoce odborné poradenství všem zákazníkům a vývojářům."
+
+    default:
+        header-title: "Naučte platformu FileMaker<br />pracovat pro vás tak, jak chcete,<br />s naší odbornou pomocí"
+
+        counters:
+            plugins: "plug-inů<br />od roku 2001"
+            conferences: "mezinárodních akcí"
+            xp: "let<br />zkušeností"
+            developers: "certifikovaných vývojářů"
+            countries: "zemí se<br />zákazníky"
+
+fm-licensing:
+    metadata:
+        title: "Claris FileMaker"
+        description: "Jako Claris Platinum Partner a autorizovaný prodejce vám můžeme pomoci zajistit novou licenci nebo prodloužení té stávající, s přidanou hodnotou, kdekoli na světě."
+        og:
+            title: "24U: Claris FileMaker"
+            description: "Jako Claris Platinum Partner a autorizovaný prodejce vám můžeme pomoci zajistit novou licenci nebo prodloužení té stávající za stejnou cenu jako přímo od výrobce, navíc s přidanou hodnotou našich služeb, a to bez ohledu na to, odkud jste nebo jako měnou platíte."
+
+    default:
+        header-title: "Claris<sup>&reg;</sup> FileMaker<sup>&reg;</sup>"
+        header-description: "databázový software pro efektivní digitalizaci pracoviště"
+
+privacy:
+    metadata:
+        title: "Informační technologie pro školství a firmy od roku 2000"
+        description: "Český dodavatel IT řešení a služeb, expert na Apple a FileMaker, technologie ve školství, software na míru, integraci s hardwarem, testování software a e-knihy."
+        og:
+            title: "24U: IT pro školství a firmy od r. 2000"
+            description: "Český dodavatel IT řešení a služeb, expert na technologie Apple a Claris FileMaker, použití technologií ve školství, software na míru, integraci s hardwarem, testování software a e-knihy."
+
+    section-header: "ZÁSADY ZPRACOVÁVÁNÍ A OCHRANY OSOBNÍCH ÚDAJŮ"
+
+terms:
+    metadata:
+        title: "Informační technologie pro školství a firmy od roku 2000"
+        description: "Český dodavatel IT řešení a služeb, expert na Apple a FileMaker, technologie ve školství, software na míru, integraci s hardwarem, testování software a e-knihy."
+        og:
+            title: "24U: IT pro školství a firmy od r. 2000"
+            description: "Český dodavatel IT řešení a služeb, expert na technologie Apple a Claris FileMaker, použití technologií ve školství, software na míru, integraci s hardwarem, testování software a e-knihy."
+
+    section-header: "Podmínky užití"
+
+news-detail:
+    shortlink-copy2clipboard: "Odkaz byl zkopírován do schránky."
+
+
+search:
+    default:
+        section-header: "Vyhledávání"
+        search_for: "Vyhledávat"
+        find_results:
+            showing: "Zobrazen"
+            showing_2_5: "Zobrazeny"
+            showing_more: "Zobrazeno"
+            result: "výsledek"
+            results_2_5: "výsledky"
+            results: "výsledků"
+            for: "pro"
+        available-in-lang-en: "Tato stránka je anglicky"
+        available-in-lang-cz: "Tato stránka je česky"
+
+
+tools:
+    led:
+        contact-form:
+            description: "Zaujaly Vás možnosti, které LED Strip Controller přináší? Kontaktujte nás a jistě najdeme řešení vhodné přímo pro Vás..."

@@ -1,0 +1,344 @@
+body[data-template="custom-apps"] {
+  section {
+    &.cover {
+      &.inner-tabs {
+        padding: 0;
+
+        .headline-container {
+          padding: 10em 0;
+          z-index: 0;
+
+          @include g-state(desktopLarge) {
+            padding: (10em * $scaleRatioTablet) 0;
+          }
+
+          @include g-state(desktop) {
+            padding: (10em * $scaleRatioTablet) 0;
+          }
+
+          @include g-state(tablet) {
+            padding: (10em * $scaleRatioTablet) 0;
+          }
+
+          @include g-state(mobile) {
+            padding: (10em * $scaleRatioMobile) 0;
+          }
+        }
+      }
+    }
+
+    &.custom-apps-description {
+
+      &.blue {
+        background-color: $colorBlue;
+        padding: 3em 0;
+
+        @include g-state(tablet) {
+          padding: (3em * $scaleRatioTablet) 0;
+        }
+
+        @include g-state(mobile) {
+          padding: (3em * $scaleRatioMobile) 0;
+        }
+
+        h2,
+        ul,
+        p {
+          color: $colorWhite;
+        }
+      }
+
+      &.light-blue {
+        background-color: $colorLightBlue4;
+
+        &.no-margin {
+          margin-top: 0;
+        }
+      }
+
+      h2 {
+        font-size: 2.500em;
+        font-weight: $fwNormal;
+
+        @include g-state(mobile) {
+          font-size: 1.8em;
+        }
+      }
+
+      p {
+        font-weight: $fwLight;
+        font-size: 1.286em;
+
+        &.large {
+          font-size: 1.714em;
+
+          @include g-state(mobile) {
+            font-size: 1.4em;
+          }
+        }
+      }
+    }
+
+    &.aside-image {
+      position: relative;
+      min-height: 400px;
+      background-size: cover;
+      background-color: $colorWhite;
+      background-position: center center;
+      background-repeat: no-repeat;
+      padding: 3em 0 5em;
+      color: $colorBlue;
+      overflow: hidden;
+
+      @include g-state(mobile) {
+        &:before {
+          content: '';
+          width: 100%;
+          height: 2px;
+          background-color: $colorWhite;
+          position: absolute;
+          bottom: 0;
+          z-index: 100;
+        }
+      }
+
+      &.end {
+        padding: 3em 0;
+
+        @include g-state(tablet) {
+          padding: (3em * $scaleRatioTablet) 0;
+          &:before {
+            display: none;
+          }
+        }
+        @include g-state(mobile) {
+          padding: (3em * $scaleRatioMobile) 0;
+          &:before {
+            display: none;
+          }
+        }
+      }
+
+      @include g-state(tablet mobile) {
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba($colorBlack, 0.6);
+          z-index: 20;
+        }
+        .container {
+          position: relative;
+          color: $colorWhite;
+          z-index: 40;
+        }
+      }
+
+      @include g-state(tablet) {
+        padding: (3em * $scaleRatioTablet) 0 (5em * $scaleRatioTablet);
+        min-height: 200px;
+      }
+      @include g-state(mobile) {
+        padding: (3em * $scaleRatioMobile) 0 (5em * $scaleRatioMobile);
+        min-height: 200px;
+      }
+    }
+
+    &.aside-image,
+    &.slider {
+      h2 {
+        font-size: 2.500em;
+        font-weight: $fwNormal;
+
+        @include g-state(mobile) {
+          font-size: 1.8em;
+        }
+      }
+
+      p {
+        font-weight: $fwLight;
+        font-size: 1.286em;
+
+        &.large {
+          font-size: 1.714em;
+
+          @include g-state(mobile) {
+            font-size: 1.4em;
+          }
+        }
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    &.spacing {
+      padding: 4em 0;
+
+      @include g-state(tablet) {
+        padding: (4em * $scaleRatioTablet) 0;
+      }
+
+      @include g-state(mobile) {
+        padding: (4em * $scaleRatioMobile) 0;
+        background-color: $colorLightBlue4;
+      }
+
+      &.detail {
+        padding: 3em 0 5em;
+
+        @include g-state(tablet) {
+          padding: (3em * $scaleRatioTablet) 0 (5em * $scaleRatioTablet);
+        }
+
+        @include g-state(mobile) {
+          padding: (3em * $scaleRatioMobile) 0 (5em * $scaleRatioMobile);
+        }
+      }
+    }
+
+    .tabs {
+      background-color: rgba($colorWhite, .7);
+      text-align: center;
+      position: relative;
+      border-top: 2px solid $colorWhite;
+
+      @include g-state(mobile) {
+        position: relative;
+      }
+
+      &.mobile {
+        background-color: $colorWhite;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($colorBlue, .15);
+      }
+
+      .tab {
+        @include transition($hoverAnimationDuration background-color ease-in-out);
+        @include g-grid(1, 5);
+        @include flex-grow(1 !important);
+        padding: 2em 3em 4em;
+        text-align: center;
+        cursor: pointer;
+
+        a {
+          text-decoration: none;
+        }
+
+        @include g-state(mobile) {
+          @include g-grid(1, 2);
+          padding: (3em * $scaleRatioMobile);
+
+          &:last-of-type {
+            padding-bottom: 2em;
+          }
+        }
+
+        @include g-state(mobileSmall) {
+          @include g-grid(1, 1);
+          padding: (3em * $scaleRatioMobile);
+
+          &:last-of-type {
+            padding-bottom: 2em;
+          }
+        }
+
+        &:hover {
+          background-color: rgba($colorWhite, .6);
+        }
+
+        &.divider {
+          border-right: 2px solid $colorWhite;
+
+          @include g-state(mobile) {
+            border: 0;
+            border-bottom: 2px solid $colorWhite;
+          }
+        }
+
+        h2,
+        p {
+          color: $colorBlue;
+          font-weight: $fwNormal;
+        }
+
+        h2 {
+          font-size: 1.714em;
+          @include g-state(desktopLarge) {
+            font-size: 1.55em;
+          }
+          @include g-state(desktop) {
+            font-size: 1.45em;
+          }
+          @include g-state(mobile tablet) {
+            font-size: 1.4em;
+          }
+        }
+
+        img {
+          max-height: 45px;
+          max-width: 75px;
+          margin-bottom: 1em;
+        }
+
+        p {
+          /* max-width: 10em; */
+          margin: 0 auto;
+        }
+      }
+    }
+
+    &.contact {
+      .text-form {
+        a {
+          color: white;
+          font-weight: bold;
+        }
+      }
+
+      form {
+        margin-bottom: 0;
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="search"],
+        input[type="time"],
+        textarea {
+          @include input-placeholder {
+            color: rgba($colorOrange, .6);
+          }
+        }
+      }
+
+
+
+      select {
+        background-color: rgba($colorWhite, .6);
+        color: $colorOrange;
+        font-weight: $fwNormal;
+
+        @include input-placeholder {
+          color: rgba($colorOrange, .6);
+        }
+      }
+
+      .open-arrow {
+        background-color: #ec8a59;
+      }
+    }
+  }
+}

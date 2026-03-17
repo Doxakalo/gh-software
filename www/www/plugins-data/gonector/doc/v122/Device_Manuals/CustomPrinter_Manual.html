@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+		
+	<title>Custom Printer Manual</title>
+	<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h2:before { counter-increment:section; content:"" counter(section) ". "; }
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for Custom Printer</h1>
+
+<h2>Documents</h2>
+<ul>
+  <li>My Printer A <a href="../../Support/custom_printer_manual_1.pdf">specification</a></li>
+  <li>MY3 <a href="../../Support/custom_printer_manual_2.pdf">specification</a></li>
+</ul>
+
+<h2>Connecting the Custom Printer</h2>
+<p>
+<h4>MY3 printer initial setup</h4>
+<ul>
+  <li>Charge the printer fully (right LED light is green).</li>
+  <li>Press the start button and press and hold the paper feed button immediately after.</li>
+  <li>Press and hold the paper feed button to enter the setup.</li>
+  <li>Change the first option "Interface" from USB to BlueTooth with one fast press of the paper feed button.</li>
+  <li>Press and hold the paper feed button to move to the next option.</li>
+  <li>Change the next option "APPLE Interface" from disable to enable with one fast press of the paper feed button.</li>
+  <li>Press and hold the paper feed button (approx 2-3 seconds) repeatedly until you reach the final setup page.</li>
+  <li>Check if the Interface is set to "BlueTooth" and APPLE Interface is set to "Enable".</li>
+  <li>The setup is done.</li>
+</ul>
+
+</p>
+
+<h2>Solving issues with Custom Printer</h2>
+<p>
+	<ul>		
+		<li><i>Device is connected to iOS, but i cannot print anything and cannot get firmwareVersion neither</i><br>
+			Custom Printer uses special protocol for communication, which has to be specified in your app. Into the .plist file of the project in Xcode, add new Row with the value "Supported external accessory protocol" and add the Strings:
+		<ul>
+		    <li>"com.custom.dongle" and "com.custom.donglealt" for CUSTOM BT1 device</li>
+		    <li>"com.custom.my3" and "com.custom.my3alt" for MY3A device</li>
+		    <li>"com.custom.printer" and "com.custom.printeralt" for all the other CUSTOM Apple
+Compatible devices</li>
+        </ul>
+		</li>
+		<li><i>I am trying to connect My Printer A to the iOS device but the pin code is invalid</i><br>
+            In our case the printer My Printer A did not use a pin code 0000 as stated in the user's manual. We were able to connect the printer My Printer A with a pin code 1234.
+        </li>    
+
+
+	</ul>
+</p>
+
+</body>
+</html>

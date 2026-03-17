@@ -1,0 +1,138 @@
+{block contact-form-orange}
+    <section class="contact arrow">
+        <div class="container">
+            <div class="row">
+                <div class="gr-6 gr-10@tablet gr-12@mobile gr-centered@tablet no-gutter">
+                    <div class="box divider first">
+                        <div class="row">
+                            <div class="gr-4 gr-12@mobileSmall text-center mb-1@mobile">
+                                <img src="{$basePath}/img/icons/call_us_icon.svg" class="icon" alt="Call us">
+                                <span class="large">{_generic.contact-form-section.call-us|noescape}</span>
+                            </div>
+                            <div class="gr-8 gr-12@mobileSmall text-left text-left@mobile-center">
+                                <h2>
+                                    <a href="tel:+420608301880">+420 608 301 880</a>
+                                </h2>
+                                <p>{_generic.contact-form-section.available-time}</p>
+                                <p>{_generic.contact-form-section.we-call-back}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gr-6 gr-10@tablet gr-12@mobile gr-centered@tablet no-gutter">
+                    <div class="box divider last">
+                        <div class="row">
+                            <div class="gr-4 gr-12@mobileSmall text-center mb-1@mobile">
+                                <img src="{$basePath}/img/icons/let_us_call_you_icon.svg" class="icon" alt="Let us call you">
+                                <span class="large">{_generic.contact-form-section.let-us-call|noescape}</span>
+                            </div>
+                            <div class="gr-8 gr-12@mobileSmall text-left text-left@mobile-center">
+                                {snippetArea contactForm}
+                                    {ifset $contactAdditionalInformationSuccess}
+                                        <div class="form-sent">
+                                            <p>{_generic.contact-form-section.form-sent}</p>
+                                        </div>
+                                    {elseifset $contactFormSuccess}
+                                        <div class="form-sent">
+                                            <div class="text-form">
+                                            {if $locale === 'cs'}
+                                                <p>Zkusíme vám zavolat na uvedené telefonní číslo.</p>
+                                                <p><a href="{$basePath}/24uSoftware.vcf">Kliknutím zde si stáhněte naši vizitku</a> a přidejte si nás do svých kontaktů ať víte, že voláme my.</p>
+                                                <p>Kdybychom měli potíže se vám dovolat, mohlo by nám pomoci vědět více:</p>
+                                            {else}
+                                                <p>We will try to call you at the phone number provided.</p>
+                                                <p><a href="{$basePath}/24uSoftware.vcf">Click here to download our vcard</a> and add us to your contacts to make sure you recognize our call.</p>
+                                                <p>For the case we have trouble reaching you, it may help us to know more from you:</p>
+                                            {/if}
+                                            </div>
+
+                                            {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- START ------------------------ *}
+                                            {snippet contactAdditionalInformationForm}
+                                                {ifset $contactAdditionalInformationSuccess}
+                                                    <div class="form-sent">
+                                                        <p>{_generic.contact-form-section.form-sent2}</p>
+                                                    </div>
+                                                {else}
+                                                    {form contactAdditionalInformationForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                                        <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                                            <li n:foreach="$form->errors as $error">{$error}</li>
+                                                        </ul>
+                                                        <label>
+                                                            {input email}
+                                                        </label>
+                                                        <label>
+                                                            {input timezones}
+                                                        </label>
+                                                    {input predata}
+
+                                                    {input type}
+                                                        <div class="row row-align-middle">
+                                                            <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                                                <label>
+                                                                    <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                                                </label>
+                                                            </div>
+                                                            <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                                                {input process}
+                                                            </div>
+                                                        </div>
+                                                    {/form}
+                                                {/ifset}
+                                            {/snippet}
+                                            {* ------------------------ CONTACT ADDITION INFORMATION FORM  ---- END ------------------------ *}
+
+                                        </div>
+                                    {else}
+                                        {form contactForm data-validationType => 'fields', class => 'ajax mb-1'}
+                                            <ul n:if="$form->hasErrors()" class="errors mb-1">
+                                                <li n:foreach="$form->errors as $error">{$error}</li>
+                                            </ul>
+                                            <label>
+                                                {input name}
+                                            </label>
+                                            <div class="row">
+                                                <div class="gr-4 no-gutter-left no-gutter-right">
+                                                    <label class="select-container">
+                                                        <div class="placeholder-text  orange"></div>
+                                                        <span class="open-arrow"></span>
+                                                        {input prefix_number}
+                                                    </label>
+                                                </div>
+                                                <div class="gr-8 gutter-left no-gutter-right no-gutter-left">
+                                                    <label>
+                                                        {input number}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <label>
+                                                {input time}
+                                            </label>
+                                            <label>
+                                                {input topic}
+                                            </label>
+                                            <label>
+                                                {input subject2}
+                                            </label>
+                                        {input type}
+                                            <div class="row row-align-middle">
+                                                <div class="gr-6 gr-12@mobile no-gutter text-left text-left@mobile-center">
+                                                    <label>
+                                                        <a href="JavaScript:void(0);" class="showPrivacyInformation">{_generic.contact-form-section.privacy-information}</a>
+                                                    </label>
+                                                </div>
+                                                <div class="gr-6 gr-12@mobile no-gutter text-right text-right@mobile-center">
+                                                    {input process}
+                                                </div>
+                                            </div>
+                                        {/form}
+                                    {/ifset}
+                                {/snippetArea}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{/block}

@@ -1,0 +1,88 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}Fido{/block}
+{block description}
+
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}Fido{/capture}
+        {capture $description}{include jennpro_detail_og_description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og-story-jennpro-v2.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="58">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/stories/jennpro/story-jennpro-header-v5.jpg?v=1')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/stories/jennpro/story-jennpro-header-v5.jpg?v=1')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-9@desktop gr-12@mobile cover-parallax-inner">
+                <h1 class="page-title">
+                    {include jennpro_detail_headline}
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="blue spacing detail" data-anchor="jennpro_detail-overview">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="editor-content gr-8 gr-7@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile content-left">
+                {include jennpro_detail-overview}
+            </div>
+            <div class="gr-4 gr-5@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile text-right image-right mt-1@mobile">
+                <a href="//24usw.com/fidovideo" target="_blank" class="">
+                    <div class="play-icon">
+                        <img src="{$basePath.'/img/pages/stories/jennpro/jennpro_success_story.jpg'}" alt="FIDO Online Ordering" class="limited-height-400">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{var $articles = [
+    [name => 'jennpro_article-about', img => $basePath.'/img/pages/stories/jennpro/01-about-'.$locale.'.jpg'],
+    [name => 'jennpro_article-team', img => $basePath.'/img/pages/stories/jennpro/02-team.jpg?v=1'],
+    [name => 'jennpro_article-fmsystem', img => $basePath.'/img/pages/stories/jennpro/03-filemaker-v1.png?v=2'],
+    [name => 'jennpro_article-development', img => $basePath.'/img/pages/stories/jennpro/04-ongoing.png'],
+    [name => 'jennpro_article-name', img => $basePath.'/img/pages/stories/jennpro/05-fido.jpg?v=1'],
+    [name => 'jennpro_article-customer', img => $basePath.'/img/pages/stories/jennpro/06-customer.jpg'],
+    [name => 'jennpro_article-webapp', img => $basePath.'/img/pages/stories/jennpro/07-responsive.png', img_height => '350'],
+    [name => 'jennpro_article-assetsapp', img => $basePath.'/img/pages/stories/jennpro/08-assets.jpg?v=1'],
+    [name => 'jennpro_article-eshop', img => $basePath.'/img/pages/stories/jennpro/09-eshop.jpg'],
+    [name => 'jennpro_article-effectivity', img => $basePath.'/img/pages/stories/jennpro/10-denisa.jpeg'],
+    [name => 'jennpro_article-goals', img => $basePath.'/img/pages/stories/jennpro/11-patrick.jpg?v=1'],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles, row_color => 'light-blue'}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'true', customDescriptionTranslate => "pages.stories.contact-form.description"}
+{/snippet}

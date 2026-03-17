@@ -1,0 +1,1057 @@
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>24U SimpleSound Plug-In 4.1 Syntax</title>
+
+    <script>
+
+		/* Simple highlight toggle only: */		
+	    function changeColor() {
+	        var tags = document.getElementsByTagName('*');
+			var classes = ["rev7", "rev8", "rev9", "rev10", "rev11"];
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + " ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].style.backgroundColor == "") {
+	                        tags[i].style.backgroundColor = "#FFFFA0";
+	                        tags[i].style.color = "black";
+	                    }
+	                    else {
+	                        tags[i].style.backgroundColor = "";
+	                        tags[i].style.color = "";
+	                    }
+	                }
+	            }
+			})
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + "x ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].classList.contains("striked")) {
+	                        tags[i].classList.remove("striked");
+	                    }
+	                    else {
+	                        tags[i].classList.add("striked");
+	                    }
+	                }
+	            }
+			})
+	    }
+
+    	function showItems(className) {
+            var tags = document.getElementsByTagName('*');
+            var tcl = " " + className +" ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (tags[i].style.display == "none") {
+                    	tags[i].style.display = "inline";
+                    }
+                    else {
+                    	tags[i].style.display = "none";
+                    }
+                }
+            }
+    	}
+
+        </script>
+
+    <STYLE TYPE="text/css" MEDIA=screen>
+
+		body {counter-reset:section;}
+		h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+		h2 { font-size: 16px; font-family: "Lucida GrandeSupported formats on OSX
+
+ Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+		h2:before { counter-increment:section; content:"" counter(section) ". "; }
+		h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+		h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+		h5 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-left: 1.5em; margin-bottom: 0px; color: purple}
+
+		/* Regular black text: */
+		h4.basic {font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-left: 1.5em; margin-bottom: 0px; color: black }
+		h5.basic {font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 20px; margin-left: 1.5em; margin-bottom: 0px; color: black }
+
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      table { margin-left: 20px; margin-right: 20px; border-collapse: separate; border-spacing: 4px; border: none; }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline; text-align: left; }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      ul {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL { font-family: Helvetica, Arial; font-size: 12px }
+
+	  .added {background-color: lightgreen;}
+
+		.b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+		.note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+		.t_path { font-family: monospace; font-size: 12px; color: #1F1F1F }
+		DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+		ul.nobullets li, ol.nobullets li, li.nobullets { list-style: none;}
+		th, td { padding: 0px; }
+#ErrorTable th { align:left; }
+
+	.internal_highlight, .internal_highlight .t2_param { color: orange; }
+
+    </STYLE>
+
+    <script>
+		/* New revisioning functions: */
+		function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op) {
+			op = op || "add"; //this way has op predefined value
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+						tags[i].classList.add(toggleClass);
+					}
+					else {
+						tags[i].classList.remove(toggleClass);
+					}
+                }
+            }
+		}
+
+        function showRevision(revNumber) {
+			var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+			// Reset all to latest revision:
+			for (var i=1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions 
+				toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+			}
+
+			// Highlight current revision: 
+			toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+			toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+			
+			// Revert future revisions:
+			for (var i=revNumber+1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+			}
+        }
+    </script>
+    <style type="text/css">
+		/* Texts from old revisions are removed by default: */
+		.rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x, 
+		.rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }	
+		/* Highlighting classes handled by js: */
+		.highlighted { background-color: #FFFFA0; color: black; }	
+		.striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }	
+		.ignoreStriked { }	
+		.highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */	
+		li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */	
+		span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */	
+		td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+		tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+		.hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+    </style>
+	
+  </head>
+
+<body>
+<h1>24U SimpleSound Plug-In 4.1 Syntax</h1>
+
+<form>
+
+<input type="button" value="Highlight changes in the new version" onclick='javascript: changeColor()'><br>
+
+<!--
+<input type="button" value="Internal: Highlight changes in revision 8" onclick='javascript: showRevision(8)'><br>
+<input type="button" value="Internal: Highlight changes in revision 9" onclick='javascript: showRevision(9)'><br>
+
+<input type="button" value="Highlight changes in revision 11" onclick='javascript: showRevision(11)'><br>
+<input type="button" value="Highlight remove" onclick='javascript: showRevision(99)'><br>
+-->
+
+</form>
+
+<p class="f_intro rev10">Specification revision: <b>11</b>, 2017-02-20.</p>
+<p class="f_intro">Created by: <a href="mailto:lukas.liebzeit@24usoftware.com">Lukáš Liebzeit</a>, ©2017 24U Software.</p>
+
+<!--
+
+<h2>Main Goals</h2>
+<ul>
+  <li class="rev7">Create 64bit plug-in</li>
+  <li class="rev7">Add support for more ID3v2 tags</li>
+  <li class="rev8">Support APIC tag (images inside sound files)</li>
+  <li class="rev8">Support ID3 tags on FileMaker server</li>
+</ul>
+
+<h2>Basic technical parameters</h2>
+<table>
+
+
+
+
+<tr class="rev7 rev10">
+
+  <td class="t2_param">
+    File names:
+  </td>
+  <td class="b_technical">
+    SimpleSound.fmplugin, SimpleSound.fmx or SimpleSound.fmx64
+  </td>
+</tr>
+
+
+
+
+<tr class="rev7">
+
+  <td class="t2_param">
+    Creator:
+  </td>
+  <td class="b_technical">
+    Alena Sochůrková, Zdeněk Hejl, Patrik Horčičák and Lukáš Liebzeit
+  </td>
+</tr>
+
+
+
+
+<tr>
+
+  <td class="t2_param">
+    Plug-In ID String:
+  </td>
+  <td class="b_technical">
+    24uS
+  </td>
+</tr>
+
+
+
+
+<tr>
+
+  <td class="t2_param">
+    Function names prefix:
+  </td>
+  <td class="b_technical">
+    SSound_
+  </td>
+</tr>
+
+
+
+
+<tr class="rev7">
+
+  <td class="t2_param">
+    Plug-In API version:
+  </td>
+  <td class="b_technical">
+    FileMaker Pro 15.0 Advanced native
+  </td>
+</tr>
+
+
+
+
+<tr class="rev7">
+
+  <td class="t2_param">
+    OS X SDK Version:
+  </td>
+  <td class="b_technical">
+    OS X 10.11
+  </td>
+</tr>
+
+
+
+
+<tr class="rev7">
+
+  <td class="t2_param">
+    OS X Compatibility:
+  </td>
+  <td class="b_technical">
+    OS X 10.9 and higher
+  </td>
+</tr>
+
+
+
+
+<tr class="rev7">
+
+  <td class="t2_param">
+    Windows Compatibility:
+  </td>
+  <td class="b_technical">
+    Windows 7 and higher
+  </td>
+</tr>
+
+
+
+
+<tr class="rev7">
+
+  <td class="t2_param">
+    Procesor architectures:
+  </td>
+  <td class="b_technical">
+    i386, x86_64
+  </td>
+</tr>
+
+
+
+
+<tr class="rev7">
+  <td class="t2_param">
+    Suported FileMaker:
+  </td>
+  <td class="b_technical">
+    FileMaker Pro 13 or newer
+  </td>
+</tr>
+
+
+</table>
+-->
+
+<p class="intro">This file describes syntax of 24U SimpleSound Plug-In's functions.</p>
+
+<div class="rev7">
+<h2>Changes since SimpleSound 3.0</h2>
+	<p class="f_intro">Since SimpleSound 3.0 recording functionality was removed as well as palindrome playing.
+		Also error codes have been changed and some parameters have been changed or removed.
+		You can highlight all the changes by button at the top of this page.<br>
+	</p>
+</div>
+
+<h3>SSound_Version ( { versionFormat } )</h3>
+	<p class="f_intro">Returns version string of the active 24U SimpleSound Plug-In, formatted as requested by the parameter.</p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">versionFormat<span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top">	<td class="t_param">"short"</td>		<td>To get just the version number.</td>								</tr>
+	<tr valign="top">	<td class="t_param">"long"</td>		<td>To get the plug-in name followed by its version number.</td>		</tr>
+	<tr valign="top">	<td class="t_param">"platform"</td>	<td>To get the platform of the code currently running.</td>			</tr>
+	<tr valign="top">	<td class="t_param">"autoupdate"</td>	<td>To get autoupdate compatible (comparable) version number.</td>			</tr>
+</table>
+
+<h4>Result</h4>
+<p>Returns requested version format or platform. If this function returns "?" than the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.</p>
+
+<h4>Examples</h4>
+<p> <span class="syntax_hl">SSound_Version( "long" )</span><br>
+This returns: "24U SimpleSound Plug-In 4.0".</p>
+<p> <span class="syntax_hl">SSound_Version( "platform" )</span><br>
+This returns: "Mac OS X" on OSX and "Windows" on windows.</p>
+<p> <span class="syntax_hl">SSound_Version( "short" )</span><br>
+This returns: "4.0".</p>
+
+
+<div class="rev7">
+<h3>SSound_Register(selector)</h3>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers.</p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>Define the type of operation.</td></tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">selector<span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr class="">    <td class="t2_param">SerialNumber</td>    <td>Register given SerialNumber and return an error code.</td>    </tr>
+    <tr class="">    <td class="t2_param">EmailAddress</td>    <td>Tries to activate with given email address and return an error code. Trial version is valid only after you confirm email</td>    </tr>
+    <tr class=""><td class="t2_param">Hash</td><td>Activate a serial number with a hash received from 24U. Used for offline activation.</td></tr>
+    <tr class="">    <td class="t2_param">"Registration Window"</td>    <td>Show the "Registration window" and return 0.</td>    </tr>
+    <tr class="">    <td class="t2_param">"About Window"</td>    <td>Show the "About window" and return 0.</td>    </tr>
+    <tr class="">    <td class="t2_param">"Status"</td>    <td>Return the actual registration state of the plugin: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td>    </tr>
+    <tr class="">    <td class="t2_param">"Unregister"</td>    <td>Unregister all serial numbers related to the product and return an error code. Note: after this trial version days wont come back.</td>    </tr>
+    <tr class=""><td class="t2_param">"Info"</td><td>Returns current plugin status and its registered serial numbers.</td></tr>
+    <tr class=""><td class="t2_param">"ActivationChallenge"</td><td>Returns generated challenge string. This string is sent to 24U.</td></tr>
+    <tr class=""><td class="t2_param">"Purchase" ; webAddress</td><td>Opens web browser with given webAddress. Given webAddress should point to 24U Store. <span>This functionality is not implemented for FileMaker Server and Linux.</span></td>
+</table>
+
+<h4>Result</h4>
+<p>Returns zero or error code depending on the selector.</p>
+
+<h4>Examples</h4>
+<p> <span class="syntax_hl">SSound_Register( "address@example.com" )</span><br>
+This will send an email on address@example.com for confirmation. If you confirm it you will get trial version on this product verified by this email.</p>
+
+<p> <span class="syntax_hl">SSound_Register( "SND20C666-4B7B-37PH-Q2E6-1UKY" )</span><br>
+This will register the product with key: "SND20C666-4B7B-37PH-Q2E6-1UKY".</p>
+
+<p> <span class="syntax_hl">SSound_Register( "Unregister" )</span><br>
+This will remove all registered keys. After this call the product is no longer registered.</p>
+
+</div>
+<!-- Common functions end -->
+
+
+<!-- Function prototype
+<h2>SSound_ (  )</h2>
+<p class="f_intro">Intro.</p>
+
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param">Name</td>  <td>Desc.</td>  </tr>
+</table>
+
+<h3>Parameter values for <span class="p_hl">valueID<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr align="top"><th align="left">valueID</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+</table>
+
+<h3>Description</h3>
+<p></p>
+
+<h3>Result</h3>
+<p></p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phidget_Read(-1 ; "inputValue")</span><br>
+The most basic reading. This command will read an "inputValue" from a connected Phidget. If more than one device is connected the plug-in will choose the first device which was connected.</p>
+
+-->
+
+<h3>SSound_Playback ( command ; sound {; offset} )</h3>
+<p class="f_intro">This function is used for controlling sounds playback.<br><br>
+<span class="rev8">This functionality is not available on FileMaker Server. It returns error code -4 (NotImplemented).</span>
+</p>
+
+<h4>Parameter values for <span class="p_hl">command<span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"> <th class="t_param">Name</th>      <th class="t_param">Description</th>  </tr>
+	<tr> <td class="t_param">"play synchronously"</td> 	 <td>Until the sound stops FileMaker is "frozen".</td> </tr>
+	<tr> <td class="t_param">"play"</td> 				         <td>Start playing the sound from the offset position.</td> </tr>
+	<tr> <td class="t_param">"loop"</td> 				         <td>Start looping the sound from the offset position. (Until it is stopped).</td> </tr>
+	<tr> <td class="t_param">"stop"</td> 				         <td>Stops the sound playback. If called without sound param, it stops all playing and paused sounds.</td> </tr>
+	<tr> <td class="t_param">"pause"</td> 				       <td>The currently playing sound is paused.</td> </tr>
+	<tr> <td class="t_param">"resume"</td> 				       <td>When given a paused sound, the playback is resumed from the last position.</td> </tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">sound<span></h4>
+<p>Sound can be identified by a path to file or FileMaker container.</p>
+
+<h4>Parameter values for <span class="p_hl">offset<span></h4>
+<p>Value for the offset is given in seconds (e.g. 2.45). The offset is the time, from which playback starts (has to be smaller than SSound_Get("length as seconds" ; sound) ).<br>Default value is 0.</p>
+
+<h4>Result</h4>
+<p>Returns zero or error code if an error occurs. Please see <a href="#error">Error codes</a> section.</p>
+
+<h4>Examples</h4>
+<p><span class="syntax_hl">SSound_Playback("loop" ; "/Users/john/Music/coolSong.mp3")</span><br>
+Starts playing coolSong.mp3 as loop over and over again.</p>
+
+<p><span class="syntax_hl">SSound_Playback("play" ; "/Users/john/Music/coolSong.mp3")</span><br>
+Plays coolSong.mp3 only once.</p>
+
+<p><span class="syntax_hl">SSound_Playback("play" ; SimpleSoundExample::songContainer)</span><br>
+Plays the sound placed in songContainer once.</p>
+
+<p><span class="syntax_hl">SSound_Playback("play synchronously" ; "/Users/john/Music/coolSong.mp3")</span><br>
+Plays coolSong.mp3 only once, but until coolSong.mp3 stops, FileMaker will be frozen.</p>
+
+
+<div class="rev7">
+<h3><strike>SSound_Recording( command {;filespec} {; filename} )</strike></h3>
+</div>
+
+<h3 class="rev8">SSound_Get ( selector ; sound {; param1 {; param2} } )</h3>
+<p class="f_intro">This function allows to get information about plugin or about specific sound. See the table below for options.
+<br><br><span class="rev8">Only ID3 tags work on FileMaker Server. Calling other defined values for selector causes return of error code -4 (NotImplemented).</span>
+
+</p>
+
+<h4>Parameter values for <span class="p_hl">selector<span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><th class="t_param">Name</th>  <th class="t_param">Sound param required?</th>  <th align="left" class="t_param">Description</th> </tr>
+	<tr class="rev7"> <td class="t_param">"number of existing sounds"</td> 	    <td align="center">No </td>   <td align="left">Returns number of playing or paused sounds.</td> </tr>
+	<tr> <td class="t_param">"number of playing sounds"</td> 	                <td align="center">No </td> 	<td align="left">Returns number of playing sounds.</td> </tr>
+	<tr> <td class="t_param">"length as time"</td> 		                        <td align="center">Yes</td>   <td align="left">Returns length of the sound as hours, minutes and seconds.</td> </tr>
+	<tr> <td class="t_param">"length as seconds"</td> 	                        <td align="center">Yes</td>   <td align="left">Returns length of the sound in seconds.</td> </tr>
+	<tr> <td class="t_param">"number of samples"</td> 	                        <td align="center">Yes</td>   <td align="left">Returns number of samples.</td> </tr>
+	<tr> <td class="t_param">"file format"</td> 		                        <td align="center">Yes</td>   <td align="left">Returns format of the audio file. E.g. MPEG Audio.</td> </tr>
+	<tr> <td class="t_param">"sampling rate"</td> 		                        <td align="center">Yes</td>   <td align="left">Returns the sampling rate in Hz.</td> </tr>
+	<tr> <td class="t_param">"number of channels"</td> 	                        <td align="center">Yes</td>   <td align="left">Returns number of channels.</td> </tr>
+
+	<tr> <td class="t_param rev10">"list of contained picture types"</td> 	        <td align="center" class="rev10">Yes</td>   <td align="left" class="rev10">Returns list of all allocated picture <a href="#APIC_types">types</a> in sound.</td> </tr>
+	<tr> <td class="t_param">"ID3 <b>id3tagSelector</b>"</td>				 	<td align="center">Yes</td>   <td align="left">Returns the value of specified ID3 tag.</td> </tr>
+	<tr> <td class="t_param rev11">"inlineDocumentation"</td>				 	<td align="center" class="rev11">No</td>   <td align="left" class="rev11">Returns status of inline documentation (values can be "on" or "off").</td> </tr>
+
+	<tr class="rev7"> <td><strike>"bit rate"</strike></td> 			<td></td>   <td>No longer supported.</td>   </tr>
+	<tr class="rev7"> <td><strike>"recording offset"</strike></td> 	<td></td>	<td>No longer supported.</td>   </tr>
+	<tr class="rev7"> <td><strike>"recording options"</strike></td> 	<td></td>	<td>No longer supported.</td>   </tr>
+	<tr class="rev7"> <td><strike>"quicktime version"</strike></td> 	<td></td>	<td>No longer supported.</td>   </tr>
+	<tr class="rev7"> <td><strike>"recording status"</strike></td> 	<td></td>	<td>No longer supported.</td>   </tr>
+	<tr class="rev7"> <td><strike>"data format"</strike></td> 		<td></td>	<td>No longer supported.</td>   </tr>
+
+</table>
+
+<h4>Parameter values for <span class="p_hl">id3tagSelector<span></h4>
+<p>Please replace the "id3tagSelector" with valid ID3v1 tag name or valid ID3v2 frame header.
+	For supported values, please see section: <a href="#ID3">About ID3</a><br>
+
+<h4>Parameter values for <span class="p_hl">sound<span></h4>
+<p>Sound can be identified by path to file or FileMaker container.</p>
+
+<h4 class="rev8">Parameter meanings for <span class="p_hl">param1<span></h4>
+	<table border=0 cellspacing=4 cellpadding=0>
+		<tr class="rev8"> <th style="width:6em">Selector</th> 		<th></th>	<th style="width:6em">Meaning</th><th style="width:6em" class="rev9">Optional</th><th style="width:10em" class="rev9">Default value</th><th>Additional information</th>   </tr>
+		<tr class="rev8"> <td>"ID3 USLT"</td> 		<td></td>	<td>language</td><td class="rev9">yes</td><td class="rev9">""</td><td class="rev9">USLT allows to save more lyrics in different languages.</td>  </tr>
+		<tr class="rev8"> <td>"ID3 APIC"</td> 		<td></td>	<td>APIC Type</td><td class="rev9">yes</td><td class="rev9">"coverfront"</td><td>Exact text representation of <a href="#APIC_types">APIC Type</a> is required.</td> </tr>
+	</table>
+
+<h4 class="rev8">Parameter meanings for <span class="p_hl">param2<span></h4>
+	<table border=0 cellspacing=4 cellpadding=0>
+		<tr class="rev8"> <th style="width:6em">Selector</th> 		<th></th>	<th style="width:6em">Meaning</th><th style="width:6em" class="rev9">Optional</th><th style="width:10em" class="rev9">Default value</th><th>Additional information</th>   </tr>
+		<tr class="rev8"> <td>"ID3 USLT"</td> 		<td></td>	<td>description</td><td class="rev9">yes</td><td class="rev9">""</td>		<td>This allows to add brief description for lyrics.</td><td>
+		</td>  </tr>
+	</table>
+
+
+<h4>Result</h4>
+<p>Requested value or error code is returned. For information abou error codes please see <a href="#error">Error codes</a> section.</p>
+
+<h4>Examples</h4>
+<p><span class="syntax_hl">SSound_Get( "number of playing sounds" )</span><br>
+If no sound is playing it returns 0. Otherwise, it returns number of currently playing sounds.</p>
+
+<p class="rev7"><span class="syntax_hl">SSound_Get( "ID3 USLT" ; "/Users/john/Music/coolSong.mp3" )</span><br>
+Gets the first USLT frame encountered.</p>
+<p class="rev7"><span class="syntax_hl">SSound_Get( "ID3 USLT" ; "/Users/john/Music/coolSong.mp3" ; "eng")</span><br>
+Gets the USLT frame with language set to english.</p>
+<p class="rev7"><span class="syntax_hl">SSound_Get( "ID3 USLT" ; "/Users/john/Music/coolSong.mp3" ; ""; "Rickroll lyrics")</span><br>
+Gets the USLT frame with given descriptor.</p>
+
+<p class="rev7"><span class="syntax_hl">SSound_Get( "ID3 PCNT" ; "/Users/john/Music/coolSong.mp3")</span><br>
+Get value of play counter.</p>
+
+
+<p class="rev7"><span class="syntax_hl">SSound_Get( "ID3 year" ; "/Users/john/Music/coolSong.mp3" )</span><br>
+<span> Returns four characterss representing a year or "" if sound file doesn't have this ID3 tag set.</span> </p>
+
+<p class="rev8"><span class="syntax_hl">SSound_Get( "ID3 year" ; SimpleSoundExample::songContainer )</span><br>
+Returns four characters representing a year or "" if sound file in given container doesn't have this ID3 tag set.</p>
+
+
+<p class="rev8"><span class="syntax_hl">SSound_Get( "ID3 TCOM" ; "/Users/john/Music/coolSong.mp3" )</span><br>
+Returns the stored info about the composer or an empty string if not available.</p>
+
+
+<p class="rev8"><span class="syntax_hl">SSound_Get( "ID3 APIC" ; "/Users/john/Music/coolSong.mp3" ; "coverback" )</span><br>
+Returns image that is stored inside sound file under <a href="#APIC_types">APIC Type</a> "coverback" or returns error -64 if there is no such image.</p>
+
+<p class="rev8"><span class="syntax_hl">SSound_Get( "ID3 APIC" ; "/Users/john/Music/coolSong.mp3" )</span><br>
+Returns image from sound file that is stored under <a href="#APIC_types">APIC Type</a> "coverfront".
+If there is no such image, plugin returns -64.</p>
+
+<p class="rev8"><span class="syntax_hl">SSound_Get( "ID3 APIC" ; SimpleSoundExample::songContainer ;  "media" )</span><br>
+Returns image that is stored under <a href="#APIC_types">APIC Type</a> "media" in sound container or returns error -64 if there is no such image.</p>
+
+
+
+<h3 class="rev8">SSound_Set ( selector ; value {; sound ; param1 {; param2} })</h3>
+<p class="f_intro">
+	Allows to set ID3 tag value for specific sound.<br>
+	<span class="rev8">Plugin directly modifies given sound file if the sound is passed using file path.<br>
+	If the sound is passed via container new sound file is returned, so it can be stored into container.</span>
+<br><br><span class="rev8">Only ID3 tags work on FileMaker Server. Calling other defined values for selector causes return of error code -4 (NotImplemented).</span>
+</p>
+
+<h4>Parameter values for <span class="p_hl">selector<span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr> <td class="t_param">"ID3 <b>id3tagSelector</b>"</td> 		<td>Sound is mandatory for this value of selector.</td> </tr>
+	<tr> <td class="t_param rev11">"inlineDocumentation"</td>		</tr>
+	<tr class="rev7"> <td><strike>"recording options"</strike></td> <td>No longer supported.</td> </tr>
+
+
+</table>
+
+<h4>Parameter values for <span class="p_hl">"id3tagSelector"<span></h4>
+<p>Please replace the "id3tagSelector" with valid ID3v1 tag name or valid ID3v2 frame header.
+	For supported values, please see section: <a href="#ID3">About ID3</a><br>
+</p>
+
+<h4>Parameter values for <span class="p_hl">value<span></h4>
+<table class="rev11">
+	<tr> <th>Selector value</th> <th>Possible values</th> </tr>
+	<tr> <td>"ID3 <b>id3tagSelector</b>"</td>  	<td>Please read <a href="#ID3">About ID3</a>.</td></tr>
+	<tr> <td>"inlineDocumentation"</td>  		<td>"on" or "off"</td></tr>
+</table>
+
+
+
+<h4>Parameter values for <span class="p_hl">sound<span></h4>
+<p>Sound can be identified by path to file or FileMaker container.</p>
+
+<h4 class="rev8">Parameter meanings for <span class="p_hl">param1<span></h4>
+	<table border=0 cellspacing=4 cellpadding=0>
+		<tr class="rev8"> <th style="width:6em">Selector</th> 		<th></th>	<th style="width:6em">Meaning</th><th style="width:6em" class="rev9">Optional</th><th style="width:10em" class="rev9">Default value</th><th>Additional information</th></tr>
+		<tr class="rev8"> <td>"ID3 USLT"</td> 		<td></td>	<td>language</td><td class="rev9">yes</td><td class="rev9">"eng"</td><td></td>  </tr>
+		<tr class="rev8"> <td>"ID3 APIC"</td> 		<td></td>	<td>APIC Type</td><td class="rev9">yes</td><td class="rev9">"coverfront"</td><td>Exact text representation of <a href="#APIC_types">APIC Type</a> is required.</td> </tr>
+	</table>
+
+<h4 class="rev8">Parameter meanings for <span class="p_hl">param2<span></h4>
+	<table border=0 cellspacing=4 cellpadding=0>
+		<tr class="rev8"> <th style="width:6em">Selector</th> 		<th></th>	<th style="width:6em">Meaning</th><th style="width:6em" class="rev9">Optional</th><th style="width:10em" class="rev9">Default value</th><th>Additional information</th>   </tr>
+		<tr class="rev8"> <td>"ID3 USLT"</td> 						<td></td>	<td>description</td><td class="rev9">yes</td><td class="rev9">""</td><td></td>  </tr>
+	</table>
+
+<h4>Result</h3>
+<p class="rev11">
+<table>
+	<tr> <th>Value of selector</th> <th>Value of sound</th> <th>Result</th> </tr>
+	<tr> <td>"ID3 <b>id3tagSelector</b>"</td> <td>Path to file</td> <td>In case of success path to file is returned.</td> </tr>
+	<tr> <td>"ID3 <b>id3tagSelector</b>"</td> <td>Container with sound</td> <td>In case of success container with modified sound is returned.</td> </tr>
+	<tr> <td>"inlineDocumentation"</td> <td>Sound is ignored</td> <td>0</td> </tr>
+</table>
+<br>
+In case of an error function returns error code. For information abou error codes please see <a href="#error">Error codes</a> section.
+</p>
+
+<h4>Examples</h4>
+<p><span class="syntax_hl">SSound_Set( "ID3 year" ; "2005" ; "/Users/john/Music/coolSong.mp3" )</span><br>
+Sets the value for year in ID3 tag of coolSong.mp3 to 2005. </p>
+
+<p class="rev7"><span class="syntax_hl">SSound_Set( "ID3 USLT" ; "Never gonna give you up, never gonna let you down" ; "/Users/john/Music/coolSong.mp3")</span><br>
+Adding lyrics for sound with default language (eng) and no description.</p>
+
+<p class="rev7"><span class="syntax_hl">SSound_Set( "ID3 USLT" ; "Never gonna give you up, never gonna let you down" ; "/Users/john/Music/coolSong.mp3" ; "eng" ; "Rickroll lyrics" )</span><br>
+Adding lyrics for sound with defined language (eng) and defined description (Rickroll lyrics).</p>
+
+<p class="rev7"><span class="syntax_hl">SSound_Set( "ID3 PCNT" ; 33 ; "/Users/john/Music/coolSong.mp3" )</span><br>
+Sets value of play counter to 33.</p>
+
+<p class="rev11"><span class="syntax_hl">SSound_Set( "inlineDocumentation" ; "on" )</span><br>
+Turns on inline documentation in calculation.</p>
+
+<p class="rev11"><span class="syntax_hl">SSound_Set( "inlineDocumentation" ; "off" )</span><br>
+Turns off inline documentation in calculation.</p>
+
+
+<p class="rev8"><span class="syntax_hl">SSound_Set( "ID3 APIC" ; SimpleSoundExample::imageContainer ; "/Users/john/Music/coolSong.mp3" ; "coverback" )</span><br>
+Sets image from container into sound file under <a href="#APIC_types">APIC Type</a> "coverback".
+If imageContainer (2nd parameter) is empty, image from "coverback" <a href="#APIC_types">APIC Type</a> will be removed. <b>Note: Picture is removed, but id3lib still see this type as allocated.</b></p>
+
+<p class="rev8"><span class="syntax_hl">SSound_Set( "ID3 APIC" ; SimpleSoundExample::imageContainer ; SimpleSoundExample::outputSoundContainer ; "composer" )</span><br>
+Sets image from 2nd parameter into sound file in 3rd parameter. Image is stored under "composer" <a href="#APIC_types">APIC Type</a>.
+If imageContainer (2nd parameter) is empty, image from "composer" <a href="#APIC_types">APIC Type</a> will be removed.</p>
+
+<p class="rev8"><span class="syntax_hl">SSound_Set( "ID3 APIC" ; SimpleSoundExample::imageContainer ; SimpleSoundExample::outputSoundContainer )</span><br>
+Sets image from 2nd parameter into sound file in 3rd parameter. Image is stored under "coverfront" because no <a href="#APIC_types">APIC Type</a> is specified via 4th parameter.
+If imageContainer (2nd parameter) is empty, image from "coverfront" <a href="#APIC_types">APIC Type</a> will be removed.</p>
+
+
+<div class="rev7">
+<h3 id="ID3">About ID3 tags</h3>
+<p>ID3 is a metadata container, which can be used for storing information about sound (mostly .mp3 format).<br>
+There are two versions of ID3 tags:</p>
+<ul>
+	<li>ID3v1</li>
+	<li>ID3v2</li>
+</ul>
+<p>
+Unfortunately these two versions aren't fully compatible. Furthermore, one of them or both can be present in the sound file.
+If sound file contains both ID3v1 and ID3v2.3, most players don't know which version to choose. <br><br>
+Behaviour of our plugin for ID3 tags:
+<ul>
+	<li>ID3v1 is written as both ID3v2.3 and ID3v1</li>
+	<li>ID3v2.2 are converted to ID3v2.3</li>
+	<li>All ID3v2.4 written by different applications are deleted when writing ID3v2.3</li>
+	<li>Supported ID3 tags are listed below</li>
+</ul>
+</p>
+<h4 class="basic">More info about each version:</h4>
+<ul class="nobullets">
+	<li><h3>ID3v1</h3>
+		This is older version of ID3 tag, it allows storing textual information about the song at the end of the sound file. The total size of the data is 128 bytes.
+		<table>
+			<tr> <th>Name</th> <th>Value</th>						<th>Equivalent ID3v2 tags</th></tr>
+			<tr> <td>"title"</td> 	<td>30 basic ASCII chars</td> 	<td>"TIT2"</td></tr>
+			<tr> <td>"artist"</td>  <td>30 basic ASCII chars</td> 	<td>"TPE1"</td></tr>
+			<tr> <td>"album"</td> 	<td>30 basic ASCII chars</td> 	<td>"TALB"</td></tr>
+			<tr> <td>"year"</td> 	<td>4 basic ASCII chars</td> 	<td>"TYER"</td></tr>
+			<tr> <td>"genre"</td> 	<td>Number from 0 to 255 or one of text values. See table below.</td>	 <td>"TCON"</td></tr>
+			<tr> <td>"comment"</td> <td>30 basic ASCII chars</td> 	<td>"COMM"</td></tr>
+		</table>
+		<br>
+		Possible values for ID3 genre:
+		<br>
+		<form><input type="button" value="Show genres" onclick='javascript: showItems("tableGenres")'></form>
+		<table class="tableGenres" style="display: none;">
+			<tr> 		<th>Genre name</th> 	<th>Number value</th> </tr>
+			<tr> 		<td>Blues				</td>	<td>0  </td></tr>
+    		<tr> 		<td>Classic Rock		</td>	<td>1  </td></tr>
+    		<tr> 		<td>Country				</td>	<td>2  </td></tr>
+    		<tr> 		<td>Dance				</td>	<td>3  </td></tr>
+    		<tr> 		<td>Disco				</td>	<td>4  </td></tr>
+    		<tr> 		<td>Funk				</td>	<td>5  </td></tr>
+    		<tr> 		<td>Grunge				</td>	<td>6  </td></tr>
+    		<tr> 		<td>Hip-Hop				</td>	<td>7  </td></tr>
+    		<tr> 		<td>Jazz				</td>	<td>8  </td></tr>
+    		<tr> 		<td>Metal				</td>	<td>9  </td></tr>
+    		<tr> 		<td>New Age				</td>	<td>10 </td></tr>
+    		<tr> 		<td>Oldies				</td>	<td>11 </td></tr>
+    		<tr> 		<td>Other				</td>	<td>12 </td></tr>
+    		<tr> 		<td>Pop					</td>	<td>13 </td></tr>
+    		<tr> 		<td>R&B					</td>	<td>14 </td></tr>
+    		<tr> 		<td>Rap					</td>	<td>15 </td></tr>
+    		<tr> 		<td>Reggae				</td>	<td>16 </td></tr>
+    		<tr> 		<td>Rock				</td>	<td>17 </td></tr>
+    		<tr> 		<td>Techno				</td>	<td>18 </td></tr>
+    		<tr> 		<td>Industrial			</td>	<td>19 </td></tr>
+    		<tr> 		<td>Alternative			</td>	<td>20 </td></tr>
+    		<tr> 		<td>Ska					</td>	<td>21 </td></tr>
+    		<tr> 		<td>Death Metal			</td>	<td>22 </td></tr>
+    		<tr> 		<td>Pranks				</td>	<td>23 </td></tr>
+    		<tr> 		<td>Soundtrack			</td>	<td>24 </td></tr>
+    		<tr> 		<td>Euro-Techno			</td>	<td>25 </td></tr>
+    		<tr> 		<td>Ambient				</td>	<td>26 </td></tr>
+    		<tr> 		<td>Trip-Hop			</td>	<td>27 </td></tr>
+    		<tr> 		<td>Vocal				</td>	<td>28 </td></tr>
+    		<tr> 		<td>Jazz+Funk			</td>	<td>29 </td></tr>
+    		<tr> 		<td>Fusion				</td>	<td>30 </td></tr>
+    		<tr> 		<td>Trance				</td>	<td>31 </td></tr>
+    		<tr> 		<td>Classical			</td>	<td>32 </td></tr>
+    		<tr> 		<td>Instrumental		</td>	<td>33 </td></tr>
+    		<tr> 		<td>Acid				</td>	<td>34 </td></tr>
+    		<tr> 		<td>House				</td>	<td>35 </td></tr>
+    		<tr> 		<td>Game				</td>	<td>36 </td></tr>
+    		<tr> 		<td>Sound Clip			</td>	<td>37 </td></tr>
+    		<tr> 		<td>Gospel				</td>	<td>38 </td></tr>
+    		<tr> 		<td>Noise				</td>	<td>39 </td></tr>
+    		<tr> 		<td>Alternative Rock	</td>	<td>40 </td></tr>
+    		<tr> 		<td>Bass				</td>	<td>41 </td></tr>
+    		<tr> 		<td>Soul				</td>	<td>42 </td></tr>
+    		<tr> 		<td>Punk				</td>	<td>43 </td></tr>
+    		<tr> 		<td>Space				</td>	<td>44 </td></tr>
+    		<tr> 		<td>Meditative			</td>	<td>45 </td></tr>
+    		<tr> 		<td>Instrumental Pop	</td>	<td>46 </td></tr>
+    		<tr> 		<td>Instrumental Rock	</td>	<td>47 </td></tr>
+    		<tr> 		<td>Ethnic				</td>	<td>48 </td></tr>
+    		<tr> 		<td>Gothic				</td>	<td>49 </td></tr>
+    		<tr> 		<td>Darkwave			</td>	<td>50 </td></tr>
+    		<tr> 		<td>Techno-Industrial	</td>	<td>51 </td></tr>
+    		<tr> 		<td>Electronic			</td>	<td>52 </td></tr>
+    		<tr> 		<td>Pop-Folk			</td>	<td>53 </td></tr>
+    		<tr> 		<td>Eurodance			</td>	<td>54 </td></tr>
+    		<tr> 		<td>Dream				</td>	<td>55 </td></tr>
+    		<tr> 		<td>Southern Rock		</td>	<td>56 </td></tr>
+    		<tr> 		<td>Comedy				</td>	<td>57 </td></tr>
+    		<tr> 		<td>Cult				</td>	<td>58 </td></tr>
+    		<tr> 		<td>Gangsta				</td>	<td>59 </td></tr>
+    		<tr> 		<td>Top 40				</td>	<td>60 </td></tr>
+    		<tr> 		<td>Christian Rap		</td>	<td>61 </td></tr>
+    		<tr> 		<td>Pop/Funk			</td>	<td>62 </td></tr>
+    		<tr> 		<td>Jungle				</td>	<td>63 </td></tr>
+    		<tr> 		<td>Native US			</td>	<td>64 </td></tr>
+    		<tr> 		<td>Cabaret				</td>	<td>65 </td></tr>
+    		<tr> 		<td>New Wave			</td>	<td>66 </td></tr>
+    		<tr> 		<td>Psychadelic			</td>	<td>67 </td></tr>
+    		<tr> 		<td>Rave				</td>	<td>68 </td></tr>
+    		<tr> 		<td>Showtunes			</td>	<td>69 </td></tr>
+    		<tr> 		<td>Trailer				</td>	<td>70 </td></tr>
+    		<tr> 		<td>Lo-Fi				</td>	<td>71 </td></tr>
+    		<tr> 		<td>Tribal				</td>	<td>72 </td></tr>
+    		<tr> 		<td>Acid Punk			</td>	<td>73 </td></tr>
+    		<tr> 		<td>Acid Jazz			</td>	<td>74 </td></tr>
+    		<tr> 		<td>Polka				</td>	<td>75 </td></tr>
+    		<tr> 		<td>Retro				</td>	<td>76 </td></tr>
+    		<tr> 		<td>Musical				</td>	<td>77 </td></tr>
+    		<tr> 		<td>Rock & Roll			</td>	<td>78 </td></tr>
+    		<tr> 		<td>Hard Rock			</td>	<td>79 </td></tr>
+    		<tr> 		<td>Folk				</td>	<td>80 </td></tr>
+    		<tr> 		<td>Folk-Rock			</td>	<td>81 </td></tr>
+    		<tr> 		<td>National Folk		</td>	<td>82 </td></tr>
+    		<tr> 		<td>Swing				</td>	<td>83 </td></tr>
+    		<tr> 		<td>Fast Fusion			</td>	<td>84 </td></tr>
+    		<tr> 		<td>Bebob				</td>	<td>85 </td></tr>
+    		<tr> 		<td>Latin				</td>	<td>86 </td></tr>
+    		<tr> 		<td>Revival				</td>	<td>87 </td></tr>
+    		<tr> 		<td>Celtic				</td>	<td>88 </td></tr>
+    		<tr> 		<td>Bluegrass			</td>	<td>89 </td></tr>
+    		<tr> 		<td>Avantgarde			</td>	<td>90 </td></tr>
+    		<tr> 		<td>Gothic Rock			</td>	<td>91 </td></tr>
+    		<tr> 		<td>Progressive Rock	</td>	<td>92 </td></tr>
+    		<tr> 		<td>Psychedelic Rock	</td>	<td>93 </td></tr>
+    		<tr> 		<td>Symphonic Rock		</td>	<td>94 </td></tr>
+    		<tr> 		<td>Slow Rock			</td>	<td>95 </td></tr>
+    		<tr> 		<td>Big Band			</td>	<td>96 </td></tr>
+    		<tr> 		<td>Chorus				</td>	<td>97 </td></tr>
+    		<tr> 		<td>Easy Listening		</td>	<td>98 </td></tr>
+    		<tr> 		<td>Acoustic			</td>	<td>99 </td></tr>
+    		<tr> 		<td>Humour				</td>	<td>100</td></tr>
+    		<tr> 		<td>Speech				</td>	<td>101</td></tr>
+    		<tr> 		<td>Chanson				</td>	<td>102</td></tr>
+    		<tr> 		<td>Opera				</td>	<td>103</td></tr>
+    		<tr> 		<td>Chamber Music		</td>	<td>104</td></tr>
+    		<tr> 		<td>Sonata				</td>	<td>105</td></tr>
+    		<tr> 		<td>Symphony			</td>	<td>106</td></tr>
+    		<tr> 		<td>Booty Bass			</td>	<td>107</td></tr>
+    		<tr> 		<td>Primus				</td>	<td>108</td></tr>
+    		<tr> 		<td>Porn Groove			</td>	<td>109</td></tr>
+    		<tr> 		<td>Satire				</td>	<td>110</td></tr>
+    		<tr> 		<td>Slow Jam			</td>	<td>111</td></tr>
+    		<tr> 		<td>Club				</td>	<td>112</td></tr>
+    		<tr> 		<td>Tango				</td>	<td>113</td></tr>
+    		<tr> 		<td>Samba				</td>	<td>114</td></tr>
+    		<tr> 		<td>Folklore			</td>	<td>115</td></tr>
+    		<tr> 		<td>Ballad				</td>	<td>116</td></tr>
+    		<tr> 		<td>Power Ballad		</td>	<td>117</td></tr>
+    		<tr> 		<td>Rhytmic Soul		</td>	<td>118</td></tr>
+    		<tr> 		<td>Freestyle			</td>	<td>119</td></tr>
+    		<tr> 		<td>Duet				</td>	<td>120</td></tr>
+    		<tr> 		<td>Punk Rock			</td>	<td>121</td></tr>
+    		<tr> 		<td>Drum Solo			</td>	<td>122</td></tr>
+    		<tr> 		<td>Acapella			</td>	<td>123</td></tr>
+    		<tr> 		<td>Euro-House			</td>	<td>124</td></tr>
+    		<tr> 		<td>Dance Hall			</td>	<td>125</td></tr>
+    		<tr> 		<td>Goa					</td>	<td>126</td></tr>
+    		<tr> 		<td>Drum & Bass			</td>	<td>127</td></tr>
+    		<tr> 		<td>Club-House			</td>	<td>128</td></tr>
+    		<tr> 		<td>Hardcore			</td>	<td>129</td></tr>
+    		<tr> 		<td>Terror				</td>	<td>130</td></tr>
+    		<tr> 		<td>Indie				</td>	<td>131</td></tr>
+    		<tr> 		<td>BritPop				</td>	<td>132</td></tr>
+    		<tr> 		<td>Negerpunk			</td>	<td>133</td></tr>
+    		<tr> 		<td>Polsk Punk			</td>	<td>134</td></tr>
+    		<tr> 		<td>Beat				</td>	<td>135</td></tr>
+    		<tr> 		<td>Christian Gangsta	</td>	<td>136</td></tr>
+    		<tr> 		<td>Heavy Metal			</td>	<td>137</td></tr>
+    		<tr> 		<td>Black Metal			</td>	<td>138</td></tr>
+    		<tr> 		<td>Crossover			</td>	<td>139</td></tr>
+    		<tr> 		<td>Contemporary C		</td>	<td>140</td></tr>
+    		<tr> 		<td>Christian Rock		</td>	<td>141</td></tr>
+    		<tr> 		<td>Merengue			</td>	<td>142</td></tr>
+    		<tr> 		<td>Salsa				</td>	<td>143</td></tr>
+    		<tr> 		<td>Thrash Metal		</td>	<td>144</td></tr>
+    		<tr> 		<td>Anime				</td>	<td>145</td></tr>
+    		<tr> 		<td>JPop				</td>	<td>146</td></tr>
+    		<tr> 		<td>SynthPop			</td>	<td>147</td></tr>
+		</table>
+	</li>
+
+	<li><h3>ID3v2.2</h3>
+		Here is an overview of supported ID3v2.2 codes:
+		<form><input type="button" value="Show IDs" onclick='javascript: showItems("ID_ID3v2")'></form>
+		<table class="ID_ID3v2" style="display: none;">
+			<tr>	<th>Code</th>	<th>Description</th>	</tr>
+
+			<tr>	<td>"CNT"</td> <td>Play counter - some players increase this value every time sound is played.</td></tr>
+			<tr>	<td>"COM"</td> <td>Comment</td></tr>
+			<tr>	<td>"TAL"</td> <td>BeatsPerMinute</td></tr>
+			<tr>	<td>"TBM"</td> <td>Album</td></tr>
+			<tr>	<td>"TCM"</td> <td>Composer</td></tr>
+			<tr>	<td>"TCO"</td> <td>ContentType</td></tr>
+			<tr>	<td>"TCR"</td> <td>Copyright</td></tr>
+			<tr>	<td>"TDA"</td> <td>Date</td></tr>
+			<tr>	<td>"TEN"</td> <td>EncodedBy</td></tr>
+			<tr>	<td>"TFT"</td> <td>FileType</td></tr>
+			<tr>	<td>"TIM"</td> <td>Time</td></tr>
+			<tr>	<td>"TOF"</td> <td>OriginalFileName</td></tr>
+			<tr>	<td>"TOL"</td> <td>OriginalLyricist</td></tr>
+			<tr>	<td>"TOT"</td> <td>OriginalAlbum</td></tr>
+			<tr>	<td>"TSI"</td> <td>Size</td></tr>
+			<tr>	<td>"TT1"</td> <td>ContentGroup</td></tr>
+			<tr>	<td>"TT2"</td> <td>Title</td></tr>
+			<tr>	<td>"TT3"</td> <td>Subtitle</td></tr>
+			<tr>	<td>"TYE"</td> <td>Year</td></tr>
+		</table>
+	</li>
+
+
+	<li><h3>ID3v2.3</h3>
+		ID3v2 is the newest version of ID3 (at the time of plugin development), it allows to add up to 256MB of data (including pictures).<br>
+		For more information please visit this <a href="//24usw.com/otzw">site</a>.
+
+		Here is an overview of supported ID3v2.3 codes:
+		<form><input type="button" value="Show IDs" onclick='javascript: showItems("ID_ID3v3")'></form>
+		<table class="ID_ID3v3" style="display: none;">
+			<tr>	<th>Code</th>	<th>Description</th>	</tr>
+
+			<tr>	<td>"IPLS"</td> <td>List of involved people.</td></tr>
+			<tr>	<td>"TALB"</td> <td>Album</td></tr>
+			<tr>	<td>"TBPM"</td> <td>BeatsPerMinute</td></tr>
+			<tr>	<td>"TCOM"</td> <td>Composer</td></tr>
+			<tr>	<td>"TCON"</td> <td>Genre - value has to be in braces (e.g. punk would be "(43)")</td></tr>
+			<tr>	<td>"TCOP"</td> <td>Copyright</td></tr>
+			<tr>	<td>"TDAT"</td> <td>Date</td></tr>
+			<tr>	<td>"TDLY"</td> <td>PlaylistDelay</td></tr>
+			<tr>	<td>"TENC"</td> <td>EncodedBy</td></tr>
+			<tr>	<td>"TEXT"</td> <td>Lyricist</td></tr>
+			<tr>	<td>"TFLT"</td> <td>FileType</td></tr>
+			<tr>	<td>"TIME"</td> <td>Time</td></tr>
+			<tr>	<td>"TIT1"</td> <td>Grouping</td></tr>
+			<tr>	<td>"TIT2"</td> <td>Title</td></tr>
+			<tr>	<td>"TIT3"</td> <td>Subtitle</td></tr>
+			<tr>	<td>"TKEY"</td> <td>InitialKey</td></tr>
+			<tr>	<td>"TLAN"</td> <td>Language</td></tr>
+			<tr>	<td>"TLEN"</td> <td>Length</td></tr>
+			<tr>	<td>"TMED"</td> <td>Media</td></tr>
+			<tr>	<td>"TOAL"</td> <td>OriginalAlbum</td></tr>
+			<tr>	<td>"TOFN"</td> <td>OriginalFileName</td></tr>
+			<tr>	<td>"TOLY"</td> <td>OriginalLyricist</td></tr>
+			<tr>	<td>"TOPE"</td> <td>OriginalArtist</td></tr>
+			<tr>	<td>"TORY"</td> <td>OriginalReleaseYear</td></tr>
+			<tr>	<td>"TOWN"</td> <td>FileOwner</td></tr>
+			<tr>	<td>"TPE1"</td> <td>Artist</td></tr>
+			<tr>	<td>"TPE2"</td> <td>Band</td></tr>
+			<tr>	<td>"TPE3"</td> <td>Conductor</td></tr>
+			<tr>	<td>"TPE4"</td> <td>InterpretedBy</td></tr>
+			<tr>	<td>"TPOS"</td> <td>PartOfSet</td></tr>
+			<tr>	<td>"TPUB"</td> <td>Publisher</td></tr>
+			<tr>	<td>"TRCK"</td> <td>Track</td></tr>
+			<tr>	<td>"TRDA"</td> <td>RecordingDates</td></tr>
+			<tr>	<td>"TRSN"</td> <td>InternetRadioStationName</td></tr>
+			<tr>	<td>"TRSO"</td> <td>InternetRadioStationOwner</td></tr>
+			<tr>	<td>"TSIZ"</td> <td>Size</td></tr>
+			<tr>	<td>"TSRC"</td> <td>ISRC - code used for selling song</td></tr>
+			<tr>	<td>"TSSE"</td> <td>Settings for encoder.</td></tr>
+			<tr>	<td>"TXXX"</td> <td>Text you would like to have stored with this text.</td></tr>
+			<tr>	<td>"TYER"</td> <td>Year</td></tr>
+			<tr>	<td>"USER"</td> <td>Text with terms of use.</td></tr>
+			<tr>	<td>"COMM"</td>	<td>Allows to attach a comment.</td>	</tr>
+			<tr>	<td>"PCNT"</td>	<td>Play counter - some players increase this value every time sound is played.</td>	</tr>
+			<tr>	<td>"USLT"</td>	<td>Unsynchronised lyrics.</td>	</tr>
+			<tr>	<td class="rev8">"APIC"</td>	<td class="rev8">Allows attaching/getting picture(s) from sound file, <a href="#APIC">read more</a>. </td>	</tr>
+		</table>
+	</li>
+</ul>
+</div>
+
+<div class="rev8">
+<h3 id="APIC">ID3 APIC</h3>
+<p>
+	APIC is ID3 tag that supports storing image data inside sound file. <br>
+</p>
+
+<h5 class="basic">Image input/output</h4>
+<ul>
+	<li>Only containers are supported for image files in 24U SimpleSound Plug-In. Specifying image file by a filepath will produce parameter error.</li>
+	<li class="rev10">Plugin supports only PNG, JPEG and BMP format of images. Other file formats will be treated as JPEG images.</li>
+	<li>Original image file name is not stored inside sound file.</li>
+	<li>Extracted image file will have generic file name and extension based on stored MIME type, e.g. "Image.png". </li>
+</ul>
+
+<h5 class="basic">Embedded image only</h4>
+<ul>
+	<li>Only pictures embedded directly into sound file are supported. </li>
+	<li>Storing link to external image file is not possible. </li>
+	<li>Plugin treats image link as if there is no image.</li>
+</ul>
+
+<h5 class="basic">Other APIC metadata</h4>
+<ul>
+	<li>Plugin doesn't support getting/setting of APIC description.</li>
+	<li class="rev10">MIME type is set based on image file extension. If the file has no extension, plugin uses "image/jpeg" MIME type.</li>
+</ul>
+
+<h5 class="basic" id="APIC_types">APIC types</h5>
+<ul class="nobullets"><li>
+
+<p class="f_intro">
+	Sound file can contain one image for each <a href="#APIC_types">APIC Type</a> (up to 20 images).<br>
+	For specifying an APIC Type in 24U SimpleSound, use exact textual representattion from column "Type" from table shown using button below.
+</p>
+		<form><input type="button" value="Show APIC types" onclick='javascript: showItems("APIC_types")'></form>
+		<table class="APIC_types" style="display: none;">
+			<tr>	<th style="width:3em">ID</th><th>Type</th><th>Description</th>	<th style="width:12em">Supported formats</th> <th>Note</th>	</tr>
+			<tr>	<td>00</td><td>"other"</td><td>"Other"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>01</td><td>"png32icon"</td><td>"32x32 pixels 'file icon'"</td> <td>PNG</td> <td>Only one icon may be used using either type ID 01 or 02.</td></tr>
+			<tr>	<td>02</td><td>"othericon"</td><td>"Other file icon"</td> <td>PNG, JPEG</td> <td>Only one icon may be used using either type ID 01 or 02</td></tr>
+			<tr>	<td>03</td><td>"coverfront"</td><td>"Cover (front)"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>04</td><td>"coverback"</td><td>"Cover (back)"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>05</td><td>"leafletpage"</td><td>"Leaflet page"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>06</td><td>"media"</td><td>"Media"</td> <td>PNG, JPEG</td><td>e.g. label side of CD</td></tr>
+			<tr>	<td>07</td><td>"leadartist"</td><td>"Lead artist/lead performer/soloist"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>08</td><td>"artist"</td><td>"Artist/performer"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>09</td><td>"conductor"</td><td>"Conductor"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>0A</td><td>"band"</td><td>"Band/Orchestra"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>0B</td><td>"composer"</td><td>"Composer"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>0C</td><td>"lyricist"</td><td>"Lyricist/text writer"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>0D</td><td>"rec_location"</td><td>"Recording Location"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>0E</td><td>"recording"</td><td>"During recording"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>0F</td><td>"performance"</td><td>"During performance"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>10</td><td>"video"</td><td>"Movie/video screen capture"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>11</td><td>"fish"</td><td>"A bright coloured fish"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>12</td><td>"illustration"</td><td>"Illustration"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>13</td><td>"artistlogo"</td><td>"Band/artist logotype"</td> <td>PNG, JPEG</td></tr>
+			<tr>	<td>14</td><td>"publisherlogo"</td><td>"Publisher/Studio logotype"</td> <td>PNG, JPEG</td></tr>
+		</table>
+
+</p>
+</li></ul>
+
+
+</div>
+
+<div class="rev7">
+<h2>Additional info</h2>
+<h3>Supported formats on OSX</h3>
+<p class="f_intro">The plugin supports all formats supported by AVFoundation (for example: mp3, m4a and aac). These formats are supported for playback. List of all supported formats can be found
+<a href="//24usw.com/jjtn">here</a>.</p>
+<ul></ul>
+
+<h3>Supported formats on Windows</h3>
+<p class="f_intro">On Windows all formats provided by DirectShow filters currently installed on your system are supported. In case of missing filters only basic audio formats are supported (for example wav or mp3). List of all supported formats can be found
+<a href="//24usw.com/hlvg">here</a>.</p>
+<ul></ul>
+
+
+<h3>Different values</h3>
+<p class="f_intro">Different applications can use different ways for calculating length and number of samples. Our plugin uses AVFoundation (OSX) and DirectShow (Windows) for obtaining these values.</p>
+<ul></ul>
+
+</div>
+
+
+<a name="error" />
+<div class="rev7">
+<h2><span class="p_hl">24U SimpleSound Plug-In</span> Error codes</h2>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr valign="top" class="t3_param2"><td class="b_technical">0</td><td>Everything is fine</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical">-4</td><td>Not implemented</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical">-50</td><td>Means paramErr</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical">-61</td><td>Sound init failed</td> <td>Returned when trying to playing not sound file/container.</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical">-62</td><td>Control sound error</td> <td>Returned when trying to manipulating non-existing sound (e.g. trying to pause non-playing sound, trying to stop non-sound file.)</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical">-63</td><td>Offset too large</td> <td>Returned when given offset is larger then length of sound.</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical">-64</td><td>Not existing ID3</td> <td>Requested ID3 tag doesn't exist.</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical" class="rev8">-65</td><td class="rev8">Not supported ID3 version</td> <td class="rev8">Requested ID3 tag is from not supported version (e.g. ID3V3 tags).</td></tr>
+    <tr valign="top" class="t3_param2"><td class="b_technical" class="rev8 rev10">-66</td><td class="rev8 rev10">Not supported image MIME type or file extension</td> <td class="rev8 rev10">Image's MIME type or file extension is not supported.</td></tr>
+
+    <tr valign="top" class="t3_param"><td class="b_technical">24001</td>  <td>Demo mode expired</td>                <td>If you want to keep using the plug-in, you must register it or buy it for particular environment.</td>  </tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24002</td>  <td>Product expired</td>                  <td>Trial period is over. If you want to keep using the product, you must buy it for particular environment.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24003</td>  <td>SN limit was met</td>                 <td>The serial number is already registered on too many computers.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24004</td>  <td>Product is dead</td>                  <td>The product expired and cannot be used any more. Please download the new version from <a href="//24usw.com/188d7">24U Software</a>.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24005</td>  <td>Invalid serial number</td>            <td>Serial number you entered is not valid.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24006</td>  <td>Activation failed</td>                <td>Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24007</td>  <td>Deactivation failed</td>              <td>Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24008</td>  <td>Unknown serial number</td>            <td>The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24009</td>  <td>Blacklisted serial number</td>        <td>The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</td></tr>
+    <tr valign="top" class="t3_param"><td class="b_technical">24010</td>  <td>eSellerate engine not installed</td>  <td>This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</td></tr>
+
+</table>
+</div>
+</body>
+</html>

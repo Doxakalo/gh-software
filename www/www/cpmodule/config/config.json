@@ -1,0 +1,11 @@
+{
+	"database":"clientportal",
+	"host":"ralph.24u.cz",
+	"username":"rest",
+	"password":"clientrestinpeace",
+	"script_issue":"REST_ISSUESupdateIssue",
+	"script_files":"REDMINE Upload Attachment (json_data) [json_response]",
+	"script_startup":"Startup(hidden)",
+	"layout":"rest_restlog",
+	"salt":"225641"
+}

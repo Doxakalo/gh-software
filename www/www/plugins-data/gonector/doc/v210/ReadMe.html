@@ -1,0 +1,272 @@
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Gonector ReadMe</title>
+<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  #container { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h2:before { counter-increment:section; content:"" counter(section) ". "; }
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+</head>
+<body>
+<div id="container">
+
+<font face="Geneva, Arial">
+
+
+<p><img src=".pictures/Gonector.jpg" border="0" align="right"><a href="http://www.24uSoftware.com/" target="_blank" title="24U Web Site"><img src=".pictures/logo.gif" border="0"></a><br>&nbsp;</p>
+<h1><font face="Helvetica, Arial">Gonector 2.1</font></h1>
+
+<p>
+This ReadMe file contains some important information about
+      <span class="productName">Gonector</span>, such as system requirements, installation guide, quick start, troubleshooting, license notice, contact information, and copyright statement.
+<br>&nbsp;</p>
+
+<center>
+
+	<br><img valign="bottom" src=".pictures/fmplugin.png" border="0" height="60">
+	
+</center>
+<h2>Introduction</h2>
+
+<p>
+<p><span class="productName">Gonector</span> is a FileMaker Pro plugin. It allows You to develop applications for iOS devices with FileMaker Pro. These applications are able to control various devices like printers, scales, RFID readers and POS payment terminals. For terminal implementation please contact 24U for implementation support.</p>
+
+<center>
+<br>
+
+	&nbsp;
+	<img valign="bottom" src=".pictures/universal.gif" border="0">
+		&nbsp;
+	<img valign="bottom" src=".pictures/platformW.jpg" border="0" height="60" width="60">
+	  &nbsp;
+  <img valign="bottom" src=".pictures/platformIOS.png" border="0" height="60" width="60">
+  &nbsp;
+</center>
+
+<h2>System requirements</h2>
+
+<p>
+System requirements:
+</p>
+
+<h3>Mac</h3><p class="padded"><span class="conf_title">Recommended:&nbsp;</span>Any Intel/Apple Silicon Mac, 4 GB RAM, macOS Big Sur 11.3 or newer, FileMaker Pro 19 or newer.</p><p class="padded"><span class="conf_title">Minimum:&nbsp;</span>Any Intel Mac, 4 GB RAM, macOS High Sierra 10.13, FileMaker Pro 16 Advanced or newer.</p><h3>Windows</h3><p class="padded"><span class="conf_title">Recommended:&nbsp;</span>CPU: 1 GHz or faster x86- or x64-bit processor
+RAM: 2 GB or more, Windows 10 Pro Edition, FileMaker Pro 19.</p><p class="padded"><span class="conf_title">Minimum:&nbsp;</span>CPU: 1 GHz or faster x86- or x64-bit processor
+RAM: 1 GB, Windows 7 SP1 Professional Edition, FileMaker Pro 16 Advanced.</p><h3>iOS</h3><ul>
+  <li>macOS 10.14.6+</li>
+  <li>iOS 13.1</li>
+  <li>FileMaker iOSAppSDK 19.2.1</li>
+  <li>FileMaker Pro or Pro Advanced (for creating FileMaker solutions) 18 or newer</li>
+  <li>Xcode with Swift version 5</li>
+  <li>developer.apple.com account (for testing and deployment on device)</li>
+</ul>
+<h4>Apple App Store Requirements</h4>
+<p>If your Application supports any of devices bellow please check device manual for instruction how to register you Application before submitting your Application to the AppStore.</p>
+<ul class="list_with_large_items">
+<li><a href="./Device_Manuals/CustomPrinter_Manual.html" target="_blank">Custom Printers</a></li>
+<li><a href="./Device_Manuals/LineaInfinea_Manual.html" target="_blank">Linea or Infinea device</a></li>
+<li><a href="./Device_Manuals/Infinea_mPos_Manual.html" target="_blank">Infinea mPOS terminal</a></li>
+<li><a href="./Device_Manuals/qIDmini_Manual.html" target="_blank">qIDmini</a></li>
+<li><a href="./Device_Manuals/ZebraScanners_Manual.html" target="_blank">Zebra barcode scanners (CS4070 and DS3670)</a></li>
+</ul>
+
+  <h2>Installation for FileMaker Pro</h2>
+
+      <p>To install <span class="productName">Gonector</span>, follow these steps:</p>
+
+    <ol class="list_with_large_items">
+          <li>If you did not do this yet, download and open the <span class="productName">Gonector</span> distribution archive</li>
+  	<li>To install the plug-in, copy its binary file into Extensions directory. If you are not sure where the binary should be placed, see <a href="UsingFMPlugIns.html#Install" target="_blank">UsingFMPlugIns.html</a></li>
+         <li>Restart or start the FileMaker Pro</li>
+    <li>The plug-in should be visible in the "Plug-Ins" preference pane inside FileMaker Pro preferences (Mac OS X) / Edit -&gt; Preferences (Windows)</li>
+     
+        </ol>
+
+<h2>Installation for iOSAppSDK</h2>
+<h3>Xgode instructions</h3>
+<ol class="list_with_large_items">
+	<li>Zip latests iOS version of Plug-In</li>
+	<li>Upload zipped Plug-In to Xgode</li>
+	<li>In advanced options check:
+		<ul>
+			<li>Supported External Devices - with devices you are interested in using</li>
+			<li>NFC Reading/Writing</li>
+			<li>Bluetooth Peripherals</li>
+			<li>Background Modes - Location updates</li>
+			<li>Near Field Communication Tag Reading</li>
+		</ul>
+	</li>
+</ol>
+
+<h2>Quick Start</h2>
+<p>
+      To learn how to use this plug-in it is recommended to open one of the examples from the <span class='path'>Examples</span> folder.<br>Consult plugin documentation for more information: <a href="../../../../../../../../../../Downloads/Gonector%202.1%20Docs/GonectorSyntax.html" target="_blank">GonectorSyntax.html</a>.</p>
+
+	<p>If you are new to FileMaker plug-ins, start by checking the <a href="UsingFMPlugIns.html#Install" target="_blank">UsingFMPlugIns.html</a> file inside the <span class="path">Documentation</span> folder.
+		It briefly explains what plug-ins are, why they are useful, and how they are usually used</p>
+	
+<h2>Troubleshooting</h2>
+<p>
+
+    Before you contact our technical support regarding problems or difficulties using <span class="productName">Gonector</span>, please check if your issue is not listed below:
+</p>
+<h3>macOS and Windows</h3>
+
+  <p>
+  <b>Plug-In is not visible in the FileMaker Pro</b><br>
+  Check if the plug-in binary is present in the one of "Extensions" folders of the FileMaker Pro.
+  </p>
+  	
+  <p>
+  <b>All plug-in functions return an "?" as a result</b><br>
+  <span class="productName">Gonector</span> is probably not installed or deactivated in your application preferences. Open the Application Preferences from the Edit menu, click on the "Plug-Ins" tab, and make sure that <span class="productName">Gonector</span> is there and that it is enabled.
+  </p>
+  	<h3>iOS</h3>
+
+  <p>
+  <b>Device with iOS cannot read RFID.</b><br>
+  
+  </p>
+  	
+  <p>
+  <b>All plug-in functions return an "?" as a result</b><br>
+  <ul>
+      <li>Check if the plug-in binary is present in the &lt;projectPath&gt;/&lt;appName&gt;/Plug-Ins folder</li>
+      <li>Add Swift support to created project (see <a href="#swiftSupport">2. installation step</a>).</li>
+    </ul>
+  </p>
+  	
+<p>
+If your problem is not listed above or if the recommended solution does not work for you, please contact our technical support at <a href="http://www.24uSoftware.com/support.php">http://www.24uSoftware.com/support.php</a> for assistance.
+</p>
+
+
+<h2>Shareware Notice</h2>
+
+<p>
+    Please note that <span class="productName">Gonector</span> product is SHAREWARE. That means it is not free and you have to pay a license fee if you want to keep it. You can install <span class="productName">Gonector</span> and try it out for the period of 14 days. After this period, <span class="productName">Gonector</span> can stop working and require a registration code. You will get your registration code after you pay for your license.
+</p>
+<p>
+        You can freely distribute <span class="productName">Gonector</span> as long as you distribute the original compacted archive untouched and you don't charge money for the distribution. If you want to distribute <span class="productName">Gonector</span> on a physical medium, such as CD-ROM, or if you want to distribute it in other form than the original compacted archive, you must ask for our permission. If you are a solution developer and want to bundle <span class="productName">Gonector</span> with your products please contact <a href="mailto:sales@24uSoftware.com">24U Software</a>.
+</p>
+
+<p>
+Please find detailed registration instructions in the file named "<a href="HowToRegister.html">HowToRegister.html</a>".
+</p>
+
+<h2>iOS license Notice</h2>
+<p>
+    iOS version of <span class="productName">Gonector</span> is licensed seperately and differenty from desktop version, please read more in "<a href="HowToRegister.html">HowToRegister.html</a>".
+</p>
+
+<p>
+You can find detailed license terms in the file named "<a href="24U Software License Agreement.pdf" target="_blank">24U Software License Agreement.pdf</a>". Individual license types are described in the file named "<a href="HowToRegister.html" target="_blank">HowToRegister.html</a>".
+</p>
+
+
+<h2>Contact Information</h2>
+<p>
+You can contact us at one of the following addresses. We prefer being contacted via e-mail, but you can use any other method if e-mail is not good enough for you.
+</p>
+<p>
+<table border=0>
+<tr>
+<td><font face="Geneva, Arial">E-mail:</td>
+<td>&nbsp;</td>
+<td><font face="Geneva, Arial"><a href="mailto:info@24uSoftware.com">info@24uSoftware.com</a></td>
+<td>&nbsp;</td>
+<td><font face="Geneva, Arial">general information about our products and our company</td>
+</tr>
+<tr>
+<td colspan=2></td>
+<td><font face="Geneva, Arial"><a href="mailto:eval@24uSoftware.com">eval@24uSoftware.com</a></td>
+<td></td>
+<td><font face="Geneva, Arial">free evaluation codes registration</td>
+</tr>
+<tr>
+<td colspan=2></td>
+<td><font face="Geneva, Arial"><a href="mailto:sales@24uSoftware.com">sales@24uSoftware.com</a></td>
+<td></td>
+<td><font face="Geneva, Arial">paid licenses ordering and registration</td>
+</tr>
+<tr>
+<td colspan=2></td>
+<td><font face="Geneva, Arial"><a href="mailto:support@24uSoftware.com">support@24uSoftware.com</a></td>
+<td></td>
+<td><font face="Geneva, Arial">technical support and bug reports</td>
+</tr>
+<tr>
+<td colspan=5>&nbsp;</td>
+</tr>
+<tr>
+<td><font face="Geneva, Arial">WWW:</td>
+<td></td>
+<td colspan=3><font face="Geneva, Arial"><a href="http://www.24uSoftware.com/">http://www.24uSoftware.com/</a></td>
+</tr>
+<tr>
+<td colspan=5>&nbsp;</td>
+</tr>
+<tr>
+<td><font face="Geneva, Arial">Phone:</td>
+<td></td>
+<td colspan=3><font face="Geneva, Arial">+420-224 910 892</td>
+</tr>
+<tr>
+<td><font face="Geneva, Arial">Fax:</td>
+<td></td>
+<td colspan=3><font face="Geneva, Arial">+420-242 487 778</td>
+</tr>
+<tr>
+<td colspan=5>&nbsp;</td>
+</tr>
+<tr>
+<td><font face="Geneva, Arial">Snail mail:</td>
+<td></td>
+<td colspan=3><font face="Geneva, Arial">24U Software</td>
+</tr>
+<tr>
+<td colspan=2></td>
+<td colspan=3><font face="Geneva, Arial">Skochovick&aacute; 88</td>
+</tr>
+<tr>
+<td colspan=2></td>
+<td colspan=3><font face="Geneva, Arial">252&nbsp;45&nbsp;&nbsp;Zvole u Prahy</td>
+</tr>
+<tr>
+<td colspan=2></td>
+<td colspan=3><font face="Geneva, Arial">Czech Republic</td>
+</tr>
+</table>
+<br>
+<br>
+
+
+
+<p align="center">
+  <a href="http://www.24uSoftware.com/" target="_blank" title="24U Web Site">
+  <img src=".pictures/logo.gif" alt="24U Software" border="0" vspace="4">
+</a>
+  <br>
+      <span class="copy_text">The software <span class="productName">Gonector</span> is copyright &copy;2001-2021 24U Software. All rights reserved. </span><br>
+
+Portions of the software are &copy 1984-2021 FileMaker, Inc. All rights reserved<br></p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+body[data-template="quality-assurance"] {
+	section {
+		&.info {
+			background-color: $colorBlue;
+			text-align: center;
+			width: 100%;
+
+			.item {
+				@include g-grid(1,5);
+				@include flex-grow(1 !important);
+				padding-left: 0;
+				padding-right: 0;
+				text-align: center;
+				position: relative;
+
+				@include g-state(desktop tablet mobile) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+
+				@include g-state(mobile) {
+					@include g-grid(1,3);
+					max-width: 100%;
+					&:last-of-type {
+						padding-bottom: 0em;
+					}
+				}
+				
+				@include g-state(mobileSmall) {
+					@include g-grid(1,2);
+					max-width: 100%;
+					&:last-of-type {
+						padding-bottom: 0em;
+					}	
+				}
+
+				a {
+					padding: 3em 0 5em;
+					display: inline-block;
+					text-decoration: none;
+					height: 100%;
+					width: 100%;
+
+					&:hover {
+						background-color: lighten($colorBlue, 10);
+					}
+
+					@include g-state(mobile) {
+						height: auto;
+					}
+				}
+
+				h2,
+				span,
+				p {
+					color: $colorWhite;
+					margin-bottom: .3em;
+				}
+
+				h2,
+				span {
+					font-size: 3.5em;
+					font-weight: $fwLight;
+				}
+
+				img {
+					max-height: 45px;
+					max-width: 75px;
+					margin-bottom: 1em;
+				}
+
+				p {
+					max-width: 10em;
+					margin: 0 auto;
+					font-weight: $fwNormal;
+				}
+			}
+		}
+		&.contact {
+			.text-form {
+				a {
+					color: white;
+					font-weight: bold;
+				}
+			}
+			form {
+				margin-bottom: 0;
+
+				input[type="text"],
+				input[type="email"],
+				input[type="tel"],
+				input[type="number"],
+				input[type="search"],
+				input[type="time"],
+				textarea {
+					@include input-placeholder {
+						color: rgba($colorOrange, .6);
+					}
+				}
+			}
+			select {
+				background-color: rgba($colorWhite, .6);
+				color: $colorOrange;
+				font-weight: $fwNormal;
+
+				@include input-placeholder {
+					color: rgba($colorOrange, .6);
+				}
+			}
+			.open-arrow {
+				background-color: #ec8a59;
+			}
+		}
+		&.tile-panel{
+			.showMore{
+				cursor: pointer;
+			}
+			.detail{
+				display: none;
+			}
+			.read_more{
+				@include g-state(mobileSmall mobile tablet) {
+					margin-top: 1em;
+				}
+			}
+		}
+	}
+}
+
+
+@keyframes showHiddenElementAnimation {
+	from {opacity: 0;}
+	to {opacity: .65;}
+}
+
+.counterHiddenElement, .counterTempHiddenElement{
+	opacity: 0;
+}
+.showHiddenElement {
+	opacity: .65;
+	animation-name: showHiddenElementAnimation;
+	animation-duration: 3s;
+}

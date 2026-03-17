@@ -1,0 +1,316 @@
+{block title}SimpleSound{/block}
+{block description}
+    Thanks to this plug-in FileMaker<sup>&reg;</sup> solutions can now interact with users via professionally looking dialogs. Easily.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => "SimpleSound",
+            description => "Thanks to this plug-in FileMaker&reg; solutions can now interact with users via professionally looking dialogs. Easily.",
+            imagePath => "img/pages/tools/simple-sound/og_image.png",
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default plugins" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle cover-parallax-inner">
+            <div class="gr-3 no-gutter gr-10@mobile gr-12@mobileSmall gr-centered@mobile headline text-left text-left@mobile-center">
+                <img src="{$basePath}/img/pages/tools/simple-sound/og_image.png" alt="SimpleDialog">
+            </div>
+            <div class="gr-6 gr-12@mobile text-left@mobile-center">
+                <h1 class="page-title plugins-page">
+                    <strong>{$toolName}</strong>
+                    <div class="description">
+                        Custom sound effects,<br/>background music <br/>& more audio for your resonant databases!
+                    </div>
+                </h1>
+                <div class="page-button">
+                    <div class="button buy-button">Buy</div>
+                    <div class="button download-button">Download</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{import 'translate/simpleSound_en.latte'}
+{var $overview = [
+    name => 'overview',
+    testimonials => [
+        [ img => $basePath.'/img/testimonials/m_lau.jpg', video => [id => 'hAwi7uX4YzQ'], name => 'M. Lau', ],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'playback', img => $basePath.'/img/pages/tools/simple-sound/playback.png' ],
+    [name => 'reading', img => $basePath.'/img/pages/tools/simple-sound/readmetadata.png' ],
+    [name => 'writing', img => $basePath.'/img/pages/tools/simple-sound/writemetadata.png' ],
+    [name => 'getinfo', img => $basePath.'/img/pages/tools/simple-sound/getinfo.png' ],
+    [name => 'simplesound4', img => $basePath.'/img/pages/tools/simple-sound/og_image.png', img_height => '200' ],
+    [name => 'architecture', img => $basePath.'/img/icons/fm18_plug_64bit.png', img_height => '250', ],
+    [name => 'server_side', img => $basePath.'/img/pages/tools/simple-sound/serverside.png', img_height => '200' ],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles}
+
+{snippet storeForm}
+    {include '../Components/store-section.latte', toolName => $toolName}
+{/snippet}
+
+{capture $downloadVersionsHtml}
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v4.1.8
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2021/09/24"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simplesound/doc/v418/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                            <a href="{$basePath}/plugins-data/simplesound/doc/v418/releasenotes.html" target="_blank" class="button download-tech-doc">Show release notes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> Dual Core 1.6 GHz processor, 2048 MB RAM, Windows 11 or newer, FileMaker Pro 19.6 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> 1 GHz processor, 2048 MB RAM, Windows 8, FileMaker Pro 16
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleSoundPlugIn418.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Any Intel/Apple Silicon Mac, 4096 MB RAM, macOS Ventura 13 or newer, FileMaker Pro 19.6 or newer
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Any Intel Mac since 2008, 2048 MB RAM, macOS High Sierra 10.13, FileMaker Pro 16
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleSoundPlugIn418.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v3.0.2
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2014/04/08"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simplesound/doc/v302/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                See version 3.0.1 below
+                            </p>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Intel Macintosh with Mac OS X 10.9, FileMaker Pro 13 thru 16
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Intel Macintosh with Mac OS X 10.7 and FileMaker Pro 12
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleSoundPlugIn302.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v3.0.1
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2012/03/02"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Technical documentation
+                </div>
+
+                <div class="detail tech-doc">
+                    <div class="row">
+                        <div class="gr-12">
+                            If you are a developer going to implement this product, here you can examine its technical documentation to get a better understanding on how it works and how
+                            you can use it.
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="gr-12">
+                            <a href="{$basePath}/plugins-data/simplesound/doc/v301/syntax.html" target="_blank" class="button download-tech-doc">Show technical documentation</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> 1GHz PC with Microsoft Windows XP, QuickTime 7, FileMaker Pro 7 thru 13
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> 1GHz PC with Microsoft Windows 2000, QuickTime 7, and FileMaker Pro 7.0
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleSoundPlugIn301.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Power Macintosh G4 with Mac OS X 10.4, FileMaker Pro 7 thru 13
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Power Macintosh G3 with Mac OS X 10.3.9, and FileMaker Pro 7
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleSoundPlugIn301.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="version" data-active="false">
+        <div class="basic-info">
+            <div class="version-name">
+                v2.7.2
+            </div>
+            <div class="release-date">
+                <strong>Release date: </strong>
+                {$releaseDate = "2006/01/31"|genericFormatDate}
+            </div>
+        </div>
+        <ul class="version-submenu">
+            <li>
+                <div class="version-submenu-headline">
+                    Download
+                </div>
+
+                <div class="detail editor-content">
+                    <div class="row">
+                        <div class="gr-6 gr-12@tablet gr-12@mobile mb-2@mobile mb-2@tablet">
+                            <h3>Windows</h3>
+                            <p>
+                                <strong>Recommended:</strong> 1GHz PC with Microsoft Windows 2000, QuickTime 5.0, and FileMaker Pro 5.5 or 6
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> PC 486 DX 66MHz with Microsoft Windows 98, QuickTime 4.0, and FileMaker Pro 4
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleSoundPlugIn272.zip" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                        <div class="gr-6 gr-12@tablet gr-12@mobile">
+                            <h3>Mac</h3>
+                            <p>
+                                <strong>Recommended:</strong> Power Macintosh G3 with Mac OS X 10.1, and FileMaker Pro 5.5 or 6
+                            </p>
+                            <p>
+                                <strong>Minimum:</strong> Power Macintosh with Mac OS 7.5, QuickTime 4.0, and FileMaker Pro 4
+                            </p>
+                            <a href="{$basePath}/download/24uSimpleSoundPlugIn272.dmg" target="_blank" class="button ga-track-download-file">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+{/capture}
+{include '../Components/download-section.latte', versionsHtml => $downloadVersionsHtml, toolName => $toolName}
+
+{snippet contactForm}
+   {include '../Components/contact-form-blue.latte', headline => 'true', description => 'true'}
+{/snippet}

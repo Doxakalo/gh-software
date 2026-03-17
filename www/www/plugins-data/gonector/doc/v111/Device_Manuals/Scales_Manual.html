@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+		
+	<title>Scales Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h2:before { counter-increment:section; content:"" counter(section) ". "; }
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for Scales</h1>
+
+<h2>Documents</h2>
+<ul>
+  <li>Both supported scales are operated by a bluetooth device capable of RS-232 communication. For more information see <a href="../../Support/bluesnap-smart-user-guide.pdf">BlueSnap manual</a>.</li>
+  <li>Manual for Traveler scale can be found <a href="../../Support/traveller_rs232_interface_kit.pdf">here</a>.</li>
+
+</ul>
+
+<h2>Connecting the BlueSnapAdapter</h2>
+<p>
+<b>To successfully connect the BlueSnapAdapter device it is necessary to unplug the device from all cables and press the connect button.</b><br>
+As soon as the flash light is blinking you can use the Gonector_Connect function. After couple of seconds the light should be steadily switched on. This is the sign that the device was connected. If the name of the device is not known you can use the function Gonector_Get( "devices" ) to locate the name of the device.
+The scales themselves must be set up in plugin with a "<b>scaleReadCommand</b>" and "<b>scaleWeightPattern</b>". To set these you need to use function <a href="../GonectorSyntax.html#Gonector_Set"><b>Gonector_Set</b></a>.
+
+</p>
+<h4 id="baudrateSetup">BlueSnap Smart - Bluetooth 4.0 (BLE) to RS232 Adapter setup</h4>
+<ul>
+  <li>Disconnect any device connected to the adapter</li>
+  <li>Charge the adapter fully</li>
+  <li>Switch the adapter on</li>
+  <li class="rev16">Get device name with function Gonector_Get( "devices" ; "blueSnapAdapter" )</li>
+  <li>Use the function Gonector_Connect to connect to the device</li>
+  <li>Use the function Gonector_Set with selector "baudrate" and newValue "9600"</li>
+  <li>Wait until the LED control light indicates to be switched off (there is no activity)</li>
+  <li>Wait at least 10 more seconds</li>
+  <li>Device has been set up and is ready to be switched on and connected</li>
+</ul>
+
+<h2>Scales Hardware Setup</h2>
+<h4 id="lesakSetScriptEvent">LESAK J1-RWP - Gonector_SetScriptEvent setup (needs to be manual)</h4>
+<ul>
+  <li>Press "UNIT" and "PRINT(M+)" simultanously</li>
+  <li>Press "TARE" button until "F4 Prt" is reached</li>
+  <li>Press "ZERO"</li>
+  <li>Press "TARE" until the wished option is reached:
+    <table border="1">
+      <tr>
+    	<td>On stable</td><td>"St1", "StC" or "StAB"</td>
+      </tr>
+      <tr>
+	    <td>Continous</td><td>"Cont"</td>
+      </tr>
+    </table>
+  </li>
+  <li>Press "ZERO" if 9600 baud rate is visible. Or press "TARE" until 9600 is reached</li>
+  <li>Press "UNIT"</li>
+</ul>
+
+
+<h4 id="lesakRead">LESAK J1-RWP - Gonector_Read setup (needs to be manual)</h4>
+<ul>
+  <li>Press "UNIT" and "PRINT(M+)" simultanously</li>
+  <li>Press "TARE" button until "F4 Prt" is reached</li>
+  <li>Press "ZERO"</li>
+  <li>Press "TARE" until "Ask" option is reached</li>
+  <li>Press "ZERO" if 9600 baud rate is visible. Or press "TARE" until 9600 is reached</li>
+  <li>Press "UNIT"</li>
+</ul>
+
+<h4 id="travelerSetup">Traveler TA301 OHAUS - general setup</h4>
+<ul>
+  <li>Press and hold "on" until "S.E.t.U.P" appears</li>
+  <li>Press "no" repeatedly until "r.S.2.3.2" appears</li>
+  <li>Press "yes"</li>
+  <li>Press "no" repeatedly until "bAUd" appears</li>
+  <li>Press "yes"</li>
+  <li>Press "no" repeatedly until "9600" appears</li>
+  <li>Press "yes"</li>
+  <li>Press "no" repeatedly until "PAritY" appears</li>
+  <li>Press "yes"</li>
+  <li>Press "no" repeatedly until "8 - nonE" appears</li>
+  <li>Press "yes"</li>
+  <li>Press "no" repeatedly until "End" appears</li>
+  <li>Press "yes"</li>
+  <li>Press "no" repeatedly until "End" appears</li>
+  <li>Press "yes"</li>
+</ul>
+
+</body>
+</html>

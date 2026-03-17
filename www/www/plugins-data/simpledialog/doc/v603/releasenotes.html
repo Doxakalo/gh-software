@@ -1,0 +1,360 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>24U SimpleDialog Plug-In Release Notes</title>
+  <STYLE TYPE="text/css" MEDIA=screen>
+  <!--
+    p { margin-top: 0px; margin-bottom: 0px; }
+    .title { margin-top: 0px; margin-bottom: 16px; }
+    ul { margin-top: 0px; margin-bottom: 16px; }
+  -->
+  </STYLE>
+</head>
+
+<body>
+
+  <tt>
+    <b>24U SimpleDialog Plug-In Release Notes</b><br>
+
+    <p class="title">This is a brief history of important changes across released versions.</p>
+
+    <p><b>6.0.3</b></p>
+    <ul>
+        <li>Updated license handling/and activation for eSellerate end-of-life</li>
+        <li>Minor performance and FileMaker 18 compatibility improvements</li>
+    </ul>
+
+    <p><b>6.0.2</b></p>
+    <ul>
+        <li>Plug-in binaries for Mac, Windows, and iOS are now code-signed</li>
+    </ul>
+    
+    <p><b>6.0.1</b></p>
+    <ul>
+		<li>Fixed issue causing crash on macOS 10.13 High Sierra</li>
+		<li>Size of a dialog is now calculated from the screen size, not from the size of the FileMaker window</li>    
+    </ul>
+
+    <p><b>6.0</b></p>
+    <ul>
+    	<li>Creating of dialogs improved on Windows version of Plu-In to suit change in 
+    	FileMaker Pro 16 (All document windows are independent with its own menu)</li>
+        <li>Added support for Native iOS FileMaker&reg; Go applications</li>
+        <li>Progress dialog with Pause/Resume and Cancel buttons</li>
+        <li>Behaviour of parameter "minlines" documented</li>
+        <li>SDialog_SetCalculation example added</li>
+        <li>Windows: Dialogs losing focus on 64 bit fixed</li>
+        <li>Windows: Message text doesn't fit to dialog on Windows 8 fixed</li>
+        <li>Mac OS X: Mixed checkboxes now work</li>
+    </ul>
+
+    <p><b>5.0.6</b></p>	
+	<ul>
+		<li>Fixed issue causing crash on macOS 10.13 High Sierra</li>
+	</ul>
+
+    <p><b>5.0.5</b></p>	
+	<ul>
+		<li>Size of dialog is now calculated from size of screen, not size of FM window</li>
+	</ul>
+
+    <p><b>5.0.4</b></p>	
+	<ul>
+		<li>Fixed behaviour of dialog, when more FM windows are opened</li>
+		<li>Fixed behaviour of ProgressDialog</li>
+		<li>Fixed updating plugin using FM script step</li>
+	</ul>
+
+    <p><b>5.0.3</b></p>	
+	<ul>
+		<li>Fixed issue causing FM to forget successful registration on Windows 10</li>
+	</ul>
+
+    <p><b>5.0.2</b></p>	
+	<ul>
+		<li>Fixed behaviour of pressing ESC or Enter key for closing dialog</li>
+	</ul>
+	
+    <p><b>5.0.1</b></p>	
+	 <ul>
+        <li>Registration dialogs enabled in Runtime solutions</li>
+		<li>Windows: Fixed 64bit plug-in issue that caused dialogs to lose focus</li>
+        <li>Mac OS X: Minimum OS X version updated to 10.8</li>
+        <li>Mac OS X: Registration dialog now supports Copy/Paste</li>  
+  	</ul>
+
+	<p><b>5.0</b></p>
+	
+	<ul>
+		<li>64bit support added</li>
+		<li>Mac OS X: Potential plug-in collisions removed</li>
+  	</ul>
+
+	<p><b>4.1.2</b></p>
+
+	<ul>
+	<li>Security issue regarding serial numbers fixed</li>
+  </ul>
+
+	<p><b>4.1.1</b></p>
+
+	<ul>
+	<li>Error 2448 is returned if the plugin is installed in multiple extension directories</li>
+	<li>Dialog labels fonts are set to OS default font if no font is set in FileMaker Pro text field</li>
+	<li>Windows: Pressing Tab, ESC and Enter key does not cause a system beep</li>
+	<li>Windows: Wrong focus in dialogs with caption is fixed</li>
+	<li>Windows: Empty list contains as many empty lines as specified in minlines</li>
+	</ul>
+
+    <p><b>4.1</b></p>
+
+    <ul>
+	<li>Full support for FM text styles in the plug-in fields (except color in Windows)</li>
+	<li>Incr parameter alone increments progress by one</li>
+	<li>Correct text alignment of titles for pop-up menu</li>
+	<li>SetCalculation works with list field with one line</li>
+	<li>Empty list field does not crash FileMaker Pro</li>
+	<li>Progress dialog does not return to original position after each update</li>
+	<li>FileMaker Pro does not crash when you try to close it with opened progress dialogs</li>
+	<li>Progress dialogs closing fixed</li>
+	<li>Plug-In does not slow down after registration</li>
+	<li>Default and cancel status can be set on one button</li>
+	<li>Mac OS X: The list field always shows all lines from ValueList</li>
+	<li>Mac OS X: SetCalculation calculation is able to modify textarea field</li>
+	<li>Mac OS X 10.4 Tiger, PowerPC: The plug-in does not crash.</li>
+	<li>Mac OS X 10.7 Lion: List fields are not narrow when overlapping scroll bars are used</li>
+	<li>Windows: Pop-Up menu is drawn correctly with black font and separators</li>
+	<li>Windows: InputDialog does not crash if font size is 150%</li>
+	<li>Windows: Password fields has correct height in all situations</li>
+	<li>Windows: Cursor remains in correct position when calculation modifies the field</li>
+	<li>Windows: ESC key closes dialog windows</li>
+	<li>Windows: Progress dialog is not "always on top". It is on top of standard FM Windows</li>
+	<li>Windows: Dialog is shown in the same screen the main FM window is</li>
+	</ul>
+
+    <p><b>4.0.1</b></p>
+
+    <ul>
+	<li>List field does not show garbage on Mac OS X</li>
+	<li>List field correctly shows empty lines on Windows</li>
+	<li>List field is no longer sorted on Windows</li>
+	<li>Correct CR line endings are returned from multi line text on Mac OS X</li>
+	<li>SDialog_SetCalculation properly handles field titles</li>
+	<li>SDialog_Version function is no longer case sensitive</li>
+	<li>List field automatically scrolls to selected line if it is not visible</li>
+	<li>Parameter "lines" works correctly with the List field</li>
+	<li>Any field type can be used as CurrentValue parameter in InputDialog</li>
+	<li>Second input dialog opened fast after the first one does not cause the first one to remain on screen</li>
+	<li>Opened progress windows no longer block FileMaker Pro from quitting</li>
+	</ul>
+
+	<p><b>4.0</b></p>
+
+    <ul>
+	<li>Rewritten to work natively in FileMaker Pro 11 on Mac OS X 10.6 Snow Leopard and Windows 7</li>
+	<li>New dialog field type: list can be used to offer selection to the user</li>
+	<li>FileMaker Pro styles can be used to enhance dialog readability</li>
+	<li>Dialogs can be updated on the fly</li>
+	<li>Validations work for all field types (text areas, pop-up menus)</li>
+	<li>Progress dialog has been fixed so it does not block script debugger</li>
+	<li>There is no frame around custom picture / icon on Mac OS X</li>
+	<li>Improved stability when using progress dialog actions "incr" and "update"</li>
+	<li>Pop-up menu indexing changed from 0-based to 1-based</li>
+	</ul>
+
+	<p><b>3.1.1</b></p>
+
+	<ul>
+	<li>Several fixes in serial numbers mechanism</li>
+	<li>Fixed Windows buttons look</li>
+    </ul>
+
+    <p><b>3.1</b></p>
+
+    <ul>
+	<li>New URL Link field can be used to direct users to your web pages directly from dialog</li>
+	<li>Pop-up menu now have custom value IDs to better distinguish between menu items</li>
+	<li>Default and cancel buttons can be set</li>
+	<li>Calling a Wait function now automatically refresh progress bar</li>
+	<li>Default pop-up menu item is shown even it is not inside the value list</li>
+	<li>TextArea field can have more than 12 lines</li>
+	<li>Checkbox can be checked by keyboard on Mac OS X</li>
+	<li>Custom functions now work inside FileMaker validations of fields</li>
+	<li>TextArea can copy, cut, paste on Mac OS X</li>
+    </ul>
+
+	<p><b>3.0.3</b></p>
+
+    <ul>
+	<li>Repairs pop-up menu bug in Windows</li>
+    </ul>
+
+	<p><b>3.0.2</b></p>
+
+    <ul>
+	<li>Important bugfixes and stability improvements focused on Windows platform</li>
+    </ul>
+
+	<p><b>3.0</b></p>
+
+    <ul>
+	<li>Static text and separators improve readability of your dialogs</li>
+	<li>Multi-line text area field can be used to edit long text</li>
+	<li>Dialog may take icon from a container field (any size)</li>
+	<li>Dialog look can be enhanced by picture from a container field</li>
+	<li>Text fields can be validated by calculations</li>
+	<li>Custom message box can be displayed after unsuccessful validation</li>
+	<li>More dialog parameters can be obtained from Get function</li>
+	<li>Progress Dialog can pause execution of your script for specified time interval</li>
+	<li>Initial active dialog field can be set</li>
+    </ul>
+
+	<p><b>2.8.1</b></p>
+
+    <ul>
+	<li>Runs natively on both PowerPC and Intel based Macs</li>
+	<li>Works with FileMaker Pro 7.0, 8.0 and 8.5</li>
+    </ul>
+
+	<p><b>2.8</b></p>
+
+    <ul>
+	<li>FileMaker Pro 7 Native</li>
+	<li>Full Unicode support</li>
+	<li>Better performance on Windows</li>
+	<li>Ability to return values instead of text from dialogs</li>
+    </ul>
+
+	<p><b>2.7.2</b></p>
+
+    <ul>
+	<li>support for FileMaker Pro 8 added</li>
+	<li>western accentuated characters are displayed correctly in FM7 Pro and FM8 Pro on Windows</li>
+    </ul>
+
+	<p><b>2.7.1</b></p>
+
+    <ul>
+	<li>progress dialog messages now can contain pipes ("|")</li>
+	<li>added database of real-world examples of regular expressions</li>
+	<li>last dialog's values can be cleared on demand for better security</li>
+	<li>fixed text encoding for directly accessed value lists (FileMaker 6 and older)</li>
+	<li>attempt to validate national characters with regexp does not crash any more</li>
+	<li>pop-up menu now selects correct default value on Windows even if there are similar values</li>
+	<li>24U SimpleDialog Utility now generates correct number of braces</li>
+	<li>single registration code generated for all plug-ins in a pack is now recognized</li>
+    </ul>
+
+	<p><b>2.7</b></p>
+
+    <ul>
+	<li>the plug-in is now fully functional in FileMaker 7 except for foreign languages</li>
+	<li>initialization and registration of the plug-in is much faster now</li>
+	<li>spacing between popup and buttons has been increased on Windows</li>
+	<li>displaying text containing longer sequences of spaces is now possible</li>
+    </ul>
+
+	<p><b>2.0</b></p>
+
+    <ul>
+	<li>splash dialog is displayed on application quit by default for developer licenses</li>
+	<li>splash dialog display can be turned off <li>see <a href="./24U Software License Agreement.pdf" target="_blank">License Agreement</a></li>
+	<li>improved compatibility with runtime and kiosk-mode solutions</li>
+	<li>completely rewritten dialog showing engine</li>
+	<li>improved dynamic sizing and positioning of dialog items</li>
+	<li>dialogs can display longer text than ever before</li>
+	<li>unlimited number of pop-up menu items</li>
+	<li>value lists can be easily inserted in popup menus</li>
+	<li>dialogs can have icons</li>
+	<li>any text field can be validated with a regular expression</li>
+	<li>dialogs with no buttons are now allowed</li>
+	<li>automatic dismissal after specified amount of time</li>
+	<li>customizable dialog title</li>
+	<li>customizable dialog position (horizontal, vertical, or both)</li>
+	<li>customizable dialog width</li>
+	<li>progress dialogs with two text messages (above and below the progress bar)</li>
+	<li>customizable minimum and maximum values, changeable on the fly</li>
+	<li>indefinite progress indicator (barber pole)</li>
+	<li>indefinite mode can be turned on/off on the fly during progress</li>
+	<li>progress dialog function accepts Troi Dialog syntax for compatibility</li>
+	<li>multiple progress bars can be displayed at the same time</li>
+	<li>text in dialogs now respects system settings for message box on Windows</li>
+	<li>fully Unicode savvy inside for future compatibility</li>
+    </ul>
+
+	<p><b>1.1.4</b></p>
+
+    <ul>
+	<li>corrected behavior of document window on Mac OS X</li>
+	<li>text is now properly transcoded with all languages</li>
+    </ul>
+
+	<p><b>1.1.3</b></p>
+
+    <ul>
+	<li>SSN validation has been improved</li>
+	<li>special characters that needed to be prefixed with backslash can now appear in buttons</li>
+    </ul>
+
+	<p><b>1.1.2</b></p>
+
+    <ul>
+	<li>dialogs now handle mouse clicks in a more compatible way</li>
+	<li>mouse cursor now appears when showing a dialog even if it was hidden</li>
+    </ul>
+
+	<p><b>1.1.1</b></p>
+
+    <ul>
+	<li>field labels are now correctly right-aligned on all platforms</li>
+    </ul>
+
+	<p><b>1.1</b></p>
+
+    <ul>
+	<li>added Credit Card Number, SSN, SIN, and Czech ID validations</li>
+	<li>added 24U SimpleDialog Generator for even easier dialog configuration</li>
+    </ul>
+
+	<p><b>1.0.3</b></p>
+
+    <ul>
+	<li>dialogs on Windows machines no longer show button in Windows task bar</li>
+	<li>dialogs on Windows machines correspond to Windows appearance and childs of FileMaker Pro</li>
+	<li>tabulator now works better on Windows machines</li>
+	<li>works with Czech language in both 4.x and 5.x versions of FileMaker Pro</li>
+	<li>menus can now have separator items (-) on both Mac and PC</li>
+	<li>special characters like &lt; or ; can now be used in popup menus on Macintosh</li>
+	<li>tutorial now identifies platform using Abs(Status(CurrentPlatform))</li>
+	<li>tutorial is now saved using US formats (commas in formulas)</li>
+	<li>tutorial's pop-up menu example now shows also separator</li>
+	<li>tutorial's pop-up menu example has now yellow as last item</li>
+	<li>tutorial's field types value list now contains also "m" for pop-up menu</li>
+	<li>tutorial's copyright years were changed to 2001-2002</li>
+    </ul>
+
+	<p><b>1.0.2</b></p>
+
+    <ul>
+	<li>now correctly returns pressed button's number on Mac</li>
+	<li>international text is now translated correctly on Windows</li>
+    </ul>
+
+	<p><b>1.0.1</b></p>
+
+    <ul>
+	<li>added Windows compatibility</li>
+	<li>added ability to display pop-up menus</li>
+    </ul>
+
+	<p><b>1.0</b></p>
+
+    <ul>
+	<li>initial release</li>
+    </ul>
+
+  </tt>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+body[data-template="press"] {
+
+
+  .press {
+    background-color: $colorWhite;
+
+    &.pressDetail{
+      padding-top: 3em;
+      padding-bottom: 3em;
+    }
+
+    .press-row{
+      display: block;
+      padding: 0.7em 0;
+      text-decoration: none;
+
+      &:nth-of-type(even){
+        background-color: $colorLightBlue4;
+      }
+      &:nth-of-type(odd){
+        background-color: $colorWhite;
+      }
+      &:hover{
+        background-color: darken($colorLightBlue4, 5%);
+      }
+
+      @include g-state(mobile) {
+        font-size: 0.85em;
+      }
+
+    }
+  }
+}

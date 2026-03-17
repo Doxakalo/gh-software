@@ -1,0 +1,118 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>24U SimpleFile Plug-In Release Notes</title>
+  <STYLE TYPE="text/css" MEDIA=screen>
+  <!--
+    p { margin-top: 0px; margin-bottom: 0px; }
+    .title { margin-top: 0px; margin-bottom: 16px; }
+    ul { margin-top: 0px; margin-bottom: 16px; }
+  -->
+  </STYLE>
+</head>
+
+<body>
+  <tt>
+	
+    <b>24U SimpleFile Plug-In Release Notes</b><br>
+    
+    <p class="title">This is a brief history of important changes across released versions.</p>
+
+<p><b>3.0.5</b></p>
+<ul>
+ <li>Updated license handling/and activation for eSellerate end-of-life</li>
+ <li>Minor performance and FileMaker 18 compatibility improvements</li>
+ 
+</ul>
+ 
+<p><b>3.0.4</b></p>
+<ul>
+ <li>Plug-in binaries for Mac and Windows are now code-signed</li>
+</ul>
+ 
+<p><b>3.0.3</b></p>
+<ul>
+    <li>Fixed issue causing crash on macOS 10.13 High Sierra</li>
+</ul>
+
+<p><b>3.0.2</b></p>
+<ul>
+	<li>Improved support for reading binary files using SFile_Read function</li>
+	<li>Fixed registration issue on Windows 10</li>
+	<li>Fixed interoperability between SFile_Write with "base64" encoding and FileMaker Base64Encode function</li>
+</ul>
+
+<p><b>3.0.1</b></p>
+<ul>
+	<li>Mac OS X: Minimum OS X version updated to 10.8</li>
+	<li>Mac OS X: Fixed SFile_Compress issue that caused generation of corrupted archives</li>
+	<li>Mac OS X: Register dialog now support Copy/Paste</li>
+</ul>
+
+<p><b>3.0</b></p>
+<ul>
+	<li>Support for 64-bit FM Server was added</li>
+	<li>Compatibility with IWP and WebDirect was greatly improved</li>
+	<li>SFile_Choose dialog now supports more options</li>
+	<li>SFile_Open enables to select what application will open the file</li>
+	<li>New function SFile_Reveal opens the file in enclosing folder</li>
+	<li>New function SFile_Run can run an application from the solution with user given arguments</li>
+	<li>Added zip functionality - SFile_Compress and SFile_Decompress functions</li>
+	<li>Exif rotation width and height mismatch removed</li>
+    <li>Fixed RTF underlining bug, supported underline formats are single and double. RTF text shading is ignored. (Those are FM limitations)</li>
+    <li>Fixed a few bugs regarding empty and non-existent files</li>
+    <li>Fixed SFile_Write from container bug</li>
+    <li>FileMaker path works correctly with mounted disks. (It prefers folder in root directory in case of name collision)</li>
+    <li>Fixed timestamps' precision</li> 
+
+</ul>
+    <p><b>2.0</b></p>
+    <ul>
+	  <li>Formatted text can be saved or loaded to / from RTF file</li>
+	  <li>Ability to resize and rotate picture files</li>
+	  <li>Mount and unmount network volumes</li>
+	  <li>Base64 encoding support</li>
+	  <li>SFile_Copy now preserves timestamps</li>
+	  <li>Relative path works consistently with an opened solution</li>
+	  <li>Containers with links work correctly</li>
+	  <li>No limit for long unix paths</li>
+	  <li>Recorded sound can be written to file</li>
+	  <li>Works correctly with FileValut protected folders</li>
+	  <li>Several problems with paths fixed</li>
+	  <li>Works on FileMaker Pro 11 Advanced natively, compatible with older versions down to 8.5</li>
+	</ul>
+	
+	<p><b>1.1.1</b></p>
+    <ul>
+	  <li>Fixed bug with Simple Pack serial numbers</li>
+	  <li>Documentation update</li>
+	</ul>
+	
+	<p><b>1.1</b></p>
+    <ul>
+	  <li>Can read and write container pictures and files into FileMaker Pro containers</li>
+	  <li>Works on FileMaker Server 9 in Instant Web Publishing</li>
+	  <li>Works on FileMaker Pro 9 Advanced natively</li>
+	</ul>
+	
+	<p><b>1.0.2</b></p>
+    <ul>
+	  <li>No limit in reading files</li>
+	  <li>Removed limit in the directory listing</li>
+	</ul>
+	
+	<p><b>1.0.1</b></p>
+    <ul>
+	  <li>Runs natively on both PowerPC and Intel based Macs</li>
+	  <li>Works with FileMaker Pro 7.0, 8.0 and 8.5</li>
+	</ul>
+	
+	<p><b>1.0</b></p>
+    <ul>
+	  <li>Initial version release</li>
+	</ul>
+	
+  </tt>
+</body>
+</html>

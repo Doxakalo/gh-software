@@ -1,0 +1,638 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>24U SimpleSound Plug-In 3.0 Syntax</title>
+<STYLE TYPE="text/css" MEDIA=screen>
+<!--
+  H	{ font-face: Helvetica, Arial }
+  .intro { font-size: 14px }
+  TD,P,DL,OL  { font-face: Helvetica, Arial; font-size: 12px }
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; }
+  #container { max-width: 60em;}
+  .warning { color: red}
+-->
+</STYLE>
+</head>
+<body>
+<div id="container">
+<font face="Geneva, Arial">
+
+<h2><font face="Helvetica, Arial">24U SimpleSound Plug-In 3.0 Syntax</font></h2>
+
+<p class="intro">
+This file describes syntax of 24U SimpleSound Plug-In's functions.
+<br>&nbsp;</p>
+
+<p><tt><b>SSound_Version (  versionFormat  )</b></tt><br>&nbsp;<br>
+
+Returns version string of the active 24U SimpleSound Plug-In, formatted as requested by the parameter. Use:
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>"short"</tt></td><td>&nbsp;</td><td>to get just the version number</td></tr>
+<tr valign="top"><td nowrap><tt>"long"</tt></td><td>&nbsp;</td><td>to get the plug-in name followed by its version number</td></tr>
+<tr valign="top"><td nowrap><tt>"platform"</tt></td><td>&nbsp;</td><td>to get the platform of the code currently running<br>&nbsp;</td></tr>
+</table>
+</blockquote>
+
+<p><tt><b>SSound_Register ( registrationCode )</b></tt><br>&nbsp;<br>
+
+Attempts to unlock (register) your copy of 24U SimpleSound Plug-In with the specified code. If the code is valid, 24U SimpleSound Plug-In gets unlocked and stays in this state until you quit the FileMaker application, deactivate the plug-in, or the registration code expires. While unlocked, 24U SimpleSound Plug-In is fully functional and does not bother the user with a shareware reminder.
+<br>&nbsp;<br>
+Returns a non-zero result when operation is not permitted.
+<br>&nbsp;</p>
+
+
+
+
+
+
+
+
+
+<p><tt><b>SSound_Playback( command{; soundspec{; offset}}  )</b></tt></p>
+
+<p>This command controls playback of sounds. Two calling variants are possible.</p>
+
+<table border=0>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+<p><tt><b>
+SSound_Playback( startcommand ; soundspec{; offset} )</b></tt></p>
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>startcommand</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td> "play synchronously"</td>
+	<td> starts synchronous playback. The user has to wait until the playback is finished and cannot do anything else.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "play"</td>
+	<td> starts playing a sound in the background.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "loop"</td>
+	<td> starts  playing a background sound in a loop again and again, until stoped by the "stop" command.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "palindrome"</td>
+	<td> starts "palindrome" looping  a background sound  until stoped by the "stop" command.</td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>soundspec</b></td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td colspan=2> identifier of the desired sound. See  how the sound can be <a href=#soundspec>specified</a>.</td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>offset</b></td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td colspan=2> (fractional) number of seconds from the beginning  of the sound where the playback should start. Default is 0.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>  0 or negative error number
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+<p><tt><b> SSound_Playback( controlcommand{; soundspec} )</b></tt></p>
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>soundspec</b></td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td colspan=2> identifier of the sound which is to be controlled. If more instances of one sound are playing
+			    the control command is applied to all. If <b>soundspec</b> is not given, the control command is applied
+			    on all currently playing sounds. See  how the sound can be <a href=#soundspec>specified</a>.</td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>controlcommand</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td> "stop"</td>
+	<td> stops playing of the given sound. </td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "pause"</td>
+	<td> pauses playing of the given sound. It can be later resumed by the "resume" command.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "resume"</td>
+	<td> resumes playing of the in given sound previously paused with the "pause" command.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+
+</table>
+	<b>return value</b>  0 or negative error number
+</td>
+</tr>
+
+</table>
+
+
+
+
+
+	
+<p><tt><b>SSound_Recording( command {;filespec} {; filename} )</b></tt></p>
+
+<p><span class="warning">Please, read <a href="#limitations">limitations</a>.</span></p>
+
+
+<table border=0>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+<p><tt><b>
+SSound_Recording( controlcommand)</b></tt> 
+<span class="warning">Please, read <a href="#limitations">limitations</a>.</span>
+</p>
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>controlcommand</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td> "start"</td>
+	<td> starts recording to a temporary storage in a system temporary directory.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "cancel"</td>
+	<td> cancels the current recording and discards the recorded sound.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "pause"</td>
+	<td> pauses the current recording. It can be resumed with the "resume" command later on.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "resume"</td>
+	<td> resumes the recording previusly paused with the "pause" command.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>	<td>&nbsp;</td></tr>
+</table>
+	<b>return value</b>  0 or negative error number
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+		
+<p><tt><b> SSound_Recording( "store"; filespec)</b></tt>
+<span class="warning">Please, read <a href="#limitations">limitations</a>.</span>
+<br>
+&nbsp;&nbsp;&nbsp;stops the current recording and saves its result into desired file.</p>
+ 
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>soundspec</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> identifier of the  file where the result of recording should be stored.
+	 See  how the sound can be <a href=#soundspec>specified</a>. The resulting sound format
+	  is selected according to the extension of the desired file. The extensions  "wav", "aiff" and "mov" are supported.
+	 For another extension, the type "mov" is used.</td>
+</tr>
+
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>  0 or negative error number
+</td>
+</tr>
+
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+		
+<p><tt><b> SSound_Recording( "store to container"; filename)</b></tt>
+
+	<span class="warning">Please, read <a href="#limitations">limitations</a>.</span>
+	
+	<br>&nbsp;&nbsp;&nbsp;stops the current recording and returns the result in form of binary data which can be directly placed into a container. </p>
+
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>filename</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> filename assigned to the resulting container.  The resulting soundformat
+	  is selected according to the extension of this filename. The extensions  "wav", "aiff" and "mov" are supported.
+	 For another extension, the type "mov" is used.</td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>  binary data or negative error number
+</td>
+</tr>
+
+</table>	
+	
+
+
+	
+<p><tt><b>SSound_Get( selector{ ; soundspec })</b></tt><br>&nbsp;&nbsp;This command can be used to retrieve usefull general and sound specific information. Three calling variants are possible.
+</p>
+
+
+<table border=0>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+<p><tt><b>
+SSound_Get( globalselector)</b></tt><br>&nbsp;&nbsp;Returns general information.</p>
+
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>globalselector</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td> "recording offset"</td>
+	<td> (fractional) number of seconds, current length of the sound currently being recorded. 
+		<span class="warning">Please, read <a href="#limitations">limitations</a>.</span>
+	</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "recording options"</td>
+	<td> encoded recording options. Result is not human readable but can be  stored and
+							later passed to  the SSound_Set("recording options";option) function to restore the current settings. 
+		<span class="warning">Please, read <a href="#limitations">limitations</a>.</span>
+	</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "quicktime version"</td>
+	<td> version of the QuickTime installed. e.g.: 7.1.2</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "number of playing sounds"</td>
+	<td> number of sounds currently being played back including the paused sounds.</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "recording status"</td>
+	<td> information about remaining storage cappacity. This command is available only when recording. 
+		<span class="warning">Please, read <a href="#limitations">limitations</a>.</span>
+	</td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>  requested value or negative error number
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+		
+<p><tt><b>SSound_Get( "playback offset"{; soundspec})</b></tt><br>&nbsp;&nbsp; Returns (fractional) number of seconds from the beginning of the specified sound.</p>
+ 
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>soundspec</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> identifier of the sound to get playback offset of. Default is the most recently started sound. </td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>  requested value or negative error numberr
+</td>
+</tr>
+
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+		
+<p><tt><b> SSound_Get( localselector; soundspec)</b></tt> <br>&nbsp;&nbsp;Returns information relevant to the specified sound. </p>
+
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>localselector</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td> "length as time"</td>
+	<td> length of the file returned as time record.  e.g: 0:00:05</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "length as seconds"</td>
+	<td> length of the file returned as (fractional) number of the seconds. e.g :5.3311666
+</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "number of samples"</td>
+	<td> e.g.: 231569</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "file format"</td>
+	<td>  four-char code of the file format as recognized by the QuickTime movie importer. e.g. "WAVE","Mp3 "</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "data format"</td>
+	<td> format of the data. For uncompressed sounds it returns values like "Unsigned Integer" or "Integer (Little Endian)", for compressed sounds it returns human readable deascription of the compression, e.g.:"MPEG Layer 3" </td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "sample size"</td>
+	<td> sample size in bites.  e.g.: 8</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "sampling rate"</td>
+	<td> sampling rate in Hz. e.g.:11025</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "bit rate"</td>
+	<td> human readable bitrate. e.g.: "88200 bps"</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "number of channels"</td>
+	<td> e.g.:2</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "ID3 <b>tagname</b>"</td>
+	<td> value of ID3 tag. <b>tagname </b>can be  Track, Title, Artist, Album, Year, Genre or Comment</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "ID3 <b>tagcode</b>"</td>
+	<td> value of ID3 tag specified by its code. <b>tagcode</b> can be any ID3 tag code, e.g:  TOPE, TENC TOAL TOFN</td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>soundspec</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> identifier of the sound to get info for. </td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>  requested value or negative error number
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+</tr>
+
+</table>		
+	
+			
+			
+			
+		
+		
+
+	
+<p><tt><b>SSound_Set( selector{ ; value{; soundspec} })</b></tt><br>&nbsp;&nbsp;This command can be used to set usefull general and sound specific information. Three calling variants are possible.
+</p>
+
+
+<table border=0>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+<p><tt><b>
+SSound_Set( "recording options" { ; options })</b></tt><br>&nbsp;&nbsp;Sets the recording options.  
+		<span class="warning">Please, read <a href="#limitations">limitations</a>.</span>
+
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>options</b></td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; binary encoded recording options (if not given, options dialog is displayed)</td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>  0 or negative error number
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+		
+		   	
+
+
+		
+		
+<p><tt><b>SSound_Set( id3selector ; tagvalue; filespec)</b></tt><br>&nbsp;&nbsp; Sets value of ID3 tag to the sound stored in a file.</p>
+ 
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>id3selector</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td> "ID3 <b>tagname</b>"</td>
+	<td> ID3 tag specified by name.  <b>tagname </b>can be  Track, Title, Artist, Album, Year, Genre or Comment</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "ID3 <b>tagcode</b>"</td>
+	<td> ID3 tag specified by code. <b>tagcode</b> can be any ID3 tag code, e.g:  TOPE, TENC TOAL TOFN</td>
+</td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>tagvalue</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> string with the value to set to the specified ID3 tag. </td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>filespec</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> identifier of the sound file to set the value of ID3 tag to. </td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>   0 or negative error number
+</td>
+</tr>
+
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+		
+<p><tt><b>SSound_Set( id3selector ; tagvalue; container)</b></tt><br>&nbsp;&nbsp; Sets value of ID3 tag to the sound stored in a container.</p>
+ 
+<table border=0>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>id3selector</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td> "ID3 <b>tagname</b>"</td>
+	<td> ID3 tag specified by name.  <b>tagname </b>can be  Track, Title, Artist, Album, Year, Genre or Comment</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td> "ID3 <b>tagcode</b>"</td>
+	<td> ID3 tag specified by code. <b>tagcode</b> can be any ID3 tag code, e.g:  TOPE, TENC TOAL TOFN</td>
+</td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>tagvalue</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> string with the value to set to the specified ID3 tag. </td>
+</tr>
+<tr>
+	<td colspan=3>&nbsp;&nbsp;&nbsp;&nbsp;<b>container</b></td>
+</tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td colspan=2> binary data passed from a container </td>
+</tr>
+<tr>
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+	<b>return value</b>   binary data which should be put into a container or negative error number
+</td>
+</tr>
+
+<tr><td>&nbsp;</td></tr>
+<tr>
+	<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>
+</tr>
+
+</table>	
+
+
+
+<a name="soundspec"></a>
+
+<p><tt><b>Specifying a Sound</tt></b>
+</p>
+
+<p>
+24u SimpleSound Plug-in can work with two type of sounds.
+<ol>
+	<li>sound residing on the HD, specified by <b>filespec</b> 
+	<li>sound residing directly in the  FM <b>container</b>
+</ol>
+</p>
+
+<p>
+There are only small differences between working with file sounds and container sounds. 
+If the function syntax refers to the sound as <b>soundspec</b>, it means that it works with both types of sounds. 
+If there  is a need to distinguish these types, the sounds are refered to as <b>filespec</b> or <b>container</b> respectively.
+<br><br>
+<b>filespec</b> is a text with file path ( absolute or relative to the currently opened FM document). These path specifications are accepted:
+
+<dl>
+	<dt>fsspec	<dd>"fsspec:volume_id:folder_id:file"
+	<dt>win-relative	<dd>" folder\another folder\file" (works on both platforms)
+	<dt>win-full	<dd>"C:\folder\another folder\file"
+	<dt>unix-relative	<dd>"folder/another folder/file" (works on both platforms)
+	<dt>unix-full	<dd>equal /folder/another folder/file"
+	<dt>FileMaker	<dd>Standard FileMaker file specification listed on  File->Define->File References->New
+	<dt>URL	<dd>  file://folder/another folder/file" (only URL of local files are accepted)
+</dl>
+</p>
+
+
+<a name="errors"></a>
+<p><b>List of the most common error codes returned by 24U SimpleSound Plug-In's functions</b>
+
+</p>
+<blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap align="right"><tt>-1</tt></td><td>&nbsp;</td><td>Recording is not in progress</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-4</tt></td><td>&nbsp;</td><td>Not implemented</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-43</tt></td><td>&nbsp;</td><td>Nonexistent sound file was specified</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-35</tt></td><td>&nbsp;</td><td>Sound file on non-existent volume was specified</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-50</tt></td><td>&nbsp;</td><td>Invalid parameter</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-1000</tt></td><td>&nbsp;</td><td>Plug-In requires registration (expired)</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-2048</tt></td><td>&nbsp;</td><td>invalid sound file was specified</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-9405</tt></td><td>&nbsp;</td><td>There is no recording device available</td></tr>
+
+</table>
+</blockquote>
+	
+<br>&nbsp;</p>
+
+<a name="limitations"></a>
+<p><b>Limitations</b></b>
+<p>
+<span class="warning">
+	Recording is not available in plugin version 3.0.2 on FileMaker 13 on Mac (it returns error -4). All other configurations work unchanged.
+</span>
+<p>
+	
+<br>&nbsp;</p>
+
+
+</div>
+</html>

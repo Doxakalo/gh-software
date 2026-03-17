@@ -1,0 +1,250 @@
+body[data-template="stories"] {
+  .section-link {
+    text-decoration: none;
+
+    &:hover {
+      color: unset;
+    }
+  }
+
+  .splitter {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    text-align: center;
+    background-color: $colorLightBlue4;
+    color: $colorBlue;
+  }
+  .tile {
+    .overlay {
+      .color-rollover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 300ms ease-in-out;
+        &.orange {
+          background-color: rgb(229, 118,63);
+        }
+        &.blue {
+          background-color: rgb(46, 125,191);
+        }
+      }
+    }
+  }
+  section {
+    &.main-cover {
+      position: relative;
+      min-height: 200px;
+      background-color: $colorWhite;
+      @include g-state(mobile) {
+        min-height: unset;
+      }
+
+      .no-relative {
+        position: initial;
+      }
+
+      .slide-text-content {
+        @include transform(translate(-50%, -50%));
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 80%;
+        margin-top: -1.45em;
+        z-index: 100;
+
+        @include g-state(desktopLarge) {
+          width: 1200px;
+        }
+        @include g-state(desktop) {
+          width: 960px;
+        }
+        @include g-state(tablet) {
+          width: 740px;
+        }
+        @include g-state(mobile) {
+          width: 100%;
+          max-width: 600px;
+        }
+
+        h1, h2 {
+          margin-bottom: 0;
+          font-weight: 300;
+          position: relative;
+          z-index: 101;
+        }
+      }
+
+      .swiper-slide,
+      .slide-height {
+        background-size: cover;
+        background-position: center;
+        height: 40vw;
+        padding: 0;
+        max-height: 65vh;
+
+        @include g-state(desktop) {
+          height: 45vw;
+        }
+        @include g-state(tablet) {
+          height: 40vw;
+        }
+
+        @include g-state(mobile) {
+          height: 40vw;
+          min-height: 150px;
+          padding: 0 0 2em;
+        }
+      }
+
+      .swiper-pagination {
+        bottom: 4em;
+
+        @include g-state(mobile) {
+          bottom: 2em;
+        }
+
+        .swiper-pagination-bullet {
+          background-color: $colorBlue;
+          @include g-state(tablet mobile) {
+            background-color: $colorWhite;
+          }
+
+          &-active {
+            background-color: $colorBlue;
+
+            @include g-state(tablet mobile) {
+              background-color: $colorWhite;
+            }
+          }
+        }
+      }
+    }
+
+    &.aside-image {
+      position: relative;
+      min-height: 200px;
+      background-size: cover;
+      background-color: $colorWhite;
+      background-position: center center;
+      background-repeat: no-repeat;
+      padding: 3em 0 5em;
+      color: $colorBlue;
+      overflow: hidden;
+
+      @include g-state(mobile) {
+        &:before {
+          content: '';
+          width: 100%;
+          height: 2px;
+          background-color: $colorWhite;
+          position: absolute;
+          bottom: 0;
+          z-index: 100;
+        }
+      }
+
+      &.end {
+        padding: 3em 0;
+
+        @include g-state(tablet) {
+          padding: (3em * $scaleRatioTablet) 0;
+          &:before {
+            display: none;
+          }
+        }
+        @include g-state(mobile) {
+          padding: (3em * $scaleRatioMobile) 0;
+          &:before {
+            display: none;
+          }
+        }
+      }
+
+      @include g-state(tablet mobile) {
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba($colorBlack, 0.6);
+          z-index: 20;
+        }
+        .container {
+          position: relative;
+          color: $colorWhite;
+          z-index: 40;
+        }
+      }
+
+      @include g-state(tablet) {
+        padding: (3em * $scaleRatioTablet) 0 (5em * $scaleRatioTablet);
+      }
+      @include g-state(mobile) {
+        padding: (3em * $scaleRatioMobile) 0 (5em * $scaleRatioMobile);
+      }
+
+      .jogs-mobile {
+        @include g-state(mobile) {
+          background-position-x: 15%;
+        }
+      }
+
+      .adiutor-mobile {
+        @include g-state(mobile) {
+          background-position-x: 10%;
+        }
+      }
+    }
+
+    &.aside-image,
+    &.slider {
+      h2 {
+        font-size: 2.500em;
+        font-weight: $fwNormal;
+
+        @include g-state(mobile) {
+          font-size: 1.8em;
+        }
+      }
+
+      p {
+        font-weight: $fwLight;
+        font-size: 1.286em;
+
+        &.large {
+          font-size: 1.714em;
+
+          @include g-state(mobile) {
+            font-size: 1.4em;
+          }
+        }
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      &.brown {
+        background-color: #766f66;
+        color: #fcfae9;
+      }
+    }
+
+    &.dropdown-section {
+
+      &.blue, &.light-blue {
+        padding: 0;
+      }
+
+      h2 {
+        display: block;
+        padding: 1em 0;
+        margin: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+#
+parameters:
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+extensions:
+	monolog: Contributte\Monolog\DI\MonologExtension
+	translation: Contributte\Translation\DI\TranslationExtension
+
+translation:
+    locales:
+        whitelist: [en, cs]
+        default: en
+        fallback: [en]
+    dirs:
+        - %appDir%/lang
+    localeResolvers:
+        - Contributte\Translation\LocalesResolvers\Router
+
+#monolog:
+#    channels:
+#        24usoftware:
+#            handlers:
+#                console:
+#                    type: stream
+#                    path: %logDir%/24usoftware.log
+#                    level: debug
+
+monolog:
+    channel:
+        default:
+            handlers:
+                nullHandler:
+                    type: Monolog\Handler\NullHandler
+
+
+session:
+	expiration: 14 days
+
+services:
+    # SERVICES
+    - App\Service\Application
+    - App\Service\Stores
+    - App\Service\APIService
+    - App\Service\Translator
+
+    #MODELS
+    - App\Model\FastSpringModel(%fastspring%)
+    - App\Model\FastSpringCacheModel(%fastspring%)
+    - App\Model\MailChimpModel(%mailchimp%)
+    - App\Model\ClientPortalModel(%client-portal%)
+    - App\Model\PushoverModel(%pushover%)
+    - App\Model\XgodeModel(%xgode%)
+
+    # DATABASE MODELS
+    - App\Model\Db\SearchPagesContentModel
+    - App\Model\Db\NewsModel
+    - App\Model\Db\OrdersModel
+    - App\Model\Db\TagsModel
+    - App\Model\Db\NewsTagsModel
+    - App\Model\Db\SearchTermsLog
+    - App\Model\Db\NewsOGMediaModel
+    - App\Model\Db\LogErrorRequestModel
+    - App\Model\Db\SkillsModel
+    - App\Model\Db\FormsLogModel
+
+    #FORMS
+    - App\Forms\SubscribeForm
+    - App\Forms\ClientPortal\CreateNewRequestForm
+    - App\Forms\ContactForm
+    - App\Forms\StoreForm
+    - App\Forms\ShortlinkForm
+    - App\Forms\CancelSubscriptionForm
+
+    #CONFIGS
+    - App\Service\Config\ApplicationConfig(%application%)
+    - App\Service\Config\ProductsConfig(%products%)
+    - App\Service\Config\StoresConfig(%stores%)
+    - App\Service\Config\TranslatorConfig(%translator%)
+
+    - App\Models\FileMaker\ResultModel(%filemaker-database-benchtest%)
+    - App\Models\FileMaker\RunsModel(%filemaker-database-benchtest%)
+
+    router: App\RouterFactory::createRouter

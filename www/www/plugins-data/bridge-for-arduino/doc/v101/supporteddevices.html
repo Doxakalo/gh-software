@@ -1,0 +1,234 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script>
+            /* toggle function for long tables etc. */
+            function showItems(className) {
+                var tags = document.getElementsByTagName('*');
+                var tcl = " " + className + " ";
+                for (i = 0, j = 0; i < tags.length; i++) {
+                    var test = " " + tags[i].className + " ";
+                    if (test.indexOf(tcl) != -1) {
+                        if (tags[i].style.display == "none") {
+                            tags[i].style.display = "inline";
+                        }
+                        else {
+                            tags[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+        /* Simple highlight toggle only: */
+        function changeColor() {
+            var tags = document.getElementsByTagName('*');
+            var classes = ["rev8", "rev9", "rev10", "rev11"];
+            classes.forEach(function(revclass) {
+                            var tcl = " " + revclass + " ";
+                            for (i = 0, j = 0; i < tags.length; i++) {
+                            var test = " " + tags[i].className + " ";
+                            if (test.indexOf(tcl) != -1) {
+                            if (tags[i].style.backgroundColor == "") {
+                            tags[i].style.backgroundColor = "#FFFFA0";
+                            tags[i].style.color = "black";
+                            }
+                            else {
+                            tags[i].style.backgroundColor = "";
+                            tags[i].style.color = "";
+                            }
+                            }
+                            }
+                            })
+                            classes.forEach(function(revclass) {
+                                            var tcl = " " + revclass + "x ";
+                                            for (i = 0, j = 0; i < tags.length; i++) {
+                                            var test = " " + tags[i].className + " ";
+                                            if (test.indexOf(tcl) != -1) {
+                                            if (tags[i].classList.contains("striked")) {
+                                            tags[i].classList.remove("striked");
+                                            }
+                                            else {
+                                            tags[i].classList.add("striked");
+                                            }
+                                            }
+                                            }
+                                            })
+        }
+
+        /* New revisioning functions: */
+        function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+                        tags[i].classList.add(toggleClass);
+                    }
+                    else {
+                        tags[i].classList.remove(toggleClass);
+                    }
+                }
+            }
+        }
+
+        function showRevision(revNumber) {
+            var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+            // Reset all to latest revision:
+            for (var i=1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+            }
+
+            // Highlight current revision:
+            toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+            toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+
+            // Revert future revisions:
+            for (var i=revNumber+1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+            }
+        }
+        function showRevisions(revStart, revLast) {
+            var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+            // Reset all to latest revision:
+            for (var i=1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+            }
+
+            // Highlight all changes from revision revStart to the current revision(revLast):
+            for(var i = revStart; i <= revLast; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "add");
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "add");
+            }
+
+            // Revert future revisions:
+            for (var i=revNumber+1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+            }
+        }
+
+            </script>
+        <style type="text/css">
+
+            /* Texts from old revisions are removed by default: */
+            .rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x,
+            .rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }
+            /* Highlighting classes handled by js: */
+            .highlighted { background-color: #FFFFA0; color: black; }
+            .striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }
+            .ignoreStriked { }
+            .highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */
+            li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */
+            span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */
+            td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+            tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+            .hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+
+            </style>
+
+        <STYLE TYPE="text/css" MEDIA=screen>
+            <!--
+            h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+            h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+            h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+            h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+            .intro { font-size: 14px; margin-left: 0px }
+            .f_intro { font-size: 12px; margin-left: 0px }
+            .p_hl { color: maroon }
+            .syntax { color: #003200; font-family: monospace; font-size: 12px }
+            .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+            .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+            .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+            .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+            .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+            .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+            table { margin-left: 20px; margin-right: 20px }
+            TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+            TD { font-family: Helvetica, Arial; font-size: 12px }
+            p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+            DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+
+            .ios {color: black; background-color: pink;}
+            li              { margin: 0.2em 0em ;}
+            xmp             { font-size: 12px; margin-left: 40px; margin-top: 6px; color: darkblue; }
+            table, td, th, tr { border: 1px solid #808080; margin-top:1em; padding:0.3em; border-collapse: collapse; }
+            th                 { font-weight:bold; text-decoration:none;}
+            -->
+            </STYLE>
+
+        <title>Supported Devices</title>
+        </head>
+
+<body>
+<h1><span class="rev7x">Supported Devices</h1>
+
+<!--
+<form>
+  <input type="button" value="Highlight changes since last revision" onclick='javascript: showRevisions(13,17)'>
+</form>
+-->
+<!--
+<p class="intro" class="rev2"><span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino is FileMaker Plug-In allowing FileMaker developer to control Arduino over FileMaker. This document describes functions as well as limitations and requirements.</p>
+
+<h2 id="technicalParameters" class="rev2">Basic technical parameters</h2>
+<table class="rev2" border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t2_param">File name:</td><td class="b_technical"><span class="rev7x">Connect</span><span class="rev7 rev13x">BridgeForArduino</span><span class="rev13">Arduino</span>.fmplugin</td></tr>
+<tr><td class="t2_param">plug-in ID String:</td><td class="b_technical">24AR</td></tr>
+<tr><td class="t2_param">Function names prefix:</td><td class="b_technical">Arduino_</td></tr>
+<tr><td class="t2_param">SN product code and versions:</td><td class="b_technical">ARD10C</td></tr>
+<tr><td class="t2_param">SNLib version:</td><td class="b_technical">SNlib 5.2</td></tr>
+
+
+</table>
+
+
+<h2 class="rev2 rev17x">Distribution archive (DA)</h2>
+<ul class="rev2 rev17x">
+  <li>DA will be created for macOS and WIN</li>
+  <li>It will contain files generated by DA generator (ReadMe, LicenceAgreement etc.)</li>
+  <li>It will contain binary for Arduino UNO</li>
+  <li class="rev3">There will be <span class="rev6x">3</span><span class="rev6">4</span> examples showing simple usage of <span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino</li>
+</ul>
+ 
+ -->
+
+<h2>Supported Arduino boards</h2>
+<ul>
+	<li>Arduino UNO board and its 100% compatible clones</li>
+</ul>
+
+<p>
+<h3>Arduino UNO information</h3>
+	<ul>
+		<li>Output Voltage: 5V</li>
+		<li>Input Voltage: 7-12V</li>
+		<li>Number of digital inputs/outputs: 14</li>
+		<li>Number of PWM outputs: 6</li>
+		<li>Number of analog inputs: 6</li>
+		<li>EEPROM memory: 1KB</li>
+		<li>Flash memory: 32KB</li>
+		<li>SRAM memory: 2KB</li>
+		<li>Frequency: 16MHz</li>
+	</ul>
+</p>
+
+<h2>Supported Accessories</h2>
+<ul>
+	<li>Arduino Starter Kit</li>
+	<li>Arduino Ethernet shield</li>
+	<li><span class="rev16x">esp8266</span><span class="rev16">esp-01</span> wi-fi module</li>
+</ul>
+
+</body>
+</html>

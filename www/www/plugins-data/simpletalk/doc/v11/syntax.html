@@ -1,0 +1,283 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>24U SimpleTalk Plug-In 1.1 Syntax</title>
+<STYLE TYPE="text/css" MEDIA=screen>
+<!--
+  H	{ font-face: Helvetica, Arial }
+  .intro { font-size: 14px }
+  TD,P  { font-face: Helvetica, Arial; font-size: 12px }
+-->
+</STYLE>
+</head>
+<body bgcolor="#FFFFFF">
+<font face="Geneva, Arial">
+
+<h2><font face="Helvetica, Arial">24U SimpleTalk Plug-In 1.1 Syntax</font></h2>
+
+<p class="intro">
+This file describes syntax of 24U SimpleTalk Plug-In's functions.
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_Version (  versionFormat  )</b></tt><br>&nbsp;<br>
+
+Returns version string of the active 24U SimpleTalk Plug-In, formatted as requested by the parameter. Use:
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>"short"</tt></td><td>&nbsp;</td><td>to get just the version number</td></tr>
+<tr valign="top"><td nowrap><tt>"long"</tt></td><td>&nbsp;</td><td>to get the plug-in name followed by its version number</td></tr>
+<tr valign="top"><td nowrap><tt>"platform"</tt></td><td>&nbsp;</td><td>to get the platform of the code currently running<br>&nbsp;</td></tr>
+</table>
+</blockquote>
+
+<p><tt><b>STalk_Register ( registrationCode )</b></tt><br>&nbsp;<br>
+
+Attempts to unlock (register) your copy of 24U SimpleTalk Plug-In with the specified code. If the code is valid, 24U SimpleTalk Plug-In gets unlocked and stays in this state until you quit the FileMaker application, deactivate the plug-in, or the registration code expires. While unlocked, 24U SimpleTalk Plug-In is fully functional and does not bother the user with a shareware reminder.
+<br>&nbsp;<br>
+Returns a non-zero result when operation is not permitted.
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_StartServer ( port { ; protocol } { ; datahandler { ; openhandler { ; closehandler }}} { ; encoding } { ; terminator } )</b></tt><br>&nbsp;<br>
+
+Start listening for incoming connections on the specified port. When new connection is opened, openhandler is called. 
+The data received through the connection are stored in a queue. When a terminator (CRLF by default) is
+ present in the connection queue, datahandler is called and <tt>connectionID</tt> is passed to it as parameter.
+ Datahandler is responsible for clearing the beginning of the queue up to the terminator(including) using the STalk_Receive
+  function. After the data handler completes, it is called again immediately when there is a terminator in the connection queue.
+ When the connection closes, closehandler is called. Neither openhandler 
+  nor closehandler are required to call STalk_Receive.
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>port</tt></td><td>&nbsp;</td><td>port number to listen on</td></tr>
+<tr valign="top"><td nowrap><tt>protocol</tt></td><td>&nbsp;</td><td>"TCP" (default), additional options may be supported in future versions</td></tr>
+<tr valign="top"><td nowrap><tt>datahandler</tt></td><td>&nbsp;</td><td>name of script to run (default is <a href="#builtin">built-in handler</a>) </td></tr>
+<tr valign="top"><td nowrap><tt>openhandler</tt></td><td>&nbsp;</td><td>name of script to run (default is datahandler)</td></tr>
+<tr valign="top"><td nowrap><tt>closehandler</tt></td><td>&nbsp;</td><td>name of script to run (default is openhandler)</td></tr>
+<tr valign="top"><td nowrap><tt>encoding</tt></td><td>&nbsp;</td><td>"UTF-8" (default) or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). This value is also used as a default encoding for all further server connections.</td></tr> 
+<tr valign="top"><td nowrap><tt>terminator</tt></td><td>&nbsp;</td><td>string for splitting the  data (default is CRLF). (see the <a href="#terminator">note</a> below) This value is also used as a default terminator for all further server connections.</td></tr>
+</table>
+</blockquote><p>
+
+
+<a name="builtin"></a><b>Built-in handlers</b><br>
+If no handlers are specified in STalk_StartServer call, built-in handlers are used.
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>openhandler</tt></td><td>&nbsp;</td><td>sends message "Welcome to SimpleTalk"</td></tr>
+<tr valign="top"><td nowrap><tt>datahandler</tt></td><td>&nbsp;</td><td> receives data with one STalk_Receive call and performs actions if the received data match to one of the following patterns:
+	</p><blockquote>
+	<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td nowrap><tt>RUN &lt;scriptname&gt;</tt></td><td>&nbsp;</td><td>schedules the specified script to run, returns "OK" if successfully scheduled, or "ERROR" if script could not be scheduled</td></tr>
+	<tr valign="top"><td nowrap><tt>EVAL &lt;calculation&gt;</tt></td><td>&nbsp;</td><td>evaluates the specified calculation in the current context (of the frontmost window) and returns result</td></tr>
+	<tr valign="top"><td nowrap><tt>QUIT</tt></td><td>&nbsp;</td><td>closes the connection from the server side</td></tr>
+	</table>
+	</blockquote><p>
+
+</td></tr>
+<tr valign="top"><td nowrap><tt>close handler</tt></td><td>&nbsp;</td><td>does nothing</td></tr>
+</table>
+</blockquote><p>	
+
+	
+    
+
+STalk_StartServer returns positive <tt>serverID</tt> if successful, negative <a href="#errors">error code</a> in the case of failure.
+<br>&nbsp;</p>
+
+
+
+<p><tt><b>STalk_StopServer ( serverID )</b></tt><br>&nbsp;<br>
+
+Close all open connections and shut the specified server down.
+<br>&nbsp;<br>
+Returns 0 if successful, <a href="#errors">error code</a> in the case of failure (i.e. invalid server ID).
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_Connect ( host ; port { ; protocol } { ; datahandler { ; closehandler} } { ; encoding } { ; terminator } { ; timeout { ; idle } } )</b></tt><br>&nbsp;<br>
+
+  Open a TCP connection to the specified host. Datahandler and close handler are called in the same way as described in STalk_StartServer function reference.
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>host</tt></td><td>&nbsp;</td><td>Domain name or IP address of the server to connect to</td></tr>
+<tr valign="top"><td nowrap><tt>port</tt></td><td>&nbsp;</td><td>remote port number to connect to</td></tr>
+<tr valign="top"><td nowrap><tt>protocol</tt></td><td>&nbsp;</td><td>"TCP" (default), additional options may be supported in future versions</td></tr>
+<tr valign="top"><td nowrap><tt>datahandler</tt></td><td>&nbsp;</td><td>name of script to run  (default datahandler does nothing)</td></tr>
+<tr valign="top"><td nowrap><tt>closehandler</tt></td><td>&nbsp;</td><td>name of script to run (default is datahandler)</td></tr>
+<tr valign="top"><td nowrap><tt>encoding</tt></td><td>&nbsp;</td><td>"UTF-8" (default) or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). This value is also used as a default encoding for all further connection operations.</td></tr>
+<tr valign="top"><td nowrap><tt>terminator</tt></td><td>&nbsp;</td><td>string for splitting the  data (default is CRLF). (see the <a href="#terminator">note</a> below)  This value is also used as a default terminator for all further connection operations.</td></tr>
+<tr valign="top"><td nowrap><tt>timeout</tt></td><td>&nbsp;</td><td>number of seconds to wait for a connection (default is 60).  This value is also used as a default timeout for all further connection operations.</td></tr>
+<tr valign="top"><td nowrap><tt>idle</tt></td><td>&nbsp;</td><td>number of seconds to wait after last send or receive operation before automatically closing the connection (default is 600)</td></tr>
+</table>
+</blockquote><p>
+
+Returns positive <tt>connectionID</tt> if successful, negative <a href="#errors">error code</a> in the case of failure.
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_Disconnect ( connectionID )</b></tt><br>&nbsp;<br>
+Close and invalidate the specified connection.
+<br>&nbsp;<br>
+Returns 0 if successful, <a href="#errors">error code</a> in the case of failure (i.e. invalid connection ID).
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_Send ( host; port { ; protocol } { ; encoding } { ; terminator } { ; autoconvert { ; local_terminator } }{ ; timeout } ; data )</b></tt><br>&nbsp;<br>
+
+Connect to the specified host/port, send the data (and terminator), wait for reply (until the other side closes connection or the time is out), close the connection and return the reply.
+If autoconvert is specified, each occurrence of local_terminator in data is replaced with terminator. Also each occurrence of terminator in the reply is replaced with local terminator.
+This is useful e.g. when you want to send more lines separated with CRLF instead of line ends. (This is the default behaviour)
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>host</tt></td><td>&nbsp;</td><td>Domain name or IP address of the server to connect to</td></tr>
+<tr valign="top"><td nowrap><tt>port</tt></td><td>&nbsp;</td><td>remote port number to connect to</td></tr>
+<tr valign="top"><td nowrap><tt>protocol</tt></td><td>&nbsp;</td><td>"TCP" (default), additional options may be supported in future versions</td></tr>
+<tr valign="top"><td nowrap><tt>encoding</tt></td><td>&nbsp;</td><td>"UTF-8" (default) or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below).</td></tr>
+<tr valign="top"><td nowrap><tt>terminator</tt></td><td>&nbsp;</td><td>a string to be added to the end of the data being sent (CRLF by default) (see the <a href="#terminator">note</a> below)</td></tr>
+<tr valign="top"><td nowrap><tt>autoconvert</tt></td><td>&nbsp;</td><td>"yes" or "no" (default is "yes")</td></tr>
+<tr valign="top"><td nowrap><tt>local_terminator</tt></td><td>&nbsp;</td><td>string which will be replaced with terminator (default is line end)</td></tr>
+<tr valign="top"><td nowrap><tt>timeout</tt></td><td>&nbsp;</td><td>number of seconds to wait for a connection and reply (default is 60)</td></tr>
+<tr valign="top"><td nowrap><tt>data</tt></td><td>&nbsp;</td><td>data to be sent</td></tr>
+</table>
+</blockquote><p>
+
+Returns received reply if successful, negative <a href="#errors">error code</a> in the case of failure.
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_Send ( connectionID { ; encoding } { ; terminator } ; data )</b></tt><br>&nbsp;<br>
+
+Send data to the other side of an open connection. Automatically append the connection's terminator to the end of the data.
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>connectionID</tt></td><td>&nbsp;</td><td>numerical identification of an open connection (result of <tt>STalk_Connect</tt> or handler's script parameter)</td></tr>
+<tr valign="top"><td nowrap><tt>encoding</tt></td><td>&nbsp;</td><td>"UTF-8"  or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). (inherited from connection by default)</td></tr>
+<tr valign="top"><td nowrap><tt>terminator</tt></td><td>&nbsp;</td><td>a string to be added to the end of the data being sent (inherited from connection by default) (see the <a href="#terminator">note</a> below)</td></tr>
+<tr valign="top"><td nowrap><tt>data</tt></td><td>&nbsp;</td><td>data to be sent</td></tr>
+</table>
+</blockquote><p>
+
+Returns positive number of bytes sent (including terminator) if successful, negative <a href="#errors">error code</a> in the case of failure.
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_Receive ( connectionID { ; encoding } { ; terminator } { ; timeout } )</b></tt><br>&nbsp;<br>
+
+Read data from an open connection's buffer up to the terminator. Terminator is read but not returned.
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>connectionID</tt></td><td>&nbsp;</td><td>numerical identification of an open connection (result of <tt>STalk_Connect</tt> or handler's script parameter)</td></tr>
+<tr valign="top"><td nowrap><tt>encoding</tt></td><td>&nbsp;</td><td>"UTF-8" or "UTF-16" or "UTF-16BE" or "UTF-16LE"  or "ASCII" or "Hex" (see the <a href="#encoding">note</a> below). (inherited from connection by default)</td></tr>
+<tr valign="top"><td nowrap><tt>terminator</tt></td><td>&nbsp;</td><td>string for splitting the  data (inherited from connection by default). (see the <a href="#terminator">note</a> below)</td></tr>
+<tr valign="top"><td nowrap><tt>timeout</tt></td><td>&nbsp;</td><td>time in seconds to wait for data before timing out (use connection's timeout by default), 0 for "don't wait" (return immediately either data or an <a href="#errors">error code</a>)</td></tr>
+</table>
+</blockquote><p>
+
+Returns data read (without terminator) if successful, negative <a href="#errors">error code</a> in the case of failure.
+<br>&nbsp;</p>
+
+<p><tt><b>STalk_Get( selector { ; connectionOrServerID } )</b></tt><br>&nbsp;<br>
+
+Returns current value of a global variable or a connection/server option specified by selector.
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>STalk_Get( "local-ip" { ; connectionOrServerID } )</tt></td><td>&nbsp;</td><td>Local IP address</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Get( "local-port" ; connectionOrServerID )</tt></td><td>&nbsp;</td><td>Local port number associated with the specified server or connection</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Get( "remote-ip" ; connectionID )</tt></td><td>&nbsp;</td><td>IP address of the remote side of the connection</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Get( "remote-port" ; connectionID )</tt></td><td>&nbsp;</td><td>Port number of the remote side of the connection</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Get( "encoding" ; connectionOrServerID )</tt></td><td>&nbsp;</td><td>Default encoding for the connection</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Get( "frontmost" )</tt></td><td>&nbsp;</td><td>1 if FileMaker is the frontmost application, 0 otherwise<br>&nbsp;</td></tr>
+</table>
+</blockquote>
+
+<p><tt><b>STalk_Set( selector { ; connectionOrServerID } ; newValue )</b></tt><br>&nbsp;<br>
+
+Modifies value of a global variable or a connection/server option specified by selector.
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>STalk_Set( "encoding" ; connectionOrServerID ; encoding )</tt></td><td>&nbsp;</td><td>Modifies the default encoding of the specified server or connection</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Set( "frontmost" ; boolean )</tt></td><td>&nbsp;</td><td>Brings FileMaker to front or sends it to back<br>&nbsp;</td></tr>
+</table>
+</blockquote><p>
+
+<a name="encoding"></a>
+
+<p><b>Note on data encoding</b>
+
+</p>
+
+<p>
+Encoding of data defines the way how  the content passed to SimpleTalk is converted into binary form
+for sending through network and vice versa. Hence it is important that each side of the 
+connection is synchronized with each other and uses the same encoding.
+</p>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>UTF-8</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with one or two bytes.</td></tr>
+<tr valign="top"><td nowrap><tt>UTF-16BE</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with two bytes. Big endian ordering is used.</td></tr>
+<tr valign="top"><td nowrap><tt>UTF-16LE</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with two bytes. Low endian ordering is used.</td></tr>
+<tr valign="top"><td nowrap><tt>UTF-16</tt></td><td>&nbsp;</td><td>This is synonyma for UTF-16BE</td></tr>
+<tr valign="top"><td nowrap><tt>ASCII</tt></td><td>&nbsp;</td><td>Each character of the text is encoded with one byte. Only the basic 127 ASCII characters will be send unchanged.</td></tr>
+<tr valign="top"><td nowrap><tt>Hex</tt></td><td>&nbsp;</td><td>The text is taken as a hexadecimal representation of binary data. (i.e. each pair of characters represents one byte)</td></tr>
+</table>
+
+
+
+<p><b>Note on terminators</b>
+<a name="terminator"></a>
+</p>
+
+<p>
+Terminator is a couple of bytes which splits the transferred data into logical blocks. Of course, both sides of the connection should use the same terminators to achieve the requested behaviour.
+When a terminator is specified as an optional parameter to some Plug-In's function, it is encoded into binary form with the same encoding which is given to
+encode/decode the data. The only exception is default terminator CRLF, which already has exact binary interpretation.
+When the given terminator is an empty string, its behaviour is a little bit special and depends on the calling function:
+  
+</p>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>STalk_StartServer,STalk_Connect</tt></td><td>&nbsp;</td><td> data handler is never called</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Send(connectionID,...)</tt></td><td>&nbsp;</td><td>normal behavior, i.e. nothing is appended to the data sent</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Receive</tt></td><td>&nbsp;</td><td> waits for timeout or the disconnection from the other side, then returns everything it received</td></tr>
+<tr valign="top"><td nowrap><tt>STalk_Send(host...)</tt></td><td>&nbsp;</td><td>partially normal behavior: nothing is appended to the data sent, occurrences of local_terminator are replaced with empty string,but the received data are not changed.</td></tr>
+</table>
+
+
+<a name="params"></a>
+
+<p><b>Note on optional parameter evaluation</b>
+</p>
+
+<p>
+Majority of SimpleTalk functions can be called with optional parameters. Their syntax suggests that the plugin could not distinguish which calling form the user requested.
+For example the string "UTF-8" in call STalk_StartServer(2424,"UTF-8"), could describe protocol, datahandler, encoding or terminator.
+To be able to corectly distinguish the parameters, the name of the handlers  and terminator can not be "tcp", "UTF-8", etc. Also the terminator can not be name of any existing script (potential handler).
+This restrictions are rather small and  it rarely makes problems in practical situations. In such situation, there still is the possibility to 
+call SimpleTalk function with all parameters given so that no ambiguity is possible.
+
+
+</p>
+
+
+
+
+<a name="errors"></a>
+<p><b>List of the most common error codes returned by 24U SimpleTalk Plug-In's functions</b>
+
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap align="right"><tt>-50</tt></td><td>&nbsp;</td><td>Invalid parameter</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-1000</tt></td><td>&nbsp;</td><td>Plug-In requires registration (expired)</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-3218</tt></td><td>&nbsp;</td><td>Invalid server ID</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-3247</tt></td><td>&nbsp;</td><td>Address/port already in use</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-3256</tt></td><td>&nbsp;</td><td>Connection error / not connected</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-3157</tt></td><td>&nbsp;</td><td>WSA internal error</td></tr>
+<tr valign="top"><td nowrap align="right"><tt>-3259</tt></td><td>&nbsp;</td><td>Connection/request timed out</td></tr><tr valign="top"><td nowrap align="right"><tt>-3260</tt></td><td>&nbsp;</td><td>Connection refused</td></tr>
+
+</table>
+</blockquote><p>
+<br>&nbsp;</p>
+
+</font>
+</html>

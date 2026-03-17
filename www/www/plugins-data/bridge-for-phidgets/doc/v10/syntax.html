@@ -1,0 +1,224 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>24U Phidgets Plug-In 1.0 Syntax</title>
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL { font-family: Helvetica, Arial; font-size: 12px }
+    -->
+    </STYLE>
+  </head>
+
+<body>  
+<h1>24U Phidgets Plug-In 1.0 Syntax</h1>
+
+<p class="intro">This file describes syntax of 24U Phidgets Plug-In's functions.</p>
+
+<h2>Phidget_Version ( { versionFormat } )</h2>
+<p class="f_intro">Returns version string of the active 24U Phidgets Plug-In, formatted as requested by the parameter.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">versionFormat<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t2_param">short</td><td>To get just the version number</td></tr>
+<tr valign="top"><td class="t2_param">long</td><td>To get the plug-in name followed by its version number</td></tr>
+<tr valign="top"><td class="t2_param">platform</td><td>To get the platform of the code currently running</td></tr>
+</table>
+
+<h2>Phidget_Register ( registrationCode )</h2>
+<p class="f_intro">Attempts to unlock (register) your copy of 24U Phidgets Plug-In with the specified code.<p> 
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">registrationCode</td><td>The code to unlock the full version of the plug-in.</td></tr>
+</table>
+<h3>Description</h3>
+<p>If the code is valid, 24U Phidgets Plug-In gets unlocked and stays in this state until you quit the FileMaker Pro application, deactivate the plug-in, or the registration code expires. While unlocked, 24U Phidgets Plug-In is fully functional and does not bother the user with a shareware reminder.</p>
+<h3>Result</h3>
+<p>Returns a non-zero result when operation is not permitted.<p>
+
+<h2>Phidget_Read ( phidgetSN ; valueID { ; index } )</h2>
+<p class="f_intro">Reads data from the Phidget.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">phidgetSN</td><td>The Phidget serial number. Use -1 for the first available device.</td></tr>  
+<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be read.</td></tr>    
+<tr valign="top"><td class="t_param">index</td><td>Default to 0. Index of the port of IO Phidget or another index information if needed</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">valueID<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">valueID</th><th align="left">Phidget type</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"inputValue"</td><td class="t2_param2">General</td><td>Returns value of the default input.</td></tr>        
+<tr valign="top"><td class="t2_param">"inputState"</td><td class="t2_param2">Interface Kit</td><td>Returns the value of the digital input.</td></tr>
+<tr valign="top"><td class="t2_param">"sensorValue"</td><td class="t2_param2">Interface Kit</td><td>Returns the value of the analog input.</td></tr>    
+<tr valign="top"><td class="t2_param">"sensorRawValue"</td><td class="t2_param2">Interface Kit</td><td>Returns the raw value of the analog input.</td></tr>
+<tr valign="top"><td class="t2_param">"outputState"</td><td class="t2_param2">Interface Kit</td><td>Returns the value of the analog output.</td></tr>        
+<tr valign="top"><td class="t2_param">"outputState"</td><td class="t2_param2">RFID</td><td>Returns the state of the designated digital output.</td></tr>
+<tr valign="top"><td class="t2_param">"motorPosition"</td><td class="t2_param2">Servo</td><td>Reads the position of the motor.</td></tr>    
+</table>
+<h3>Description</h3>
+<p>The "General" Phidget Type can be used with all Phidgets. The default input for all phidgets is the first valueID for each phidget in this list. For example calling <span class="syntax">Phidget_Read( -1 ; "inputValue" )</span> is the same as <span class="syntax">Phidget_Read( -1 ; "motorPosition" )</span> for PhidgetServo.</p>
+<h3>Result</h3>
+<p>Function returns data from Phidget if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phidget_Read(-1 ; "inputValue")</span><br>
+The most basic reading. This command will read an "inputValue" from a connected Phidget. If more than one device is connected the plug-in will choose the first device which was connected.</p>
+<p><span class="syntax_hl">Phidget_Read(phidgetSN ; "sensorValue" ; 3)</span><br>
+Reads a value from the fourth sensor of the InterfaceKit. If the field phidgetSN does not contain correct serial number of the the Interface Kit Phidget (which must be connected in the time of reading) than the function will fail and returns "?".</p>
+
+<h2>Phidget_Write( phidgetSN ; valueID ; data { ; index } )</h2>
+<p class="f_intro">Writes or set data to the Phidget.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">phidgetSN</td><td>The Phidget serial number. Use -1 for the first available device.</td></tr>  
+<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be written.</td></tr>   
+<tr valign="top"><td class="t_param">data</td><td>Data to write or set. Please use FileMaker number type for numbers and text for strings. The plug-in will try to convert them if necessary.</td></tr> 
+<tr valign="top"><td class="t_param">index</td><td>Default to 0. Index of the port of IO Phidget or another index information if needed</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">valueID<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">valueID</th><th align="left">Phidget type</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"outputState"</td><td class="t2_param2">General</td><td>Writes value to default output.</td></tr>        
+<tr valign="top"><td class="t2_param">"outputState"</td><td class="t2_param2">Interface Kit</td><td>Write data to digital output.</td></tr>           
+<tr valign="top"><td class="t2_param">"outputState"</td><td class="t2_param2">RFID</td><td>Writes the new value to the output.</td></tr>
+<tr valign="top"><td class="t2_param">"motorPosition"</td><td class="t2_param2">Servo</td><td>Sets the new motor position.</td></tr>    
+</table>
+<h3>Description</h3>
+<p>The "General" valueIDs can be used with all sensors. The default output for all phidgets is the first valueID for each phidget in this list. For example calling <span class="syntax">Phidget_Write( -1 ; "outputState" ; 20 )</span> is the same as <span class="syntax">Phidget_Write( -1 ; "motorPosition" ; 20 )</span> for PhidgetServo.</p>
+<h3>Result</h3>
+<p>Function returns 0 if everything is OK. In case of error the function returns negative error code or Phidget Error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phidget_Write(-1 ; "outputState" ; 20)</span><br>
+This will write a value "20" to the first connected phidget if it is possible.</p>
+<p><span class="syntax_hl">Phidget_Write(phidgetSN ; "motorPosition" ; 215)</span><br>
+It rotates the servo in PhidgetServo to 215 degrees. PhidgetSN parameter should contain a valid serial number of connected servo phidget.</p>
+<p><span class="syntax_hl">Phidget_Write(69418 ; "outputState" ; 1 ; 5)</span><br>
+Sets the sixth output of the interface kit phidget with serial number 69418 to 1.</p>
+
+<h2>Phidget_SetScriptEvent( phidgetID ; event/time ; scriptName { ; index { ; changeAmount { ; threshold } } } )</h2>
+<p class="f_intro">Tell the plug-in to launch the script when specified event is triggered by the Phidget or in specified time intervals.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">phidgetSN</td><td>The Phidget serial number. Use -1 for the first available device.</td></tr>  
+<tr valign="top"><td class="t_param">event</td><td>The event when the script should be triggered. Use FileMaker text to describe it. I.e. "onSensorChange".</td></tr>    
+<tr valign="top"><td class="t_param">time</td><td>The time interval on which the script should trigger. Use FileMaker number i.e. 1.8. Time is in [s]. Time must be a positive number. Setting time lower than 1 s is not recommended.</td></tr>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of script which should be triggered. The script will receive a parameter which will contain at least phidgetSN on the first row. More values can be added depending on the event.</td></tr>    
+<tr valign="top"><td class="t_param">index</td><td>The index of input or output to trigger the script. If omitted the script will be triggered every time when any of inputs/outputs are changed regardless of its number.</td></tr>
+<tr valign="top"><td class="t_param">changeAmount</td><td>The amount of change that should exist between the last reported value and the current value before an event triggers. The default is 1. This cannot be changed for binary inputs or outputs. Use FileMaker number.</td></tr>
+<tr valign="top"><td class="t_param">threshold</td><td>The script will not be triggered until the sensor value exceeds threshold. Use it as a simple noise filter. It has no meaning for binary inputs/outpus. The default value is 0 - no filtering.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">event<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">event</th><th align="left">Phidget type</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"onAttach"</td><td class="t2_param2">General</td><td>Run the script when some phidget is attached. PhidgetSN must be set to "all".</td></tr>    
+<tr valign="top"><td class="t2_param">"onDetach"</td><td class="t2_param2">General</td><td>Run the script when some phidget is detached. PhidgetSN must be set to "all".</td></tr>
+<tr valign="top"><td class="t2_param">"onInputChange"</td><td class="t2_param2">General</td><td>Run the script when default input is changed. The amount can be set by changeAmount.</td></tr>    
+<tr valign="top"><td class="t2_param">"onInputChange"</td><td class="t2_param2">Interface Kit</td><td>Run the script when digital input is changed.</td></tr>    
+<tr valign="top"><td class="t2_param">"onSensorChange"</td><td class="t2_param2">Interface Kit</td><td>Run the script when the value from connected sensor is changed. The amount can be set by the changeAmount.</td></tr>
+<tr valign="top"><td class="t2_param">"onOutputChange"</td><td class="t2_param2">Interface Kit</td><td>Run the script when output is changed.</td></tr>       
+<tr valign="top"><td class="t2_param">"onTag"</td><td class="t2_param2">RFID</td><td>Run the script when a tag will approach RFID sensor.</td></tr>
+<tr valign="top"><td class="t2_param">"onTagLost"</td><td class="t2_param2">RFID</td><td>Run the script when a the sensor losts the connection with a tag.</td></tr>    
+<tr valign="top"><td class="t2_param">"onOutputChange"</td><td class="t2_param2">RFID</td><td>Run the script when output is changed.</td></tr>
+<tr valign="top"><td class="t2_param">"onMotorPosChange"</td><td class="t2_param2">Servo</td><td>The script when the motor position is changed.</td></tr>    
+</table>
+<h3>Description</h3>
+<p>Some events are the same for more phidgets. The "General" event "onInputChange" can be installed to all listed phidgets and it will behave as their default input event. 
+For example: <span class="syntax">Phidget_SetScriptEvent( -1 ; "onInputChange" ; "Do Something" )</span> has the same meaning as <span class="syntax">Phidget_SetScriptEvent( -1 ; "onMotorPosChange" ; "Do Something" )</span> for PhidgetServo or <span class="syntax">Phidget_SetScriptEvent( -1 ; "onTag" ; "Do Something" )</span> for PhidgetRFID. If "onInputChange" is used, the phidget type is detected automatically and the event is instaled to it.</p>
+<p>In both cases (event/time) the script will receive a parameter containing the value list with phidgetSN, inputIndex and inputValue. Values for digital input can be "0" or "1" for analog it varies by the type of the event.</p>
+<p>To remove event call <span class="syntax">Phidget_SetScriptEvent( phidgetID ; event/time ; "" )</span>.<br>
+To remove all events from some phidget call <span class="syntax">Phidget_SetScriptEvent( phidgetID ; "" ; "" )</span>.<br>
+To remove all events from all phidgets call <span class="syntax">Phidget_SetScriptEvent( "" ; "" ; "" )</span> or <span class="syntax">Phidget_SetScriptEvent( "all" ; "" ; "" )</span>.</p>
+<h3>Result</h3>
+<p>Function returns 0 if event is sucessfully installed or uninstalled. In case of error the function negative error code or Phidget Error code.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(-1 ; 1.2 ; "Default Script")</span><br>
+This will install the script named "Default Script" to the first available connected phidget. The script will run every 1.2 second and it will obtain a parameter which consist of serial number, "0" and input value. Each on new line. The "0" signals that the input on index 0 is beeing read.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(phidgetSN ; "onTag" ; "Process new tag")</span><br>
+The script "Process new tag" will be triggered every time the new RFID tag is in the vicinity of the RFID phidget. The script will receive a parameter with phidget serial number, "0" and RFID value of the tag. Each on the new line. The zero means, that the first input of RFID phidget is used.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(69418 ; "onSensorChange" ; "Read sensor" ; 6 ; 10 ; 5)</span><br>
+This will install "onSensorChange" event to the interface kit phidget with serial number 69418. The phidget must be connected.
+The "Read sensor" script will be triggered when the seventh sensor's value on the interface kit phidget with SN 69418 will change more than 10 points and will be higher than 5. The script will receive the parameter which will contain: "69418", "6" and sensor value. Each on the new line.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent("all" ; "onAttach" ; "New phidget attached")</span><br>
+The script "New phidget attached" will be called every time when user will connect a new phidget to the system. The script will receive a parameter with serial number of the new connected phidget.</p>
+
+<h2>Phidget_Get( what { ; more } )</h2>
+<p class="f_intro">Function to get plug-in or phidget settings and other useful data.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">what</td><td>Which data shoud be get.</td></tr>  
+<tr valign="top"><td class="t_param">more</td><td>Additional specifier to concretize the request.</td></tr>    
+</table>
+<h3>Parameter values for <span class="p_hl">what<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Phidget type</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"lastError"</td><td class="t2_param2">Not used</td><td>Returns the error code of the last error. If no error occured 0 is returned.</td></tr>    
+<tr valign="top"><td class="t2_param">"libraryVersion"</td><td class="t2_param2">Not used</td><td>Get version of Phidget Library installed on system.</td></tr>
+<tr valign="top"><td class="t2_param">"attachedDevices"</td><td class="t2_param2">Not used</td><td>Get number of attached devices.</td></tr>    
+<tr valign="top"><td class="t2_param">"serialNumber"</td><td class="t2_param2">Phidget Index</td><td>Serial number of the device with index specified in "more" parameter.</td></tr>
+<tr valign="top"><td class="t2_param">"deviceType"</td><td class="t2_param2">PhidgetSN</td><td>Type of the device specified by PhidgetSN.</td></tr>    
+<tr valign="top"><td class="t2_param">"deviceName"</td><td class="t2_param2">PhidgetSN</td><td>Name of the device specified by PhidgetSN.</td></tr>
+<tr valign="top"><td class="t2_param">"deviceVersion"</td><td class="t2_param2">PhidgetSN</td><td>Version of the device specified by PhidgetSN.</td></tr>    
+<tr valign="top"><td class="t2_param">"deviceLabel"</td><td class="t2_param2">PhidgetSN</td><td>Label of the device specified by PhidgetSN.</td></tr>
+<tr valign="top"><td class="t2_param">"numInputs"</td><td class="t2_param2">PhidgetSN</td><td>The number of default inputs.</td></tr>    
+<tr valign="top"><td class="t2_param">"numOutputs"</td><td class="t2_param2">PhidgetSN</td><td>The number of default outputs.</td></tr>       
+<tr valign="top"><td class="t2_param">"numSensors"</td><td class="t2_param2">PhidgetSN of Interface Kit</td><td>Number of sensors.</td></tr>
+<tr valign="top"><td class="t2_param">"ratiometric"</td><td class="t2_param2">PhidgetSN of Interface Kit</td><td>Returns phidget ratiometric status.</td></tr> 
+<tr valign="top"><td class="t2_param">"antennaOn"</td><td class="t2_param2">PhidgetSN of RFID Phidget</td><td>The status of the antenna of the RFID reading device.</td></tr>
+<tr valign="top"><td class="t2_param">"ledOn"</td><td class="t2_param2">PhidgetSN of RFID Phidget</td><td>The status of the LED.</td></tr>       
+</table>
+<h3>Description</h3>
+<p>The "more" parameter is usually used to specify Phidget Serial Number. Some commands need specific PhidgetSN (of specific type) otherwise they will fail. Some commands are more general. You can use PhigetSN value "-1" to specify the default Phidget.</p>
+<p>The boolean values are returned in number form. For example <span class="syntax">Phidget_Get("antennaOn" ; -1)</span> returns 0 if backlight is off and 1 if backlight is on.</p>
+<h3>Result</h3>
+<p>Function returns data if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phidget_Get("attachedDevices")</span><br>
+Returns the number of attached devices. If no phidget is attached to the machine it will return 0. It is a good command to start with to check if any phidget is connected.</p>
+<p><span class="syntax_hl">Phidget_Get("serialNumber" ; 3)</span><br>
+If you have four phidgets connected to the machine this will return the serial number of the fourth one. Use this command in the loop (along with previous one) to enumerate serial numbers of all phidgets connected to the machine.</p>
+<p><span class="syntax_hl">Phidget_Get("deviceType" ; 69418)</span><br>
+This will check the connected phidget with SN 69418 and returns its type. The types are textual in human readable form. For the supported types the result can be: "PhidgetInterfaceKit", "PhidgetRFID" and "PhidgetServo". In general the type names are the same as the official ones.</p>
+
+<h2>Phidget_Set( what ; value { ; phidgetSN } )</h2>
+<p class="f_intro">Function to set plug-in or phidget settings and other useful data.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><tt>what</tt></td><td>Which data shoud be set.</td></tr>   
+<tr valign="top"><td class="t_param"><tt>value</tt></td><td>The new value.</td></tr> 
+<tr valign="top"><td class="t_param"><tt>phidgetSN</tt></td><td>The Phidget serial number. Use -1 for the first available device.</td></tr>  
+</table>
+<h3>Parameter values for <span class="p_hl">what<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Phidget type</th><th align="left">Description</th></tr>  
+<tr valign="top"><td class="t2_param">"ratiometric"</td><td class="t2_param2">Interface Kit</td><td>Sets phidget ratiometric. The phidget with ratiometric will measure more precise if ratiometric sensor (marked with R) is attached.</td></tr>    
+<tr valign="top"><td class="t2_param">"antennaOn"</td><td class="t2_param2">RFID</td><td>Sets the status of the antenna of the RFID reading device.</td></tr>    
+<tr valign="top"><td class="t2_param">"ledOn"</td><td class="t2_param2">RFID</td><td>Sets the status of the LED.</td></tr>    
+<tr valign="top"><td class="t2_param">"motorOn"</td><td class="t2_param2">Servo</td><td>Turns a Motor On & Off.</td></tr>   
+</table>
+<h3>Result</h3>
+<p>Function returns set value if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Phidget_Set("ratiometric" ; 1 ; 69418)</span><br>
+Set the ratiometric value to 1 (turns on) in the phidget with SN 69418. This phidget must be interface kit phidget otherwise "?" is returned.</p>
+<p><span class="syntax_hl">Phidget_Set("ratiometric" ; 1 ; -1)</span><br>
+Set the ratiometric value to 1 (turns on) in the first phidget it founds. This phidget must be interface kit phidget otherwise "?" is returned. Use this form if you have only one phidget connected to the computer and you are sure that you will never connect any other phidget otherwise the result can be unpredictable.</p>
+
+</body>
+</html>

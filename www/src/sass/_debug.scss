@@ -1,0 +1,33 @@
+body:before {
+	display: block;
+	padding: 1em;
+	background: red;
+	color: white;
+	z-index: 100000;
+	position: fixed;
+
+	@include deviceDesktop {
+		content: 'desktop';
+	}
+
+	@include deviceTablet {
+		content: 'desktop';
+	}
+
+	@include devicePhone {
+		content: 'phone';
+	}
+
+	@include browserIE {
+		content: 'browserIE';
+	}
+
+	@include browserEdge {
+		content: 'browserEdge';
+	}
+	
+	@include browserLegacy {
+		content: 'browserLegacy';
+	}
+	
+}

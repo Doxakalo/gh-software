@@ -1,0 +1,237 @@
+body[data-template="sla"] {
+
+	section {
+		&.spacing {
+			padding: 3em 0 5em;
+
+			@include g-state(tablet) {
+				padding: (4em * $scaleRatioTablet) 0;
+			}
+
+			@include g-state(mobile) {
+				padding: (4em * $scaleRatioMobile) 0;
+			}
+		}
+
+		&.blue {
+			background-color: $colorBlue;
+			color: $colorWhite;
+		}
+
+		&.services {
+			background-color: $colorLightBlue6;
+			padding: 3em 0;
+			table {
+				width: 100%;
+				@include g-state(mobile) {
+					width: 200%;
+					overflow: hidden;
+				}
+				thead {
+					tr {
+						th {
+							width: calc(60% / 3);
+							text-align: center;
+							font-size: 1.429em;
+							color: $colorBlue;
+							background-color: $colorLightBlue6;
+							padding-bottom: 1em;
+
+							&:nth-of-type(1) {
+								width: 40%;
+								text-align: right;
+								padding-right: 1.3em;
+
+								@include g-state(mobile) {
+									padding-right: .5em;
+								}
+							}
+
+							img {
+								width: 45px;
+								height: 45px;
+							}
+						}
+					}
+				}
+				tbody {
+					tr {
+						&:nth-of-type(1) {
+							td {
+								&:nth-of-type(1) {
+									background-color: $colorBlue !important;
+								}
+							}
+						}
+						&:nth-of-type(odd) {
+							background-color: $colorLightBlue4;
+
+							td {
+								&:nth-of-type(1){
+									background-color: $colorLightBlue;
+								}
+							}
+						}
+						td {
+							text-align: center;
+							color: $colorBlue;
+							padding: .7em 1em;
+
+							@include g-state(mobile) {
+								padding: .5em;
+							}
+
+							&.color {
+								&-bronze,
+								&-silver,
+								&-gold {
+									font-weight: $fwBold;
+								}
+								&-bronze {
+									color: $colorBronze;
+								}
+								&-silver {
+									color: $colorSilver;
+								}
+								&-gold {
+									color: $colorGold;
+								}
+							}
+
+							&:nth-of-type(1){
+								background-color: $colorBlue;
+								text-align: right;
+								padding-right: 2em;
+								color: $colorWhite;
+
+								@include g-state(mobile) {
+									padding-right: 1em;
+								}
+							}
+						}
+					}
+				}
+				tfoot{
+					td {
+						padding: 0.7em 0;
+					}
+				}
+				@include g-state(mobile) {
+					td,
+					th {
+						position: relative;
+						z-index: 60;
+						width: 200px !important;
+					}
+
+					&.table-tabs-content {
+						th.bronze,
+						td.bronze,
+						th.silver,
+						td.silver,
+						th.gold,
+						td.gold {
+							width: 200px !important;
+							@include transition($hoverAnimationDuration all ease-in-out);
+							z-index: 50;
+						}
+					}
+
+					&.bronze-tab-content {
+						th.bronze,
+						td.bronze,
+						th.silver,
+						td.silver,
+						th.gold,
+						td.gold {
+							@include transform(translateX(0%));
+						}
+					}
+
+					&.silver-tab-content {
+						th.bronze,
+						td.bronze,
+						th.silver,
+						td.silver,
+						th.gold,
+						td.gold {
+							@include transform(translateX(-100%));
+						}
+					}
+
+					&.gold-tab-content {
+						th.bronze,
+						td.bronze,
+						th.silver,
+						td.silver,
+						th.gold,
+						td.gold {
+							@include transform(translateX(-200%));
+						}
+					}
+				}
+			}
+			@include g-state(mobile) {
+				.tab {
+					@include transition($hoverAnimationDuration background-color ease-in-out);
+					@include border-radius(5px);
+					padding: 1em 0;
+					display: block;
+					text-align: center;
+					background-color: rgba($colorLightBlue5, .4);
+					text-decoration: none;
+
+					&:hover {
+						color: $colorGrey;
+						background-color: rgba($colorLightBlue5, .5);
+					}
+
+					&.active {
+						background-color: $colorLightBlue5;
+					}
+					img {
+						max-width: 20px;
+						max-height: 20px;
+						display: block;
+						margin: 0 auto .2em;
+					}
+				}
+			}
+		}
+		&.contact {
+			select {
+				background-color: rgba($colorWhite, .6);
+				color: $colorOrange;
+				font-weight: $fwNormal;
+
+				@include input-placeholder {
+					color: $colorOrange;
+				}
+			}
+			form {
+				margin-bottom: 0;
+
+				input[type="text"],
+				input[type="email"],
+				input[type="tel"],
+				input[type="number"],
+				input[type="search"],
+				input[type="time"],
+				textarea {
+					@include input-placeholder {
+						color: rgba($colorOrange, .6);
+					}
+				}
+			}
+			.text-form {
+				a {
+					color: white;
+					font-weight: bold;
+				}
+			}
+			.open-arrow {
+				background-color: #ec8a59;
+			}
+		}
+	}
+}

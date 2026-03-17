@@ -1,0 +1,755 @@
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script>
+		/* toggle function for long tables etc. */
+		function showItems(className) {
+	        var tags = document.getElementsByTagName('*');
+	        var tcl = " " + className + " ";
+	        for (i = 0, j = 0; i < tags.length; i++) {
+	            var test = " " + tags[i].className + " ";
+	            if (test.indexOf(tcl) != -1) {
+	                if (tags[i].style.display == "none") {
+	                	tags[i].style.display = "inline";
+	                }
+	                else {
+	                	tags[i].style.display = "none";
+	                }
+	            }
+	        }
+		}
+
+		/* Simple highlight toggle only: */
+        function changeColor() {
+            var tags = document.getElementsByTagName('*');
+			var classes = ["rev8", "rev9", "rev10", "rev11"];
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + " ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].style.backgroundColor == "") {
+	                        tags[i].style.backgroundColor = "#FFFFA0";
+	                        tags[i].style.color = "black";
+	                    }
+	                    else {
+	                        tags[i].style.backgroundColor = "";
+	                        tags[i].style.color = "";
+	                    }
+	                }
+	            }
+			})
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + "x ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].classList.contains("striked")) {
+	                        tags[i].classList.remove("striked");
+	                    }
+	                    else {
+	                        tags[i].classList.add("striked");
+	                    }
+	                }
+	            }
+			})
+        }
+
+		/* New revisioning functions: */
+		function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+						tags[i].classList.add(toggleClass);
+					}
+					else {
+						tags[i].classList.remove(toggleClass);
+					}
+                }
+            }
+		}
+
+        function showRevision(revNumber) {
+			var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+			// Reset all to latest revision:
+			for (var i=1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+				toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+			}
+
+			// Highlight current revision:
+			toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+			toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+
+			// Revert future revisions:
+			for (var i=revNumber+1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+			}
+        }
+
+        function showRevisions(revStart, revLast) {
+            var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+            // Reset all to latest revision:
+            for (var i=1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+            }
+
+            // Highlight all changes from revision revStart to the current revision(revLast):
+            for(var i = revStart; i <= revLast; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "add");
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "add");
+            }
+
+            // Revert future revisions:
+            for (var i=revNumber+1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+            }
+        }
+
+	</script>
+	<style type="text/css">
+
+		/* Texts from old revisions are removed by default: */
+		.rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x,
+		.rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }
+		/* Highlighting classes handled by js: */
+		.highlighted { background-color: #FFFFA0; color: black; }
+		.striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }
+		.ignoreStriked { }
+		.highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */
+		li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */
+		span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */
+		td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+		tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+		.hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+
+	</style>
+
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+
+      .ios {color: black; background-color: pink;}
+      li  			{ margin: 0.2em 0em ;}
+      xmp             { font-size: 12px; margin-left: 40px; margin-top: 6px; color: darkblue; }
+      table, td, th, tr { border: 1px solid #808080; margin-top:1em; padding:0.3em; border-collapse: collapse; }
+      th			 	{ font-weight:bold; text-decoration:none;}
+    -->
+    </STYLE>
+
+
+    <title>24U Phidgets Plug-In 3.1 Specification</title>
+  </head>
+
+<body>
+<h1 class="rev5">24U Phidgets Plug-In 3.1 Specification</h1>
+
+<form>
+	<input type="button" value="Highlight changes in the new version" onclick='javascript: showRevisions(5, 10)'>
+</form>
+
+<form>
+<input type="button" value="Highlight changes in the latest version" onclick='javascript: showRevision(10)'>
+</form>
+
+<p class="f_intro rev10">Specification revision: <b>10</b>, 2020-03-05.</p>
+
+
+
+
+
+<!-- 
+<div class="rev5">
+<h2 id="technicalParameters">Basic technical parameters</h2>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t2_param">File name:</td><td class="b_technical">Phidgets.fmplugin</td></tr>
+<tr><td class="t2_param">plugin ID String:</td><td class="b_technical">24PH</td></tr>
+<tr><td class="t2_param">Function names prefix:</td><td class="b_technical">Phidget_</td></tr>
+<tr><td class="t2_param">Minimal iOS version:</td><td class="b_technical"><span class="news_highlight">11.0</span></td></tr>
+<tr><td class="t2_param">Minimal Mac version:</td><td class="b_technical"><span class="news_highlight">Mac OS X 10.10 Yosemite, FileMaker Pro 15</span></td></tr>
+<tr><td class="t2_param">Minimal Windows version:</td><td class="b_technical"><span class="news_highlight">Windows 7, FileMaker Pro 15</span></td></tr>
+<tr><td class="t2_param">Supported Phidgets:</td><td class="b_technical"><span class="news_highlight">You can find all the supported phidgets in file <a href="SupportedDevices.html">SupportedDevices.html</a></span></td></tr>
+<tr><td class="t2_param">SNLib versions:</td><td class="b_technical"><span class="rev10x">SNlib 5.0 and SNlib-iOS 1.0</span><span class="rev10">SNlib 5.2</span></td></tr>
+
+</table>
+</div>
+ -->
+
+
+<h2 class="rev6">Known limitations</h2>
+<p class="rev6">iOS version only supports Phidgets through a network connection</p>
+<p class="rev8">After using Phidget_Connect( address ; password {; port } ) function device may act as connected even though the communication with plugin may not be set yet. You may want to add Pause into onAttach set script event as workaround. Please see Examples inside Distribution Archive.<p>
+<p class="rev9">It is not possible to downgrade the plugin through the function Install Plug-In file.</p>
+<h2 class="rev5">Complete syntax of plugin functions</h2>
+
+<div class="rev4x">
+    <h2 id="supportedDevices">Supported Devices</h2>
+    <p class="f_intro">You can find all the supported devices in file SupportedDevices.html</p>
+</div>
+
+<h3>Phidget_Version ( { versionFormat } )</h3>
+<p class="f_intro">Returns version string of the active 24U Phidgets Plug-In, formatted as requested by the parameter.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">versionFormat</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t2_param">"short"</td><td>To get just the version number</td></tr>
+<tr valign="top"><td class="t2_param">"long"</td><td>To get the plug-in name followed by its version number</td></tr>
+<tr valign="top"><td class="t2_param">"platform"</td><td>To get the platform of the code currently running</td></tr>
+<tr valign="top" class="rev5"><td class="t2_param">"autoupdate"</span></td><td><span>To get autoupdate compatible (comparable) version number.</td></tr>
+<tr valign="top"><td class="t2_param">"phidgetlib"</td><td>To get the version of Phidget library</td></tr>
+</table>
+<h4>Examples</h4>
+<p> <span class="syntax_hl">Phidget_Version("phidgetlib")</span><br>
+This will return for example: "Phidget21 - Version 2.1.8 - Built Aug 21 2015 10:20:29"</p>
+
+
+
+
+
+<h3>Phidget_Register(selector)</h3>
+<p class="f_intro">Provides special functionality to operate with plugin serial numbers.</p>
+
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>Define the type of operation.</td></tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">selector</span></h4>
+<table border=0 cellspacing=4 cellpadding=0 class="rev5">
+<tr valign="top" class=""><td class="t2_param">SerialNumber</td><td>Register given SerialNumber and return an error code.</td></tr>
+<tr valign="top" class=""><td class="t2_param">EmailAddress</td><td>Tries to activate with given email address and return an error code. Not supported in iOS version and will return error -4 Not implemented.</td></tr>
+<tr valign="top" class=""><td class="t2_param">"Registration window"</td><td>Show the "Registration window" and return 0. Not supported in iOS version and will return error -4 Not implemented.</td></tr>
+<tr valign="top" class=""><td class="t2_param">"About window"</td><td>Show the "About window" and return 0. Not supported in iOS version and will return error -4 Not implemented.</td></tr>
+<tr valign="top" class=""><td class="t2_param">"Status"</td><td>Return the actual registration state of the plugin: "Demo", "Demo expired", "Trial", "Trial Expired", "Registered" or "Dead".<br>It may return different values in client solutions and server side scripts, depending on the types of licenses the product is registered with.<br>iOS version returns only one of two states: "Registered" or "Unregistered".
+</td></tr>
+<tr valign="top" class=""><td class="t2_param">"Unregister"</td><td>Unregister all serial numbers related to the product and return an error code.</td></tr>
+</table>
+
+<h4 class="rev5">Description</h4>
+<p class="rev5"><span class="news_highlight">Use this function to register or unregister 24U Phidgets Plug-In, to get information about current registration state, or to invoke GUI providing basic registration information and purchase capabilities.</span></p>
+
+<h4>Result</h4>
+<p>Returns zero or error code depending on the selector.</p>
+
+<h4>Examples</h4>
+<p> <span class="syntax_hl">Phidget_Register( "address@example.com" )</span><br>
+This will send email on address@example.com for confirmation, if you confirm than you will get trial version on this product verified by this email.</p>
+
+<p> <span class="syntax_hl">Phidget_Register( "PHD30C666-4B7B-37PH-Q2E6-1UKY" )</span><br>
+This will register this product with key: "PHD30C666-4B7B-37PH-Q2E6-1UKY".</p>
+
+<p> <span class="syntax_hl">Phidget_Register( "Unregister" )</span><br>
+This will remove all registered keys. After this call product is no longer registered.</p>
+
+
+
+
+
+<h3>Phidget_Read ( <span class="rev1x">phidgetSN</span><span class="rev1">device</span> ; valueID { ; index ; { extra } } )</h3>
+<p class="f_intro">Reads data from the Phidget.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><span class="rev1x">phidgetSN</span><span class="rev1">device</span></td><td><a href="#deviceParam" class="rev1">Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be read.</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>Default to 0. Index of the port of IO Phidget or another index information if needed</td></tr>
+<tr valign="top"><td class="t_param">extra</td><td>Specifies some options for specific Phidget type.</td></tr>
+</table>
+
+<h4>Parameter values for <span class="p_hl">valueID</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">valueID</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"inputValue"    </td><td>General</td><td>Returns value of the default input</td></tr>
+<tr valign="top"><td>"inputState"    </td><td>Interface Kit</td><td>Returns the value of the digital input</td></tr>
+<tr valign="top"><td>"sensorValue"   </td><td>Interface Kit</td><td>Returns the value of the analog input <span class="rev4">or value of a supported VINT sensor</span></td></tr>
+<tr valign="top"><td>"sensorRawValue"</td><td>Interface Kit</td><td>Returns the raw value of the analog input</td></tr>
+<tr valign="top"><td>"outputState"   </td><td>Interface Kit</td><td>Returns the value of the analog output</td></tr>
+
+<tr valign="top"><td>"outputState"   </td><td>RFID</td><td>Returns the state of the designated digital output</td></tr>
+<tr valign="top"><td>"tag"</td><td>RFID</td><td>Reads the RFID tag value. Note: before reading antenna on device has to be on. See <a href="#phidgetSet">Phidget_Set</a>.</td></tr>
+
+<tr valign="top"><td>"motorPosition" </td><td>Servo</td><td>Reads the position of the motor</td></tr>
+
+<tr valign="top"><td>"bridgeValue"   </td><td>Bridge</td><td>Reads the value of port (port has to be enabled)</td></tr>
+
+<tr valign="top"><td>"voltage"</td><td>Analog</td><td>Reads voltage level on port of Phidget Analog</td></tr>
+
+</table>
+
+<div>
+<h4>Parameter values for <span class="p_hl">extra</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr valign="top"><th align="left">extra</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+  <tr>  <td>"autoDetect"</td>  <td>RFID</td>  <td>
+	  Use this flag to autodetect the tag protocol from the tag.
+	  Without this flag, the first 5 characters of the tag content is converted into 10 character long string
+	  to ensure backward compatibility with solutions created for plug-in version 1.x.
+	  <br>Note: all new solutions are recommended to use this flag. </td>  </tr>
+</table>
+</div>
+
+<h4>Description</h4>
+<p>The "General" Phidget Type can be used with all Phidgets. The default input for all Phidgets is the first valueID for each phidget in this list. For example calling <span class="syntax">Phidget_Read( -1 ; "inputValue" )</span> is the same as <span class="syntax">Phidget_Read( -1 ; "motorPosition" )</span> for PhidgetServo.</p>
+<h4>Result</h4>
+<p>Function returns data from Phidget if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Read(-1 ; "inputValue")</span><br>
+The most basic reading. This command will read an "inputValue" from a connected Phidget. If more than one device is connected the plug-in will choose the first device which was connected.</p>
+<p><span class="syntax_hl">Phidget_Read(335882 ; "sensorValue" ; 3)</span><br>
+Reads a value from the fourth sensor of the InterfaceKit. If the field <span class="rev3x">phidgetSN</span><span class="rev4">device</span> does not contain correct serial number of the the Interface Kit Phidget (which must be connected in the time of reading) than the function will fail and returns "?".</p>
+<p><span class="syntax_hl">Phidget_Read(<span class="rev1 rev3x">335882:3</span><span class="rev3">"335882:3"</span>; "bridgeValue" ; 1)</span><br>
+Reads value from port 1 on Phidget Bridge with Phidget serial number 335882 connected to 3rd VINT port. If the port is disabled or any other error occured than the function will fail and returns "?".</p>
+<p><span class="syntax_hl">Phidget_Read(335882 ; "tag")</span><br>
+Reads tag value from Phidget RFID.</p>
+
+<p><span class="syntax_hl">Phidget_Read(335882 ; "tag")</span><br>
+Assume, that tag contains value "hello world!" using protocol PHIDGET. Because "autoDetect" is not used, output value is converted to "68656c6c6f".</p>
+
+<p><span class="syntax_hl">Phidget_Read(335882 ; "tag" ; 0 ; "autoDetect")</span><br>
+Assume, that tag contains value "hello world!" using protocol PHIDGET. This returns "hello world!".</p>
+
+
+
+
+
+
+<h3>Phidget_Write( <span class="rev1x">phidgetSN</span><span class="rev1">device</span> ; valueID ; data { ; index { ; tagProtocol <span class="rev5">{ ; tagLocking }</span> } } )</h3>
+<p class="f_intro">Data to the Phidget are written or set.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><span class="rev1x">phidgetSN</span><span class="rev1">device</span></td><td><a href="#deviceParam" class="rev1">Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be written</td></tr>
+<tr valign="top"><td class="t_param">data</td><td>Data to write or set. Please use FileMaker number type for numbers and text for strings. The plug-in will try to convert them if necessary.</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>Default to 0. Index of the port of IO Phidget or another index information if needed.<span class="rev10">
+    In case of TextLCD integrated with Interce Kit it is number of the row. In case of TextLCD Adapter index is in format "channel:row".</span></td></tr>
+<tr valign="top"><td class="t_param">tagProtocol</td><td>Default to PHIDGETS. See <a href="#tagProtocol">tag protocols</a> for more information.</td></tr>
+  <tr class="rev5"><td class="t_param">tagLocking</td><td>Can be "lock" or empty string. In case of "lock" read/write tag will be locked and cannot be rewritten in the future. Default value is "". </br>
+  <b>This is a one way process. Locked tag cannot be unlocked</b></td></tr>
+
+
+</table>
+<h4>Parameter values for <span class="p_hl">valueID</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">valueID</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"outputState"</td>     <td>General</td><td>Write value to default output</td></tr>
+<tr valign="top"><td>"outputState"</td>     <td>Interface Kit</td><td>Write data to digital output</td></tr>
+<tr valign="top"><td>"outputState"</td>     <td>RFID</td><td>New value to the output is written</td></tr>
+<tr valign="top"><td>"tag"</td> <td>RFID</td><td>New tag is written. Note: antenna has to be turned on before reading. See <a href="#phidgetSet">Phidget_Set</a>.</td></tr>
+<tr valign="top" class="rev1"><td>"motorPosition"</td>   <td>Servo and Stepper</td><td>Sets the new motor position</td></tr>
+<tr valign="top"><td>"displayString"</td><td>TextLCD</td><td>New text to LCD is written<span class="rev10x"> on the first row</span>.<span class="rev10"> Specific LCD and row is determined by parameter index.</span></td></tr>
+<tr valign="top"><td>"voltage"</td><td>Analog</td><td>Allows to set voltage level of given port. Don't forget to enable port in order to make it work.</td></tr>
+
+</table>
+<h4>Description</h4>
+<p>The "General" valueIDs can be used with all sensors. The default output for all Phidgets is the first valueID for each Phidget in this list. For example calling <span class="syntax">Phidget_Write( -1 ; "outputState" ; 20 )</span> is the same as <span class="syntax">Phidget_Write( -1 ; "motorPosition" ; 20 )</span> for PhidgetServo.</p>
+<h4>Result</h4>
+<p>Function returns 0 if everything is OK. In case of error the function returns <span class="rev1x">negative error code or Phidget Error code</span><span class="rev1">"?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</span></p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Write(-1 ; "outputState" ; 20)</span><br>
+This will write a value "20" to the first connected phidget if it is possible.</p>
+<p><span class="syntax_hl">Phidget_Write( <span class="rev3x">phidgetSN</span><span class="rev4">Device</span> ; "motorPosition" ; 215)</span><br>
+It rotates the servo in PhidgetServo to 215 degrees. <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span> parameter should contain a valid serial number of connected servo phidget.</p>
+<p><span class="syntax_hl">Phidget_Write( 69418 ; "outputState" ; 1 ; 5)</span><br>
+Sets the sixth output of the interface kit phidget with serial number 69418 to 1.</p>
+<p><span class="syntax_hl">Phidget_Write( 335882 ; "tag" ; "Your text." )</span><br>
+New tag is written. Used tag protocol: PHIDGETS (See <a href="#tagProtocol">tag protocols</a> for more information.)</p>
+<p><span class="syntax_hl">Phidget_Write( <span class="rev3x">phidgetSN</span><span class="rev4">Device</span> ; "tag" ; "999123456789012"; 0 ; "ISO11785_FDX_B" )</span><br>
+New tag is written. Used tag protocol: ISO11785_FDX_B (See <a href="#tagProtocol">tag protocols</a> for more information.)</p>
+<p><span class="syntax_hl">Phidget_Write( <span class="rev3x">phidgetSN</span><span class="rev4">Device</span> ; "tag" ; "123456789a"; 0 ; "EM4100" )</span><br>
+New tag is written. Used tag protocol: EM4100 (See <a href="#tagProtocol">tag protocols</a> for more information.)</p>
+<p><span class="syntax_hl">Phidget_Write( <span class="rev3x">phidgetSN</span><span class="rev4">Device</span> ; "displayString" ; "Hello World!"; 0)</span><br>
+<span class="rev10">This example shows how to use <a href="//24usw.com/usqf">PhidgetTextLCD 20X2 : White : Integrated PhidgetInterfaceKit 8/8/8</a><br/></span>
+New text is written on the first row. Note: Rows are indexed from zero. If text is not visible, please check backlight, brightness and contrast.</p>
+<p><span class="syntax_hl">Phidget_Write( <span class="rev3x">phidgetSN</span><span class="rev4">Device</span> ; "displayString" ; "special chars: "& char(224)  & char(225)  &  char(226)  &  char(227) ; 1) </span><br>
+<span class="rev10">This example shows how to use <a href="//24usw.com/usqf">PhidgetTextLCD 20X2 : White : Integrated PhidgetInterfaceKit 8/8/8</a><br/></span>
+Special characters on the first row are written. More about special characters can be found <a href="http://www.phidgets.com/docs/LCD_Character_Display_Primer">here</a>.</p>
+<p class="rev10"><span class="syntax_hl">Phidget_Write(-1 ; "displayString" ; "Hello World!" ; "2:1"></span><br/>
+This example shows how to use <a href="//24usw.com/msdm"> PhidgetTextLCD Adapter</a> with <a href="//24usw.com/PHD_LCDScreen4x20">LCD Screen 4x20.</a> connected to port LCD-1<br/>
+Before you can write on the LCD connected to the PhidgetTextLCD Adapter, you should first set up screen size and activate the screen (see <a href="#phidgetSet">Phidget_Set</a>).<br/>
+New text is written on the 3rd row.</p>
+<p><span class="syntax_hl">Phidget_Write( <span class="rev3x">phidgetSN</span><span class="rev4">Device</span> ; "outputState" ; 2,6 ; 1) </span><br>
+Set output voltage to 2,6V on port 1 (assuming this port is enabled).</p>
+
+
+<h3>Phidget_SetScriptEvent( <span class="rev1x">phidgetSN</span><span class="rev1">device</span> ; event/time ; scriptName { ; index { ; changeAmount { ; threshold } } } )</h3>
+<p class="f_intro">Tell the plug-in to launch the script when specified event is triggered by the Phidget or in specified time intervals.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><span class="rev1x">phidgetSN</span><span class="rev1">device</span></td><td><a href="#deviceParam" class="rev1">Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param">event</td><td>The event when the script should be triggered. Use FileMaker text to describe it. I.e. "onSensorChange".</td></tr>
+<tr valign="top"><td class="t_param">time</td><td>The time interval on which the script should trigger. Use FileMaker number i.e. 1.8. Time is in [s]. Time must be a positive number. Setting time lower than 1 s is not recommended.</td></tr>
+<tr valign="top"><td class="t_param">scriptName</td><td>The name of script which should be triggered. The script will receive a parameter which will contain at least <span class="rev3x">phidgetSN</span><span class="rev4">Device</span> on the first row. More values can be added depending on the event.</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>The index of analog input or output to trigger the script. The script will be triggered only if the value will exceed changeAmount. If omitted the script will be triggered every time when any of inputs/outputs are changed regardless of its number.</td></tr>
+<tr valign="top"><td class="t_param">changeAmount</td><td>The amount of change that should exist between the last reported value and the current value before an event triggers. The default is 1. This cannot be changed for binary inputs or outputs. Use FileMaker number.
+Param changeAmount can be used only on onSensorChange event, it is ignored on other events.
+</td></tr>
+<tr valign="top"><td class="t_param">threshold</td><td>The script will not be triggered until the sensor value exceeds threshold. Use it as a simple noise filter. It has no meaning for binary inputs/outputs. The default value is 0 - no filtering.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">event</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">event</th><th align="left">Phidget type</th><th align="left">Description</th><th align="left">Script is given parameters <span class="rev3">(return-delimited)</span>:</th></tr>
+<tr valign="top"><td>"onAttach"     </td><td>General</td><td>Run the script when some phidget is attached. <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span> must be set to "all".</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span></td></tr>
+<tr valign="top"><td>"onDetach"     </td><td>General</td><td>Run the script when some phidget is detached. <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span> must be set to "all".</td><td>
+     <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span></td></tr>
+<tr valign="top"><td>"onInputChange"</td><td>General</td><td>Run the script when default input is changed</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value </td></tr>
+<tr valign="top"><td>"onInputChange"</td><td>Interface Kit</td><td>Run the script when digital input is changed</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value </td></tr>
+<tr valign="top"><td>"onSensorChange"</td><td>Interface Kit</td><td>Run the script when the value from connected sensor<span class="rev4"> or VINT sensor</span> is changed. The amount can be set by the changeAmount.</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value </td></tr>
+<tr valign="top"><td>"onOutputChange"</td><td>Interface Kit</td><td>Run the script when output is changed</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value </td></tr>
+<tr valign="top"><td>"onTag"         </td><td>RFID</td><td>Run the script when a tag approaches RFID sensor</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index tagBackwardCompatibleString tagValueString</td></tr>
+<tr valign="top"><td>"onTagLost"     </td><td>RFID</td><td>Run the script when a the sensor losts the connection with a tag</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index tagBackwardCompatibleString tagValueString</td></tr>
+<tr valign="top"><td>"onOutputChange"</td><td>RFID</td><td>Run the script when output is changed</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value</td></tr>
+<tr valign="top" class="rev1"><td>"onMotorPosChange"</td><td>Servo and Stepper</td><td>Run the script when the motor position is changed</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value</td></tr>
+<tr valign="top"><td>"onBridgeData"  </td><td>Bridge</td><td>Run the script when dataRate time has passed</td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value</td></tr>
+<tr valign="top" class="rev1"><td>"onStepperStop"  </td><td>Stepper</td><td>Run the script when stepper motor stops. <!--span class="rev4">Calling this function before stepper runs at least once might lead to unexpected behavior.</span--></td><td>
+      <span class="rev1x">PhidgetSN</span><span class="rev1"><a href="#deviceParam" class="rev1">device</a></span> index value</td></tr>
+</table>
+<h4>Description</h4>
+
+<p>Some events are the same for more Phidgets. The "General" event "onInputChange" can be installed to all listed Phidgets and it will behave as their default input event.
+For example: <span class="syntax">Phidget_SetScriptEvent( -1 ; "onInputChange" ; "Do Something" )</span> has the same meaning as
+<span class="syntax">Phidget_SetScriptEvent( -1 ; "onMotorPosChange" ; "Do Something" )</span> for PhidgetServo or <span class="syntax">Phidget_SetScriptEvent( -1 ; "onTag" ; "Do Something" )</span>
+for PhidgetRFID. If "onInputChange" is used, the phidget type is detected automatically and the event is installed to it.<br>
+Param changeAmount can be used only on onSensorChange event. On other events it is ignored.</p>
+
+<p>In both cases (event/time) the script will receive a parameter containing the value list with <span class="rev3x">phidgetSN</span><a href="#deviceParam" class="rev4">device</a>, inputIndex and inputValue. Values for digital input can be "0" or "1" for analog it varies by the type of the event.</p>
+<p>To remove event call <span class="syntax">Phidget_SetScriptEvent( <span class="rev1x">phidgetSN</span><span class="rev1">device</span> ; event/time ; "" )</span>.<br>
+To remove all events from some phidget call <span class="syntax">Phidget_SetScriptEvent( <span class="rev3x">phidgetSN</span><span class="rev4">device</span> ; "" ; "" )</span>.<br>
+To remove all events from all Phidgets call <span class="syntax">Phidget_SetScriptEvent( "" ; "" ; "" )</span> or <span class="syntax">Phidget_SetScriptEvent( "all" ; "" ; "" )</span>.</p>
+<h4>Result</h4>
+<p>Function returns 0 if event is successfully installed or uninstalled. In case of error the function returns <span class="rev1x">negative error code or Phidget Error code</span><span class="rev1">"?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</span></p></p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(-1 ; 1.2 ; "Default Script")</span><br>
+This will install the script named "Default Script" to the first available connected phidget. The script will run every 1.2 second and it will obtain a parameter which consist of serial number, "0" and input value. Each on new line. The "0" signals that the input on index 0 is beeing read.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(<span class="rev3x">phidgetSN</span><span class="rev4">device</span> ; "onTag" ; "Process new tag")</span><br>
+The script "Process new tag" will be triggered every time the new RFID tag is in the vicinity of the RFID phidget. The script will receive a parameter with phidget serial number, "0" and RFID value of the tag. Each on the new line. The zero means, that the first input of RFID phidget is used.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent(69418 ; "onSensorChange" ; "Read sensor" ; 6 ; 10 ; 5)</span><br>
+This will install "onSensorChange" event to the interface kit phidget with serial number 69418. The phidget must be connected.
+The "Read sensor" script will be triggered when the seventh sensor's value on the interface kit phidget with SN 69418 will change more than 10 points and will be higher than 5. The script will receive the parameter which will contain: "69418", "6" and sensor value. Each on the new line.</p>
+<p><span class="syntax_hl">Phidget_SetScriptEvent("all" ; "onAttach" ; "New phidget attached")</span><br>
+The script "New phidget attached" will be called every time when user will connect a new phidget to the system. The script will receive a parameter with serial number of the new connected phidget.</p>
+
+<h3>Phidget_Get( what { ; more ; index } )</h3>
+<p class="f_intro">Function to get plug-in or phidget settings and other useful data.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param">what</td><td>Which data should be get</td></tr>
+<tr valign="top"><td class="t_param">more</td><td>Additional specifier to concretize the request</td></tr>
+<tr valign="top"><td class="t_param">index</td><td>Additional specifier to get data for specific part (see example)</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">what</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"lastError"</td>       <td>Not used</td><td>Returns the error code of the last error. If no error occurred 0 is returned.</td></tr>
+<tr valign="top" class="rev4"><td>"lastErrorMessage"</td><td>Not Used</td><td>Returns error text description from the last plugin call</td></tr>
+<tr valign="top"><td>"libraryVersion"</td>  <td>Not used</td><td>Get version of Phidget Library installed on system</td></tr>
+<tr valign="top"><td>"attachedDevices"</td> <td>Not used</td><td>Get number of attached devices</td></tr>
+<tr valign="top"><td>"serialNumber"</td>    <td>Phidget Index</td><td>Serial number of the device with index specified in "more" parameter</td></tr>
+<tr valign="top"><td>"deviceType"</td>      <td><span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td><td>Type of the device specified by <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td></tr>
+<tr valign="top"><td>"deviceName"</td>      <td><span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td><td>Name of the device specified by <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td></tr>
+<tr valign="top"><td>"deviceVersion"</td>   <td><span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td><td>Version of the device specified by <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td></tr>
+<tr valign="top"><td>"deviceLabel"</td>     <td><span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td><td>Label of the device specified by <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td></tr>
+<tr valign="top"><td>"numInputs"</td>       <td><span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td><td>The number of default inputs</td></tr>
+<tr valign="top"><td>"numOutputs"</td>      <td><span class="rev3x">PhidgetSN</span><span class="rev4">Device</span></td><td>The number of default outputs</td></tr>
+
+<tr valign="top"><td>"numSensors"</td>      <td>Interface Kit</td><td>Number of sensors</td></tr>
+<tr valign="top"><td>"ratiometric"</td>     <td>Interface Kit</td><td>Returns phidget ratiometric status</td></tr>
+
+<tr valign="top"><td>"antennaOn"</td>       <td>RFID</td><td>The status of the antenna of the RFID reading device</td></tr>
+<tr valign="top"><td>"ledOn"</td>           <td>RFID</td><td>The status of the LED</td></tr>
+<tr valign="top"><td>"tagProtocol"</td> <td>RFID</td><td>Returns RFID tag protocol. See <a href="#tagProtocol">tag protocols</a> for more information.</td></tr>
+
+<tr valign="top"><td>"backlight"</td>   <td>TextLCD</td><td><span class="rev2x">Gets the state of the backlight.</span><span class="rev2">Gets the backlight brightness</span></td></tr>
+<tr valign="top"><td>"brightness"</td>  <td>TextLCD</td><td><span class="rev2x">Gets the brightness of the backlight (Not supported on all TextLCDs).</span>
+															<span class="rev2">This parameter is deprecated since version 3.0, please use "backlight" instead. For backward compatibility, this parameter returns the same value as "backlight" parameter.</span></td></tr>
+
+<tr valign="top"><td>"contrast"</td>    <td>TextLCD</td><td>Gets the last set contrast value</td></tr>
+<tr valign="top"><td>"numRows"</td>     <td>TextLCD</td><td>Gets number of rows on LCD display</td></tr>
+<tr valign="top"><td>"numColumns"</td>  <td>TextLCD</td><td>Gets number of columns on LCD display</td></tr>
+<tr valign="top"><td>"cursorOn"</td>    <td>TextLCD</td><td>Gets '1' if cursor is on </td></tr>
+<tr valign="top"><td>"cursorBlink"</td> <td>TextLCD</td><td>Gets '1' if cursor should be blinking</td></tr>
+
+<tr valign="top"><td>"enabled"</td>     <td>Bridge and Analog</td><td>Gets "1" if port is enabled</td></tr>
+<tr valign="top"><td>"dataRateMin"</td> <td>Bridge</td><td>Gets minimal possible data rate</td></tr>
+<tr valign="top"><td>"dataRateMax"</td> <td>Bridge</td><td>Gets maximum possible data rate</td></tr>
+<tr valign="top"><td>"dataRate"</td>    <td>Bridge</td><td>Gets actual data rate for getting values from bridge automatically.</td></tr>
+<tr valign="top"><td>"gain"</td>        <td>Bridge</td><td>Gets the value of actual gain (something and precision) </td></tr>
+<tr valign="top"><td>"bridgeMin"</td>   <td>Bridge</td><td>Gets bridge minimal possible value on port</td></tr>
+<tr valign="top"><td>"bridgeMax"</td>   <td>Bridge</td><td>Gets bridge maximal possible value on port</td></tr>
+
+<tr valign="top"><td>"voltageMin"</td>  <td>Analog</td><td>Gets voltage minimal possible value on port</td></tr>
+<tr valign="top"><td>"voltageMax"</td>  <td>Analog</td><td>Gets voltage maximal possible value on port</td></tr>
+
+<tr valign="top"><td>"servoMin"</td>    <td>AdvancedServo</td><td>Get minimal value for servo position</td></tr>
+<tr valign="top"><td>"servoMax"</td>    <td>AdvancedServo</td><td>Get maximal value for servo position</td></tr>
+
+<tr valign="top" class="rev1"><td>"engaged"</td>     <td>AdvancedServo and Stepper</td><td>Gets '1' if servo on position is on</td></tr>
+
+<tr valign="top" class="rev1"><td>"acceleration"</td>     <td>Stepper</td>	<td>Get current acceleration of stepper</td></tr>
+<tr valign="top" class="rev1"><td>"velocity"</td>     <td>Stepper</td>	<td>Get current velocity of stepper</td></tr>
+<tr valign="top" class="rev1"><td>"minAcceleration"</td>     <td>Stepper</td>	<td>Get minimal possible acceleration</td></tr>
+<tr valign="top" class="rev1"><td>"maxAcceleration"</td>     <td>Stepper</td>	<td>Get maximal possible acceleration</td></tr>
+<tr valign="top" class="rev1"><td>"controlMode"</td>     <td>Stepper</td>	<td>Get control mode, possible values are "run" (continuos movement),
+															"step" (motor will move to given target).</td></tr>
+<tr valign="top" class="rev1"><td>"targetPosition"</td>     <td>Stepper</td>	<td>Get target position</td></tr>
+<tr valign="top" class="rev1"><td>"acceleration"</td>     <td>Stepper</td>	<td>Get current acceleration of stepper</td></tr>
+<tr valign="top" class="rev1"><td>"velocity"</td>     <td>Stepper</td>	<td>Get current velocity of stepper</td></tr>
+<tr valign="top" class="rev3"><td>"currentLimit"</td>     <td>Stepper</td>	<td>Get value of current limit. Current limit allows to control maximal power output for given Stepper.</td></tr>
+<tr valign="top" class="rev4"><td>"correctionTemperature"</td>     <td>PH Sensor</td>    <td>Get value of correction temperature for PH Sensor</td>    </tr>
+<tr valign="top" class="rev4"><td>"portMode"</td>     <td>VINT Hub</td>    <td>Get current port mode. Possible values are "digitalOutput", "digitalInput", "voltage", "voltageRatio", "vintDevice".</td></tr>
+
+
+</table>
+<h4>Description</h4>
+<p>The "more" parameter is usually used to specify Phidget Serial Number. Some commands need specific <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span> (of specific type) otherwise they will fail. Some commands are more general. You can use PhigetSN value "-1" to specify the default Phidget.</p>
+<p>The boolean values are returned in number form. For example <span class="syntax">Phidget_Get("antennaOn" ; -1)</span> returns 0 if backlight is off and 1 if backlight is on.</p>
+<h4>Result</h4>
+<p>Function returns data if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Get("attachedDevices")</span><br>
+This will return the number of attached devices. If no phidget is attached to the machine it will return 0. It is a good command to start with to check if any phidget is connected.</p>
+<p><span class="syntax_hl">Phidget_Get("serialNumber" ; 3)</span><br>
+If you have four Phidgets connected to the machine this will return the serial number of the fourth one. Use this command in the loop (along with previous one) to enumerate serial numbers of all Phidgets connected to the machine.</p>
+<p><span class="syntax_hl">Phidget_Get("deviceType" ; 69418)</span><br>
+This will check the connected phidget with SN 69418 and returns its type. The types are textual in human readable form. For the supported types the result can be: "PhidgetInterfaceKit", "PhidgetRFID" and "PhidgetServo". In general the type names are the same as the official ones.</p>
+<p><span class="syntax_hl">Phidget_Get("deviceType" ; 120538 ; 1)</span><br>
+This will return device type of given <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span>, however it will try to locate the second type of given <span class="rev3x">PhidgetSN</span><span class="rev4">Device</span>. <b>Example</b>: you have TextLCD combined with InterfaceKit, this allows you to get device type of the second device.</p>
+<p><span class="syntax_hl">Phidget_Get("enabled" ; 140923 ; 2)</span><br>
+This will check if port 2 on Phidget Bridge is enabled. Port has to be enabled, if we want to read data.</p>
+<p><span class="syntax_hl">Phidget_Get("dataRateMin" ; 140923)</span><br>
+This will return minimal rate in Phidget Bridge. Value is in ms and if you set data rate, it should be <b>lesser or equal</b>.</p>
+<p><span class="syntax_hl">Phidget_Get("numColumns" ; 120538)</span><br>
+This will return number of columns of Text LCD with SN 120538.</p>
+<p><span class="syntax_hl">Phidget_Get("numRows ; 120538)</span><br>
+This will return number of rows of Text LCD with SN 120538.</p>
+<p class="rev10"><span class="syntax_hl">Phidget_Get("numRows" ; 329701 ; 1)</span><br>
+This will return number of rows of LCD connected to TextLCD Adapter to port LCD-1 with SN 329701.</p>
+<p><span class="syntax_hl">Phidget_Get("contrast" ; 120538)</span><br>
+This will return current value of contrast of Text LCD with SN 120538.</p>
+<p class="rev3x"><span class="syntax_hl">Phidget_Get("brightness" ; 120538)</span><br>
+This will return current value of brightness of Text LCD with SN 120538.</p>
+<p class="rev3x"><span class="syntax_hl">Phidget_Get("backlight" ; -1)</span><br>
+This will return backlight status of the first found Text LCD.</p>
+<p class="rev3"><span class="syntax_hl">Phidget_Get("backlight" ; 120538)</span><br>
+This will return current value of backlightm brightness (within range of 0-255) of Text LCD with SN 120538.</p>
+
+<h3 id="phidgetSet">Phidget_Set( what ; value { ; <span class="rev1x">phidgetSN</span><span class="rev1">device</span> ; index } )</h3>
+<p class="f_intro">Function to set plug-in or phidget settings and other useful data.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><tt>what</tt></td><td>Which data should be set.</td></tr>
+<tr valign="top"><td class="t_param"><tt>value</tt></td><td>The new value.</td></tr>
+<tr valign="top"><td class="t_param"><tt><span class="rev1x">phidgetSN</span><span class="rev1">device</span></tt></td><td><a href="#deviceParam" class="rev1">Identification of device</a></td></tr>
+<tr valign="top"><td class="t_param"><tt>index</tt></td><td>Index of changed value.</td></tr>
+</table>
+<h4>Parameter values for <span class="p_hl">what</span></h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">what</th><th align="left">Phidget type</th><th align="left">Description</th></tr>
+<tr valign="top"><td>"ratiometric"</td>     <td>Interface Kit</td><td>Sets phidget ratiometric. The phidget with ratiometric will measure more precise if ratiometric sensor (marked with R) is attached.</td></tr>
+<tr valign="top"><td>"antennaOn"</td>       <td>RFID</td><td>Sets the status of the antenna of the RFID reading device</td></tr>
+<tr valign="top"><td>"ledOn"</td>           <td>RFID</td><td>Sets the status of the LED</td></tr>
+
+<tr valign="top"><td>"backlight"</td>          <td>TextLCD</td><td><span class="rev2x">Sets the state of the backlight. Possible values are 1 and 0. </span>
+																   <span class="rev2">Sets the backlight brightness. Possible values are 0-255.</span></td></tr>
+<tr valign="top"><td>"brightness"</td>         <td>TextLCD</td><td><span class="rev2x">Sets the brightness of the backlight. Not supported on all TextLCDs. Possible values of brightness are 0-255.</span>
+																   <span class="rev2">This parameter is deprecated since version 3.0, please use "backlight" instead. For backward compatibility, setting this parameter behaves the same way as setting the "backlight".</span></td></tr>
+<tr valign="top"><td>"contrast"</td>           <td>TextLCD</td><td>Sets the contrast value. Possible values of contrast are 0-255.</td></tr>
+<tr valign="top"><td>"cursorOn"</td>           <td>TextLCD</td><td>This allows to turn on/off cursor</td></tr>
+<tr valign="top"><td>"cursorBlink"</td>        <td>TextLCD</td><td>If cursor is on, then you can turn on/off its blinking</td></tr>
+
+<tr valign="top"><td>"enabled"</td>            <td>Bridge and Analog</td><td>This will enable port on given index</td></tr>
+<tr valign="top"><td>"gain"</td>               <td>Bridge</td><td>This will allow you to set gain of data from the bridge</td></tr>
+<tr valign="top"><td>"dataRate"</td>           <td>Bridge</td><td>This will allow you to set data rate of incomming data</td></tr>
+
+<tr valign="top" class="rev1"><td>"motorOn"</td>         <td>Servo and Stepper</td><td>Turns a Motor On &amp; Off. <span class="rev4">Before you turn servo on, first you have to configure target position.</td></tr>
+<tr valign="top"><td>"servoMax"</td>           <td>AdvancedServo</td><td>Allow to set minimal value for servo (prevents servo from being damaged)</td></tr>
+<tr valign="top"><td>"servoMin"</td>           <td>AdvancedServo</td><td>Allow to set maximal value for servo (prevents servo from being damaged)</td></tr>
+
+<tr valign="top" class="rev4"><td>"portMode"</td>     <td>VINT Hub</td>    <td>Sets the hub port mode. Possible values are "digitalOutput", "digitalInput", "voltage", "voltageRatio", "vintDevice". Default value for hub port is "vintDevice" mode. Hub Port will ignore all VINT devices if it is not set to VINT device mode. Only one mode is active at time. Setting mode unsets all other modes.</td></tr>
+
+<tr valign="top" class="rev1 rev4x"><td>"minAcceleration"</td>     <td>Stepper</td>	<td>Set minimal possible acceleration</td></tr>
+<tr valign="top" class="rev1 rev4x"><td>"maxAcceleration"</td>     <td>Stepper</td>	<td>Set maximal possible acceleration</td></tr>
+<tr valign="top" class="rev1"><td>"controlMode"</td>     <td>Stepper</td>	<td>Set motor mode, possible values are "step" (motor will move to given position) and "run" (continuos movement). <span class="rev4">After you set controlMode you should also reset velocity, acceleration and target position.</span></td></tr>
+<tr valign="top" class="rev3"><td>"acceleration"</td>     <td>Stepper</td>	<td>Set current acceleration of stepper</td></tr>
+<tr valign="top" class="rev3"><td>"velocity"</td>     <td>Stepper</td>	<td>Set current velocity of stepper</td></tr>
+<tr valign="top" class="rev3"><td>"currentLimit"</td>     <td>Stepper</td>	<td>Set the current limit. Current limit allows to control maximal power output for given Stepper.</td></tr>
+<tr valign="top" class="rev4"><td>"correctionTemperature"</td>     <td>PH Sensor</td>    <td>Set value for correction temperature for PH Sensor</td></tr>
+<tr valign="top" class="rev10"><td>"screenSize"</td>     <td>TextLCD Adapter</td>    <td>Set screen size of LCD connected to the adapter. Possible values are: "2x20", "2x40", "4x20"</td></tr>
+<tr valign="top" class="rev10"><td>"activeScreen"</td>     <td>TextLCD Adapter</td>    <td>Set the active LCD connected to TextLCD Adapter. Before you can write to LCD connected to the TextLCD Adapter, you should set the LCD as active screen. Use value "1".</td></tr>
+
+
+</table>
+<h4>Description</h4>
+<p>Use this funtion to set various value on Phidgets.</p>
+<h4>Result</h4>
+<p>Function returns set value if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Set("ratiometric" ; 1 ; 69418)</span><br>
+This will set the ratiometric value to 1 (turns on) in the phidget with SN 69418. This phidget must be interface kit phidget otherwise "?" is returned.</p>
+<p><span class="syntax_hl">Phidget_Set("ratiometric" ; 1 ; -1)</span><br>
+This will set the ratiometric value to 1 (turns on) in the first phidget it founds. This phidget must be interface kit phidget otherwise "?" is returned. Use this form if you have only one phidget connected to the computer and you are sure that you will never connect any other phidget otherwise the result can be unpredictable.</p>
+<p class="rev3x"><span class="syntax_hl">Phidget_Set( "backlight" ; 1 ; 120538)</span><br>
+This will set the state of the backlight. Possible values 0 (off) or 1 (on).</p>
+<p class="rev3"><span class="syntax_hl">Phidget_Set( "backlight" ; 127,5 ; 120538)</span><br>
+This will set the backlight brightness value. Possible values 0-255.</p>
+<p><span class="syntax_hl">Phidget_Set( "contrast" ; 155 ; 120538)</span><br>
+This will set the contrast value. Possible values 0-255.</p>
+<p><span class="syntax_hl">Phidget_Set( "motorOn" ; 1 ; 170192 ; 3)</span><br>
+This will turn on the fourth motor.</p>
+<p><span class="syntax_hl">Phidget_Set( "motorOn" ; 0 ; 170192 ; 0)</span><br>
+This will turn off the first motor.</p>
+<p><span class="syntax_hl">Phidget_Set( "enabled" ; 1 ; 140912 ; 3)</span><br>
+This will enable port 3 on Bridge.</p>
+<p><span class="syntax_hl">Phidget_Set( "dataRate" ; 200 ; 140923)</span><br>
+This will set data rate of Phidget Bridge on 200 ms. Be careful - data rate should be between data rate min and data rate max.</p>
+<p><span class="syntax_hl">Phidget_Set( "enabled" ; 1 ; 131907 ; 3)</span><br>
+This will enable port 3 on Analog (assuming proper phidgetSN was given).</p>
+<p class="rev4"><span class="syntax_hl">Phidget_Set( "portMode" ; "digitalOutput" ; "335882:3")</span><br>
+This will set digital output mode on port 3 on VINT Hub with serial number 335882. You can use the port as digital output the same way as with the Interface kit.</p>
+<p class="rev4"><span class="syntax_hl">Phidget_Set( "portMode" ; "vintDevice" ; "335882:3")</span><br>
+This will set VINT device mode on port 3 on VINT Hub with serial number 335882. After you set port, you can connect to the port one of the supported VINT devices.</p>
+<p class="rev10"><span class="syntax_hl">Phidget_Set( "screenSize" ; "4x20" ; "329701" ; "1")</span><br>
+This example shows how to use <a href="//24usw.com/msdm"> PhidgetTextLCD Adapter</a> with <a href="//24usw.com/PHD_LCDScreen4x20">LCD Screen 4x20.</a> connected to port LCD-1<br/>
+This will prepare the plugin for use of the this lcd. Not setting the size before writting to the lcd will lead to unexpected behavior.</p>
+<p class="rev10"><span class="syntax_hl">Phidget_Set( "activeScreen" ; "1" ; "329701" ; "1")</span><br>
+This will activate lcd connected to the port LCD-1 of <a href="//24usw.com/msdm"> PhidgetTextLCD Adapter</a>. After activating the screen you can start use function Phidget_Write with this LCD.
+</p>
+
+
+
+
+
+<h3 id="Phidgets_Connnect">Phidget_Connect( address ; password {; port } )</h3>
+<p class="f_intro">Function to connect to an SBC <span class="rev5">or a computer running <span class="rev6x">a</span><span class="rev6">the</span> Phidget Network Server</span> via network.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><tt>address</tt></td><td>Address of SBC in network</td></tr>
+<tr valign="top"><td class="t_param"><tt>password</tt></td><td>Password for security</td></tr>
+<tr valign="top"><td class="t_param"><tt>port</tt></td><td>Port of service. In case you wont use, port <span class="rev3x">5001</span><span class="rev3">5661</span>  is used.</td></tr>
+</table>
+<h4>Description</h4>
+<p>Use this function to connect to an SBC or Phidget Network Server.</p>
+<h4>Result</h4>
+<p>Function return 0, if everything OK, if function returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.
+However, even if function returns 0, it doesn't mean that SBC is already connected. If you have slow network, then it can take some time. Connected SBC will trigger "onAttach" script (if set).</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Connect("10.0.3.51" ; "111111")</span><br>
+Try to establish connection to address 10.0.3.51 with password "111111" on port <span class="rev3x">5001</span><span class="rev3">5661</span>.</p>
+<p>FileMaker example of using this feature can be found <a href="../Examples/24U Phidgets SBC Example.fmp12">here</a>.</p>
+
+<div>
+<h3>Phidget_Disconnect( address )</h3>
+<p class="f_intro">Function to disconnect from an SBC <span class="rev5">or a computer running <span class="rev6x">a</span><span class="rev6">the</span> Phidget Network Server</span>.</p>
+<h4>Parameters</h4>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td class="t_param"><tt>address</tt></td><td>Address of SBC in network</td></tr>
+</table>
+<h4>Description</h4>
+<p>Use this function to disconnect from an SBC or Phidget Network Server.</p>
+<h4>Result</h4>
+<p>Function return 0, if everything OK, if function fails - it returns "?". You can use <span class="syntax">Phidget_Get("lastError")</span> for more detailed error description.</p>
+<h4>Examples</h4>
+<p><span class="syntax_hl">Phidget_Disconnect("10.0.3.51")</span><br>
+Disconnects from address 10.0.3.51.</p>
+</div>
+
+
+
+<div class="rev1">
+<h2 id="deviceParam">Device identification</h2>
+<p class="f_intro">
+There are several different ways to identify a Phidget device:
+</p>
+<table style="text-align: left;">
+  <tr><th>Type</th> <th>Example</th>   <th>Description</th> </tr>
+  <tr><td>Phidgets SN </td> <td>335882 </td> <td>Use Phidget serial number for Phidgets connected directly to computer or SBC (Single Board Computer).</td></tr>
+  <tr><td>First available</td><td>-1</td><td>Use value -1 for the first available device. </td> </tr>
+  <tr><td>Phidgets SN + ":" + VINT port </td><td><span class="rev3x">335882:4</span><span class="rev3">"335882:4"</span></td> <td>Use Phidget serial number and VINT port for Phidgets connected via VINT hub.</td> </tr>
+</table>
+<p class="f_intro">
+Please note that if the Phidgets is connected via network, you will have to use <a href="#Phidgets_Connnect">Phidget_Connect</a> function first.
+</p>
+</div>
+
+
+<div>
+<h2 id="tagProtocol">Tag protocols of RFID</h2>
+<p class="f_intro">This section explain tag protocols used for writing on RFID tag.<br>
+Tag protocol specifies, which format of input data is accepted. Table below shows supported protocols.</p>
+<table style="text-align: left;">
+  <tr>  <th>Tag protocol</th>   <th>Accepted value</th> </tr>
+  <tr>  <td>PHIDGETS</td>       <td>Strings or numbers (integer)</td> </tr>
+  <tr>  <td>ISO11785_FDX_B</td> <td>Strings with 15 numbers (3 state code, 12 animal code)</td> </tr>
+  <tr>  <td>EM4100</td>         <td>Strings of 10 hexadecimal numbers (0-f)</td> </tr>
+</table>
+</div>
+
+<a name="error" />
+<h2><span class="p_hl">24U Phidget Plug-In</span> status codes</h2>
+<table border=0 cellspacing=4 cellpadding=0>
+    <tr valign="top"><td>-50</td><td>Parameter error</td><td>Means paramErr, Phidget_ has wrong parameters.</td></tr>
+    <tr valign="top"><td>-36</td><td>Missing RFID tag</td><td>Returned when RFID Reader / Writer has no RFID tag to read / write.</td></tr>
+    <tr valign="top" class="rev7"><td>-37</td><td>Antenna is off</td><td>RFID Reader is not able to provide this functionality with antenna off.</td></tr>
+    <tr valign="top" class="rev4"><td>-23</td><td>Invalid Script Name</td><td>Returned when plugins function Phidget_SetScriptEvent can't find script in the file</td></tr>
+    <tr valign="top" class="rev4"><td>1 - 1000</td><td>Phidget Library errors</td><td>You can get error description by calling Phidget_Get("lastErrorMessage").</td></tr>
+
+
+    <tr valign="top"><td>24001</td>  <td>Demo mode expired</td>                <td>If you want to keep using the plug-in, you must register it or buy it for particular environment.</td>  </tr>
+    <tr valign="top"><td>24002</td>  <td>Product expired</td>                  <td>Trial period is over. If you want to keep using the product, you must buy it for particular environment.</td></tr>
+    <tr valign="top"><td>24003</td>  <td>SN limit was met</td>                 <td>The serial number is already registered on too many computers.</td></tr>
+    <tr valign="top"><td>24004</td>  <td>Product is dead</td>                  <td>The product expired and cannot be used any more. Please download the new version from <a href="http://www.24usoftware.com/">24U Software</a>.</td></tr>
+    <tr valign="top"><td>24005</td>  <td>Invalid serial number</td>            <td>Serial number you entered is not valid.</td></tr>
+    <tr valign="top"><td>24006</td>  <td>Activation failed</td>                <td>Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top"><td>24007</td>  <td>Deactivation failed</td>              <td>Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top"><td>24008</td>  <td>Unknown serial number</td>            <td>The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</td></tr>
+    <tr valign="top"><td>24009</td>  <td>Blacklisted serial number</td>        <td>The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</td></tr>
+    <tr valign="top"><td>24010</td>  <td>eSellerate engine not installed</td>  <td>This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</td></tr>
+    <tr valign="top" class="rev7"><td>24011</td>  <td>Device limit met</td>    <td>The purchased license has a limitation of used devices.</td></tr>
+
+</table>
+
+
+</body>
+</html>

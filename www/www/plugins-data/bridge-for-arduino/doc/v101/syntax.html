@@ -1,0 +1,733 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script>
+            /* toggle function for long tables etc. */
+            function showItems(className) {
+                var tags = document.getElementsByTagName('*');
+                var tcl = " " + className + " ";
+                for (i = 0, j = 0; i < tags.length; i++) {
+                    var test = " " + tags[i].className + " ";
+                    if (test.indexOf(tcl) != -1) {
+                        if (tags[i].style.display == "none") {
+                            tags[i].style.display = "inline";
+                        }
+                        else {
+                            tags[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+        /* Simple highlight toggle only: */
+        function changeColor() {
+            var tags = document.getElementsByTagName('*');
+            var classes = ["rev8", "rev9", "rev10", "rev11"];
+            classes.forEach(function(revclass) {
+                            var tcl = " " + revclass + " ";
+                            for (i = 0, j = 0; i < tags.length; i++) {
+                            var test = " " + tags[i].className + " ";
+                            if (test.indexOf(tcl) != -1) {
+                            if (tags[i].style.backgroundColor == "") {
+                            tags[i].style.backgroundColor = "#FFFFA0";
+                            tags[i].style.color = "black";
+                            }
+                            else {
+                            tags[i].style.backgroundColor = "";
+                            tags[i].style.color = "";
+                            }
+                            }
+                            }
+                            })
+                            classes.forEach(function(revclass) {
+                                            var tcl = " " + revclass + "x ";
+                                            for (i = 0, j = 0; i < tags.length; i++) {
+                                            var test = " " + tags[i].className + " ";
+                                            if (test.indexOf(tcl) != -1) {
+                                            if (tags[i].classList.contains("striked")) {
+                                            tags[i].classList.remove("striked");
+                                            }
+                                            else {
+                                            tags[i].classList.add("striked");
+                                            }
+                                            }
+                                            }
+                                            })
+        }
+
+        /* New revisioning functions: */
+        function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+                        tags[i].classList.add(toggleClass);
+                    }
+                    else {
+                        tags[i].classList.remove(toggleClass);
+                    }
+                }
+            }
+        }
+
+        function showRevision(revNumber) {
+            var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+            // Reset all to latest revision:
+            for (var i=1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+            }
+
+            // Highlight current revision:
+            toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+            toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+
+            // Revert future revisions:
+            for (var i=revNumber+1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+            }
+        }
+        function showRevisions(revStart, revLast) {
+            var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+            // Reset all to latest revision:
+            for (var i=1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+            }
+
+            // Highlight all changes from revision revStart to the current revision(revLast):
+            for(var i = revStart; i <= revLast; i++) {
+                toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "add");
+                toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "add");
+            }
+
+            // Revert future revisions:
+            for (var i=revNumber+1; i<max_revisions; i++) {
+                toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+                toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+            }
+        }
+
+            </script>
+        <style type="text/css">
+
+            /* Texts from old revisions are removed by default: */
+            .rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x,
+            .rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }
+            /* Highlighting classes handled by js: */
+            .highlighted { background-color: #FFFFA0; color: black; }
+            .striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }
+            .ignoreStriked { }
+            .highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */
+            li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */
+            span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */
+            td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+            tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+            .hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+
+            </style>
+
+        <STYLE TYPE="text/css" MEDIA=screen>
+            <!--
+            h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+            h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+            h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+            h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+            .intro { font-size: 14px; margin-left: 0px }
+            .f_intro { font-size: 12px; margin-left: 0px }
+            .p_hl { color: maroon }
+            .syntax { color: #003200; font-family: monospace; font-size: 12px }
+            .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+            .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+            .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+            .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+            .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+            .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+            table { margin-left: 20px; margin-right: 20px }
+            TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+            TD { font-family: Helvetica, Arial; font-size: 12px }
+            p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+            DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+
+            .ios {color: black; background-color: pink;}
+            li              { margin: 0.2em 0em ;}
+            xmp             { font-size: 12px; margin-left: 40px; margin-top: 6px; color: darkblue; }
+            table, td, th, tr { border: 1px solid #808080; margin-top:1em; padding:0.3em; border-collapse: collapse; }
+            th                 { font-weight:bold; text-decoration:none;}
+            -->
+            </STYLE>
+
+        <title>Bridge for Arduino 1.0 Specificatio</title>
+        </head>
+
+<body>
+<h1><span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino 1.0 Syntax</h1>
+
+<!--
+<form>
+  <input type="button" value="Highlight changes since last revision" onclick='javascript: showRevisions(13,17)'>
+</form>
+-->
+<!--
+<p class="intro" class="rev2"><span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino is FileMaker Plug-In allowing FileMaker developer to control Arduino over FileMaker. This document describes functions as well as limitations and requirements.</p>
+
+<h2 id="technicalParameters" class="rev2">Basic technical parameters</h2>
+<table class="rev2" border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t2_param">File name:</td><td class="b_technical"><span class="rev7x">Connect</span><span class="rev7 rev13x">BridgeForArduino</span><span class="rev13">Arduino</span>.fmplugin</td></tr>
+<tr><td class="t2_param">plug-in ID String:</td><td class="b_technical">24AR</td></tr>
+<tr><td class="t2_param">Function names prefix:</td><td class="b_technical">Arduino_</td></tr>
+<tr><td class="t2_param">SN product code and versions:</td><td class="b_technical">ARD10C</td></tr>
+<tr><td class="t2_param">SNLib version:</td><td class="b_technical">SNlib 5.2</td></tr>
+
+
+</table>
+
+
+<h2 class="rev2 rev17x">Distribution archive (DA)</h2>
+<ul class="rev2 rev17x">
+  <li>DA will be created for macOS and WIN</li>
+  <li>It will contain files generated by DA generator (ReadMe, LicenceAgreement etc.)</li>
+  <li>It will contain binary for Arduino UNO</li>
+  <li class="rev3">There will be <span class="rev6x">3</span><span class="rev6">4</span> examples showing simple usage of <span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino</li>
+</ul>
+ 
+ -->
+
+<h2>Arduino_Version ( { versionFormat } )</h2>
+<p class="f_intro">Returns version string of the active <span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino, formatted as requested by the parameter.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">versionFormat</td><td>Defines the format of the returned version.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">versionFormat<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td>short</td><td>To get just the version number</td></tr>
+	<tr valign="top"><td>long</td><td>To get the plug-in name followed by its version number</td></tr>
+	<tr valign="top"><td>platform</td><td>To get the platform of the code currently running</td></tr>
+	<tr valign="top"><td>autoupdate</td><td>To get the version of plug-in binary file</td></tr>
+</table>
+<h3>Examples</h3>
+<p> <span class="syntax_hl">Arduino_Version("long")</span><br>
+This will return for example: "<span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino 1.0"</p>
+
+<div class="new">
+<h2 id="Arduino_Register">Arduino_Register(selector)</h2>
+<p class="f_intro">Provides special functionality to operate with plug-in serial numbers.</p>
+
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t_param">selector</td><td>Defines the type of operation.</td></tr>
+</table>
+
+<h3>Parameter values for <span class="p_hl">versionFormat<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+  <tr><td class="t_param">SerialNumber</td>  <td>Register given SerialNumber and return an error code.</td></tr>
+  <tr><td class="t_param">EmailAddress</td>  <td>Tries to activate Plug-In with given email address and return an error code. Trial version is valid only after you confirm email.</td></tr>
+  <tr><td class="t_param">"Registration Window"</td>  <td>Show the "Registration window" and return 0.</td></tr>
+  <tr><td class="t_param">"About Window"</td>  <td>Show the "About window" and return 0.</td></tr>
+  <tr><td class="t_param">"Status"</td>  <td>Return the actual registration state of the plug-in: Demo, Demo expired, Trial, Trial Expired, Registered or Dead.</td></tr>
+  <tr><td class="t_param">"Unregister"</td>  <td>Unregister all serial numbers related to the product and return an error code. Note: after this trial version days wont come back.</td></tr>
+</table>
+
+<h3>Examples</h3>
+<p> <span class="syntax_hl">Arduino_Register( "address@example.com" )</span><br>
+This will send email on address@example.com for confirmation, if you confirm than you will get trial version on this product verified by this email.</p>
+
+<p> <span class="syntax_hl">Arduino_Register( "ARD20C666-4B7B-37PH-Q2E6-1UKY" )</span><br>
+This will register this product with key: "ARD10C156-4B7B-37PH-Q2E6-1UKY".</p>
+
+<p> <span class="syntax_hl">Arduino_Register( "Unregister" )</span><br>
+This will remove all registered keys. After this call product is no longer registered.</p>
+
+<h3>Result</h3>
+<p>Returns zero for success or '?' - use Arduino_Get("lastError") to get error code.</p>
+</div>
+
+<h2 id="Arduino_Connect">Arduino_Connect( connectionID <span class="rev2 rev8x">{ ; baud}</span> )</h2>
+<p class="f_intro rev2">Establishes connection to Arduino. Must be called before Arduino_Read and Arduino_Write can work.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connection ID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+	<tr valign="top class=rev8x"><td class="t_param rev2 rev8x">baud</td><td class="rev8x">Allows to specify speed of received/sent data.<span class="rev6 rev8x">Default value is 115200</span></td></tr>
+</table>
+
+<h3>Result</h3>
+<p>Function return 0, if everything OK, if function returns "?". You can use <span class="syntax">Arduino_Get("lastError")</span> for more detailed error description.
+However, even if function returns 0, it doesn't mean that Arduino is already connected. If you have slow network, then it can take some time.</p>
+<h3>Examples</h3>
+<p><span class="syntax_hl">Arduino_Connect("10.0.3.51")</span><br>
+Try to establish connection to address 10.0.3.51 (Arduino has to be connected to network by Ethernet or wi-fi).</p>
+
+<p><span class="syntax_hl">Arduino_Connect("COM3")</span><br>
+Tries to connect to Arduino on serial port COM3 (on Windows).</p>
+
+<p><span class="syntax_hl">Arduino_Connect("/dev/tty0")</span><br>
+Tries to connect to Arduino on serial port /dev/tty0 (on macOS).</p>
+
+
+
+<h2 id="Arduino_Disconnect">Arduino_Disconnect( connectionID )</h2>
+<p class="f_intro">Use this function for disconnecting Arduino from plug-in.</p>
+
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connectionID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+</table>
+
+<h3>Result</h3>
+<p>Function returns 0, if everything is OK, if function fails - it returns "?". You can use <span class="syntax">Arduino_Get("lastError")</span> for more detailed error description.</p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl">Arduino_Disconnect("10.0.3.51")</span><br>
+Disconnects Arduino on the address 10.0.3.51.</p>
+
+<p><span class="syntax_hl">Arduino_Disconnect("COM3")</span><br>
+Disconnects <span class="rev11x">PlugIn</span><span class="rev11">Plug-In</span> from Arduino on COM3.</p>
+
+
+<h2>Arduino_Read ( connectionID ; valueID { ; param1 ; ... ; paramN } )</h2>
+<p class="f_intro">Reads data from the Arduino.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connection ID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+	<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be read.</td></tr>
+	<tr valign="top"><td class="t_param">param1 ... paramN</td><td>Other parameters based on valueID.</td></tr>
+</table>
+
+<h3>Parameter values for <span class="p_hl">valueID<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><th align="left">valueID</th>		<th align="left">Description</th></tr>
+	<tr valign="top"><td>"inputState"</td>				<td>Returns the value of the digital input.</td></tr>
+	<tr valign="top"><td>"sensorRawValue"</td>			<td>Returns the raw value of the analog input.</td></tr>
+	<tr valign="top"><td>"temperature"</td>				<td class="new">Reads temperature from connected LM35 temperature sensor</td></tr>
+	<tr valign="top"><td>"voltage"</td>					<td class="new">Reads voltage level on port of Arduino Analog.</td></tr>
+	<tr valign="top"><td>"eeprom"</td>					<td class="new">Reads data from Arduino EEPROM memory (data will stay saved even after power is down)</td></tr>
+	<tr valign="top" class="rev9x"><td>"iic"</td>						<td class="new">Tries to read data from IIC bus</td></tr>
+	<tr valign="top" class="rev9x"><td>"spi"</td>						<td class="new">Tries to read data from SPI bus</td></tr>
+</table>
+
+<h3>Parameter values for param1...paramN</h3>
+<table border=1 cellspacing=0 cellpadding=4>
+  <tr valign="top"><th align="center">valueID</th>    <th align="center">param1</th>    <th align="center">param2</th>    <th align="center">param3</th>	</tr>
+  <tr>  <td>"inputState"</td>  <td>pinNumber - possible values are 2-13</td>  <td></td>  <td></td>    </tr>
+  <tr>  <td>"sensorRawValue"</td>  <td>analogPin - possible values are A0-A5</td>  <td></td>  <td></td>    </tr>
+  <tr class="rev3">  <td>"temperature"</td>  <td>analogPin - possible values are A0-A5</td>  <td></td>  <td></td>    </tr>
+  <tr class="rev3">  <td>"voltage"</td>  <td>analogPin - possible values are A0-A5</td>  <td></td>  <td></td>    </tr>
+  <tr>  <td>"eeprom"</td>  <td>typeOfData - can be "text" or "number"</td>  <td>address - number from 0 to 700</td>  <td>size</td>    </tr>
+  <tr class="rev9x">  <td>"iic"</td>  <td>address of device</td>	<td>Number of bytes to read</td> <td>data to be sent (e.g. hexadecimal codes of command for device)</td>      </tr>
+  <tr class="rev9x">  <td>"spi"</td>  <td>CS - pin for selecting slave</td>  <td>Number of bytes to read</td> <td>data to be sent (e.g. hexadecimal codes of command for device)</td>    </tr>
+</table>
+
+<h3>Result</h3>
+<p>Function returns data from Arduino if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Arduino_Get("lastError")</span> for more detailed error description.</p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl">Arduino_Read("COM3" ; "inputState" ; "3")</span><br>
+Reads state of digital input on pin 3.
+</p>
+
+<p class="rev6"><span class="syntax_hl">Arduino_Read("COM3" ; "sensorRawValue" ; "A0")</span><br>
+Reads raw value of the sensor on analog pin A0 and returns value in range 0 - 1000.
+</p>
+
+<p class="rev6"><span class="syntax_hl">Arduino_Read("/dev/cu.usbmodem1411" ; "temperature" ; "A0")</span><br>
+Reads LM35 temperature sensor connected to analog pin A0 and returns value in celsius.
+</p>
+
+<p class="rev6"><span class="syntax_hl">Arduino_Read("/dev/cu.usbmodem1411" ; "voltage" ; "A0")</span><br>
+Reads value on analog pin A0 and returns value in voltage (0 - 5V).
+</p>
+
+<p class="rev6x"><span class="syntax_hl">Arduino_Read("COM3" ; "iic" ; "0x68" ; 3 ; 0)</span><br>
+Will send 1B with value 0 into device on address 0x68 and tries to read 3B of data. This data will be returned as hexa codes (e.g: 0x123456 or 0xFFFFFF)
+</p>
+
+
+<p class="rev10x"><span class="syntax_hl" class="rev9x">Arduino_Read("COM3" ; "spi" ; 10 ; 0x33)</span><br>
+Sends 0x33 to SPI device and reads data. Pin 10 means that SS pin of device has to be connected to pin 10 of Arduino.
+</p>
+
+<p><span class="syntax_hl" class="rev9x">Arduino_Read("/dev/tty0" ; "iic" ; "0x68" ; 10)</span><br>
+Attempts to read 10B of data from iic bus (from device on address) 0x68.
+</p>
+
+
+<h2 id="Arduino_Write">Arduino_Write( connectionID ; valueID { ; param1 ; ... ; paramN } )</h2>
+<p class="f_intro">Data to the Arduino are written or set.</p>
+<h3>Parameters</h3>
+<table>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connection ID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+	<tr valign="top"><td class="t_param">valueID</td><td>Specifies which data should be read.</td></tr>
+	<tr valign="top"><td class="t_param">param1 ... paramN</td><td>Other parameters based on valueID.</td></tr>
+</table>
+
+<h3>Parameter values for <span class="p_hl">valueID<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><th align="left">valueID</th> <th align="left">Description</th></tr>
+	<tr valign="top"><td>"outputState"</td>     <td>Write data to digital output.</td></tr>
+	<tr valign="top"><td>"analogWrite"</td>     <td>Write analog output.</td></tr>
+	<tr valign="top"><td>"motorPosition"</td>   <td>Sets the new motor position (for Servo). Move Stepper by given steps (Stepper).</td></tr>
+	<tr valign="top"><td>"displayString"</td>	<td>New text to LCD is written on the first row.</td></tr>
+	<tr valign="top"><td>"eeprom"</td>				<td>Writes data to EEPROM memory (content of memory remains even after power is down).</td></tr>
+	<tr valign="top" class="rev9x"><td>"iic"</td>					<td>Sends data over iic bus.</td></tr>
+	<tr valign="top" class="rev9x"><td>"spi"</td>					<td>Sends data over spi bus.</td></tr>
+	<tr valign="top" class="rev6x"><td>"stepperContinuously"</td>	<td>Starts moving stepper motor by given direction or stops it completely.</td></tr>
+	<tr valign="top" class="rev5"><td>"tone"</td>				<td>Plays tone on Arduino (if speaker is connected), <b>Note: analogWrite as well servos won't work on pins 3 and 11 if tone is in progress. Only one tone can be played at the time</b></td></tr>
+</table>
+
+<h3>Parameter values for param1...paramN</h3>
+<table border=1 cellspacing=0 cellpadding=4>
+  <tr valign="top"><th align="center">valueID</th><th align="center">param1</th><th align="center">param2</th><th align="center">param3</th>	<th align="center">param4</th>	<th align="center">param5</th></tr>
+  <tr>  <td>"outputState"</td>  <td>pinNumber - possible values are 2-13</td>  <td><span class="rev6x">"HIGH" or "LOW"</span><span class="rev6">1 or 0</span></td>  <td></td>  <td></td>   <td></td> </tr>
+  <tr>  <td>"analogWrite"</td>  <td>pinNumber - PWM supporting pin</td>  <td>0-255</td>  <td></td>  <td></td>  <td></td> </tr>
+  <tr>  <td>"motorPosition"</td>  <td>motorType - can be "Servo" or "Stepper"</td>  <td>value</td>  <td>motorPin</td>	<td><span class="rev6x"...</span></td>  <td><span class="rev6x">motorPinN</span></td>  </tr>
+  <tr>	<td>"displayString"</td>	<td>row</td>	<td>text</td>	<td></td>	<td></td>	<td></td>	</tr>
+  <tr class="rev5x">  <td>"eeprom"</td>  <td>typeOfData - can be "text" or "number"</td>  <td>address - number</td>  <td>size - size of data to write</td>  <td>data1-dataN</td>  </tr>
+  <tr class="rev5">  <td>"eeprom"</td>  <td>"text"</td>  <td>address - number</td>  <td>length of text <span class="rev10">in bytes * 2</span></td>  <td>textToBeWritten</td>  <td></td> </tr>
+  <tr class="rev5">  <td>"eeprom"</td>  <td>"number"</td>  <td>address - number</td>  <td>size of number in bytes (possible values are 1, 2, 4, 8)</td>  <td>number1-numberN</td>  <td></td></tr>
+  <tr class="rev9x">  <td>"iic"</td>  <td>address of device</td>	<td>data - data to be sen<span class="rev3">t</span> (e.g. hexadecimal codes of command for device)</td>  <td></td>  <td></td><td></td>> </tr>
+  <tr class="rev9x">  <td>"spi"</td>  <td>CS - pin for selecting slave</td>  <td>data - data to be sent (e.g. hexadecimal codes of command for device)</td>  <td></td><td></td><td></td> </tr>
+  <tr class="rev6x">  <td>"stepperContinuously"</td>  <td>direction - can be 1 or 0 or -1</td>  <td>value</td>  <td>motorPin1</td>	<td>...</td>  <td>motorPinN</td>  </tr>
+  <tr class="rev5">  <td>"tone"</td>  <td>pinNumber</td>  <td>frequency - value in Hz(at least 31)</td>  <td>delayOfTone (max 1s) - during playing Arduino is unable to do anything else</td><td></td><td></td></tr>
+
+</table>
+
+<h3>Description</h3>
+<p>Writes data to Arduino or connected device. Parameters can be different for different types of valueID - see table above.</p>
+
+<h3>Result</h3>
+<p>Function returns 0 if everything is OK. Function returns '?' if error was detected. Use Arduino_Get("lastError") for more information.<br>
+<b>Function can return 0 even if error happens in device (e.g. Arduino writes to Servo, but servo is damaged and won't move)</b></p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl rev6">Arduino_Write( "/dev/cu.usbmodem1411"; "outputState" ; 2 ; 1)</span><br>
+Sets the 2nd digital pin to 1.</p>
+
+<p><span class="syntax_hl rev5">Arduino_Write( <span class="rev6x">connectionID</span><span class="rev6">"/dev/cu.usbmodem1411"</span> ; "analogWrite" ; 9 ; 255 )</span><br>
+Writes value 255 on pwm pin 9 (corresponds to 5V on 5V boards).
+</p>
+
+<p><span class="syntax_hl">Arduino_Write( <span class="rev6x">connectionID</span><span class="rev6">"/dev/cu.usbmodem1411"</span> ; "motorPosition" ; "Servo" ; 180 ; 9)</span><br>
+It rotates the servo to 180 degrees.</p>
+
+<p><span class="syntax_hl">Arduino_Write( <span class="rev6x">connectionID</span><span class="rev6">"/dev/cu.usbmodem1411"</span> ; "motorPosition" ; "Stepper" ; 215<span class="rev6x" ; 9 ; 10 ; 11 ; 12</span>)</span><br>
+It rotates the stepper by 215 steps.</p>
+
+<p class="rev6x"><span class="syntax_hl">Arduino_Write( <span class="rev6x">connectionID</span><span class="rev6">"/dev/cu.usbmodem1411"</span> ; "motorPosition" ; "Stepper" ; -215 ; 9 ; 10 ; 11 ; 12)</span><br>
+It rotates the stepper by 215 steps - but in oposite direction as in previous example.</p>
+
+<p class="rev6x"><span class="syntax_hl">Arduino_Write( <span class="rev6x">connectionID</span><span class="rev6">"/dev/cu.usbmodem1411"</span> ; "stepperContinuously" ; -1 ; 9 ; 10 ; 11 ; 12)</span><br>
+It rotates stepper continuously (opposite to its default rotation direction).</p>
+
+<p><span class="syntax_hl">Arduino_Write( <span class="rev6x">connectionID</span><span class="rev6">"/dev/cu.usbmodem1411"</span> ; "displayString" ; 1 ; "helloWorld!")</span><br>
+It writes given text to LCD display on row 1.</p>
+
+<p class="rev6x"><span class="syntax_hl">Arduino_Write( <span class="rev6x">connectionID</span><span class="rev6">"/dev/cu.usbmodem1411"</span> ; "displayString" ; 2 ; "I'm Arduino!")</span><br>
+It writes given text to LCD display on row 2.</p>
+
+<p class="rev7"><span class="syntax_hl">Arduino_Write( "/dev/cu.usbmodem1411" ; "tone" ; 8 ; 261;  0,25)</span><br>
+It plays C note on buzzer connected to pin 8 for 1/4 of second.</p>
+
+
+<p><span class="syntax_hl rev5">Arduino_Write("COM5" ; "eeprom" ; "number" ; 0 ; 1 ; 1 ; 2 ; 3) & ", " &
+Arduino_Read("COM5" ; "eeprom" ; "number" ; 0 ; 1 ) & ", " &
+Arduino_Read("COM5" ; "eeprom" ; "number" ; 1 ; 1 ) & ", " &
+Arduino_Read("COM5" ; "eeprom" ; "number" ; 2 ; 1 )</span><br>
+This call will write numbers 1, 2 and 3 - each number will take 1B of memory (3B together). Then it performs reading. As you can see, writing multiple numbers is possible, but only one number can be read at given time.
+</p>
+
+
+<h2 id="Arduino_SetScriptEvent">Arduino_SetScriptEvent( connectionID ; event/time ; scriptName { ; index { ; changeAmount { ; threshold } } } )</h2>
+<p class="f_intro">Tell the plug-in to launch the script when specified event is triggered by the Arduino or in specified time intervals.</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connection ID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+	<tr valign="top"><td class="t_param">event</td><td>The event when the script should be triggered. Use FileMaker text to describe it. I.e. "onSensorChange".</td></tr>
+	<tr valign="top"><td class="t_param">scriptName</td><td>The name of script which should be triggered. The script will receive a parameter which will contain at least <span class="rev11x">ArduinoN</span><span class="rev11">Arduino</span> on the first row. More values can be added depending on the event.</td></tr>
+	<tr valign="top"><td class="t_param">index</td><td>The index of analog input to trigger the script. The script will be triggered only if the value will exceed changeAmount. If omitted <span class="rev12x">the script will be triggered every time when any of inputs/outputs are changed regardless of its number.</span><span class="rev12"> pin 0 will be used in case of "onInputChange and pin a0 in case of onSensorChange.</span></td></tr>
+	<tr valign="top"><td class="t_param">changeAmount</td><td>The amount of change that should exist between the last reported value and the current value before an event triggers. The default is 1. This cannot be changed for binary inputs or outputs. Use FileMaker number.
+<span class="new">Param changeAmount can be used only on onSensorChange event, it is ignored on other events.</span>
+</td></tr>
+<tr valign="top"><td class="t_param">threshold</td><td>The script will not be triggered until the sensor value exceeds threshold. Use it as a simple noise filter. It has no meaning for binary inputs/outputs. The default value is 0 - no filtering.</td></tr>
+</table>
+
+<h3>Parameter values for <span class="p_hl">event<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><th align="left">event</th>	<th align="left">Description</th><th align="left" class="new">Script is given parameters:</th></tr>
+<tr valign="top"><td>"onInputChange"</td>	<td>Run the script when digital input has changed.</td><td class="new">
+      connectionID index value </td></tr>
+<tr valign="top"><td>"onSensorChange"</td>	<td>Run the script when the value from connected sensor has changed. The amount can be set by the changeAmount.</td><td class="new">
+      connectionID index value </td></tr>
+</table>
+
+<h3>Description</h3>
+<p>To remove event call <span class="syntax">Arduino_SetScriptEvent( connectionID ; event ; "" )</span>.<br>
+To remove all events from some Arduino call <span class="syntax">Arduino_SetScriptEvent( connectionID ; "" ; "" )</span>.<br>
+To remove all events from all Arduino call <span class="syntax">Arduino_SetScriptEvent( "" ; "" ; "" )</span> or <span class="syntax">Arduino_SetScriptEvent( "all" ; "" ; "" )</span>.</p>
+
+<h3>Result</h3>
+<p>Function returns 0 if event is successfully installed or uninstalled. In case of error the function return "?". You can use Arduino_Get("lastError") to get more detailed description.</p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl">Arduino_SetScriptEvent("COM3" ; "onSensorChange" ; "Read sensor" ; "A3" ; 10 ; 5)</span><br>
+This will install "onSensorChange" event to analog input on  Arduino with connectionID "COM3". The Arduino must be connected.
+The "Read sensor" script will be triggered when the A3 sensor's value on the Arduino connected on port "COM3" change more than 10 points and will be higher than 5. The script will receive the parameter which will contain: "COM3", "A3" and sensor value. Each value separated by new line.</p>
+
+
+<h2>Arduino_Get( what { connectionID ; more ; index } )</h2>
+<p class="f_intro"><span class="rev3x">Function to get plug-in or Arduino settings and other useful data.</span>
+<span class="rev3">Use this function to get settings from Arduino.</span>
+</p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param">what</td><td>Which data should be get.</td></tr>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connection ID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+	<tr valign="top"><td class="t_param">more</td><td>Additional specifier to concretize the request.</td></tr>
+	<tr valign="top"><td class="t_param">index</td><td>Additional specifier to get data for specific part (see example).</td></tr>
+</table>
+
+<h3>Parameter values for <span class="p_hl">what<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><th align="left">what</th>		<th align="left">Description</th></tr>
+	<tr valign="top"><td>"lastError"</td>       	<td>Returns the error code of the last error. If no error occurred 0 is returned.</td></tr>
+	<tr valign="top"><td>"lastErrorMessage"</td>	<td>Returns error text description from the last plugin call.</td></tr>
+	<tr valign="top"><td>"connectedDevices"</td> 	<td>Get <span class="rev10x">number</span><span class="rev10">list</span> of connected Arduinos.</td></tr>
+    <tr valign="top" class="rev9"><td>"availableBoards"</td>     <td>Get list of connection ids of attached Arduinos.</td></tr>
+	<tr valign="top"><td>"firmwareVersion"</td>   	<td>Get version of 24U Firmware <span class="rev13">for Arduino </span>inside Arduino board.</td></tr>
+	<tr valign="top"><td>"lanType"</td>      		<td>Type of LAN connection.</td></tr>
+	<tr valign="top"><td>"ethernet"</td>      		<td>IP address <span class="rev3x">set</span>for ethernet connection.</td></tr>
+	<tr valign="top"><td>"wifi"</td>      			<td>IP address <span class="rev3x">set</span>for wifi connection.</td></tr>
+	<tr valign="top"><td>"boardInfo"</td>      		<td>Will return list of active settings on Arduino board.</td></tr>
+	<tr valign="top"><td>"lcdSetting"</td>      	<td>Will return list of settings for LCD display.</td></tr>
+	<tr valign="top"><td>"lcdEnabled"</td>      	<td>Will return status of LCD on Arduino.</td></tr>
+	<tr valign="top"><td>"stepperSetting"</td>      <td>Will return list of settings for Stepper.</td></tr>
+	<tr valign="top"><td>"stepperEnabled"</td>      <td>Will return status of Stepper.</td></tr>
+    <tr valign="top"><td>"pinSetting"</td>      	<td>Will return mode of given pin. Possible values are: <span class="rev16">"none",</span> "lcd", "stepper", "digitalInput", "digitalOutput", "analogInput", "analogOutput"
+        <span class="rev12x">or "wifi"</span><span class"rev12">, "ethernet" or "wifiRx" or "wifiTx".</td></tr>
+</table>
+
+<h3>Description</h3>
+<p>The "more" parameter is usually used to specify Arduino connectionID.</p>
+
+<h3>Result</h3>
+<p>Function returns data if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Arduino_Get("lastError")</span> for more detailed error description.</p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl">Arduino_Get("attachedDevices")</span><br>
+This will return the number of attached devices. If no Arduino is attached to the machine it will return 0. It is a good command to start with to check if any Arduino is connected.</p>
+
+<p class="new"><span class="syntax_hl">Arduino_Get("lanType" ; "COM3")</span><br>
+This will return status of internet connection type on Arduino (default is "none").</p>
+
+<p class="new"><span class="syntax_hl">Arduino_Get("lcdSetting" ; "COM3")</span><br>
+This will return status of LCD pins. Default values are: "RS=12, E=11, D4=5, D5=4, D6=3, D=72".</p>
+
+<p class="rev5"><span class="syntax_hl">Arduino_Get("lcdEnabled" ; "COM3")</span><br>
+This will return status of LCD pins. Default values is: "disabled".</p>
+
+
+
+
+
+<h2 id="Arduino_Set">Arduino_Set( what ; value { ; connectionID  { ; index}})</h2>
+<p class="f_intro"><span class="rev3x">Function to set plug-in or Arduino settings and other useful data.</span>
+<span class="rev3">Use this function for enabling/disabling features on Arduino. Some features need to be set first (e.g. ethernet or wi-fi).</span></p>
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param"><tt>what</tt></td><td>Which data should be set.</td></tr>
+	<tr valign="top"><td class="t_param"><tt>value</tt></td><td>The new value.</td></tr>
+	<tr valign="top" class="new"><td class="t_param"><tt>index</tt></td><td>Index of changed value.</td></tr>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connection ID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+</table>
+<h3>Parameter values for <span class="p_hl">what<span></h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><th align="left">what</th>		<th align="left">Description</th>									<th align="left">Possible values</th></tr>
+
+	<tr valign="top"><td>"cursorOn"</td>        	<td>This allows to turn on/off cursor.</td>							<td><span class="rev6x">"on"/"off"</span><span class="rev6">1 or 0</span></td></tr>
+	<tr valign="top"><td>"cursorBlink"</td>     	<td>If cursor is on, then you can turn on/off its blinking.</td>	<td><span class="rev6x">"blink"/"noblink"</span><span class="rev6">1 or 0</span></td></tr>
+
+	<tr valign="top"><td>"lanType"</td>      						<td>Type of LAN connection.</td>									<td>"ethernet", "wifi" or "none"</td></tr>
+	<tr valign="top" class="rev3x"><td>"ethernet"</td>      		<td>IP address set for ethernet connection.</td>					<td>IP address format</td></tr>
+	<tr valign="top" class="rev3"><td>"ethernetIP"</td>      		<td>IP address for ethernet connection.</td>					<td>IP address format</td></tr>
+	<tr valign="top" class="rev3"><td>"ethernetSubnetMask"</td>     <td>Subnet mask for ethernet connection.</td>					<td>IP address format</td></tr>
+	<tr valign="top" class="rev3x"><td>"wifi"</td>      			<td>IP address set for wifi connection.</td>						<td>IP address format</td></tr>
+	<tr valign="top"><td>"wifiSetting"</td>	      					<td>Setting pins for wifi</td>										<td>Value is a list of pins delimited by ; (see example)</td></tr>
+    <tr valign="top" class="rev2"><td>"wifiSSID"</td>	      	<td>SSID of wi-fi Arduino will try to connect to</td>		<td>Maximal length is 100 characters</td></tr>
+	<tr valign="top" class="rev2"><td>"wifiPassword"</td>      	<td>Password for given wi-fi network</td>					<td>Maximal length is 100 characters</td></tr>
+	<tr valign="top" class="rev3x"><td>"MAC"</td>	    		<td>MAC address for Arduino</td>							<td>Each device on network has to have unique MAC address. Default value is: "A0-B1-C2-D3-E4-F5"</td></tr>
+	<tr valign="top" class="rev3"><td>"ethernetMAC"</td>	    		<td>MAC address for Arduino</td>							<td>Each device on network has to have unique MAC address. Default value is: "A0-B1-C2-D3-E4-F5"</td></tr>
+
+
+
+	<tr valign="top"><td>"lcdSetting"</td>      	<td>Allows to set pins for LCD</td>									<td>Value is a list of pins delimited by ; (see example)</td></tr>
+	<tr valign="top"><td>"lcdEnabled"</td>      	<td>Will start LCD on previously set pins</td>						<td><span class="rev5 rev6x">Possible values: "disable" and "enable"</span><span class="rev6">1 or 0</span></td></tr>
+	<tr valign="top"><td>"stepperSetting"</td>      <td>Allows to set pins for Stepper</td>								<td>Value is a list of pins delimited by ; (see example)</td></tr>
+	<tr valign="top"><td>"stepperEnabled"</td>      <td>Will <span class="rev2x">start</span><span class="rev2">enable</span> Stepper on previously set pins</td>					<td><span class="rev5 rev6x">Possible values: "yes" and "no"</span><span class="rev6">1 or 0</span></td></tr>
+    <tr valign="top" class="rev6"><td>"stepperVelocity"</td> <td> Set current velocity of stepper </td> <td>  </td> </tr>
+    <tr valign="top" class="rev6"><td>"stepperMaxVelocity"</td> <td>Set maximum velocity of stepper</td> <td>  </td> </tr>
+    <tr valign="top" class="rev6"><td>"stepperAcceleration"</td> <td> Set current acceleration of stepper </td> <td> </td> </tr>
+    <tr valign="top" class="rev6"><td>"stepperEngaged"</td> <td> Engage stepper </td> <td> 1 or 0 </td> </tr>
+    <tr valign="top" class="rev6"><td>"stepperMode"</td><td>Set stepper mode</td<td>"step" (motor will move to given position) and "run" (continuos movement)</td></tr>
+    <tr valign="top"><td>"pinSetting"</td>      	<td>Allows to set mode for given pin</td>
+    <td class="rev5">Possible values are: "digitalInput", "digitalOutput", "analogInput", "analogOutput", "internalPullUp",<span class="rev6">"servo"</span>, <span class="rev17">"none"<span>.</td>
+    <tr valign="top"><td>"inlineDocumentation"</td><td> Shows/hides inlineDocumentation in Plug-In. <b>This selector doesn't work on FileMaker Server.</b></td><td>"on" or "off"</td></tr>
+	</tr>
+</table>
+
+<h3>Result</h3>
+<p>Function returns value if everything is OK. In case of error the function returns "?". You can use <span class="syntax">Arduino_Get("lastError")</span> for more detailed error description.</p>
+
+<h3>Examples</h3>
+
+<p class="new"><span class="syntax_hl">Arduino_Set( "lcdEnabled" ; <span class="rev6x">"yes"</span><span class="rev6">1</span> ; <span class="rev2">"/dev/tty0"</span>)</span><br>
+This will enable LCD on Arduino (pins are defined by Arduino_Set("lcdSetting")) .</p>
+
+<p class="new"><span class="syntax_hl">Arduino_Set( "lcdSetting" ; "RS=12;E=11;D4=5;D5=4;D6=<span class="rev4x">6</span><span class="rev4">3</span>;D7=2" ; <span class="rev2">"COM3"</span>)</span><br>
+<span class="rev2">This will set pins for LCD display. If any of given pin is missing, it will be set to default value (default values are: "RS=12;E=11;D4=5;D5=4;D6=3;D7=2")</span></p>
+
+<p class="new rev2"><span class="syntax_hl">Arduino_Set( "lcdSetting" ; "" ; "COM3")</span><br>
+This will set pins for LCD display to default values. Default values are "RS=12;E=11;D4=5;D5=4;D6=3;D7=2".</p>
+
+<p class="new"><span class="syntax_hl">Arduino_Set( <span class="rev6x">"ethernet"</span><span class="rev6">"ethernetIP"</span> ; "192.168.0.1" ; <span class="rev2">"COM3"</span>)</span><br>
+This will set IP of Arduino to 192.168.0.1 for Ethernet interface. <b>When Arduino is connected by Ethernet interface it will be using IP set by this command (no DHCP implemented)</b></p>
+
+<p class="new rev6"><span class="syntax_hl">Arduino_Set( "wifiSetting" ; "RX=3;TX=4")</span><br>
+This will set pin 3 on arduino uno for rx pin of <span class="rev16x">esp8266</span><span class="rev16">esp-01</span> and pin 4 on tx pin of <span class="rev16x">esp8266</span><span class="rev16">esp-01</span>.</p>
+
+<div class="rev11">
+    <p class="new"><span class="syntax_hl">Arduino_Set( "wifiSSID" ; "networkSSID" ; "COM3")</span></br>
+    This will store ssid name on Arduino.</p>
+    
+    <p class="new"><span class="syntax_hl">Arduino_Set( "wifiPassword"; "password" ; "COM3")</span></br>
+    This will store password for the wifi on Arduino.</p>
+    
+    <p class="new"><span class="syntax_hl">Arduino_Set( "lanType"; "wifi" )</span></br>
+    This will configure the <span class="rev16x">esp8266</span><span class="rev16">esp-01</span> modul and connect it to the wifi. Before you configure modul, you have to set first pins, ssid and password.
+</div>
+    
+
+<p class="new rev6"><span class="syntax_hl">Arduino_Set( "stepperSetting" ; "IN1=8;IN2=9;IN3=10;IN4=11")</span><br>
+This will set pins for the stepper.</p>
+
+<p class="new rev6"><span class="syntax_hl">Arduino_Set( "cursorOn" ; "1")</span><br>
+<span class="rev11">This will display the cursor on LCD</span>.</p>
+
+<div class="rev6 rev11x">
+<p class="new"><span class="syntax_hl">Arduino_Set( <span class="rev3x">"wifi"</span><span class="rev3">"wifiSSID"</span> ; <span class="rev3x">"192.168.0.1"</span><span class="rev3">"MyNetwork"</span> ; <span class="rev2">"COM5"</span>) &amp; " " &amp; Arduino_Set( "ethernet" ; "192.168.0.2" ; <span class="rev2">"COM5"</span>) &amp; " " &amp; Arduino_Set( "lanType" ; "ethernet" ; <span class="rev2">"COM5"</span>)</span><br>
+This will set <span class="rev3x">IP of Arduino wi-fi connection to 192.168.0.1</span><span class="rev3">SSID for wi-fi connection to "MyNetwork"</span>, IP of Arduino Ethernet connection to 192.168.0.2. Also this would set Arduino to start using Ethernet shield with Ethernet connection for connecting to local LAN. After Arduino restart, Arduino will still connect to LAN using ethernet.</b></p>
+</div>
+
+
+<h2>Arduino_Reboot( connectionID )</h2>
+<p class="f_intro"><span class="rev3x">Function to for rebooting Arduino (in order to load new settings). S</span><span class="rev3">After this function is called Arduino s</span>ends command for rebooting to Arduino, then it disconnects itself, wait for some time and tries to connect to Arduino over the same connection again.</p>
+
+<h3>Parameters</h3>
+<table border=0 cellspacing=4 cellpadding=0>
+	<tr valign="top"><td class="t_param">connectionID</td><td>Arduino connection ID. More about connectionID is <a href="#connectionID">here</a>.</td></tr>
+</table>
+
+<h3>Result</h3>
+<p>Function return 0, if everything OK, if function fails - it returns "?". You can use <span class="syntax">Arduino_Get("lastError")</span> for more detailed error description.</p>
+
+<h3>Examples</h3>
+<p><span class="syntax_hl">Arduino_Reboot("10.0.3.51")</span><br>
+Disconnects Arduino on the address 10.0.3.51.</p>
+
+<p><span class="syntax_hl">Arduino_Reboot("COM3")</span><br>
+Disconnects <span class="rev11x">PlugIn</span><span class="rev11">Plug-In</span> from Arduino on COM3.</p>
+
+
+
+
+<h2 id="connectionID">connectionID</h2>
+<p class="f_intro">Each Arduino is connected either by Ethernet cable, wi-fi or Serial port. <span class="rev11x">PlugIn</span><span class="rev11">Plug-In</span> identifies each connected Arduino board by its connection type.<br>
+After connecting Arduino to your PC, you have to call Arduino_Connect and pass connectionID.</p>
+<table style="text-align: left;">
+  <tr>  <th>Connection type</th>   <th>connectionID</th> </tr>
+  <tr>  <td>Serial</td>       <td>On your macOS you can find connected serial devices by opening Terminal and using command: "ls -l /dev | grep tty".<br>On your windows you have to use external application to get connected devices (or you can use Control Panel -> Hardware and Sound -> Devices and Printers)</td> </tr>
+  <tr>  <td>Ethernet or wi-fi</td> <td>IP address of your Arduino. Wi-fi or Ethernet has to be first initialised and IP set. See command Arduino_Set("ethernet") and Arduino_Set("wifi")</td> </tr>
+</table>
+
+<div>
+    <h2>Custom Script Steps</h2>
+    <p>
+    Since version 16 of FileMaker Pro and FileMaker Pro Advanced new feature called "External script steps" has been added. This feature allows plug-in to offer its functionality as FileMaker script steps.<br>
+    Following table shows, which functions of plug-in can be also called as script step.
+    
+    <table>
+        <tr>    <th>Plug-In function</th>    <th>Script Step</th>    </tr>
+        
+        <tr>    <td><a href="#Arduino_Register" style="">Arduino_Register</a></td>        <td>Arduino Register</td>         </tr>
+        <tr>    <td><a href="#Arduino_Connect">Arduino_Connect</a></td>                   <td>Arduino Connect</td>          </tr>
+        <tr>    <td><a href="#Arduino_Disconnect">Arduino_Disconnect</a></td>             <td>Arduino Disconnect</td>       </tr>
+        <tr>    <td><a href="#Arduino_Write">Arduino_Write</a></td>                       <td>Arduino Write</td>            </tr>
+        <tr>    <td><a href="#Arduino_Set">Arduino_Set</a></td>                           <td>Arduino Set</td>              </tr>
+        <tr>    <td><a href="#Arduino_SetScriptEvent">Arduino_SetScriptEvent</a></td>    <td>Arduino Set Script Event</td>    </tr>
+    </table>
+    </p>
+</div>
+
+<h2 id="connectionID" class="rev17">Troubleshooting</h2>
+<ul class="rev17">
+    <li> If Arduino is not responsive:
+        <ol>
+            <li>Check if you have correctly connected all the devices</li>
+            <li>Try to unplug/plug arduino from power</li>
+            <li>Try command Arduino_Reboot</li>
+        </ol>
+    <li>If none of the previous step didn't help, clear the arduinos EEPROM and install the 24U Firmware for Arduino again.
+</ul>
+
+<a name="error" />
+<h2 class="new"><span class="p_hl"><span class="rev7x">24U Connect</span><span class="rev7">Bridge</span> for Arduino</span> status codes</h2>
+<table border=0 cellspacing=4 cellpadding=0 class="new">
+    <tr valign="top" class="t3_param2 rev5x">			<td>-2</td><td>Wrong setting</td>				<td>Pin doesn't support this setting.</td></tr>
+    <tr valign="top" class="t3_param2 rev5x">			<td>-5</td><td>Wrong pin</td>				<td>Pins 0 and 1 are used for <span class="rev11x">PlugIn</span><span class="rev11">Plug-In</span> communication.</td></tr>
+    <tr valign="top" class="t3_param2 rev5x">			<td>-6</td><td>Eeprom error</td>				<td>EEPROM out of range.</td></tr>
+    
+    <tr valign="top" class="t3_param2 rev5x">			<td>-7</td><td>Wrong connectionID</td>		    <td>Unable to reach Arduino using this connectionID.</td></tr>
+    <tr valign="top" class="t3_param2 rev11">           <td>-1</td><td>Connection error</td>            <td>Lost connection with arduino.</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-4</td><td>Not implemented</td>				<td>This feature is not implemented.</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-50</td><td>Parameter Error</td>			<td>Wrong parameters for function, please check plug-in syntax</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-90</td><td>Device Limit</td>			<td>Limit of allowed devices has been met</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-8</td><td></td>				<td>Serial port couldn't be opened</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-9</td><td></td>				<td>Unable to get serial port options</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-10</td><td></td>			<td>Unable to set serial port options</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-11</td><td></td>			<td>Error setting serial port input speed</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-12</td><td></td>			<td>Error setting serial port output speed</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-13</td><td></td>			<td>Error setting serial port mode</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-20</td><td>Not connected</td>			<td>Device with given connectionID not connected</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-21</td><td>Duplicate</td>			<td>Device with given connectionID has been connected before</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-22</td><td>Invalid response</td>			<td>Invalid response from Arduino</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-23</td><td></td>			<td>Error reading from serial port</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-24</td><td></td>			<td>You're trying to use function for Stepper without stepper being allowed</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-25</td><td>Stepper error</td>			<td>Stepper init error, check if pins are allowed for Stepper.</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-26</td><td>LCD usage error</td>			<td>You're trying to use function for LCD without LCD being allowed</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-27</td><td>LCD init error</td>			<td>LCD init error, check if pins are allowed for LCD.</td></tr>
+    <tr valign="top" class="t3_param2 rev5">			<td>-28</td><td>Pin setting error</td>			<td>Pin you are trying to use is already used by other Arduino part.</td></tr>
+
+    <tr valign="top" class="t3_param"><td>24001</td>  <td>Demo mode expired.</td>                <td>If you want to keep using the plug-in, you must register it or buy it for particular environment.</td>  </tr>
+    <tr valign="top" class="t3_param"><td>24002</td>  <td>Product expired.</td>                  <td>Trial period is over. If you want to keep using the product, you must buy it for particular environment.</td></tr>
+    <tr valign="top" class="t3_param"><td>24003</td>  <td>SN limit was met.</td>                 <td>The serial number is already registered on too many computers.</td></tr>
+    <tr valign="top" class="t3_param"><td>24004</td>  <td>Product is dead.</td>                  <td>The product expired and cannot be used any more. Please download the new version from <a href="//24usw.com/24usw">24U Software</a>.</td></tr>
+    <tr valign="top" class="t3_param"><td>24005</td>  <td>Invalid serial number.</td>            <td>Serial number you entered is not valid.</td></tr>
+    <tr valign="top" class="t3_param"><td>24006</td>  <td>Activation failed.</td>                <td>Activation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top" class="t3_param"><td>24007</td>  <td>Deactivation failed.</td>              <td>Deactivation failed probably due to some network error. Please, check your connection to the internet and try again later.</td></tr>
+    <tr valign="top" class="t3_param"><td>24008</td>  <td>Unknown serial number.</td>            <td>The given serial number cannot be used for the current product. It has been stored so that other product can try to use it.</td></tr>
+    <tr valign="top" class="t3_param"><td>24009</td>  <td>Blacklisted serial number.</td>        <td>The given serial number has been blacklisted and cannot be used anymore. Please, contact <a href="mailto:support@24usoftware.com">24U Support</a> if you need more information.</td></tr>
+    <tr valign="top" class="t3_param"><td>24010</td>  <td>eSellerate engine not installed.</td>  <td>This product uses eSellerate to validate user registration and purchases, but its installation failed. Please, reboot the computer or try again later.</td></tr>
+
+</table>
+
+</body>
+</html>

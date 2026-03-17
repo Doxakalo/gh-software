@@ -1,0 +1,614 @@
+body[data-template="support"] {
+
+	section {
+		overflow: hidden;
+
+		@include browserLegacy {
+			&.support-tabs,
+			&.support-tabs-mobile {
+				overflow: visible;
+				position: relative;
+				z-index: 40;
+				&.arrow {
+					clip-path: none;
+					-webkit-clip-path: none;
+
+					&.arrow,
+					&.arrow-top-bottom {
+						clip-path: none;
+						-webkit-clip-path: none;
+					}
+				}
+			}
+		}
+
+		.item {
+			@include transition($hoverAnimationDuration background-color border ease-in-out);
+			@include box-sizing(border-box);
+			text-align: center;
+			border-right: 1px solid $colorWhite;
+			border-left: 1px solid $colorWhite;
+			min-height: 250px;
+			height: 100%;
+			display: block;
+			cursor: pointer;
+			position: relative;
+
+			@include browserLegacy {
+				&.active {
+					&:after {
+						@include transition($hoverAnimationDuration border-color border ease-in-out);
+						@include transform(translateX(-50%));
+						content: '';
+						position: absolute;
+						bottom: -$arrowBaseHeight;
+						width: 0;
+						height: 0;
+						left: 50%;
+						border-style: solid;
+						border-width: $arrowBaseHeight ($arrowBaseWidth * 0.5) 0 ($arrowBaseWidth * 0.5);
+
+						@include g-state(desktop) {
+							bottom: -($arrowBaseHeight * $arrowScaleDesktop);
+							border-width: ($arrowBaseHeight * $arrowScaleDesktop) (($arrowBaseWidth * 0.5) * $arrowScaleDesktop) 0 (($arrowBaseWidth * 0.5) * $arrowScaleDesktop);
+						}
+						@include g-state(tablet) {
+							bottom: -($arrowBaseHeight * $arrowScaleTablet);
+							border-width: ($arrowBaseHeight * $arrowScaleTablet) (($arrowBaseWidth * 0.5) * $arrowScaleTablet) 0 (($arrowBaseWidth * 0.5) * $arrowScaleTablet);
+						}
+						@include g-state(mobile) {
+							bottom: -($arrowBaseHeight * $arrowScaleMobile);
+							border-width: ($arrowBaseHeight * $arrowScaleMobile) (($arrowBaseWidth * 0.5) * $arrowScaleMobile) 0 (($arrowBaseWidth * 0.5) * $arrowScaleMobile);
+						}
+					}
+				}
+			}
+
+			@include g-state(mobile) {
+				border: 0;
+			}
+
+			@include g-state(mobileSmall) {
+				min-height: 150px;
+			}
+
+			.content {
+				@include transform(translate(-50%, -50%));
+				position: absolute;
+				top: 43%;
+				left: 50%;
+				width: 60%;
+				text-align: center;
+
+				@include browserLegacy {
+					top: 50%;
+
+					@include g-state(mobile) {
+						top: inherit;
+					}
+				}
+
+				@include g-state(tablet mobile) {
+					width: 80%;
+				}
+
+				@include g-state(mobileSmall) {
+					top: 50%;
+				}
+
+				h2 {
+					color: $colorWhite;
+					font-weight: $fwLight;
+					margin: 0;
+					font-size: 1.714em;
+					line-height: $lineHeightCondensed;
+					@include g-state(desktop) {
+						font-size: 1.55em;
+					}
+				}
+			}
+
+			&.red {
+				background-color: $colorRed;
+				position: relative;
+				border-left: 0;
+
+				@include browserLegacy {
+					&.active {
+						&:after {
+							border-color: $colorRed transparent transparent transparent;
+						}
+					}
+				}
+
+				@include g-state(mobile) {
+					border-right: 1px solid $colorWhite;
+					border-bottom: 1px solid $colorWhite;
+				}
+
+				@include g-state(mobileSmall) {
+					border: 0;
+					border-bottom: 2px solid $colorWhite;
+				}
+
+				&:hover {
+					background-color: darken($colorRed, 5);
+
+					@include browserLegacy {
+						&.active {
+							&:after {
+								border-color: darken($colorRed, 5) transparent transparent transparent;
+							}
+						}
+					}
+				}
+
+				&:before {
+					content: '';
+					background-color: $colorRed;
+					position: absolute;
+					top: 0;
+					left: -500%;
+					width: 500%;
+					height: 100%;
+				}
+			}
+
+			&.orange {
+				background-color: $colorOrange;
+				position: relative;
+
+				@include browserLegacy {
+					&.active {
+						&:after {
+							border-color: $colorOrange transparent transparent transparent;
+						}
+					}
+				}
+
+				@include g-state(mobile) {
+					border-left: 1px solid $colorWhite;
+					border-bottom: 1px solid $colorWhite;
+				}
+
+				@include g-state(mobileSmall) {
+					border: 0;
+					border-bottom: 2px solid $colorWhite;
+				}
+
+				&:hover {
+					background-color: darken($colorOrange, 5);
+
+					@include browserLegacy {
+						&.active {
+							&:after {
+								border-color: darken($colorOrange, 5) transparent transparent transparent;
+							}
+						}
+					}
+				}
+			}
+
+			&.green {
+				background-color: $colorFlatGreen;
+				position: relative;
+
+				@include browserLegacy {
+					&.active {
+						&:after {
+							border-color: $colorFlatGreen transparent transparent transparent;
+						}
+					}
+				}
+
+				@include g-state(mobile) {
+					border-top: 1px solid $colorWhite;
+					border-right: 1px solid $colorWhite;
+				}
+
+				@include g-state(mobileSmall) {
+					border: 0;
+					border-bottom: 2px solid $colorWhite;
+				}
+
+				&:hover {
+					background-color: darken($colorFlatGreen, 5);
+
+					@include browserLegacy {
+						&.active {
+							&:after {
+								border-color: darken($colorFlatGreen, 5) transparent transparent transparent;
+							}
+						}
+					}
+				}
+			}
+
+			&.blue {
+				background-color: $colorLightBlue2;
+				border-right: 0;
+				position: relative;
+
+				@include browserLegacy {
+					&.active {
+						&:after {
+							border-color: $colorLightBlue2 transparent transparent transparent;
+						}
+					}
+				}
+
+				@include g-state(mobile) {
+					border-left: 1px solid $colorWhite;
+					border-top: 1px solid $colorWhite;
+				}
+
+				@include g-state(mobileSmall) {
+					border: 0;
+
+					.content {
+						top: 43%;
+					}
+				}
+
+				&:hover {
+					background-color: darken($colorLightBlue2, 5);
+
+					@include browserLegacy {
+						&.active {
+							&:after {
+								border-color: darken($colorLightBlue2, 5) transparent transparent transparent;
+							}
+						}
+					}
+				}
+
+				&:before {
+					content: '';
+					background-color: $colorLightBlue2;
+					position: absolute;
+					top: 0;
+					right: -500%;
+					width: 500%;
+					height: 100%;
+				}
+			}
+		}
+		&.support-tabs-mobile {
+			.item {
+				@include g-state(mobile) {
+					min-height: auto;
+					padding: 2em 1em 2.5em;
+					border: 0;
+					text-decoration: none;
+
+					.content {
+						@include transform(translate(0));
+						position: relative;
+						top: inherit;
+						top: initial;
+						left: inherit;
+						left: initial;
+						width: 100%;
+
+						h2 {
+							line-height: $lineHeightExtraCondensed;
+							font-size: 1.6em;
+						}
+					}
+				}
+			}
+		}
+		&.detail {
+			padding: 3em 0 5em;
+			color: $colorBlue;
+
+			@include g-state(tablet) {
+				padding: (3em * $scaleRatioTablet) 0 (5em * $scaleRatioTablet);
+			}
+			@include g-state(mobile) {
+				padding: (3em * $scaleRatioMobile) 0 (5em * $scaleRatioMobile);
+			}
+
+			// hide detail containers that are not "default"
+			&:not([data-id="default"]){
+				display: none;
+			}
+
+			&.contact {
+				background-color: $colorWhite;
+				padding: 3em 0 7em;
+				color: $colorBlue;
+
+				.box {
+					padding: 0;
+					&.divider {
+						border-color: $colorBlue;
+
+						&.first {
+							@include g-state(tablet mobile) {
+								padding-bottom: 2em;
+							}
+						}
+
+						&.last {
+							@include g-state(tablet mobile) {
+								padding-top: 2em;
+							}
+						}
+					}
+
+					form {
+						.errors {
+							font-weight: $fwBold;
+							color: $colorDarkRed;
+						}
+						margin-bottom: 0;
+						input[type="text"], 
+						input[type="email"], 
+						input[type="tel"], 
+						input[type="number"], 
+						input[type="search"],
+						input[type="time"], 
+						textarea {
+							background-color: $colorLightBlue4;
+							color: $colorBlue;
+							max-width: 100%;
+							@include input-placeholder {
+								color: rgba($colorBlue, .6);
+							}
+						}
+						input[type="checkbox"] {
+							-webkit-appearance: none;
+							-moz-appearance: none;
+							appearance: none;
+							display: inline-block;
+							position: relative;
+							background-color: $colorLightBlue4;
+							color: #666;
+							height: 20px;
+							width: 20px;
+							border: 0;
+							cursor: pointer;
+							outline: none;
+							margin-right: .6em;
+							margin-top: .2em;
+
+							&:checked:before {
+								position: absolute;
+								font: 13px/1 'Open Sans', sans-serif;
+								left: 6px;
+								top: 2px;
+								content: '\02143';
+								color: $colorBlue;
+								transform: rotate(40deg);
+							}
+
+							&:hover {
+								background-color: $colorLightBlue5;
+							}
+
+							&:checked {
+								background-color: $colorLightBlue4;
+							}
+
+							@include g-state(mobile) {
+								margin-top: unset;
+							}
+							@include g-state(tablet) {
+								margin-top: .05em;
+							}
+							@include g-state(desktop) {
+								margin-top: .05em;
+							}
+
+						}
+						a {
+							color: $colorBlue;
+
+							&:hover {
+								color: $colorBlueHover;
+							}
+						}
+						select {
+							font-weight: $fwNormal;
+						}
+						.select-container {
+							position: relative;
+
+							.open-arrow {
+								position: absolute;
+								top: 0;
+								right: 0;
+								width: 2em;
+								height: 100%;
+								background-color: $colorLightBlue5;
+								pointer-events: none;
+
+								&:after {
+									@include transform(translate(-50%, -50%));
+									top: 50%;
+									left: 50%;
+									content: '';
+									width: 0; 
+									height: 0; 
+									border-left: 5px solid transparent;
+									border-right: 5px solid transparent;
+									border-top: 5px solid $colorWhite;
+									position: absolute;
+									pointer-events: none;
+								}
+							}
+							/*&.error {
+								.open-arrow {
+									background-color: $colorLightBlue4;
+								}
+							}*/
+						}
+						
+						textarea {
+							min-height: 193px;
+						}
+						.button {
+							background-color: rgba($colorBlue, .5);
+							margin-bottom: 0;
+
+							&:hover {
+								background-color: rgba($colorBlue, .8);
+							}
+						}
+					}
+				}
+			}
+			
+			p {
+				&.large {
+					font-size: 1.429em;
+				}
+			}
+			
+			span.large {
+				font-size: 1.714em;
+				display: block;
+			}			
+
+			.column {
+				@include box-sizing(border-box);
+				text-align: center;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0 5em;
+
+				@include g-state(tablet mobile) {
+					padding: 0;
+				}
+
+				a:not([href^="tel:"]) {
+					font-weight: $fwBold;
+				}
+				
+				&.divider {
+					border-right: 1px solid $colorBlue;
+					border-left: 1px solid $colorBlue;
+
+					@include g-state(mobile) {
+						border: 0;
+					}
+
+					&.first {
+						border-left: 0;
+					}
+
+					&.last {
+						border-right: 0;
+					}
+				}
+
+				form {
+					max-width: 400px;
+					margin: 0 auto;
+
+					@include g-state(tablet) {
+						margin: 0 3.5em 0 0;
+					}
+					label {
+						margin-bottom: 1em;
+					}
+
+					input[type="email"] {
+						background-color: $colorLightBlue4;
+						color: $colorBlue;
+						max-width: 100%;
+						@include input-placeholder {
+							color: rgba($colorBlue, .6);
+						}
+					}
+
+					select {
+						font-weight: $fwNormal;
+					}
+
+					.input-container {
+						position: relative;
+						
+						input[type="tel"] {
+							/*background-color: $colorWhite;
+							text-align: center;
+							margin: 0;
+
+							@include input-placeholder {
+								font-size: 1em;
+								color: $colorLightBlue;
+							}*/
+							background-color: $colorLightBlue4;
+							color: $colorBlue;
+							max-width: 100%;
+							@include input-placeholder {
+								@include fontFamily($fontWorkSans);
+								color: darken($colorLightBlue5, 4);
+								font-weight: $fwLight;
+							}
+						}
+
+
+						input[type="checkbox"] {
+							margin-top: .6em;
+							margin-right: .6em;
+						}
+
+						label:not(.error) {
+							/*input[type="tel"] {
+								@include box-shadow(inset 0px 0px 0px $inputBorderWidth $colorLightBlue); // shadow + border
+							}*/
+						}
+
+						.error-text {
+							text-align: center;
+						}
+					}
+					.button {
+						width: 100%;
+						text-transform: uppercase;
+						font-size: 1.286em;
+						background-color: $colorLightBlue;
+
+						&:hover {
+							background-color: darken($colorLightBlue, 10);
+						}
+					}
+				}
+
+				&#store-content {
+					form {
+						@include g-state(tablet) {
+							margin: 0 0 0 3.5em;
+						}
+					}
+				}
+			}
+		}
+		&.slider-panel {
+			background-color: $colorLightBlue6;
+		}
+	}
+
+	#store-content {
+		form {
+			overflow: auto;
+			clear: both;
+		}
+	}
+
+	#csztForm {
+		.form-sent {
+			background-color: $colorLightBlue4;
+			padding: 10%;
+			text-align: center;
+
+			p {
+				text-align: center;
+				margin-bottom: 0;
+			}
+		}
+	}
+}

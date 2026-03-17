@@ -1,0 +1,117 @@
+{block overview-headline}Gonector Overview{/block}
+{block overview}
+    <h2>{include overview-headline}</h2>
+    <p> Gonector is a <a n:href="FileMakerLicensing:default">FileMaker</a> plug-in that allows a native application for iPhone or iPad to communicate directly with mobile hardware devices. Being able to interact with professional
+        mobile devices enables you to <strong>use the FileMaker platform to create a POS, Inventory and lots of other heavy-duty mobile business apps with friendly, fast, and reliable user
+            interface.</strong></p>
+    <p><a href="{$basePath}/news/gonector-20-doubles-supported-devices">Learn what's new in version 2</a></p>
+{/block}
+
+{block features-headline}Key Features{/block}
+{block features}
+    <h2>{include features-headline}</h2>
+    <ul>
+        <li>RAIN UHF RFID readers allow you to create mobile apps for iPhone or iPad that can <b>read from and write to UHF RFID tags</b></li>
+        <li>Support for NFC on iPhone 7 or later can make your FileMaker app <b>read from and write to NFC tags without additional hardware</b></li>
+        <li>Hardware barcode scanners let your apps <b>scan barcodes quickly, reliably and smoothly even in low-light conditions</b></li>
+        <li>Linea Pro and Infinea sled readers enable your apps to <b>read and write RFID tags, scan barcodes, 2D codes, and magnetic stripe cards </b></li>
+        <li>Reading data from digital scales lets your app <b>capture weight data without interfering with the user interface</b></li>
+        <li>Support for Bluetooth mobile printers allows for <b>printing receipts and (even RFID) labels directly from mobile FileMaker apps</b></li>
+    </ul>
+{/block}
+
+{block qidmini-headline}RAIN UHF RFID{/block}
+{block qidmini}
+    <h2>{include qidmini-headline}</h2>
+    <p>
+        Gonector integrates with <a href="//24usw.com/znmxphwnb" target="_blank">CAEN qIDmini</a> , an UHF RFID reader with linear polarization suitable for scanning individual RFID tags. It newly also supports <a href="//24usw.com/mnmefmlqr" target="_blank">CAEN skID</a> and <a href="//24usw.com/ufcnmcokw" target="_blank">Alien ALR-S350</a> with circular polarization, great for scanning a lot of tags at once.
+    </p>
+    <p class="p-bold">
+        These features enable you to create a FileMaker mobile app for iPhone or iPad that can seamlessly scan RAIN UHF RFID tags, commonly used in warehouses and stores.
+    <p>
+{/block}
+
+{block iphone_nfc-headline}Reading and Writing NFC Tags{/block}
+{block iphone_nfc}
+    <h2>{include iphone_nfc-headline}</h2>
+    <p>
+        Every iPhone since version 7 acts as an NFC chip and also can <a href="//24usw.com/diffvcxxw" target="_blank">read NFC tags</a> that are formatted as NDEF. Starting from iOS 13, iPhones can also <a href="//24usw.com/wwpbpnuus" target="_blank">write to NFC tags</a> with no additional hardware. Gonector makes all this directly available to your FileMaker apps.
+    </p>
+    <p class="p-bold">
+        You can create your own FileMaker app for iPhone 7 or newer that can seamlessly not only read but also write data to NFC tags. All this without need for any other hardware or applications.
+    </p>
+    <p><a href="{$basePath}/news/reading-and-writing-nfc-tags-from-filemaker">Learn how to implement it...</a></p>
+{/block}
+
+{block scanners-headline}Industrial Barcode Scanners{/block}
+{block scanners}
+    <h2>{include scanners-headline}</h2>
+    <p>
+        Gonector allows you to use Zebra's industrial barcode scanners, such as <a href="//24usw.com/dvucfvrin" target="_blank">DS3678</a> or <a href="//24usw.com/bwvckmzyg" target="_blank">CS4070</a>, to scan barcodes on demand from your scripts, trigger your scripts by scanning barcodes with the hardware trigger, and even provide customized visual, audible and haptic feedback directly on the scanner.
+    </p>
+    <p class="p-bold">
+        Seamless integration of the industrial barcode scanners lets you scan barcodes directly to your app faster, more easily and more reliably than with the iPhone's built-in camera.
+    </p>
+    <p><a href="{$basePath}/news/implementing-industrial-barcode-scanners-from-zebra">Learn how to implement this...</a></p>
+
+{/block}
+
+{block linea-headline}Linea Pro and Infinea{/block}
+{block linea}
+    <h2>{include linea-headline}</h2>
+    <p>
+        Linea Pro and Infinea are multi-purpose <a href="//24usw.com/dcirddwmk" target="_blank">scanners made by Infinite Peripherals</a> that attach as a case to your iPhone or iPad. The devices scan barcodes, 2D codes, magnetic cards, and read and write high frequency RFID tags, including NFC. Gonector talks to the devices directly in the backend and scanning can be initiated either from the plug-in or from the device.
+    </p>
+    <p class="p-bold">
+        By integrating a multi-purpose sled reader to your custom FileMaker app you can do all your inventory or POS tasks while efficiently, while still keeping one hand completely free.
+    </p>
+
+    <p><a href="{plink News:detail, url => 'blazingly-fast-barcode-scanning-with-linea-pro-and-infinea-scanners'}">Learn how to implement them...</a></p>
+{/block}
+
+{block scales-headline}Digital Scales{/block}
+{block scales}
+    <h2>{include scales-headline}</h2>
+    <p>Any RS-232 equipped digital scale, such as <a href="//24usw.com/jqrdjsvhl" target="_blank">LESAK crane
+            scales</a> and <a href="//24usw.com/dairlxcse" target="_blank">Ohaus lab and industrial scales</a> can be easily connected to an iPhone or iPad by up the <a
+                href="//24usw.com/bjmsnbcvi" target="_blank">BlueSnap Bluetooth adapter</a>. Gonector lets your FileMaker app
+        talk to BlueSnap in the background and get the date from the scale either on demand or whenever the scale send it.</p>
+    <p class="p-bold"> Whether at the point of sale, in a warehouse, or anywhere else, Gonector lets your custom mobile FileMaker app directly gather data from digital scales to save your
+        time and prevent human error. </p>
+{/block}
+
+{block label_printer-headline}Bluetooth Label Printers (with RFID){/block}
+{block label_printer}
+    <h2>{include label_printer-headline}</h2>
+    <p>
+        Gonector lets your custom FileMaker app print labels on the <a href="https://www.zebra.com/gb/en/products/printers/mobile/zq630-rfid.html" target="_blank">Zebra ZQ630 RFID</a> and compatible label printers, including reading and writing RAIN UHF RFID tags embedded in the labels. The plug-in uses the Zebra Programming Language internally but you don't have to learn it to be able to use it.
+    </p>
+    <p class="p-bold">
+        By printing labels directly via Bluetooth using ZPL you can print (not only RFID) labels quickly and reliably anywhere, without having to rely on wi-fi or AirPrint.
+    </p>
+    <p>
+        <a href="{$basePath}/news/gonector-prints-rfid-labels" target="_blank">Learn how to implement it...</a>
+    </p>
+{/block}
+
+{block printer-headline}Bluetooth Mobile Receipt Printers{/block}
+{block printer}
+    <h2>{include printer-headline}</h2>
+    <p>
+        Out of the many mobile printers available we found <a href="//24usw.com/cpvdvzguc" target="_blank">Infinite Peripherals</a> with their <a href="//24usw.com/wcpfnkbpg" target="_blank">DPP-255</a> and the Italian brand <a href="//24usw.com/navqnnkri" target="_blank">CUSTOM</a> with their <a href="//24usw.com/ksctsewog" target="_blank">MyPrinter</a> and <a href="//24usw.com/rtfcxjbvy" target="_blank">My3</a> printers to provide among the most reliable devices which easily connect to an iPad or iPhone. So we made Gonector talk to these printers and print text, barcodes, QR codes and pictures exactly as requested with minimum fuss.
+    </p>
+    <p class="p-bold">
+        By using Gonector you can print professional-looking receipts from your mobile FileMaker app easily and reliably over Bluetooth.
+    </p>
+{/block}
+
+{block ingenico-headline}Mobile Payment Terminals{/block}
+{block ingenico}
+    <h2>{include ingenico-headline}</h2>
+    <p>
+        Gonector lets your app talk directly to mobile payment terminals from Infinite Peripherals (for Noth America) and Ingenico (for Europe).
+    </p>
+    <p class="p-bold">
+        By seamlessly integrating payment terminals you can securely process credit card payments on the go directly from within your custom app, including NFC and Apple Pay.
+    </p>
+{/block}

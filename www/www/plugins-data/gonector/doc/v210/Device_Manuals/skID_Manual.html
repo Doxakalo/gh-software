@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+
+	<title>skID Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for skID R1280</h1>
+<p>
+This document describes known limitations of RFID reader skID R1280 as
+well as measured distances for reading on certain types of materials.<br>
+This document is only overview of capabilities skID R1280 RFID reader. For more information see <a href="../../Support/skID-data-sheet.pdf">reader manual</a>.
+</p>
+
+<h2>Connecting RFID reader</h2>
+<p>
+Call function Gonector_Get("devices") to get deviceName of skID and then call Gonector_Connect( deviceName ) function to connect to skID.
+</p>
+
+<h2>Limitations of RFID reader</h2>
+<p>
+Following list summarises knowledge gathered by measurement performed by our tester team:
+	<ul>
+		<li>When more RFID tags are present in reading zone of device, reader can create non-existing value</li>
+		<li>Material on which RFID tag is placed and its position is important for reading. For example:
+		RFID tag placed on plastic bag placed vertically can be read from distance approximately 15cm,
+		however the same tag placed on wood or glass can be read from distance approximately 50cm</li>
+		<li>Speed of reading: one tag can be read by reader approximately 200 per minute, 3 tags can be read by tag 175 per minute</li>
+		<li>Reader can connect to iOS device from distance max. 10m</li>
+		<li>Reader will lose its connection to iOS device from distance at least 15m</li>
+	</ul>
+
+<h2>Solving issues with RFID</h2>
+<p>
+	This section describes issues with reader, which can occur together with possible solution.
+	<ul>
+		<li>Gonector_Get("devices") doesn't see your skID:
+			<ul>
+				<li>Make sure that your skID is running with Bluetooth BLE firmware with optimal iOS settings: you can ask CaenRFID Technical Support to get this firmware and instructions how to setup your skID: support@caenrfid.it</li>	
+			</ul>
+		</li>
+	</ul>
+</p>
+
+
+</body>
+</html>

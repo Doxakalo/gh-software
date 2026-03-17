@@ -1,0 +1,322 @@
+{block content}
+    {var $numberOfRecordsInteration = 0}
+    {var $defaultShowRecords = 10}
+    <div id="benchTestResult" class="benchTestResult editor-content">
+        <div class="tabs">
+            <button class="button tab" data-tab="Local File">Local File</button>
+            <button class="button tab" data-tab="Localhost">Localhost</button>
+            <button class="button tab" data-tab="Local Network">Local Network</button>
+            <button class="button tab" data-tab="Wide Area Network">Wide Area Network</button>
+            <button class="button tab" data-tab="Multiple Users">Multiple Users</button>
+            <button class="button tab" data-tab="Hosting">Hosting</button>
+        </div>
+        <table>
+            <tr class="hide@mobile hide@mobileSmall">
+                <th>Name</th>
+                <th>Contributor</th>
+                <th class="scoreColumn">Score</th>
+                <th class="submitedColumn">Submitted</th>
+                <th class="showMoreDetailColumn"></th>
+            </tr>
+            {foreach $benchTestData as $run}
+                {var $p = (100 * $run["score"]) / $maxScore}
+                <tr data-type="{$run["tab"]}" class="run {* if $numberOfRecordsInteration >= $defaultShowRecords}hide{/if*}">
+                    <td class="name">{$run["notes"]}</td>
+                    <td class="author">{if $run["url_approved"] !== ''}<a target="_blank" href="{$run["url"]}">{$run["contact_name"]} <i class="fas fa-external-link-alt"></i></a>{else}{$run["contact_name"]}{/if}
+                    </td>
+                    <td class="scoreColumn">
+                        {var $logScore = log10($run["score"])}
+                        {var $percentage = (($logScore * 100) > 100 ? 100:($logScore * 100))}
+
+                        <div class="hide@mobile hide@mobileSmall score {$logScore < 0 ? "negative" : "positive"}">
+                            {if $logScore >= 0}
+                                <div class="graph-part scoreWrapper">
+                                    <span class="scoreNumber">{number_format($run["score"],3 )}</span>
+                                </div>
+                                <div class="graph-part graphWrapper">
+                                    <div class="graph" style="width: {$percentage|noescape}%;"></div>
+                                </div>
+                            {else}
+                                <div class="graph-part graphWrapper">
+                                    <div class="graph" style="width: {($percentage * -1)|noescape}%;"></div>
+                                </div>
+                                <div class="graph-part scoreWrapper">
+                                    <span class="scoreNumber">{number_format($run["score"],3)}</span>
+                                </div>
+                            {/if}
+                        </div>
+                        <div class="hide show@mobile show@mobileSmall">
+                            <div class="label-value finished">
+                                <span class="label">Score:</span> <span class="value">{number_format($run["score"],3 )}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="submitedColumn">{$run["submitted"]|date:'%m/%d/%Y'}</td>
+                    <td class="showMoreDetailColumn">
+                        <a href="javascript:void(0);" data-id="{$run["id"]}" class="show-more showDetailOfEnvironment"><i class="fas fa-info-circle"></i></a>
+                        <a href="javascript:void(0);" data-src="{link Tools:BenchTestResultDetail, $run['id']}" class="showScriptRuns"><i class="fas fa-bars"></i></a>
+                    </td>
+                </tr>
+                {var $numberOfRecordsInteration = $numberOfRecordsInteration + 1}
+            {/foreach}
+        </table>
+        <button class="button showTenMore">Show 10 more</button>
+    </div>
+
+    <div style="display: none" id="detailOfRunsScript">
+        <div id="loader-benchtest-iframe">
+            <img src="{$basePath}/img/layout/icons/loader_v3.svg" alt="Loader Image"/>
+        </div>
+        <iframe src=""></iframe>
+    </div>
+
+    <div style="display: none" id="detailOfEnvironmentDraft">
+        <h2>
+            Session Details
+        </h2>
+        <div class="row mb-1 mt-1">
+            <div class="gr-4 gr-6@tablet gr-12@mobile gr-12@mobileSmall">
+                <div class="data generic">
+                    <div class="label-value started">
+                        <span class="label">Started:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value finished">
+                        <span class="label">Finished:</span> <span class="value"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="gr-4 gr-6@tablet gr-12@mobile gr-12@mobileSmall">
+                <div class="data generic">
+                    <div class="label-value submitted">
+                        <span class="label">Submitted/Received:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value submittedBy">
+                        <span class="label">Submited By:</span> <span class="value"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="gr-4 gr-6@tablet gr-12@mobile gr-12@mobileSmall">
+                <div class="data generic">
+                    <div class="label-value benchtestversion">
+                        <span class="label">BenchTest Version:</span> <span class="value"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="gr-4 gr-6@tablet gr-12@mobile gr-12@mobileSmall mt-1@tablet mt-1@mobile mt-1@mobileSmall client">
+                <h4>Client Environment</h4>
+                <div class="data data-client">
+                    <div class="label-value version">
+                        <span class="label">Version:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value platform">
+                        <span class="label">Platform:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value osversion">
+                        <span class="label">OS Version:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value architecture">
+                        <span class="label">Architecture:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value cpuspeed">
+                        <span class="label">CPU Speed:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value diskread">
+                        <span class="label">Disk read speed:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value diskwrite">
+                        <span class="label">Disk write speed:</span> <span class="value"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="gr-4 gr-6@tablet gr-12@mobile gr-12@mobileSmall mt-1@tablet mt-1@mobile mt-1@mobileSmall server">
+                <h4>Server Environment</h4>
+                <div class="data data-server">
+                    <div class="label-value version">
+                        <span class="label">Version:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value platform">
+                        <span class="label">Platform:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value osversion">
+                        <span class="label">OS Version:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value architecture">
+                        <span class="label">Architecture:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value cpuspeed">
+                        <span class="label">CPU Speed:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value diskread">
+                        <span class="label">Disk read speed:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value diskwrite">
+                        <span class="label">Disk write speed:</span> <span class="value"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="gr-4 gr-6@tablet gr-12@mobile gr-12@mobileSmall mt-1@tablet mt-1@mobile mt-1@mobileSmall network">
+                <h3>Network Environment</h3>
+                <div class="data data-network">
+                    <div class="label-value connection">
+                        <span class="label">Connection:</span> <span class="value"></span>
+                    </div>
+                    <div class="label-value latency">
+                        <span class="label">Latency:</span> <span class="value"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="display: none" id="detailOfEnvironment">
+
+    </div>
+
+{/block}
+{block pre-script}
+    <script>
+        var loader = document.getElementById("loader-full-page");
+        loader.style.display = "block";
+    </script>
+{/block}
+
+{block post-script}
+    <script>
+        function fillFieldWithData(field, value) {
+            if (value !== "") {
+                $(".value", field).html(value);
+            } else {
+                $(".value", field).parent().remove();
+            }
+        }
+
+        var runs = {$benchTestData};
+
+        $(document).on('click', '.showScriptRuns', function (e) {
+            $('#detailOfRunsScript').modal({
+                closeExisting: false,
+                position: "top",
+                modalClass: "modal benchTestModal",    // CSS class added to the element being displayed in the modal.
+                blockerClass: "benchTestBlocker",
+            });
+
+            $("#loader-benchtest-iframe").show();
+
+            $("#detailOfRunsScript iframe").attr("src", $(this).attr("data-src"));
+
+
+            $("#detailOfRunsScript iframe").on("load", function() {
+                $("#loader-benchtest-iframe").hide();
+
+            });
+        });
+
+
+        $(document).on('click', '.showDetailOfEnvironment', function (e) {
+            var id = $(this).attr("data-id");
+            var run = runs[id];
+            var draft = $("#detailOfEnvironmentDraft").clone();
+
+            // FILL WITH DATA
+
+            // GENERIC
+            fillFieldWithData($(".generic .started", draft), (run.started !== undefined ? run.started : ""));
+            fillFieldWithData($(".generic .finished", draft), (run.finished !== undefined ? run.finished : ""));
+            fillFieldWithData($(".generic .submitted", draft), (run.submitted !== undefined ? run.submitted : ""));
+            fillFieldWithData($(".generic .submittedBy", draft), (run.contact_name !== undefined ? run.contact_name : ""));
+            fillFieldWithData($(".generic .benchtestversion", draft), (run.environment.benchtest_version !== undefined ? run.environment.benchtest_version : ""));
+
+            if (run.environment.client !== undefined) {
+                var cDiskReadSpeed = null;
+                if(run.environment.client.disk_read_speed !== undefined){
+                    cDiskReadSpeed = (parseFloat(run.environment.client.disk_read_speed) * 100).toFixed(0);
+                }
+
+                var cDiskWriteSpeed = null;
+                if(run.environment.client.disk_write_speed !== undefined){
+                    cDiskWriteSpeed = (parseFloat(run.environment.client.disk_write_speed) * 100).toFixed(0);
+                }
+
+                var cCPUSpeed = null;
+                if(run.environment.client.cpu_speed !== undefined){
+                    cCPUSpeed = (parseFloat(run.environment.client.cpu_speed) * 5000).toFixed(0);
+                }
+
+                fillFieldWithData($(".data-client .version", draft), (run.environment.client.version !== undefined ? run.environment.client.version : ""));
+                fillFieldWithData($(".data-client .platform", draft), (run.environment.client.platform !== undefined ? run.environment.client.platform : ""));
+                fillFieldWithData($(".data-client .osversion", draft), (run.environment.client.os !== undefined ? run.environment.client.os : ""));
+                fillFieldWithData($(".data-client .architecture", draft), (run.environment.client.architecture !== undefined ? run.environment.client.architecture : ""));
+                fillFieldWithData($(".data-client .cpuspeed", draft), (cCPUSpeed !== null ? cCPUSpeed + " loops/sec" : ""));
+                fillFieldWithData($(".data-client .diskread", draft), (cDiskReadSpeed !== null ? cDiskReadSpeed + " MiB/sec" : ""));
+                fillFieldWithData($(".data-client .diskwrite", draft), (cDiskWriteSpeed !== null ? cDiskWriteSpeed + " MiB/sec" : ""));
+            } else {
+                $(".client", draft).remove();
+            }
+
+
+            if (run.environment.server !== undefined) {
+
+                var sDiskReadSpeed = null;
+                if(run.environment.server.disk_read_speed !== undefined){
+                    sDiskReadSpeed = (parseFloat(run.environment.server.disk_read_speed) * 100).toFixed(0);
+                }
+
+                var sDiskWriteSpeed = null;
+                if(run.environment.server.disk_write_speed !== undefined){
+                   sDiskWriteSpeed = (parseFloat(run.environment.server.disk_write_speed) * 100).toFixed(0);
+                }
+
+                var sCPUSpeed = null;
+                if(run.environment.server.cpu_speed !== undefined){
+                    sCPUSpeed = (parseFloat(run.environment.server.cpu_speed) * 5000).toFixed(0);
+                }
+
+                fillFieldWithData($(".data-server .version", draft), (run.environment.server.version !== undefined ? run.environment.server.version : ""));
+                fillFieldWithData($(".data-server .platform", draft), (run.environment.server.platform !== undefined ? run.environment.server.platform : ""));
+                fillFieldWithData($(".data-server .osversion", draft), (run.environment.server.os !== undefined ? run.environment.server.os : ""));
+                fillFieldWithData($(".data-server .architecture", draft), (run.environment.server.architecture !== undefined ? run.environment.server.architecture : ""));
+                fillFieldWithData($(".data-server .cpuspeed", draft), (sCPUSpeed !== null ? sCPUSpeed + " loops/sec" : ""));
+                fillFieldWithData($(".data-server .diskread", draft), (sDiskReadSpeed !== null ? sDiskReadSpeed + " MiB/sec" : ""));
+                fillFieldWithData($(".data-server .diskwrite", draft), (sDiskWriteSpeed !== null ? sDiskWriteSpeed + " MiB/sec" : ""));
+            } else {
+                $(".server", draft).remove();
+            }
+
+            if (run.environment.network !== undefined) {
+                var latency = null;
+                if(run.environment.network.latency !== undefined){
+                    if((run.environment.network.latency).startsWith(".")){
+                        latency = (parseFloat("0" + run.environment.network.latency) * 1000).toFixed(1);
+
+                    } else {
+                        latency = (parseFloat(run.environment.network.latency) * 1000).toFixed(1);
+                    }
+                }
+                fillFieldWithData($(".data-network .connection", draft), (run.environment.network.connection !== undefined ? run.environment.network.connection : ""));
+                fillFieldWithData($(".data-network .latency", draft), (latency !== null ? latency + " ms" : ""));
+            } else {
+                $(".network", draft).remove();
+            }
+
+            $("#detailOfEnvironment").html(draft.html())
+
+
+            $('#detailOfEnvironment').modal({
+                closeExisting: false,
+                position: "top",
+                modalClass: "modal benchTestModal",    // CSS class added to the element being displayed in the modal.
+                blockerClass: "benchTestBlocker",
+            });
+
+            var resultsHeight = $("#benchTestResult").outerHeight();
+            var detailOfEnvironmentPopupHeight = $("#detailOfEnvironment").outerHeight();
+            var clickedButtonOfsetTop = $(this).offset().top;
+
+            $("#detailOfEnvironment").parent().addClass("active");
+            $("#detailOfEnvironment").css("top", (clickedButtonOfsetTop + detailOfEnvironmentPopupHeight < resultsHeight ? clickedButtonOfsetTop : (resultsHeight -  detailOfEnvironmentPopupHeight - 50)));
+        });
+
+        loader.style.display = "none";
+    </script>
+{/block}

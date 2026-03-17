@@ -1,0 +1,62 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}
+    {_pages.terms.metadata.title}
+{/block}
+{block description}
+    {_pages.terms.metadata.description}
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.terms.metadata.og.title}{/capture}
+        {capture $description}{_pages.terms.metadata.og.description}{/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            imagePath => $appConfig["og"]["image"],
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default bottom-arrow-margin" style="background-image: url('{$basePath}/img/pages/terms-of-use/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/terms-of-use/cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        <strong>{_pages.terms.section-header}</strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="terms-of-use">
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="gr-12 editor-content terms-of-use">
+                {include terms_content}
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+

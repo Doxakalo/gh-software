@@ -1,0 +1,272 @@
+{import 'translate_' . $locale . '.latte'}
+
+{block title}{_pages.stories.meta.title}{/block}
+{block description}{_pages.stories.meta.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_generic.page-title.stories}{/capture}
+        {capture $description}{_pages.stories.meta.description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og_image_3.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og_image_4.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og_image_5.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og-dorper-breedbook.jpg'>
+        {/capture}
+        {include meta-og,
+        type => $appConfig["og"]["type"],
+        title => $title,
+        description => $description,
+        ogMediaHTML => $ogMediaHtml,
+        siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="70">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cover-sticky" id="fixedCover-2">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover sticky" id="staticCover-1" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 cover-parallax-inner">
+                <h1 class="page-title">
+                    <strong>{_pages.stories.list.headlines.skills.headline}</strong>
+                    <div class="description">
+                        {_pages.stories.list.headlines.skills.description}
+                    </div>
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="tile-panel">
+    <div class="row">
+        {var $spliterTextsRaw = [
+        "cs" => [
+        [
+        "headline" => "Příběhy našich klientů",
+        "description" => "Podívejte se na příběhy našich klientů, kteří s námi dlouhodobě spolupracují a kterým pomáháme rozvíjet jejich obchod.",
+        ],
+        [
+        "headline" => "Poutavé příběhy našich zákazníků",
+        "description" => "Nahlédněte do zákulisí úspěchů našich klientů, kteří díky dlouhodobé spolupráci proměňují své podnikání v dynamický příběh růstu.",
+        ],
+        [
+        "headline" => "Příběhy našich klientů",
+        "description" => "Odkryjte tajemství úspěchu našich klientů, kteří s námi dlouhodobě spolupracují při růstu svého obchodu.",
+        ],
+        [
+        "headline" => "Inspirujte se příběhy našich klientů",
+        "description" => "Objevte příběhy klientů, kteří s námi dlouhodobě spolupracují a díky naší pomoci rozvíjejí své obchodní aktivity.",
+        ],
+        [
+        "headline" => "Příběhy našich klientů",
+        "description" => "Seznamte se s příběhy klientů, kteří nám již dlouho důvěřují, a se kterými společně pracujeme na růstu jejich obchodů.",
+        ],
+        [
+        "headline" => "Osobní příběhy našich klientů",
+        "description" => "Podívejte se na příběhy našich klientů, kteří využívají naši dlouhodobou podporu pro rozvoj a růst svého podnikání.",
+        ],
+        ],
+        "en" => [
+        [
+        "headline" => "Stories of our clients",
+        "description" => "Take a look at the stories of our clients who have worked with us for a long time and whom we have helped to grow their business.",
+        ],
+        [
+        "headline" => "Compelling stories from our clients",
+        "description" => "Go behind the scenes of the success stories of our clients who are turning their business into a dynamic growth story through long-term collaboration.",
+        ],
+        [
+        "headline" => "Our clients’ stories",
+        "description" => "Discover the success secrets of our clients who work with us to grow their business over the long term.",
+        ],
+        [
+        "headline" => "Be inspired by our clients’ stories",
+        "description" => "Discover the stories of clients who have worked with us for a long time and have grown their business with our help.",
+        ],
+        [
+        "headline" => "Our clients’ stories",
+        "description" => "Discover the stories of clients who have trusted us for a long time and with whom we work together to grow their business.",
+        ],
+        [
+        "headline" => "Personal stories of our clients",
+        "description" => "Read the stories of our clients who have used our long-term support to develop and grow their businesses.",
+        ]
+        ]
+        ]}
+        {var $spliterTextsByLang = $spliterTextsRaw[$locale]}
+        {foreach $skills as $key => $skill}
+            <div class="tile gr-4 gr-6@tablet gr-12@mobile no-gutter padding-right " data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="false">
+                <a n:href="Stories:skillDetail, url => $skill->url,backlink => $selfLink" class="overlay {($iterator->counter % 2) === 0 ?  'blue' : 'orange'}"
+                                                             style="background-image: url('{$basePath}/img/pages/stories/skills/{$skill->skill->folder_image}/{$skill->skill->preview_image}')">
+                   <div style="opacity: {$skill->skill->background_opacity|noescape}" onMouseOver="this.style.opacity='{$skill->skill->background_opacity_hover|noescape}'"
+                        onMouseOut="this.style.opacity='{$skill->skill->background_opacity|noescape}'" class="color-rollover   {($iterator->counter % 2) === 0 ?  'blue' : 'orange'}"></div>
+                    <div class="content" style="pointer-events: none">
+                        <h3>{$skill->title}</h3>
+                        <p>{$skill->preview_text}</p>
+                    </div>
+                </a>
+            </div>
+            {if !$iterator->last}
+                {if ($iterator->counter % 6) === 0}
+                    {var $spliterRandomKey = array_rand($spliterTextsByLang, 1)}
+                    {var $spliterText = $spliterTextsByLang[$spliterRandomKey]}
+                    <div class="splitter  gr-12 gr-12@tablet">
+                        <div class="row">
+                            <div class="gr-12">
+                                <h2 class="page-title mb-2">
+                                    <strong>{$spliterText["headline"]}
+                                    </strong>
+                                </h2>
+                                <div class="description mb-1 mt-1">
+                                    {$spliterText["description"]}
+                                </div>
+                                <a href="javascript:void(0);" class="link-to-scroll button" data-scroll-anchor="first-story-of-our-client">
+                                    {_pages.stories.list.stories-our-clients}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {/if}
+            {/if}
+        {/foreach}
+    </div>
+</section>
+
+<section style="overflow: hidden"  data-anchor="stories">
+    <div class="cover sticky sticky-parallax" id="staticCover-2" style="background-image: url('{$basePath}/img/pages/tools/cover-2_objectmask.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="gr-6 sticky-parallax-inner">
+                    <h2 class="page-title">
+                        <strong>{_pages.stories.list.headlines.stories.headline}</strong>
+                        <div class="description">
+                            {_pages.stories.list.headlines.stories.description}
+                        </div>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a id="first-story-of-our-client" data-anchor="first-story-of-our-client" n:href="Stories:dartis" class="section-link">
+    <section class="aside-image arrow">
+        <div class="inner-background tile-parallax" style="background-image: url('{$basePath}/img/pages/stories/dartis_story_header_reverse_2.jpg')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="gr-4 prefix-8 gr-12@mobile prefix-0@mobile text-center@mobile-center">
+                    {include dartis_list|noescape}
+                    <span class="button">{_pages.stories.list.article-read-more}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</a>
+
+<a n:href="Stories:breedbook" class="section-link">
+    <section class="aside-image arrow">
+        <div class="inner-background tile-parallax" style="background-image: url('{$basePath}/img/pages/stories/dorper_story_header.jpg')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="gr-4 gr-6@desktop gr-8@tablet gr-12@mobile text-left@mobile-center tile-parallax-inner">
+                    {include dorper_list|noescape}
+                    <span class="button">{_pages.stories.list.article-read-more}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</a>
+
+<a n:href="Stories:jennpro" class="section-link">
+    <section class="aside-image arrow">
+        <div class="inner-background jogs-mobile" style="background-image: url('{$basePath}/img/pages/stories/story-jennpro-left-v2.jpg?v=1')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="gr-4 prefix-8 gr-12@mobile prefix-0@mobile text-center@mobile-center">
+                    {include jennpro_list|noescape}
+                    <span class="button">{_pages.stories.list.article-read-more}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</a>
+
+<a n:href="Stories:synetrans" class="section-link">
+    <section class="aside-image">
+        <div class="inner-background tile-parallax" style="background-image: url('{$basePath}/img/pages/stories/synetrans_story.jpg')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="gr-4 gr-6@desktop gr-8@tablet gr-12@mobile text-left@mobile-center tile-parallax-inner">
+                    {include synelogis_list|noescape}
+                    <span class="button">{_pages.stories.list.article-read-more}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</a>
+
+<a n:href="Stories:jogs" class="section-link">
+    <section class="aside-image">
+        <div class="inner-background jogs-mobile" style="background-image: url('{$basePath}/img/pages/stories/jacoma_estates_story.jpg')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="gr-4 prefix-8 gr-12@mobile prefix-0@mobile text-center@mobile-center">
+                    {include jogs_list|noescape}
+                    <span class="button">{_pages.stories.list.article-read-more}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</a>
+
+<a n:href="Stories:ewemanage" class="section-link">
+    <section class="aside-image">
+        <div class="inner-background tile-parallax" style="background-image: url('{$basePath}/img/pages/stories/sheep_sorting_story.jpg')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="gr-4 gr-6@desktop gr-8@tablet gr-12@mobile text-left text-left@mobile-center tile-parallax-inner">
+                    {include ewe_list|noescape}
+                    <span class="button">{_pages.stories.list.article-read-more}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</a>
+
+<a n:href="Stories:adiutor" class="section-link">
+    <section class="aside-image end">
+        <div class="inner-background adiutor-mobile" style="background-image: url('{$basePath}/img/pages/stories/compotech_story_fliped.jpg')"></div>
+        <div class="container">
+            <div class="row">
+                <div class="gr-4 prefix-8 gr-12@mobile prefix-0@mobile text-center@mobile-center">
+                    {include adiutor_list|noescape}
+                    <span class="button">{_pages.stories.list.article-read-more}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</a>

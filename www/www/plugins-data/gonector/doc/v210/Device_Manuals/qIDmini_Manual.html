@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+
+	<title>qIDmini Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for qID R1170</h1>
+<p>
+This document describes known limitations of RFID reader qID R1170 as
+well as measured distances for reading on certain types of materials.<br>
+This document is only overview of capabilities qID R1170 RFID reader. For more information see <a href="../../Support/R1170I_qIDmini_Manual.pdf">reader manual</a>.
+</p>
+
+<h2>Connecting RFID reader</h2>
+<p>
+Connecting RFID reader qID R1170 has to be done in iOS settings, section Bluetooth. In Bluetooth devices, you should see name of reader
+(similar to qID R1170) and description of status. In order to device work properly, the status should be "Connected".
+
+Once connected light on RFID reader will start glowing blue (left LED).
+</p>
+
+<h2>Limitations of RFID reader</h2>
+<p>
+Following list summarises knowledge gathered by measurement performed by our tester team:
+	<ul>
+		<li>When more RFID tags are present in reading zone of device, reader can create non-existing value</li>
+		<li>Material on which RFID tag is placed and its position is important for reading. For example:
+		RFID tag placed on plastic bag placed vertically can be read from distance approximately 15cm,
+		however the same tag placed on wood or glass can be read from distance approximately 50cm</li>
+
+		<li>Speed of reading: one tag can be read by reader approximately 200 per minute, 3 tags can be read by tag 175 per minute</li>
+
+		<li>Reader can connect to iOS device from distance max. 10m</li>
+		<li>Reader will lose its connection to iOS device from distance at least 15m</li>
+	</ul>
+
+<br><br>
+Following table shows distances for RFID reader for different sides of device. Front side is the one with display, buttons and LEDs.<br>
+<table>
+	<tr> <th>Side</th>   <th>Max. distance</th> </tr>
+	<tr> <td>front</td>  <td style="text-align: center;">50 cm</td> </tr>
+	<tr> <td>back</td>   <td style="text-align: center;">130 cm</td> </tr>
+	<tr> <td>left</td>   <td style="text-align: center;">60 cm</td> </tr>
+	<tr> <td>right</td>  <td style="text-align: center;">80 cm</td> </tr>
+	<tr> <td>top</td>    <td style="text-align: center;">65 cm</td> </tr>
+	<tr> <td>bottom</td> <td style="text-align: center;">80 cm</td> </tr>
+</table>
+</p>
+
+<h2>Solving issues with RFID</h2>
+<p>
+	This section describes issues with reader, which can occur together with possible solution.
+	<ul>
+		<li><i>Reader is connected to iOS, but I cannot read tags nor get firmwareVersion</i><br>
+			RFID reader uses special protocol for communication, which has to be specified in your app. Into the .plist file of the project in Xcode, add new Row with the value "Supported external accessory protocol" and add the Strings:
+      <ul>
+        <li>it.caenrfid.protocol</li>
+      </ul>
+		</li>
+
+		<li><i>Readers display shows the same value no matter if tags are present or not</i><br>
+			<ol>
+				<li>Turn off the RFID reader</li>
+				<li>Shut down the application</li>
+				<li>Turn device on and reconnect it to the iOS device</li>
+				<li>Start your application again</li>
+			</ol>
+		</li>
+	</ul>
+</p>
+
+<h2>Apple App Store Requirements</h2>
+
+<p>
+  If you build an app for qIDmini device and are going to distribute your app on the App Store, you will need to register the app with CaenRFID in order to obtain MFi Authorization<br><br>
+  To do so you have to send email to info@caenrfid.com with the following information:
+  <ul>
+    <li>bundle name</li>
+    <li>bundle display name</li>
+    <li>bundle identifier</li>
+    <li>version number</li>
+  </ul>
+
+ After few days CaenRFID will provide you with an identification number (PPID) that you have to include in review notes when submitting your app<br><br>
+</p>
+
+
+
+</body>
+</html>

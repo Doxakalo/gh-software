@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+
+	</style>
+
+	<title>Zebra Scanners Manual</title>
+		<style type="text/css">
+  body { background-color: #FFFFFF; padding: 0.5em 1em 1em 1em; counter-reset:section;}
+  body { max-width: 60em; margin: 0 auto }
+  h1 { font-size: 25px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+  h2 { font-size: 25px; font-family: Helvetica, Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px;}
+  h3 { font-size: 22px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple;  margin-top: 2em}
+  h4 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+
+  .padded { padding-left: 36px; }
+  .productName { color: #8800AA; }
+  .list_with_large_items li { padding-top: 0.5em }
+  .conf_title { font-weight: bold; }
+  .path { font-style: italic }
+</style>
+  </head>
+
+<body>
+<h1>Manual for Zebra Scanners</h1>
+<p>
+<a href="../../Support/cs4070-qrg-en.pdf">Zebra Symbol CS4070 Product information</a></br>
+<a href="../../Support/ds3678-qsg-en.pdf">Zebra DS3670 Product information</a>
+</p>
+
+<h2>Connecting the Zebra DS3678 scanner</h2>
+<p>To successfully connect to Zebra DS3678 to Gonector please follow instructions below.</p>
+<ul>
+  <li>If previously paired, go to system Settings->Bluetooth and unpair DS3678</li>
+  <li>Scan the "Reset Factory Defaults" barcode below</li>
+  <img src="../.pictures/ds3678_reset.png" />
+  <li>Scan the "SSI BT LE" barcode below to pair</li>
+  <img src="../.pictures/ds3678_iosmode.png" />
+  <li>Call Gonector_Get("devices") or Gonector_Get("devices" ; "ZebraScanner") plugin function to get device_name of your scanner</li>
+  <li>Call Gonector_Connect(device_name) to connect to your scanner</li>
+</ul>
+</p>
+
+<h2>Connecting the Zebra Symbol CS4070 scanner</h2>
+<p>To successfully connect to Zebra CS4070 to Gonector please follow instructions below.</p>
+<ul>
+  <li>If previously paired, go to system Settings->Bluetooth and unpair CS4070</li>
+  <li>Scan the "Reset Factory Defaults" barcode below</li>
+  <img src="../.pictures/cs4070_reset.png" />
+  <li>Scan the "Bluetooth MFi-SSI" barcode below to pair</li>
+  <img src="../.pictures/cs4070_iosmode.png" />
+  <li>Go to system Settings->Bluetooth and pair CS4070 device</li>
+  <li>Call Gonector_Get("devices") or Gonector_Get("devices" ; "ZebraScanner") plugin function to get device_name of your scanner</li>
+  <li>Call Gonector_Connect(device_name) to connect to your scanner</li>
+</ul>
+</p>
+
+<h2>Solving issues with Zebra scanners</h2>
+<p>
+	<ul>
+		<li><i>Device is paired with iOS, but function Gonector_Get("devices") does not return device:</i><br>
+			Zebra scanners use special protocol for communication, which has to be specified in your app. Into the .plist file of the project in Xcode, add new Row with the value "Supported external accessory protocol" and add the Strings:
+		<ul>
+          <li>com.zebra.scanner.SSI</li>
+        		<li>com.motorolasolutions.scanner</li>
+        		<li>com.motorolasolutions.CS4070_ssi</li>
+        		<li>com.zebra.scanner.CS6080_ssi</li>
+        </ul>
+		</li>
+	</ul>
+</p>
+
+<h2>Apple App Store Requirements</h2>
+
+<p>
+  If you build an app for MFI Zebra Scanner device and are going to distribute your app on the App Store, you will need to register the app with Zebra in order to obtain MFi Authorization<br><br>
+  You can do so through the Zebra website at https://www.zebra.com/content/dam/zebra/product-information/en-us/brochures-datasheets/software/ios-app-whitelisting-faqs-sheet-a4-en-us.pdf. Zebra will provide you with an identification number (PPID) that you have to include in review notes when submitting your app<br><br>
+</p>
+
+<h2>Enable/Disable Beep</h2>
+<p>To enable beep when barcode is decoded scan code below:</p>
+<img src="../.pictures/zebra_enable_beep.png" width="400">
+<p>To disable beep when barcode is decoded scan code below:</p>
+<img src="../.pictures/zebra_disable_beep.png" width="400">
+
+<p>Other configuration codes can be found in user manual for your device </p>
+</body>
+</html>

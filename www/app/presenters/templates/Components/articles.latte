@@ -1,0 +1,198 @@
+
+{define article-list, $articles, $row_color = '', $img_position='left'}
+    {foreach $articles as $article}
+        {ifset $article['img']}
+            {var $article['hasMedia'] = true}
+        {elseifset $article['video-compilation']}
+            {var $article['hasMedia'] = true}
+        {elseifset $article['video-yt']}
+            {var $article['hasMedia'] = true}
+        {elseifset $article['video-mp4']}
+            {var $article['hasMedia'] = true}
+        {else}
+            {var $article['hasMedia'] = false}
+        {/ifset}
+        {include article-section, $article, $row_color, $img_position}
+
+        {if $row_color === ''}
+            {var $row_color = 'light-blue'}
+        {else}
+            {var $row_color = ''}
+        {/if}
+
+        {if $article['hasMedia']== true}
+            {if $img_position === 'left'}
+                {var $img_position = 'right'}
+            {else}
+                {var $img_position = 'left'}
+            {/if}
+        {/if}
+    {/foreach}
+{/define}
+
+
+{define article-overview, $overview}
+    <section class="blue spacing detail videoplayer-parent-element" data-anchor="{$overview['name']}">
+        <div class="container">
+            <div class="row row-align-middle">
+                {ifset $overview['testimonials']}
+                    <div class="editor-content gr-8 gr-7@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile content-left">
+                        {include #"".$overview['name']}
+                    </div>
+                    <div class="gr-4 gr-5@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile text-right image-right mt-1@mobile">
+                        <div class="videoplayer-element swiper-container small testimonial-slider-multiple">
+                            <div class="swiper-wrapper">
+                                {foreach $overview['testimonials'] as $media}
+                                    {if ($detect['platformDevice'] === "phone" || $detect['platformDevice'] === "tablet" ) }
+                                        <div class="swiper-slide swiper-slide-mobile">
+                                            <div data-yt="{$media['video']['id']}" class="playVideoTestimonial-mobile">
+                                                <iframe class="video" allow="autoplay" allowfullscreen="allowfullscreen" data-src="https://www.youtube.com/embed/{$media['video']['id']}?autoplay=1&rel=0&fs=1&wmode=transparent"></iframe>
+                                                <img src="{$media['img']}" alt="{$media['name']}" class="limited-height-400">
+                                            </div>
+                                        </div>
+                                    {else}
+                                        <div class="swiper-slide">
+                                            <div data-yt="{$media['video']['id']}" class="playVideoTestimonial play-icon {ifset $media['video']['button-dark']}{if $media['video']['button-dark'] == "true"} play-icon-dark {/if}{/ifset}">
+                                                <img src="{$media['img']}" alt="{$media['name']}" class="limited-height-400">
+                                            </div>
+                                        </div>
+                                    {/if}
+                                {/foreach}
+                            </div>
+                            <div class="videoplayer-resolution">
+                                <img class="videoplayer-expand" src="{$basePath}/img/icons/expand.svg" title="Show in larger view">
+                                <img class="videoplayer-collapse"  src="{$basePath}/img/icons/collapse.svg" title="Close">
+                            </div>
+                            {if count($overview['testimonials']) > 1}
+                                <div class="swiper-button-prev active"></div>
+                                <div class="swiper-button-next active"></div>
+                            {/if}
+                        </div>
+                    </div>
+                {else}
+                    <div class="editor-content gr-12 gr-12@mobile">
+                        {include #"".$overview['name']}
+                    </div>
+                {/ifset}
+            </div>
+        </div>
+    </section>
+{/define}
+
+
+{define article-section, $article, $row_color, $img_position}
+    <section class="arrow spacing detail   {$row_color}
+        {ifset $article['video-compilation']} videoplayer-parent-element mp4-videoplayer-parent-element {/ifset}
+        {ifset $article['video-yt']} videoplayer-parent-element {/ifset}
+        {ifset $article['video-mp4']} mp4-videoplayer-parent-element {/ifset}" data-anchor="{$article['name']}">
+        <div class="container">
+            <div class="row row-align-middle">
+                {include article-content, $article, $img_position}
+            </div>
+        </div>
+    </section>
+{/define}
+
+{define article-content, $article, $img_position}
+    {if $article['hasMedia'] == true}
+        {if $img_position === 'left'}
+            <div class="gr-4 gr-5@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile image-left text-left text-left@mobile-center mt-1@mobile order-first order-last@mobile">
+                {include article-media, $article}
+            </div>
+            <div class="editor-content gr-8 gr-7@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile content-right">
+                {include #"".$article['name']}
+            </div>
+        {else}
+            <div class="editor-content gr-8 gr-7@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile content-left">
+                {include #"".$article['name']}
+            </div>
+            <div class="gr-4 gr-5@desktop2k gr-6@desktopLarge gr-6@desktop gr-6@tablet gr-12@mobile text-right image-right text-right@mobile-center mt-1@mobile">
+                {include article-media, $article}
+            </div>
+        {/if}
+    {else}
+        <div class="editor-content gr-12 gr-12@mobile">
+            {include #"".$article['name']}
+        </div>
+    {/if}
+{/define}
+
+{define article-media, $article}
+    {ifset $article['img_url']} <a href="{$article['img_url']['url']}" target="{$article['img_url']['target']}"> {/ifset}
+        {ifset $article['video-compilation']}
+            <div class="videoplayer-element mp4-videoplayer-element small swiper-container testimonial-slider-compilation">
+                <div class="swiper-wrapper">
+                    {foreach $article['video-compilation'] as $media}
+                        {if $media['videoType'] == 'video-yt'}
+                            {if ($detect['platformDevice'] === "phone" || $detect['platformDevice'] === "tablet" ) }
+                                <div class="swiper-slide swiper-slide-mobile">
+                                    <div data-yt="{$media['id']}" class="playVideoTestimonial-mobile">
+                                        <iframe class="video" allow="autoplay" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/{$media['id']}?autoplay=1&rel=0&fs=1&wmode=transparent"></iframe>
+                                        <img src="{$media['img']}"
+                                             alt="{ifset $media['title']}{$media['title']}{else}{include #"".$article['name']."-headline"}{/ifset}"
+                                             class="limited-height-{ifset $article['img_height']}{$article['img_height']}{else}400{/ifset}">
+                                    </div>
+                                </div>
+                            {else}
+                                <div class="swiper-slide">
+                                    <div data-yt="{$media['id']}" class="playVideoTestimonial play-icon {ifset $media['button-dark']}{if $media['button-dark'] == "true"} play-icon-dark {/if}{/ifset}">
+                                        {ifset $media['img']}
+                                            <img src="{$media['img']}"
+                                                 alt="{ifset $media['title']}{$media['title']}{else}{include #"".$article['name']."-headline"}{/ifset}"
+                                                 class="limited-height-{ifset $article['img_height']}{$article['img_height']}{else}400{/ifset}">
+                                        {/ifset}
+                                    </div>
+                                </div>
+                            {/if}
+                        {elseif $media['videoType'] == 'video-mp4'}
+                            <div class="swiper-slide">
+                                {include video-compilationElement, $media['folderName'], $media['fileNamePrefix'], $media['videoResolution']}
+                            </div>
+                        {/if}
+                    {/foreach}
+                </div>
+                <div class="videoplayer-resolution">
+                    <img class="videoplayer-expand" src="{$basePath}/img/icons/expand.svg" title="Show in larger view">
+                    <img class="videoplayer-collapse"  src="{$basePath}/img/icons/collapse.svg" title="Close">
+                </div>
+                <div class="swiper-button-prev active"></div>
+                <div class="swiper-button-next active"></div>
+            </div>
+        {elseifset $article['video-yt']}
+            <div class="videoplayer-element small swiper-container testimonial-slider-single">
+                <div class="swiper-wrapper">
+                    {if ($detect['platformDevice'] === "phone" || $detect['platformDevice'] === "tablet" ) }
+                        <div class="swiper-slide swiper-slide-mobile">
+                            <div data-yt="{$article['video-yt']['id']}" class="playVideoTestimonial-mobile">
+                                <iframe class="video" allow="autoplay" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/{$article['video-yt']['id']}?autoplay=1&rel=0&fs=1&wmode=transparent"></iframe>
+                                <img src="{$article['img']}"
+                                     alt="{ifset $article['video-yt']['title']}{$article['video-yt']['title']}{else}{include #"".$article['name']."-headline"}{/ifset}"
+                                     class="limited-height-{ifset $article['img_height']}{$article['img_height']}{else}400{/ifset}">
+                            </div>
+                        </div>
+                    {else}
+                        <div class="swiper-slide">
+                            <div data-yt="{$article['video-yt']['id']}" class="playVideoTestimonial play-icon {ifset $article['button-dark']}{if $article['button-dark'] == "true"} play-icon-dark {/if}{/ifset}">
+                                {ifset $article['img']}
+                                    <img src="{$article['img']}"
+                                         alt="{ifset $article['video-yt']['title']}{$article['video-yt']['title']}{else}{include #"".$article['name']."-headline"}{/ifset}"
+                                         class="limited-height-{ifset $article['img_height']}{$article['img_height']}{else}400{/ifset}">
+                                {/ifset}
+                            </div>
+                        </div>
+                    {/if}
+                </div>
+                <div class="videoplayer-resolution">
+                    <img class="videoplayer-expand" src="{$basePath}/img/icons/expand.svg" title="Show in larger view">
+                    <img class="videoplayer-collapse"  src="{$basePath}/img/icons/collapse.svg" title="Close">
+                </div>
+            </div>
+        {elseifset $article['video-mp4']}
+            {include video, $article['video-mp4']['folderName'], $article['video-mp4']['fileNamePrefix'], $article['video-mp4']['videoResolution']}
+        {elseifset $article['img']}
+            <img src="{$article['img']}"
+                 alt="{ifset $article['title']}{$article['title']}{else}{include #"".$article['name']."-headline"}{/ifset}"
+                 class="limited-height-{ifset $article['img_height']}{$article['img_height']}{else}400{/ifset}">
+        {/ifset}
+    {ifset $article['img_url']} </a> {/ifset}
+{/define}

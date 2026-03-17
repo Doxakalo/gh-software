@@ -1,0 +1,62 @@
+/* MIXINS */
+@mixin bodyFontSize(){
+	font-size: 18px;
+	
+	// @responsive
+	@include g-state(desktopLarge) {
+		font-size: 18px;
+	}
+	@include g-state(desktop) {
+		font-size: 16px;
+	}
+	@include g-state(tablet) {
+		font-size: 14px;
+	}
+	@include g-state(mobile) {
+		font-size: 14px;
+	}
+}
+
+@mixin text-size-adjust($value: none) {
+  -webkit-text-size-adjust: $value; 
+  -moz-text-size-adjust: $value;
+  -ms-text-size-adjust: $value; 
+}
+
+@mixin deviceDesktop {
+	html[data-device="desktop"] & {
+		@content;
+	}
+}
+
+@mixin deviceTablet {
+	html[data-device="tablet"] & {
+		@content;
+	}
+}
+
+@mixin devicePhone {
+	html[data-device="phone"] & {
+		@content;
+	}
+}
+
+@mixin browserIE {
+	html[data-is-ie="true"] & {
+		@content;
+	}
+}
+
+@mixin browserEdge {
+	html[data-is-edge="true"] & {
+		@content;
+	}
+}
+
+// Edge + MSIE
+@mixin browserLegacy {
+	html[data-is-ie="true"] &,
+	html[data-is-edge="true"] & {
+		@content;
+	}
+}

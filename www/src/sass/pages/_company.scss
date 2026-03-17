@@ -1,0 +1,94 @@
+body[data-template="company"] {
+
+  h2 {
+    font-size: 1.714em;
+
+    &.large {
+      font-size: 2.143em;
+      font-weight: $fwLight;
+      line-height: $lineHeightExtended;
+
+      @include g-state(mobile) {
+        font-size: 1.5em;
+      }
+
+      strong {
+        font-weight: $fwNormal;
+      }
+    }
+  }
+
+  section {
+    color: $colorBlue;
+    background-color: $colorWhite;
+
+    img {
+      &.limited-height-625 {
+        max-height: 625px;
+      }
+    }
+
+    &.spacing {
+      padding: 4em 0;
+
+      @include g-state(tablet) {
+        padding: (4em * $scaleRatioTablet) 0;
+      }
+
+      @include g-state(mobile) {
+        padding: (4em * $scaleRatioMobile) 0;
+      }
+    }
+
+    .logos {
+      margin-top: 2em;
+
+      img {
+        &.limited-width-300 {
+          max-width: 300px;
+        }
+      }
+    }
+
+    @include g-state(mobile) {
+      ul {
+        li {
+
+        }
+      }
+    }
+
+    &.blue {
+      background-color: $colorBlue;
+      color: $colorWhite;
+    }
+
+    &.lighter-blue {
+      background-color: $colorLightBlue6;
+      color: $colorBlue;
+    }
+  }
+
+  .our-products {
+    margin-top: 2em;
+
+    .tool-logos {
+      @include g-state(mobile) {
+        margin-top: 2em;
+      }
+
+      .row-logo {
+        margin-top: 0.5em;
+
+        a {
+          display: inline-block;
+
+          img {
+            max-width: 100%;
+            max-height: 140px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,326 @@
+qa:
+    metadata:
+        title: "Professional software testing for maximum reliability"
+        description: "We have a team of qualified regularly trained specialists, consisting of a test manager, test analysts, testers, programmers, analysts and developers."
+        og:
+            title: "24U: Professional software testing"
+            description: "We have a team of qualified regularly trained specialists, consisting of a test manager, test analysts, testers, programmers, analysts and developers. Our experts are specifically focused on a complex offer of services in the area of quality assurance (QA) and testing."
+
+    header-title: "Professional software testing for maximum reliability"
+
+    counters:
+        projects: "projects<br />tested"
+        releases: "releases<br />completed"
+        xp: "years of<br />experience"
+        testers: "full time<br />testers"
+        countries: "countries<br />worldwide"
+
+    card-boxes:
+        button: "Click for learn more"
+
+homepage:
+    metadata:
+        title: "24U Software"
+        description: "Software. Hardware. Mobile. Web. FileMaker. Business. People. We make them all work together for you."
+        og:
+            title: "24U: Software for people, not computers"
+            description: "We excel in developing new or taking care of existing custom apps, optimizing their performance, identifying and resolving potential issues, improving reliability, stability and scalability, integrating them with other systems including various hardware devices, and extending them beyond expectation"
+
+    service-tabs:
+        custom_apps:
+            label: "Custom<br>Apps"
+            text: "Your competitive advantage is the way you work differently"
+        fm_consulting:
+            label: "FileMaker<br>Consulting"
+            text: "Let us help your developer(s) to take care of your FileMaker apps"
+        hw_integrations:
+            label: "Hardware<br>Integration"
+            text: "We'll make your software systems work tightly with the physical world"
+        sla:
+            label: "Service Level<br>Agreements"
+            text: "The things you should be doing to be safe on our shoulders"
+
+    card-boxes:
+        button: "Learn more"
+
+company:
+    section-header: "Our Company"
+
+stories:
+    meta:
+        title: "24U - our skill & story of our clients"
+        description: "Explore our expertise and discover inspiring customer stories from projects around the world. From innovative implementations to success stories, see what we can achieve for you."
+    list:
+        headlines:
+            skills:
+                headline: "Our skills"
+                description: "look what we are able to take care of"
+            stories:
+               headline: "Stories"
+               description: "of our customers from around the globe"
+        article-read-more: "Read more..."
+        stories-our-clients: "Explore the stories of our clients"
+
+    skill-detail:
+        back-to-list-button: "Back to overview"
+        contact-form:
+            description: "Interested in this solution? <br><strong>Contact us</strong> with your requirements, and we will adjust it exactly to your needs."
+
+    dartin:
+        alts:
+            2: "Medical device, Dartin and FileMaker"
+            3: "Ruud van Donselaar talking about FileMaker software, Managing Director, Dartin"
+            4: "Detail LifeCard, FileMaker, Dartin"
+            5: "The new app called Dartis in Dartin company, FileMaker"
+            6: "Work reports in Dartis app, FileMaker"
+            7: "Integrated system and medical device service management, FileMaker"
+
+    dorper:
+        alts:
+            1: "Dorper sheep, Dorper Association"
+            2: "The Birth of the Modern Breedbook with the help of FileMaker"
+            3: "Plemenná kniha Dorper Správce"
+            4: "Dorper breed, for which the Breedbook is prepared"
+            5: "Mgr. Pavel Habětín, Chairman of the Breedbook Council"
+            6: "Dorper sheep and more effective breeding thanks to Breedbook"
+            7: "Dorper sheep bred by the Dorper Association"
+            8: "Ing. Jaroslav Rucki, Dorper Association"
+
+    contact-form:
+        description: "Interested in our customer's story? We can help you too.<br/> Write to us about a problem you are facing. <br/>We can develop a plug-in or tool tailored to your specific needs."
+support:
+    default:
+        immediate_help: "Immediate Help"
+        sheduled_assistance: "Scheduled Assistance"
+        ongoing_care: "Ongoing Care"
+        product_support: "Product Support"
+
+sla:
+    default:
+        service-table:
+            headline:
+                label: "Service Levels"
+                bronze: "Bronze"
+                silver: "Silver"
+                gold: "Gold"
+            response_time:
+                label: "Response time"
+                bronze: "8 hours"
+                silver: "2 hours"
+                gold: "1 hour"
+            workaround_time:
+                label: "Workaround time"
+                bronze: "16 hours"
+                silver: "8 hours"
+                gold: "4 hours"
+            resolution_time:
+                label: "Resolution time"
+                bronze: "20 days"
+                silver: "10 days"
+                gold: "5 days"
+            hotline:
+                label: "Hotline availability"
+                bronze: "None"
+                silver: "10/5"
+                gold: "24/7"
+            uptime_monitoring:
+                label: "Uptime monitoring"
+                bronze: "Every 5 mins"
+                silver: "Every 5 mins"
+                gold: "Every 5 mins"
+            personal_check:
+                label: "Detailed personal check"
+                bronze: "Monthly"
+                silver: "Bi-weekly"
+                gold: "Weekly"
+            offsite_backups:
+                label: "Offsite backups"
+                bronze: "None"
+                silver: "Daily"
+                gold: "As needed"
+            online_help:
+                label: "Online help desk"
+                bronze: "Yes"
+                silver: "Yes"
+                gold: "Yes"
+            request_summary:
+                label: "Detailed requests summary"
+                bronze: "Yes"
+                silver: "Yes"
+                gold: "Yes"
+            monthly_capacity:
+                label: "Monthly prepaid capacity"
+                bronze: "3 man days"
+                silver: "5 man days"
+                gold: "10 man days"
+            floating_capacity:
+                label: "Floating capacity"
+                bronze: "None"
+                silver: "1 month"
+                gold: "3 months"
+
+customapps:
+    metadata:
+        title: "Custom Apps"
+        description: "We develop custom apps for you to match yours unique processes. We use FileMaker platform to provide solutions fast and reliable."
+        og:
+            title: "24U: Custom Apps"
+            description: "We develop custom apps for you to match yours unique processes. We use FileMaker platform to provide solutions fast and reliable. Our people make sure that your software works in the best way. Let us develop yours as well."
+
+    default:
+
+        header-title: "We will develop custom software apps tailored to your <strong>specific needs</strong>"
+
+        service-tabs:
+            effeciency:
+                label: "Efficiency"
+                text: "We use the FileMaker platform to provide results fast"
+            technology:
+                label: "Technology"
+                text: "Database, Web, Mobile, Mac, Windows, Linux, Raspberry PI"
+            hw:
+                label: "Hardware"
+                text: "Scanning, Printing, Sensing, Weighing, RFID, and more"
+            redundancy:
+                label: "Redundancy"
+                text: "We assign at least two developers to every project"
+            reliability:
+                label: "Reliability"
+                text: "Full-time testers make sure our software works right"
+
+        articles:
+            read-more: "Read More"
+
+hw-integrations:
+    metadata:
+        title: "Hardware Integration | 24U Software"
+        description: "We are able to connect software with any hardware. We integrate mobile printers, barcode scanners, RFID and NFC, payment terminals, digital scales, and various other special devices."
+        og:
+            title: "24U: Hardware Integration"
+            description: "We are able to connect software with any hardware and make your company more efficient. We integrate mobile printers, barcode scanners, RFID and NFC, payment terminals, digital scales, and various other special devices."
+
+    default:
+        header-title: "Capture data from physical world, control physical world with data"
+
+        card-boxes:
+            mobile_printers:
+                label: "Mobile Printers"
+                text: " Print purchase receipts anywhere directly from iPhone or iPad"
+            security_dongles:
+                label: "Security Dongles"
+                text: "Protect data or intellectual property with strong hardware aided encryption"
+            rfid:
+                label: "RFID and NFC"
+                text: "Read and write RFID or NFC tags to track goods, assets, or people"
+            barcode:
+                label: "Barcode Scanners"
+                text: "Scan barcodes to track goods, assets, documents, or peoples"
+            pay_terminals:
+                label: "Payment Terminals"
+                text: "Handle card payments with magnetic stripe, contact chip, or contactless"
+            scales:
+                label: "Weighing Scales"
+                text: "Capture data from digital scales, small or large, directly to your app"
+            motors:
+                label: "Servo and Stepper Motors"
+                text: "Control servo and stepper motors to move stuff around from your custom app"
+            smart_cards:
+                label: "Smart Cards"
+                text: "Integrate smart cards for identification or special data storage purposes"
+            medical_devices:
+                label: "Medical Devices"
+                text: "Improve care with efficient evaluation and storage of patient’s examination data"
+            led_strips:
+                label: "LED Strips"
+                text: "Control RGB LED lights to indicate place or status, or capture user’s attention"
+            lcd:
+                label: "LCD Displays"
+                text: "Display data on LCD displays to implement custom user interface such as cashbox"
+            telephony:
+                label: "Telephony"
+                text: "Let your app know who’s calling to save time and provide better customer care"
+            arduino:
+                label: "Arduino"
+                text: "Extend your custom apps<br/> with the popular open-source hardware platform"
+            raspberry:
+                label: "Raspberry Pi"
+                text: "Deploy smart stand-alone solutions integrated with your custom FileMaker apps"
+            sensors:
+                label: "Environmental Sensors"
+                text: "Capture environmental data, such as temperature, directly to your database"
+            phidgets:
+                label: "Phidgets"
+                text: "Let your apps sense and control physical world with smart Phidgets devices"
+
+fm-consulting:
+    metadata:
+        title: "FileMaker Consulting"
+        description: "We can help you make the FileMaker platform work the way you want. Thanks to our internal training strategy every member of our FileMaker team achieves the FileMaker’s certification."
+        og:
+            title: "24U: FileMaker Consulting"
+            description: "We can help you make the FileMaker platform work the way you want. Thanks to our internal training strategy every member of our FileMaker team achieves the FileMaker’s certification so our company can provide expert advice for all customers and developers."
+
+    default:
+        header-title: "Make the FileMaker platform work for you the way you want with our expert advice"
+
+        counters:
+            plugins: "Plug-ins&nbsp;created<br />since 2001"
+            conferences: "International<br/>events"
+            xp: "Years of<br />experience"
+            developers: "Certified<br />developers"
+            countries: "Countries<br />worldwide"
+
+fm-licensing:
+    metadata:
+        title: "Claris FileMaker"
+        description: "As Claris Platinum Partner and authorized reseller, we can help you to get a new FileMaker license or renew an existing one, with extra care, anywhere in the world."
+        og:
+            title: "24U: Claris FileMaker"
+            description: "As a Claris Platinum Partner and authorized reseller, we can help you to get a new FileMaker license or renew an existing one, for the exact same price you would get directly from Claris, with added value of our services, no matter where you're from or what currency you want to pay with."
+
+    default:
+        header-title: "Claris<sup>&reg;</sup> FileMaker<sup>&reg;</sup>"
+        header-description: "Database software for efficient workplace digitalization"
+
+privacy:
+    metadata:
+        title: "Information Technology for Education and Business since 2000"
+        description: "Czech supplier of IT solutions and services, expert in Apple, FileMaker, education technology, custom software, hardware integration, software testing, and e-books"
+        og:
+            title: "24U: IT for edu & biz since 2000"
+            description: "Czech supplier of IT solutions and services, expert in Apple, FileMaker, education technology, custom software, hardware integration, software testing, and e-books"
+
+    section-header: "PRIVACY POLICY"
+
+terms:
+    metadata:
+        title: "Information Technology for Education and Business since 2000"
+        description: "Czech supplier of IT solutions and services, expert in Apple, FileMaker, education technology, custom software, hardware integration, software testing, and e-books"
+        og:
+            title: "24U: IT for edu & biz since 2000"
+            description: "Czech supplier of IT solutions and services, expert in Apple, FileMaker, education technology, custom software, hardware integration, software testing, and e-books"
+
+    section-header: "Terms of Use"
+
+news-detail:
+    shortlink-copy2clipboard: "The link has been copied to the clipboard."
+
+search:
+    default:
+        section-header: "Search"
+        search_for: "Search for"
+        find_results:
+            showing: "Showing"
+            showing_2_5: "Showing"
+            showing_more: "Showing"
+            result: "result"
+            results_2_5: "results"
+            results: "results"
+            for: "for"
+        available-in-lang-en: "This page is in english"
+        available-in-lang-cz: "This page is in czech"
+
+tools:
+    led:
+        contact-form:
+            description: "Are you interested in the possibilities that the LED Strip Controller brings? Contact us and we will surely find a solution suitable for you..."

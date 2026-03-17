@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<title>24U Phone Companion 3.0 Server</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script>
+		/* toggle function for long tables etc. */
+		function showItems(className) {
+	        var tags = document.getElementsByTagName('*');
+	        var tcl = " " + className + " ";
+	        for (i = 0, j = 0; i < tags.length; i++) {
+	            var test = " " + tags[i].className + " ";
+	            if (test.indexOf(tcl) != -1) {
+	                if (tags[i].style.display == "none") {
+	                	tags[i].style.display = "inline";
+	                }
+	                else {
+	                	tags[i].style.display = "none";
+	                }
+	            }
+	        }
+		}
+		
+		/* Simple highlight toggle only: */		
+        function changeColor() {
+            var tags = document.getElementsByTagName('*');
+			var classes = ["rev8", "rev9", "rev10", "rev11"];
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + " ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].style.backgroundColor == "") {
+	                        tags[i].style.backgroundColor = "#FFFFA0";
+	                        tags[i].style.color = "black";
+	                    }
+	                    else {
+	                        tags[i].style.backgroundColor = "";
+	                        tags[i].style.color = "";
+	                    }
+	                }
+	            }
+			})
+			classes.forEach(function(revclass) {
+				var tcl = " " + revclass + "x ";
+	            for (i = 0, j = 0; i < tags.length; i++) {
+	                var test = " " + tags[i].className + " ";
+	                if (test.indexOf(tcl) != -1) {
+	                    if (tags[i].classList.contains("striked")) {
+	                        tags[i].classList.remove("striked");
+	                    }
+	                    else {
+	                        tags[i].classList.add("striked");
+	                    }
+	                }
+	            }
+			})
+        }
+		
+		/* New revisioning functions: */
+		function toggleClassAtAllTagsWithClass(toggleClass, targetClasses, op="add") {
+            var tags = document.getElementsByTagName('*');
+            var tcl  = " " + targetClasses + " ";
+            for (i = 0, j = 0; i < tags.length; i++) {
+                var test = " " + tags[i].className + " ";
+                if (test.indexOf(tcl) != -1) {
+                    if (op=="add") {
+						tags[i].classList.add(toggleClass);
+					}
+					else {
+						tags[i].classList.remove(toggleClass);
+					}
+                }
+            }
+		}
+		
+        function showRevision(revNumber) {
+			var max_revisions = 30; // maximum of supported revisions by script (too much can be slow). This has to match with .rev1x, rev2x,... classes
+
+			// Reset all to latest revision:
+			for (var i=1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("highlighted", "rev"+i, "remove"); // remove highlighting of additions 
+				toggleClassAtAllTagsWithClass("striked", "rev"+i+"x", "remove"); // remove highlighting of deletions
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "remove"); // restore added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "ignoreStriked", "remove"); // hide striked again
+			}
+			
+			// Highlight current revision: 
+			toggleClassAtAllTagsWithClass("highlighted", "rev"+revNumber, "add");
+			toggleClassAtAllTagsWithClass("striked", "rev"+revNumber+"x", "add");
+			
+			// Revert future revisions:
+			for (var i=revNumber+1; i<max_revisions; i++) {
+				toggleClassAtAllTagsWithClass("hideAddedInFutureRevision", "rev"+i, "add"); // hide added in future revision
+				toggleClassAtAllTagsWithClass("ignoreStriked", "rev"+i+"x", "add"); // show striked in future revision
+			}
+        }
+	</script>
+	<style type="text/css">
+
+		/* Texts from old revisions are removed by default: */
+		.rev1x, .rev2x, .rev3x, .rev4x, .rev5x, .rev6x, .rev7x, .rev8x, .rev9x, .rev10x, .rev11x, .rev12x, .rev13x, .rev14x, .rev15x, .rev16x, .rev17x, .rev18x, .rev19x, .rev20x, 
+		.rev21x, .rev22x, .rev23x, .rev24x, .rev25x, .rev26x, .rev27x, .rev28x, .rev29x { display:none; }	
+		/* Highlighting classes handled by js: */
+		.highlighted { background-color: #FFFFA0; color: black; }	
+		.striked, .striked * { background-color: #FFFFA0; color: black; text-decoration: line-through; }	
+		.ignoreStriked { }	
+		.highlighted, .striked, .ignoreStriked { display:block; } /* default visible style */	
+		li.highlighted, li.striked, li.ignoreStriked { display:list-item; } /* visible style for li */	
+		span.highlighted, span.striked, span.ignoreStriked { display:inline; }  /* visible style for span */	
+		td.highlighted, td.striked, td.ignoreStriked, th.highlighted, th.striked, th.ignoreStriked  { display:table-cell; }  /* visible style for td, th */
+		tr.highlighted, tr.striked, tr.ignoreStriked { display:table-row; }   /* visible style for tr */
+		.hideAddedInFutureRevision { display:none !important;} /* important overwrites even more specific css rules above */
+
+	</style>
+		
+    <STYLE TYPE="text/css" MEDIA=screen>
+    <!--
+      h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+      h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+      h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+      h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+      .intro { font-size: 14px; margin-left: 0px }
+      .f_intro { font-size: 12px; margin-left: 0px }
+      .p_hl { color: maroon }
+      .syntax { color: #003200; font-family: monospace; font-size: 12px }
+      .syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+      .t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+      .t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+      .t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+      .b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+      .note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+      table { margin-left: 20px; margin-right: 20px }
+      TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline }
+      TD { font-family: Helvetica, Arial; font-size: 12px }
+      p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+      DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+
+      .ios {color: black; background-color: pink;}
+      li  			{ margin: 0.2em 0em ;}
+      xmp             { font-size: 12px; margin-left: 40px; margin-top: 6px; color: darkblue; }
+      table, td, th, tr { border: 1px solid #808080; margin-top:1em; padding:0.3em; border-collapse: collapse; }
+      th			 	{ font-weight:bold; text-decoration:none;}
+    -->
+    </STYLE>
+  
+</head>
+
+<body>  
+
+<h1>24U Phone Companion 3.0 Server</h1>
+<form>
+<input type="button" value="Highlight changes in the latest version" onclick='javascript: showRevision(10)'><br>
+</form>
+
+<p class="f_intro rev6">Specification revision: <b>10</b>, 2018-07-23.</p>
+
+<p class="f_intro">Created by: <a href="mailto:lukas.liebzeit@24usoftware.com">Lukáš Liebzeit</a>, <span class="rev1"><a href="mailto:martin.vrany@24usoftware.com">Martin Vraný</a></span>, Zdenek Hejl, ©2018 24U Software.</p>
+
+
+<div class="rev1">
+
+
+
+<h2>1. Basic technical parameters</h2>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr><td class="t2_param">File names:</td><td class="b_technical">24uPhoneCompanionServer</td></tr>
+<tr><td class="t2_param">Windows version:</td><td class="b_technical"><span class="news_highlight">Only 64bit architecture. Windows 7 - 10</span>.</td></tr>
+<tr><td class="t2_param">MacOS version:</td><td class="b_technical"><span class="news_highlight">OS X 10.10 - macOS 10.13</span>.</td></tr>
+<tr><td class="t2_param">SN product code and versions:</td><td class="b_technical">Not protected</td></tr>
+<tr><td class="t2_param" id="SupportPhones">Supported phones:</td>
+<td class="b_technical">
+SNOM 300 and higher with firmware at least 8.7.5.35 supported<br>
+SNOM 300 and SNOM 715 tested<br>
+(If you have changed HTTP User, HTTP Password and the Administrator Password from the default value, <a href="#hiddenTags">hidden tags</a> have to be disabled).
+</td></tr>
+
+</table>
+
+<h2 class="rev9 rev10x">2. Limitations</h2>
+<ul class="rev9 rev10x">
+  <li>Connected clients keep working with old server port until disconnect</li>
+  <li>New provider ID starts working only after disconnect + connect on the client's side</li>
+</ul>
+
+
+
+<h2 id="installation"><span class="rev1">2. 24U Phone Companion Server Installation</span></h2>
+<ul class="rev7">
+<li class="f_intro">
+Open the PhoneCompanionServer folder from the Support folder</li>
+<li class="f_intro">
+Run the <span class="rev10">Installer</span> and follow the instructions</li>
+<li class="f_intro">
+Update the 24uPhoneCompanionServer.txt configuration file
+</li>
+<li class="rev8">
+The server will check the configuration file every 5 seconds and update itself automatically
+</li>
+</ul>
+<p class="rev9"><b>It is not recommended to update the configuration and use the server through Phone Companion functions at the same time.</b>
+</p>
+
+  
+  
+  
+  
+  
+<h2><span class="rev1">3. 24U Phone Companion Server Specification</span></h2>
+
+<ul>
+<li class="f_intro">
+Phone Companion 3.0 and above supports hosted PBX. Hosted PBX requires a local server to run the Phone Companion Server that is supplied in our distribution archive. Phone Companion Server occupies one port. Default port number is 26535 and it is possible to run Phone Companion Server without root privileges.
+</li>
+<li class="f_intro">
+Phone Companion Server is able to maintain multiple <a href="#Channels">channels</a> in a non-blocking manner. For each connection Phone Companion Server answers to basic STLI commands with proprietary <a href="#24U_STLI">24U STLI</a> which is compatible with current STLI plugin messages and responds with SUCCESS or ERROR.
+</li>
+<li class="f_intro">
+Phone Companion Server sends commands directly to the phone based on STLI messages coming from the plugin, registers channels to the subscriber list with “MonitorStart” and sends events back through the channels.
+</li>
+<li class="f_intro">
+Phone Companion Server also loads provider’s set of login information from the configuration file. This way the End user can send “RawCommands” directly without having to send login data.<br>
+</li>
+<li class="f_intro">
+Phone Companion Server creates a log file for every day separately including the STLI messages providing the IP address of the plugin. It is possible to change the path and name of the log file in the configuration file.
+</li>
+</ul>
+<h4 id="24U_STLI">24U STLI:</h4>
+<p class="f_intro">
+<table class="rev6">
+
+     <tr>
+    <td>
+      <i>Command:</i>
+    </td>
+    <td>
+      <i>Success message:</i>
+    </td>
+    <td>
+      <i>Possible error messages:</i>
+    </td>
+    <td>
+      <i>Examples:</i>
+    </td>
+  </tr>
+
+     <tr>
+    <td>
+      STLI
+    </td>
+    <td>
+      error_ind SUCCESS STLI
+    </td>
+    <td></td>
+    <td>STLI</td>
+  </tr>
+   <tr>
+    <td>
+      BYE
+    </td>
+    <td>
+      error_ind SUCCESS BYE
+    </td>
+    <td></td>
+    <td>BYE</td>
+  </tr>
+
+  <tr class="rev6">
+    <td>
+      MakeCall
+    </td>
+    <td>
+      error_ind SUCCESS MakeCall
+    </td>
+    <td>
+      error_ind ERROR MakeCall
+    </td>
+    <td>MakeCall 101 102</td>
+  </tr>
+  <tr>
+    <td>
+      AnswerCall
+    </td>
+    <td>
+      error_ind SUCCESS AnswerCall
+    </td>
+    <td>
+      error_ind ERROR AnswerCall
+    </td>
+    <td>AnswerCall 102</td>
+  </tr>
+  <tr>
+    <td>
+      ClearConnection
+    </td>
+    <td>
+      error_ind SUCCESS ClearConnection
+    </td>
+    <td>
+      error_ind ERROR ClearConnection
+    </td>
+    <td>ClearConnection 102</td>
+  </tr>
+
+  <tr>
+    <td>
+      MonitorStart
+    </td>
+    <td>
+      error_ind SUCCESS MonitorStart
+    </td>
+    <td>
+      error_ind ERROR MonitorStart
+    </td>
+    <td>MonitorStart 102</td>
+  </tr>
+  <tr>
+    <td>
+      MonitorStop
+    </td>
+    <td>
+      error_ind SUCCESS MonitorStop
+    </td>
+    <td>
+      error_ind ERROR MonitorStop
+    </td>
+    <td>MonitorStop 102</td>
+  </tr>
+  <tr class="rev5">
+    <td>
+      TransferCall
+    </td>
+    <td>
+      error_ind SUCCESS TransferCall
+    </td>
+    <td>
+      error_ind ERROR TransferCall
+    </td>
+    <td>TransferCall 102</td>
+  </tr>
+    <tr class="rev5">
+    <td>
+      HoldCall
+    </td>
+    <td>
+      error_ind SUCCESS HoldCall
+    </td>
+    <td>
+      error_ind ERROR HoldCall
+    </td>
+    <td>HoldCall 102</td>
+  </tr>
+    <tr class="rev5">
+    <td>
+      RetrieveCall
+    </td>
+    <td>
+      error_ind SUCCESS RetrieveCall
+    </td>
+    <td>
+      error_ind ERROR RetrieveCall
+    </td>
+    <td>RetrieveCall 102</td>
+  </tr>
+  <tr>
+    <td>
+      JSON string
+    </td>
+    <td>
+      error_ind SUCCESS RawCommand
+    </td>
+    <td>
+      error_ind ERROR RawCommand
+    </td>
+    <td>{"method" : "GET", "resource" : "/restapi"}</td>
+  </tr>
+
+</table>
+</p>
+
+<p class="rev5">To successfully provide the transfer for SNOM phones it is necessary to use TransferCall followed by MakeCall. Note: The phone must be monitored.<br>
+To retrieve a call from hold the RetrieveCall Raw Command should be called.
+</p>
+
+<p class="rev3x">Note: The server is controlling the phones directly. Therefore it doesn't matter which provider You use as long as You are able to set up the phone through its web interface. 
+ To use Phone_RawCommand the provider must be one of the supported providers.
+ </p>
+
+<p class="f_intro">
+<h4 id="Channels">Channel:</h4>
+</p>
+<p class="f_intro">
+Channel is a permanent network connection between Phone Companion Server and 24U PhoneCompanion Plug-In.</p>
+
+
+
+<h4 id="hiddenTags">Hidden tags:</h4>
+
+<p class="f_intro">
+If you have changed HTTP User, HTTP Password or the Administrator Password from the default value, don't enable hidden tags.</p>
+
+
+
+
+<p class="f_intro">
+<h4>Configuration file 24uPhoneCompanionServer.txt:</h4>
+</p>
+<p class="f_intro rev8x">
+Restart the server in case You have changed the configuration file.
+</p>
+<p class="f_intro rev8">
+Server will read the configuration file every 5 seconds.<br>
+In case the configuration has changed the server will update the information.
+</p>
+
+
+<p style="font-family: monospace" class="rev8">
+# Server uses this port to listen to connections. Default number is 26535<br>
+<span class="syntax_hl">serverPort = 26535</span><br><br>
+# Change the log file path including the name to create logs at desired place. Default path including the name is "24uPhoneCompanionServer.log"<br>
+<span class="syntax_hl">serverLogFilePath = 24uPhoneCompanionServer.log</span><br><br>
+# Id of your provider. Possible values are: "ringcentral", "alliancephones" and "custom"<br>
+<span class="syntax_hl">providerId = ringcentral</span><br><br>
+# Host name of the provider<br>
+<span class="syntax_hl">providerHostname = pbx.yourhostname.com</span><br><br>
+# Port of the provider. Default is 443<br>
+<span class="syntax_hl">providerPort = 443</span><br><br>
+# Client id of the provider<br>
+<span class="syntax_hl">providerClientId = dAvO1HZAXXXXXXXaTvx</span><br><br>
+# Client secret of the provider<br>
+<span class="syntax_hl">providerClientSecret = ubJtxGDeS9a7OXXXXXXXXXXXcGWrRMSrXRc0hkb_M</span><br><br>
+# Username of the provider<br>
+<span class="syntax_hl">providerUsername = 19XXXXXXX27</span><br><br>
+# Password of the provider<br>
+<span class="syntax_hl">providerPassword = yourpassword</span><br><br>
+# The security switch for the HTTP protocol. Possible values are: "HTTP" and "HTTPS"<br>
+<span class="syntax_hl">providerProtocol = HTTPS</span><br><br>
+# SSL verification file name. Server will first search the certificates in the file, then those in the path<br>
+<span class="syntax_hl">providerSslVerificationFilename = /etc/ssl/cert.pem</span><br><br>
+# SSL verification path<br>
+<span class="syntax_hl">providerSslVerificationPath = /etc/ssl</span><br><br>
+# Minimum protocol version. Currently supported versions are SSL3_VERSION, TLS1_VERSION, TLS1_1_VERSION and TLS1_2_VERSION<br>
+<span class="syntax_hl">providerMinProtocolVersion = TLS1_VERSION</span><br><br>
+# Increase this number if you have troubles connecting to the provider<br>
+<span class="syntax_hl">providerVerifyDepth = 4</span><br><br>
+# Please list all phones that should be controlled/monitored by Phone Companion Server, one per line. For each phone you need to define: its extension, its IP address (with username and password if required) and path (relative or absolute) to file containing phone configuration. Different phone types or even individual phones of the same type can have different settings by specifying different phone configuration files. Please use "snom.cfg" supplied in plugin's distribution archive for SNOM 715 phones or create a new phone configuration file. More information about phone configuration file can be found in PhoneCompanionServer.html file.<br>
+<span class="syntax_hl">phone=101@X.X.X.X snom.cfg</span><br>
+<span class="syntax_hl">phone=102@X.X.X.X snom.cfg username password</span><br>
+</p>
+
+<h4>Phone configuration file description:</h4>
+<p class="f_intro">
+In phone configuration file you can customise behaviour of phones or you can create configuration for new unsupported phones. 24U company can provide support only for <a href="#SupportPhones">supported phones</a>. Please see "snom.cfg" supplied in distribution archive as an example for SNOM 715 phones.</p>
+<table>
+
+     <tr>
+    <td>
+      <i>Option:</i>
+    </td>
+    <td>
+      <i>Description:</i>
+    </td>
+  </tr>
+
+     <tr>
+    <td>
+      "protocol"
+    </td>
+    <td>
+      the secure or not version of the HTTP protocol. Use HTTP or HTTPS
+    </td>
+  </tr>
+   <tr>
+    <td>
+      "port"
+    </td>
+    <td>
+      the port number of the phone
+    </td>
+  </tr>
+  <tr>
+    <td>
+      "method"
+    </td>
+    <td>
+      should be GET or POST
+    </td>
+  </tr>
+  <tr>
+    <td>
+      "resource"
+    </td>
+    <td>
+      is typically the file name [and set of key-values (usually GET request)]
+    </td>
+  </tr>
+  <tr>
+    <td>
+      "content_type"
+    </td>
+    <td>
+      the outgoing format of Your message, it can be left blank
+    </td>
+  </tr>
+  <tr>
+    <td>
+      "accept"
+    </td>
+    <td>
+      the receiving parser format, it can be left blank
+    </td>
+  </tr>
+  <tr>
+    <td>
+      "body"
+    </td>
+    <td>
+      the body can be a string or can have multiple set of key-values that will be necessary to set up the monitoring device
+    </td>
+  </tr>
+  <tr>
+    <td>
+      "onIncomingCall"
+    </td>
+    <td>
+      an example of "monitorAutoConfiguration" which can have four or more notifications set up
+    </td>
+  </tr></table>
+
+</div>
+</body>
+</html>

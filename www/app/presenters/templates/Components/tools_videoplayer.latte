@@ -1,0 +1,38 @@
+{define video, $folderName, $fileNamePrefix, $videoResolution, $controls = 'true'}
+    <div class="mp4-videoplayer-element">
+        {include video-singleElement, $folderName, $fileNamePrefix, $videoResolution, $controls, true}
+        <div class="mp4-videoplayer-resolution">
+            <img class="mp4-videoplayer-expand" src="{$basePath}/img/icons/expand.svg" title="Show in larger view">
+            <img class="mp4-videoplayer-collapse" src="{$basePath}/img/icons/collapse.svg" title="Close">
+        </div>
+
+    </div>
+{/define}
+
+{define video-compilationElement, $folderName, $fileNamePrefix, $videoResolution, $controls = 'true'}
+    <div class="">
+        {include video-singleElement, $folderName, $fileNamePrefix, $videoResolution, $controls}
+        <div class="mp4-videoplayer-resolution">
+            <img class="mp4-videoplayer-expand" src="{$basePath}/img/icons/expand.svg" title="Show in larger view">
+            <img class="mp4-videoplayer-collapse" src="{$basePath}/img/icons/collapse.svg" title="Close">
+        </div>
+
+    </div>
+{/define}
+
+{define video-singleElement, $folderName, $fileNamePrefix, $videoResolution, $controls = 'true'}
+        <video class="video-in-section video-js onlyFullScreenButton vjs-show-big-play-button-on-pause"  playsInline
+               data-setup='{
+                        "controls": {$controls},
+                        "autoplay": {if $detect['isFirefox'] === "true"}"true"{else}"muted"{/if},
+                        "preload": true,
+                        "loop": "loop",
+                        "aspectRatio":"16:9",
+                        "fluid": false
+                       }'
+               poster="{$basePath}/video/{$folderName}/{$fileNamePrefix}_{$videoResolution}.jpg">
+            <source onload="this.click()" src="{$basePath}/video/{$folderName}/{$fileNamePrefix}_{$videoResolution}.mp4" type="video/mp4">
+            <source onload="this.click()" src="{$basePath}/video/{$folderName}/{$fileNamePrefix}_{$videoResolution}.webm" type="video/webm">
+            <div class="vjs-no-js" style="background-image: url('video/{$folderName}/{$fileNamePrefix}_{$videoResolution}.jpg')"></div>
+        </video>
+{/define}

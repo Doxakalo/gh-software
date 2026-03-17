@@ -1,0 +1,203 @@
+#STORE FORM
+store-form:
+    items:
+        email:
+
+
+#MAILCHIMP FORM FOR SUBSCRIBE
+mailchimp-subscribe:
+    items:
+        email:
+            label: "E-mail"
+            placeholder: "Váš e-mail"
+            validation:
+                required: "Zadejte prosím svou e-mailovou adresu"
+                valid: "Zadejte platnou e-mailovou adresu"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        name:
+            label: "Jméno"
+            placeholder: "Vaše jméno"
+            validation:
+                required: "Zadejte prosím své jméno"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        surname:
+            label: "Příjmení"
+            placeholder: "Vaše příjmení"
+            validation:
+                required: "Zadejte prosím své příjmení"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        submit:
+            label: "Odeslat"
+
+    errors:
+        unexpected: "Nastala neočekávaná chyba, prosím kontaktujte 24U"
+        email-used: "Vaše e-mailová adresa je již přihlášená"
+
+#CONTACT FORM
+contact:
+    items:
+        subject2:
+            label: "Subject"
+            placeholder: "Prosím nevyplňujte"
+
+        number:
+            label: "Telefon"
+            placeholder: "Vaše telefonní číslo"
+            validation:
+                required: "Zadejte prosím telefon"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        name:
+            label: "Jméno"
+            placeholder: "Vaše jméno"
+            validation:
+                required: "Zadejte prosím své jméno"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        time:
+            label: "Čas"
+            placeholder: "Vhodný čas k hovoru"
+            validation:
+                required: "Zadejte prosím preferovaný čas hovoru"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        timezone:
+            label: "Časové pásmo"
+            placeholder: "Vaše časové pásmo"
+            validation:
+                required: "Vyberte prosím své časové pásmo"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        email:
+            label: "E-mail"
+            placeholder: "Váš e-mail"
+            validation:
+                required: "Zadejte prosím svou e-mailovou adresu"
+                valid: "Zadejte platnou e-mailovou adresu"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        topic:
+            label: "Téma"
+            placeholder: "Téma k diskuzi"
+            validation:
+                required: "Zadejte prosím téma hovoru"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        message:
+            label: "Otázka"
+            placeholder: "Zde napište svůj dotaz..."
+            placeholder-popup: "Zde napište svou zprávu..."
+            validation:
+                required: "Zadejte prosím svůj dotaz"
+                maxLength: "Zadejte prosím hodnotu kratší než %len% znaků."
+
+        submit:
+            label: "Odeslat"
+
+    errors:
+        unexpected: "Nastala neočekávaná chyba, prosím kontaktujte 24U"
+
+# CLIENTPORTAL - CREATE TICKET
+client-portal-create-ticket:
+    items:
+        email:
+            label: "E-mail"
+            placeholder: "Váš e-mail"
+            validation:
+                required: "Zadejte prosím svou e-mailovou adresu"
+                valid: "Zadejte platnou e-mailovou adresu"
+
+        topic:
+            label: "Téma"
+            placeholder: "Téma k diskuzi"
+            validation:
+                required: "Zadejte prosím téma k diskuzi"
+
+        message:
+            label: "Otázka"
+            placeholder: "Zde napište svůj dotaz..."
+            placeholder-popup: "Zde napište svou zprávu..."
+            validation:
+                required: "Zadejte prosím svůj dotaz"
+
+        fullname:
+            label: "Jméno"
+            placeholder: "Vaše jméno"
+            validation:
+                required: "Zadejte prosím své jméno"
+
+        product:
+            prompt: "-- Vyberte produkt --"
+            validation:
+                required: "Prosím vyberte produkt"
+
+        premium-support:
+             label: "Chci využít prémiovou podporu"
+
+        submit:
+            label: "Odeslat otázku"
+
+    errors:
+        unexpected: "Nastala neočekávaná chyba, prosím kontaktujte 24U"
+
+#SUPPORT -  Immediate Help Form
+support-immediate-help:
+    items:
+        submit:
+            label: "Vyžádat hovor"
+
+#NEWS - Shortlink Form
+shortlinks:
+    items:
+        url:
+            label: "Destination Url"
+            placeholder: "Destination Url"
+            validation:
+                required: "Zadejte prosím URL"
+
+        category:
+            label: "Category"
+            placeholder: "Category"
+            validation:
+                required: "Zadejte prosím kategorii"
+
+        shortlink:
+            label: "Shortlink"
+            placeholder: "Vlastní shortlink"
+
+        note:
+            label: "Note"
+            placeholder: "Note"
+            validation:
+                required: "Zadejte prosím poznámku"
+
+        min_click:
+            label: "Min"
+            placeholder: "Min"
+            validation:
+                required: "Zadejte prosím minimum"
+                minimum: "Minimální hodnota je 0"
+
+        max_click:
+            label: "Max"
+            placeholder: "Max"
+            validation:
+                required: "Zadejte prosím maximum"
+                minimum: "Minimální hodnota je 0"
+
+        days_limit:
+            label: "Interval"
+            placeholder: "Interval"
+            validation:
+                required: "Zadejte prosím počet dní"
+                minimum: "Minimální hodnota je 0"
+
+        submit:
+            label: "Vytvořit shortlink"
+    errors:
+        shortcode-exists: "Zvolený shortlink se už používá"
+        unexpected: "Nastala neočekávaná chyba, prosím kontaktujte 24U"
+

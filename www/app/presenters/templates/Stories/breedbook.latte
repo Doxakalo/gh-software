@@ -1,0 +1,88 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}{include dorper_detail_title}{/block}
+{block description}
+    {include dorper_detail_description}
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{include dorper_detail_og_title}{/capture}
+        {capture $description}{include dorper_detail_og_description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/stories/og_images/og-dorper-breedbook.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover" data-image-position-horizontal="22">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/stories/dorper_story_header.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/stories/dorper_story_header.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-9@desktop gr-12@mobile cover-parallax-inner">
+                <h1 class="page-title">
+                    {include dorper_detail_headline}
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{var $overview = [
+name => 'dorper_detail-overview',
+testimonials => [
+[ img => $basePath.'/img/testimonials/dorper-breedbook.jpg', video => [id => 'vGo2fc62-4k'], name => 'Ing. Jaroslav Rucki, Dorper Asociace'],
+]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{capture $alt1}{_pages.stories.dorper.alts.1}{/capture}
+{capture $alt2}{_pages.stories.dorper.alts.2}{/capture}
+{capture $alt3}{_pages.stories.dorper.alts.3}{/capture}
+{capture $alt4}{_pages.stories.dorper.alts.4}{/capture}
+{capture $alt5}{_pages.stories.dorper.alts.5}{/capture}
+{capture $alt6}{_pages.stories.dorper.alts.6}{/capture}
+{capture $alt7}{_pages.stories.dorper.alts.7}{/capture}
+{capture $alt8}{_pages.stories.dorper.alts.8}{/capture}
+
+{var $articles = [
+    [name => 'dorper_article-about', img => $basePath.'/img/pages/stories/dorper/2pruh.jpg', title => $alt1],
+    [name => 'dorper_create-breedbook', img => $basePath.'/img/pages/stories/dorper/3pruh.png', 'title' => $alt2, img_url =>[url => $basePath.'/img/pages/product-pages/breedbook/breedbook-collage.png', target => '_blank']],
+    [name => 'dorper_application', img => $basePath.'/img/pages/stories/dorper/4pruhA.png', 'title' => $alt3, img_url =>[url => $basePath.'/img/pages/product-pages/breedbook/breedbook-spravce-kniha.png', target => '_blank']],
+    [name => 'dorper_result', img => $basePath.'/img/pages/stories/dorper/5pruh.jpg', 'title' => $alt4],
+    [name => 'dorper_important', img => $basePath.'/img/pages/stories/dorper/6pruh.jpg', 'title' => $alt5],
+    [name => 'dorper_24u', img => $basePath.'/img/pages/stories/dorper/7pruh.jpg', 'title' => $alt6],
+    [name => 'dorper-effective', img => $basePath.'/img/pages/stories/dorper/8pruh.jpg', 'title' => $alt7],
+    [name => 'dorper_path', img => $basePath.'/img/pages/stories/dorper/9pruh.jpg', 'title' => $alt8],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles, row_color => ''}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'true', customDescriptionTranslate => "pages.stories.contact-form.description"}
+{/snippet}

@@ -1,0 +1,2674 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>24U SimpleHASP Plug-In 2.0 Syntax</title>
+
+<script>
+function changeColor()
+{
+  var tags = document.getElementsByTagName('*');
+  var tcl = " news_highlight ";
+  for(i=0,j=0; i<tags.length; i++) 
+  { 
+    var test = " " + tags[i].className + " ";
+	  if (test.indexOf(tcl) != -1)
+	  {
+	    if(tags[i].style.backgroundColor=="")
+		  {
+		    tags[i].style.backgroundColor="yellow";
+		    tags[i].style.color="red";
+		  }
+		  else
+		  {
+		    tags[i].style.backgroundColor="";
+		    tags[i].style.color="";
+		  }
+	  }
+	}
+}
+</script>
+
+<style type="text/css" media="screen">
+body {counter-reset:section;}
+h1 { font-size: 20px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; line-height: 32px }
+h2 { font-size: 16px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; text-decoration: underline; margin-top: 24px; margin-bottom: 0px }
+h2:before { counter-increment:section; content:"" counter(section) ". "; }
+h3 { font-size: 14px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: bold; margin-top: 24px; margin-bottom: 0px }
+h4 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-bottom: 0px; color: purple}
+h5 { font-size: 12px; font-family: "Lucida Grande", Arial, sans-serif; font-weight: 500; margin-top: 8px; margin-left: 1.5em; margin-bottom: 0px; color: purple}
+
+.intro { font-size: 14px; margin-left: 0px }
+.f_intro { font-size: 12px; margin-left: 0px }
+.p_hl { color: maroon }
+.syntax { color: #003200; font-family: monospace; font-size: 12px }
+.syntax_hl { color: navy; font-family: monospace; font-size: 12px }
+.t_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: maroon }
+.t2_param { font-family: monospace; font-size: 12px; padding-right: 12px; color: #5D2E0D; vertical-align:top; }
+.t2_param_width { font-family: monospace; width: 180px; font-size: 12px; padding-right: 12px; color: #5D2E0D }
+.t2_param2 { font-family: "Lucida Grande", Arial, sans-serif; font-size: 12px; padding-right: 12px }
+.b_technical { font-family: monospace; font-size: 12px; padding-right: 12px; font-weight: bold }
+.note { font-family: "Lucida Grande", Arial, sans-serif; font-size: 13px; padding-right: 12px; font-weight: bold }
+.t_path { font-family: monospace; font-size: 12px; color: #1F1F1F }
+table { margin-left: 20px; margin-right: 20px }
+TH { font-family: monospace; font-size: 13px; font-weight: normal; text-decoration: underline; text-align: left }
+TD { font-family: Helvetica, Arial; font-size: 12px }
+p {font-family: Helvetica, Arial; font-size: 12px; margin-left: 20px; margin-top: 6px }
+DL,OL,UL { font-family: Helvetica, Arial; font-size: 12px }
+th, td { padding: 0px; }
+table { border-collapse: separate; border-spacing: 4px; border: none; }
+#ErrorTable th { align:left; }
+
+.internal_highlight, .internal_highlight .t2_param { color: orange; }
+</style>
+	
+</head>
+
+<body>  
+<h1>24U SimpleHASP Plug-In 2.0 Syntax</h1>
+
+<form><input type="button" value="Highlight changes in the new version"	onClick='javascript:changeColor()'></form>
+
+<!-- #################################################################### -->
+<!-- Specification info -->
+
+
+<p class="f_intro">Syntax revision: <b>7</b>, 2016-10-05.</p>
+<p class="f_intro">Created by: <a href="mailto:alena.sochurkova@24usoftware.com">Alena Sochůrková</a>, ©2016 24U Software.</p>
+
+<!-- #################################################################### -->
+<!-- MAIN GOALS -->
+
+
+<h2>Main Goals</h2>
+<ul>
+  
+  <li>Create 64bit plug-in.</li>
+  
+  <li><span class="news_highlight">Remove vendor code parameter - substitute by set_id.</span></li>
+  
+  <li>Remove BE/LE differences with data writing and reading.</li>
+  
+</ul>
+
+
+<!-- #################################################################### -->
+<!-- Basic Technical parameters -->
+
+
+<h2>Basic technical parameters</h2>
+<table>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    File names:
+  </td>
+  <td class="b_technical">
+    SimpleHASP.fmplugin
+  </td>
+</tr>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    Creator:
+  </td>
+  <td class="b_technical">
+    Alena Sochůrková, Zdeněk Hejl and Lukáš Liebzeit
+  </td>
+</tr>
+
+  
+    
+    
+<tr>    
+    
+  <td class="t2_param">
+    Plug-In ID String:
+  </td>
+  <td class="b_technical">
+    24SH
+  </td>
+</tr>
+
+  
+    
+    
+<tr>    
+    
+  <td class="t2_param">
+    Function names prefix:
+  </td>
+  <td class="b_technical">
+    SHasp_
+  </td>
+</tr>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    Plug-In API version:
+  </td>
+  <td class="b_technical">
+    FileMaker Pro 14.0 Advanced native
+  </td>
+</tr>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    OS X SDK Version:
+  </td>
+  <td class="b_technical">
+    OS X 10.11
+  </td>
+</tr>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    OS X Compatibility:
+  </td>
+  <td class="b_technical">
+    OS X 10.9 and higher
+  </td>
+</tr>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    Windows Compatibility:
+  </td>
+  <td class="b_technical">
+    Windows 7 and higher
+  </td>
+</tr>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    Procesor architectures:
+  </td>
+  <td class="b_technical">
+    i386, x86_64
+  </td>
+</tr>
+
+  
+    
+    
+<tr class="news_highlight">
+    
+  <td class="t2_param">
+    Suported FileMaker:
+  </td>
+  <td class="b_technical">
+    FileMaker Pro 12 or newer, FileMaker Server 14 or newer
+  </td>
+</tr>
+
+  
+  
+</table>
+
+
+<!-- #################################################################### -->
+<!-- Requirements and constraints -->
+
+<h2>Requirements and constraints</h2><h3>Constraints</h3><p class="f_intro">Few notes about plug-in constraints</p><ul><li>Version 2.0 backward compatibility towards version 1.1 is not supported.</li></ul>
+<!-- #################################################################### -->
+<!-- List of Features, BugFixes and Notes -->
+
+
+
+<!-- #################################################################### -->
+<!-- Syntax and functionality -->
+
+<h2>Syntax and functionality of the suggested functions</h2>
+
+
+  
+
+<!-- ====================================== -->
+<!-- Function Syntax -->
+
+<h3 id="SHasp_Version">
+  SHasp_Version 
+
+  
+(  
+    
+ 
+
+      
+{    
+      
+      
+      
+      
+      versionFormat
+      
+      
+}   
+            
+    
+    
+)  
+  
+
+</h3>
+
+<p class="f_intro">Returns version string of the active 24U SimpleHASP Plug-In, formatted as requested by the parameter.</p>
+
+<!-- ====================================== -->
+<!-- Function Parameters list -->
+
+  
+  
+<h4>Parameters</h4>
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Datatype</th>
+        <th>Condition</th>
+        <th>Description</th>
+    </tr>
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">versionFormat</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+            [enum]
+            
+        </td>
+
+        <td>Defines the format of the returned version.</td>
+        </tr>
+
+
+    
+
+</table>  
+  
+<!-- ====================================== -->
+<!-- Function Parameters values enumerations -->
+  
+    
+
+      
+
+<h4>Parameter values for <span class="p_hl">versionFormat</span></h4>
+<table>
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "short"
+                            </td>
+                            <td>
+                                  To get just the version number. Default value.
+                            </td>
+                          </tr>
+                  
+                          
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "long"
+                            </td>
+                            <td>
+                                  To get the plug-in name followed by its version number.
+                            </td>
+                          </tr>
+                  
+                          
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "platform"
+                            </td>
+                            <td>
+                                  To get the platform of the code currently running.
+                            </td>
+                          </tr>
+                  
+                          
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "autoupdate"
+                            </td>
+                            <td>
+                                  To get autoupdate compatible (comparable) version number.
+                            </td>
+                          </tr>
+                  
+                          
+        
+</table>
+      
+      
+
+    
+  
+  
+
+<!-- ====================================== -->
+<!-- Function Description -->
+  
+  
+
+<h4>Description</h4>
+<p>This function is very important and it has the same output format in all 24U Plug-Ins. You should call this function every time you need to check if the plug-in is properly installed to the FileMaker. Even if the plug-in is not registered (or badly registered) this function should work. Calling this function in the startup script of your solution is recommended.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Result -->
+  
+  
+  
+<h4>Result</h4>
+<p>Returns requested version format or platform. If this function returns "?", then the plug-in is not properly installed or FileMaker cannot load and activate it for some reason.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Notes -->
+
+  
+
+<!-- ====================================== -->
+<!-- Funtion Examples -->  
+
+  
+  
+<h4>Examples</h4>
+
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Version( "long" )</span><br>This will return the plug-in name and its version. In this case it is 24U SimpleHASP Plug-In 2.0
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Version( "platform" )</span><br>Returns "Mac OS X" or "Windows" depending on your OS.
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Version( "autoupdate" )</span><br>Returns 02000000 for version 2.0.0 of the plug-in.
+  
+  
+</p>    
+    
+    
+  
+  
+
+  
+
+
+  
+
+<!-- ====================================== -->
+<!-- Function Syntax -->
+
+<h3 id="SHasp_Get">
+  SHasp_Get 
+
+  
+(  
+    
+ 
+
+      
+      
+      
+      
+      feature_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      set_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      selector
+      
+            
+    
+    
+ 
+
+      
+{    
+      
+      
+      
+;    
+      
+      
+      file_id
+      
+      
+}   
+            
+    
+    
+)  
+  
+
+</h3>
+
+<p class="f_intro">Returns the current value of a HASP HL key parameter selected by selector.</p>
+
+<!-- ====================================== -->
+<!-- Function Parameters list -->
+
+  
+  
+<h4>Parameters</h4>
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Datatype</th>
+        <th>Condition</th>
+        <th>Description</th>
+    </tr>
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">feature_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>If you have solution with several modules, each module can be protected separately by assigning it a specified number. Use 0 if you don't have more modules to protect.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr class="news_highlight">
+        
+         
+        <td class="t_param">set_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Unique ID for your set of HASP keys. This ID is provided together with plugin.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">selector</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Name of the parameter to get</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">file_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>If you want to get size of specific file, use this parameter for its ID. Otherwise the default Read/Write memory file (ID: 65524) will be used.</td>
+        </tr>
+
+
+    
+
+</table>  
+  
+<!-- ====================================== -->
+<!-- Function Parameters values enumerations -->
+  
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+<h4>Parameter values for <span class="p_hl">selector</span></h4>
+<table>
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "rtc"
+                            </td>
+                            <td>
+                                   Returns the current time from keys with real time clock capability. Use "key-info" and find &lt;rtc /&gt; to be sure, if your key has rtc.  <br>Some keys supports V-clock. If you enable them and your key doesn't have rtc, then timestamp from V-clock is returned.
+                            </td>
+                          </tr>
+                  
+                          
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "session-info"
+                            </td>
+                            <td>
+                                   Returns information regarding a session context.
+                            </td>
+                          </tr>
+                  
+                          
+        
+                   
+                  <tr class="news_highlight" >
+                            <td class="t2_param">
+                                  "key-info"
+                            </td>
+                            <td>
+                                  Returns information about the key.
+                            </td>
+                          </tr>
+                  
+                          
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "update-info"
+                            </td>
+                            <td>
+                                  Returns update info.
+                            </td>
+                          </tr>
+                  
+                          
+        
+                   
+                  <tr >
+                            <td class="t2_param">
+                                  "size"
+                            </td>
+                            <td>
+                                  Returns the memory size of the key in bytes.
+                            </td>
+                          </tr>
+                  
+                          
+        
+</table>
+      
+      
+
+    
+
+      
+
+    
+  
+  
+
+<!-- ====================================== -->
+<!-- Function Description -->
+  
+  
+
+<h4>Description</h4>
+<p><p>This function enables you to get info about the HASP HL Key. It can be used to list the capabilities and parameters of your Key or read the real-time clock.</p></p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Result -->
+  
+  
+  
+<h4>Result</h4>
+<p>Function returns 0  or one of the <a href=#ErrorCodes>error codes</a>.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Notes -->
+
+  
+
+<!-- ====================================== -->
+<!-- Funtion Examples -->  
+
+  
+  
+<h4>Examples</h4>
+
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Get( 0 ; "f38e6dd347c9eeef7619d80d151db412" ; "rtc" )</span><br>Returns the current time from the Time key. 
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Get( 0 ; "f38e6dd347c9eeef7619d80d151db412" ; "key-info" )</span><br>Returns available info about the connected key in XML format. Use this to get your key's capabilities.
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Get( 0 ; "f38e6dd347c9eeef7619d80d151db412" ; "size"; 65525 )</span><br>Returns the size of the Read Only memory file (ID: 65525) in bytes.
+  
+  
+</p>    
+    
+    
+  
+  
+
+  
+
+
+  
+
+<!-- ====================================== -->
+<!-- Function Syntax -->
+
+<h3 id="SHasp_Encrypt">
+  SHasp_Encrypt 
+
+  
+(  
+    
+ 
+
+      
+      
+      
+      
+      feature_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      set_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      data
+      
+            
+    
+    
+)  
+  
+
+</h3>
+
+<p class="f_intro">Hardware key encryption.</p>
+
+<!-- ====================================== -->
+<!-- Function Parameters list -->
+
+  
+  
+<h4>Parameters</h4>
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Datatype</th>
+        <th>Condition</th>
+        <th>Description</th>
+    </tr>
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">feature_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>If you have solution with several modules, each module can be protected separately by assigning it a specified number. Use 0 if you don't have more modules to protect.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr class="news_highlight">
+        
+         
+        <td class="t_param">set_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Unique id for your set of HASP keys. This ID is provided together with plugin.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">data</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string or container
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>The submitted data will be encrypted. All data are padded automatically to prevent the encryption from failing due to short input.</td>
+        </tr>
+
+
+    
+
+</table>  
+  
+<!-- ====================================== -->
+<!-- Function Parameters values enumerations -->
+  
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+  
+  
+
+<!-- ====================================== -->
+<!-- Function Description -->
+  
+  
+
+<h4>Description</h4>
+<p>Encrypts the provided data with the secret key store in HASP HL Key using AES 128-bit algorithm and encodes the result in Base64 format. <br><span class="news_highlight"><b>Note: encrypted data have bigger size, than original (about 33%).</b></span></p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Result -->
+  
+  
+  
+<h4>Result</h4>
+<p>If an error occurs the function will return an error code. Please check the result for <a href="#ErrorCodes">error codes</a> after every plugin call, <a href="#error_handling">please read more here.</a>.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Notes -->
+
+  
+
+<!-- ====================================== -->
+<!-- Funtion Examples -->  
+
+  
+  
+<h4>Examples</h4>
+
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Encrypt( 0; "f38e6dd347c9eeef7619d80d151db412" ; "Secret message that needs to be encrypted" )</span><br>The output depends on encryption key used. You can decrypt the message using <span class="syntax"><a href=#SHasp_Decrypt>SHasp_Decrypt</a></span>.
+  
+  
+</p>    
+    
+    
+  
+  
+
+  
+
+
+  
+
+<!-- ====================================== -->
+<!-- Function Syntax -->
+
+<h3 id="SHasp_Decrypt">
+  SHasp_Decrypt 
+
+  
+(  
+    
+ 
+
+      
+      
+      
+      
+      feature_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      set_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      data
+      
+            
+    
+    
+)  
+  
+
+</h3>
+
+<p class="f_intro">Hardware key decryption.</p>
+
+<!-- ====================================== -->
+<!-- Function Parameters list -->
+
+  
+  
+<h4>Parameters</h4>
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Datatype</th>
+        <th>Condition</th>
+        <th>Description</th>
+    </tr>
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">feature_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>If you have solution with several modules, each module can be protected separately by assigning it a specified number. Use 0 if you don't have more modules to protect.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr class="news_highlight">
+        
+         
+        <td class="t_param">set_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Unique id for your set of HASP keys. This ID is provided together with plugin.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">data</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Data to decrypt.</td>
+        </tr>
+
+
+    
+
+</table>  
+  
+<!-- ====================================== -->
+<!-- Function Parameters values enumerations -->
+  
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+  
+  
+
+<!-- ====================================== -->
+<!-- Function Description -->
+  
+  
+
+<h4>Description</h4>
+<p>Decrypts the provided data with the secret key stored on HASP HL Key using AES 128-bit algorithm.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Result -->
+  
+  
+  
+<h4>Result</h4>
+<p>Returns decrypted data in the same format that was used for encryption - string or container. If an error occurs the function will return an error code. Please check the result for <a href="#ErrorCodes">error codes</a> after every plugin call, <a href="#error_handling">please read more here.</a>.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Notes -->
+
+  
+
+<!-- ====================================== -->
+<!-- Funtion Examples -->  
+
+  
+  
+<h4>Examples</h4>
+
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Decrypt( 0; "f38e6dd347c9eeef7619d80d151db412" ; "oAxZnifvhq4uJPmEKaGJmowsqiBVOrsAOWnzwP9wQ8dF18Xk9p4jOHHMdZj/GfpHSMLE178S7NdR" )</span><br>Decrypts the message using the key stored on HASP HL Key.
+  
+  
+</p>    
+    
+    
+  
+  
+
+  
+
+
+  
+
+<!-- ====================================== -->
+<!-- Function Syntax -->
+
+<h3 id="SHasp_Read">
+  SHasp_Read 
+
+  
+(  
+    
+ 
+
+      
+      
+      
+      
+      feature_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      set_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      file_id
+      
+            
+    
+    
+ 
+
+      
+{    
+      
+      
+      
+;    
+      
+      
+      offset
+      
+      
+}   
+            
+    
+    
+ 
+
+      
+{    
+      
+      
+      
+;    
+      
+      
+      length
+      
+      
+}   
+            
+    
+    
+)  
+  
+
+</h3>
+
+<p class="f_intro">Reads from the internal memory of HASP HL key if it's available.</p>
+
+<!-- ====================================== -->
+<!-- Function Parameters list -->
+
+  
+  
+<h4>Parameters</h4>
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Datatype</th>
+        <th>Condition</th>
+        <th>Description</th>
+    </tr>
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">feature_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>If you have solution with several modules, each module can be protected separately by assigning it a specified number. Use 0 if you don't have more modules to protect.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr class="news_highlight">
+        
+         
+        <td class="t_param">set_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Unique id for your set of HASP keys.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">file_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>The requested file ID.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">offset</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Offset to read from in bytes.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr class="news_highlight">
+        
+         
+        <td class="t_param">length</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Length of data to read in bytes. For text data you can read length between 1 and length you used for SHasp_Write. For non-text data you have to use greater or equal length than the one used during SHasp_Write.</td>
+        </tr>
+
+
+    
+
+</table>  
+  
+<!-- ====================================== -->
+<!-- Function Parameters values enumerations -->
+  
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+  
+  
+
+<!-- ====================================== -->
+<!-- Function Description -->
+  
+  
+
+<h4>Description</h4>
+<p>Reads data from the internal memory of HASP HL key. Only data previously written using <span class="syntax"><a href=#SHasp_Write>SHasp_Write</a></span> will be read.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Result -->
+  
+  
+  
+<h4>Result</h4>
+<p>If an error occurs the function will return an error code. Please check the result for <a href="#ErrorCodes">error codes</a> after every plugin call, <a href="#error_handling">please read more here.</a></p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Notes -->
+
+  
+  
+    
+      
+      
+      
+<h4>Note</h4>
+
+      
+
+<p>HASP HL Keys with internal storage offer Read/Write Memory and Read Only Memory. The memory type is selected using file_id parameter.</p>
+  
+      
+      
+      
+      
+      
+    
+      
+      
+      
+<h4>File ID parameters used in HASP HL Keys with storage capability:</h4>
+
+      
+      
+      
+<table>      
+      
+        
+      
+          
+  <tr>
+            
+    <td class="t2_param">
+          Protected Read/Write Memory
+    </td>
+    <td>
+          ID: 65524, sometimes referred to as HASP_FILEID_RW in HASP HL documentation.
+    </td>
+  </tr>
+        
+        
+      
+          
+  <tr>
+            
+    <td class="t2_param">
+          Read Only Memory (ROM)
+    </td>
+    <td>
+          ID: 65525, sometimes referred to as HASP_FILEID_RO in HASP HL documentation.
+    </td>
+  </tr>
+        
+        
+      
+</table>      
+      
+      
+      
+      
+      
+    
+    
+  
+
+<!-- ====================================== -->
+<!-- Funtion Examples -->  
+
+  
+  
+<h4>Examples</h4>
+
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Read( 0; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 0; 3000 )</span><br>Reads at most 3000 bytes of stored data from the Read/Write memory file (ID: 65524). The type of returned data depends on the type used for writing.
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Read( 0; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 0; 3 )</span><br>Reads at most 3 bytes of stored data from the Read/Write memory file (ID: 65524). The type of returned data depends on the type used for writing. If stored data aren't text and they are larger, than 3B, then plugin will return error.
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Read( 0; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 0; 5 )</span><br>Assume, that we are trying to read from file (ID: 65524), where was stored "Hello SimpleHASP". This call will return "Hello" read from the Read/Write memory file (ID: 65524).
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Read( 0; "f38e6dd347c9eeef7619d80d151db412" ; 65524)</span><br>Assume, that we are trying to read from file (ID: 65524), where was stored "Hello SimpleHASP" on offset 0, then this will return "Hello SimpleHASP" read from the Read/Write memory file (ID: 65524).
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Read( 0; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 12; 5 )</span><br>Assume, that we are trying to read from file (ID: 65524), where was stored "Hello SimpleHASP" on offset 12. This call will return "Hello" read from the Read/Write memory file (ID: 65524).
+  
+  
+</p>    
+    
+    
+  
+  
+
+  
+
+
+  
+
+<!-- ====================================== -->
+<!-- Function Syntax -->
+
+<h3 id="SHasp_Update">
+  SHasp_Update 
+
+  
+(  
+    
+ 
+
+      
+      
+      
+      
+      set_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      path_to_file
+      
+            
+    
+    
+)  
+  
+
+</h3>
+
+<p class="f_intro">Updates a HASP HL key.</p>
+
+<!-- ====================================== -->
+<!-- Function Parameters list -->
+
+  
+  
+<h4>Parameters</h4>
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Datatype</th>
+        <th>Condition</th>
+        <th>Description</th>
+    </tr>
+
+    
+
+        
+
+		
+        <tr class="news_highlight">
+        
+         
+        <td class="t_param">set_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Unique id for your set of HASP keys.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">path_to_file</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Path to file containing informations for update. This ID is provided together with plugin.</td>
+        </tr>
+
+
+    
+
+</table>  
+  
+<!-- ====================================== -->
+<!-- Function Parameters values enumerations -->
+  
+    
+
+      
+
+    
+
+      
+
+    
+  
+  
+
+<!-- ====================================== -->
+<!-- Function Description -->
+  
+  
+
+<h4>Description</h4>
+<p>This function writes update information to locally connected key.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Result -->
+  
+  
+  
+<h4>Result</h4>
+<p>This function returns an acknowledgment code. If an error occurs the function will return an error code. Please check the result for <a href="#ErrorCodes">error codes</a> after every plugin call, <a href="#error_handling">please read more here.</a></p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Notes -->
+
+  
+
+<!-- ====================================== -->
+<!-- Funtion Examples -->  
+
+  
+  
+<h4>Examples</h4>
+
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Update( "f38e6dd347c9eeef7619d80d151db412" ; "/Users/username/Documents/fileWithUpdate.v2c" )</span><br>Updating HASP key requires cooperation of customer and administrator. As customer you have to generate .c2v file. You can generate this file with our plugin - all you have to do is call function SHasp_Get with \"update-info\" param. Store this result into file and save it as something.c2v. After completing this steps send this file to your administrator. As administrator you can find valuable information <a href="http://sentinelldk.safenet-inc.com/LDKdocs/WebHelp/GenerateV2CtoActivate.htm">here</a>.
+  
+  
+</p>    
+    
+    
+  
+  
+
+  
+
+
+  
+
+<!-- ====================================== -->
+<!-- Function Syntax -->
+
+<h3 id="SHasp_Write">
+  SHasp_Write 
+
+  
+(  
+    
+ 
+
+      
+      
+      
+      
+      feature_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      set_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      file_id
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      offset
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      length
+      
+            
+    
+    
+ 
+
+      
+      
+      
+;    
+      
+      
+      data
+      
+            
+    
+    
+)  
+  
+
+</h3>
+
+<p class="f_intro">Writes to the internal memory of HASP HL key if it's available.</p>
+
+<!-- ====================================== -->
+<!-- Function Parameters list -->
+
+  
+  
+<h4>Parameters</h4>
+<table>
+
+    <tr>
+        <th>Name</th>
+        <th>Datatype</th>
+        <th>Condition</th>
+        <th>Description</th>
+    </tr>
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">feature_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>If you have solution with several modules, each module can be protected separately by assigning it a specified number. Use 0 if you don't have more modules to protect.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr class="news_highlight">
+        
+         
+        <td class="t_param">set_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Unique id for your set of HASP keys.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">file_id</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>The requested file ID.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">offset</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Offset to write in bytes.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">length</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            number
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>Length of data in bytes. If data are larger than length, then error is returned. If data are smaller than length, then bytes of size length are written to HASP.</td>
+        </tr>
+
+
+    
+
+        
+
+		
+        <tr>
+        
+         
+        <td class="t_param">data</td>
+        <!-- Next 2 columns are optional - added by ZH 2013-12 -->
+        <td>
+            
+            string or container
+            
+        </td>
+        <td>
+            
+        </td>
+
+        <td>The data to be written.</td>
+        </tr>
+
+
+    
+
+</table>  
+  
+<!-- ====================================== -->
+<!-- Function Parameters values enumerations -->
+  
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+
+      
+
+    
+  
+  
+
+<!-- ====================================== -->
+<!-- Function Description -->
+  
+  
+
+<h4>Description</h4>
+<p>Writes to the internal memory of HASP HL key. The actual data is prepended with SimpleHASP Plug-In header to ensure data integrity. If the data is shorter than the submitted length, the length will be adjusted. Length shorter than the actual data size will result into error.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Result -->
+  
+  
+  
+<h4>Result</h4>
+<p>Function returns 0, if it returns different value, then it is error code. Please check the result for <a href="#ErrorCodes">error codes</a> after every plugin call, <a href="#error_handling">please read more here.</a>.</p>
+  
+  
+  
+<!-- ====================================== -->
+<!-- Function Notes -->
+
+  
+
+<!-- ====================================== -->
+<!-- Funtion Examples -->  
+
+  
+  
+<h4>Examples</h4>
+
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Write( 0 ; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 0; 4000; MyFile::ContainerField )</span><br>Writes at most 4000 bytes of data from MyFile::ContainerField to the Read/Write memory file (ID: 65524). The default feature ID is used and no offset is applied.
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Write( 0 ; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 0; 8; MyFile::NumberField )</span><br>Writes number to the Read/Write memory file (ID: 65524). The default feature ID is used and no offset is applied. All numbers are converted by plugin into type double from C language, therefore size of number has to be at least 8B.
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Write( 0 ; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 0; 100; MyFile::NumberField )</span><br>Writes number to the Read/Write memory file (ID: 65524). The default feature ID is used and no offset is applied. <br><b>Note: If you use SHasp_Read with length smaller, then 100 then reading will fail. If you are not sure about length during reading, then don't use that parameter.</b>
+  
+  
+</p>    
+    
+    
+    
+<p>
+  
+  
+  <span class="syntax_hl">SHasp_Write( 0 ; "f38e6dd347c9eeef7619d80d151db412" ; 65524; 0; 10; "some testing text" )</span><br>Returns error code (we're trying to write longer text then the specified length).
+  
+  
+</p>    
+    
+    
+  
+  
+
+  
+
+
+<!-- Additional info -->
+
+<h2>Additional info</h2><h3>Memory</h3><p class="f_intro">HASP HL Keys usually offer a limited internal storage.</p><ul></ul><h3>Feature ID</h3><p class="f_intro">Always use the same feature_id for encrypting and decrypting (If you use feature_id=3 for encrypting, then you will have to use the same feature_id for decrypting). For more information see HASP documentation.</p><ul></ul><div class="news_highlight"><h3>Writing range</h3><p class="f_intro">When writing to HASP, plugin creates header containing original data type and length - The size of the header is 10 bytes (can change in future version). Size of the file (e.g. ID: 65524) has to be greater or equal to offset+total_size+10. <b class="new_highlight">Note: For text input total_size=2 * size.</b> For more information please read section "Size of data type" below.</p><ul></ul></div><div class="news_highlight"><h3>Size of data type</h3><p class="f_intro">Each datatype requires minimal size, so it can be written into HASP file. See list below to known how to count the minimal size for writing.</p><ul><li>For text input, size = Length( text ) + 1.</li><li>For container, total size = (GetContainerAttribute(source ; "internalSize") + 3.</li><li>For types date and timestamp, size = 8.</li><li><span class="news_highlight">For type number, size = Length( number ) + 1</span></li></ul></div>
+
+<!-- #################################################################### -->
+<!-- Table of possible errors -->
+
+
+<h2 id="ErrorCodes">Error Codes Table</h2>
+
+<p class="f_intro">Here is the list of all error codes which can be returned by the plug-in.</p>
+
+<table id="ErrorTable">
+  <tr><th>Code</th><th>Description</th><th></th></tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      0
+    </td>
+    <td class="b_technical">
+      Success
+    </td>
+    <td>
+      The given action succeeded and/or there is no problem with proceeding with another.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      -4
+    </td>
+    <td class="b_technical">
+      Not implemented
+    </td>
+    <td>
+      If you see this error please report the error and steps to reproduce it to <a href="mailto:support@24usoftware.com">24U Support</a>. This error should never be invoked in the released version of the plug-in.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      -50
+    </td>
+    <td class="b_technical">
+      Wrong parameter
+    </td>
+    <td>
+      If you see this error please check documentation for correct usage of the plug-in.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      -51
+    </td>
+    <td class="b_technical">
+      Container empty
+    </td>
+    <td>
+      Returned when decrypt fails to write into container.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      -52
+    </td>
+    <td class="b_technical">
+      Not enough memory
+    </td>
+    <td>
+      Returned when given length is smaller than required.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      -53
+    </td>
+    <td class="b_technical">
+      Error reading header
+    </td>
+    <td>
+      Returned when trying to read data from place where no data were stored.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      -54
+    </td>
+    <td class="b_technical">
+      Wrong key length
+    </td>
+    <td>
+      You are trying to read smaller amount of non-text data, than was stored.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      -55
+    </td>
+    <td class="b_technical">
+      Error reading container
+    </td>
+    <td>
+      Returned when trying to read container, but reading fails.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      -56
+    </td>
+    <td class="b_technical">
+      Unknown data type
+    </td>
+    <td>
+      Returned when trying to work with unknown data type.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      2400
+    </td>
+    <td class="b_technical">
+      Unknown error
+    </td>
+    <td>
+      An unknown error occurred. If you see this error please report the error and steps to reproduce it to <a href="mailto:support@24usoftware.com">24U Support</a>. We will try to identify error conditions and add the error to this list with a new error code assigned.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      1
+    </td>
+    <td class="b_technical">
+      Out of range HASP HL error 
+    </td>
+    <td>
+      Your request exceeds the HASP HL memory range.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      2
+    </td>
+    <td class="b_technical">
+      Unknown feature ID HASP HL error
+    </td>
+    <td>
+      You have requested an unknown feature_id.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      3
+    </td>
+    <td class="b_technical">
+      Out of memory HASP HL error 
+    </td>
+    <td>
+      Your system is out of memory.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      5
+    </td>
+    <td class="b_technical">
+      Access denied HASP HL error 
+    </td>
+    <td>
+      Access to feature is denied.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      6
+    </td>
+    <td class="b_technical">
+      Legacy decryption HASP HL error 
+    </td>
+    <td>
+      The legacy decryption function cannot work on the feature.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      7
+    </td>
+    <td class="b_technical">
+      Key unavailable HASP HL error 
+    </td>
+    <td>
+      The HASP HL key is no longer available.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      8
+    </td>
+    <td class="b_technical">
+      Empty data for decrypting
+    </td>
+    <td>
+      Returned when trying to decrypt empty field..
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      10
+    </td>
+    <td class="b_technical">
+      Invalid fileID
+    </td>
+    <td>
+      This fileID isn't valid for this HASP key.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      11
+    </td>
+    <td class="b_technical">
+      Driver version HASP HL error 
+    </td>
+    <td>
+      The installed driver is too old to execute the function.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      12
+    </td>
+    <td class="b_technical">
+      Real-time clock HASP HL error 
+    </td>
+    <td>
+      A real-time clock (rtc) is not available.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      14
+    </td>
+    <td class="b_technical">
+      Driver missing HASP HL error 
+    </td>
+    <td>
+      The required driver is not installed.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      19
+    </td>
+    <td class="b_technical">
+      Required XML tags not found
+    </td>
+    <td>
+      If you see this error, your .v2c file for update is corrupted. Contact your administrator for new one.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      23
+    </td>
+    <td class="b_technical">
+      Unsupported encryption HASP HL error 
+    </td>
+    <td>
+      The used hardware does not support the encryption type.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      27
+    </td>
+    <td class="b_technical">
+      Remotely running HASP HL error 
+    </td>
+    <td>
+      Program is running remotely on a Terminal Server.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr >
+        
+    <td class="b_technical">
+      31
+    </td>
+    <td class="b_technical">
+      Feature unavailable HASP HL error 
+    </td>
+    <td>
+      The requested feature is no longer available.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      43
+    </td>
+    <td class="b_technical">
+      Length smaller, than text
+    </td>
+    <td>
+      You are trying to write longer text, than is its length.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      44
+    </td>
+    <td class="b_technical">
+      File for update doesn't exist
+    </td>
+    <td>
+      You've entered invalid path (or path to non-existing file) for SHasp_Update.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      45
+    </td>
+    <td class="b_technical">
+      Invalid set ID
+    </td>
+    <td>
+      You've entered invalid set_id parameter. Please provide set_id that you received along with this Plug-In.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      54
+    </td>
+    <td class="b_technical">
+      Hasp update too old
+    </td>
+    <td>
+      You are trying to update already updated HASP.
+    </td>
+  </tr>
+
+  
+
+    
+  <tr class="news_highlight">  
+        
+    <td class="b_technical">
+      55
+    </td>
+    <td class="b_technical">
+      Hasp update too new
+    </td>
+    <td>
+      Update you posses contains update counter value out of range. Contact your administrator for solution.
+    </td>
+  </tr>
+
+  
+
+</table>
+
+<div class="news_highlight"><h3 id="error_handling">Error handling</h3><p class="f_intro">Please check error codes after every plugin call. Omitting to do so can lead to hardly discoverable problems.<br>For example SHasp_Decrypt ( 1 ; SHasp_Encrypt(1, "text") ) can lead to misleading error in decrypting if the encrypting fails.</p></div>
+<!-- #################################################################### -->
+
+</body>
+</html>

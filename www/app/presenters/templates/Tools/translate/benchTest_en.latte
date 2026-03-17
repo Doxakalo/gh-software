@@ -1,0 +1,79 @@
+{block overview-headline}BenchTest Overview{/block}
+{block overview}
+    <h2>{include overview-headline}</h2>
+    <p>
+        BenchTest is our <strong>free tool</strong> you can use to <strong>measure</strong> and <strong>compare performance</strong> of different <strong>techniques</strong> to achieve the same
+        result, different <strong>versions</strong> of <a n:href="FileMakerLicensing:default">FileMaker</a> doing the same thing, or different <strong>environments</strong> running the same version of <a n:href="FileMakerLicensing:default">FileMaker</a>. <a
+                href="/news/test-your-filemaker-performance-with-benchtest-20"> Learn how to use it</a>
+    </p>
+{/block}
+
+{block keyfeatures-headline}Key Features{/block}
+{block keyfeatures}
+    <h2>{include keyfeatures-headline}</h2>
+    <ul>
+        <li><strong>1 million</strong> pre-generated <strong>test records</strong> ensure <strong>consistent conditions</strong> across configurations</li>
+        <li><strong>126 predefined tests</strong> let you easily compare speed of <strong>different ways</strong> to do the <strong>same thing</strong></li>
+        <li>Built-in <strong>automation</strong> lets you <strong>repeat the same set</strong> of tests on <strong>different</strong> FileMaker <strong>versions</strong></li>
+        <li>Pre-defined <strong>“Standard test”</strong> lets you <strong>compare</strong> your setup performance <strong>with others</strong></li>
+    </ul>
+{/block}
+
+{block testrecords-headline}1 Million Test Records{/block}
+{block testrecords}
+    <h2>{include testrecords-headline}</h2>
+    <p>
+        To provide <strong>consistent results</strong> across platforms, FileMaker versions and users, BenchTest comes with <strong>random-generated data set</strong> consisting of two tables, one
+        with 250 records and one with 1,000,000 records. The actual test data is then generated out of this data set using a <strong>fixed algorithm</strong> in order o produce a data file <strong>simulating
+            real-life database</strong> with large amount of indexed records. </p>
+{/block}
+
+{block compare-headline}Compare Techniques{/block}
+{block compare}
+    <h2>{include compare-headline}</h2>
+    <p>
+        BenchTest comes with <strong>126 predefined tests</strong> organized in 14 groups intended to <strong>compare performance</strong> of <strong>different techniques</strong> to achieve the
+        <strong>same result</strong>. Each test consists of a <strong>wrapper script</strong>, whose purpose is to prepare initial conditions for the test and to <strong>evaluate</strong> the test's
+        <strong>execution time</strong>, and the <strong>actual test script</strong>. You can easily compare the predefined techniques, or even add your own.
+    </p>
+{/block}
+
+{block hosting-headline}Compare Hosting Options{/block}
+{block hosting}
+    <h2>{include hosting-headline}</h2>
+    <p>
+        Wondering which <b>hosting</b> or <b>data center</b> to chose for your cloud-hosted FileMaker solution? Test different options with <b>BenchTest Hosting Edition</b> and compare your results and the <b>results submitted by the community</b> in a dedicated <b>Hosting section</b> of our <a href="javascript:void(0)" class="link-to-scroll" data-scroll-anchor="results">results below</a>. To <b>try it out yourself</b>, just have FileMaker Pro ready to run the test for <b>up to a few hours</b>, and <a target="_blank" href="//24usw.com/bthosting">click here</a> to start.
+    </p>
+{/block}
+
+{block automate-headline}Automate Series of Tests{/block}
+{block automate}
+    <h2>{include automate-headline}</h2>
+    <p>
+        BenchTest also comes with an <strong>easy way</strong> to <strong>automate</strong> repeating the <strong>same series of tests</strong> on different FileMaker versions or <strong>different
+            configurations</strong>. You can also perform the tests on <strong>multiple workers</strong> to test how your FileMaker Server will <strong>really</strong> handle <strong>multiple
+            concurrent clients</strong>. BenchTest will automatically <strong>coordinate</strong> starting each step on all workers at the same time.
+    </p>
+{/block}
+
+{block score-headline}Score Your Environment{/block}
+{block score}
+    <h2>{include score-headline}</h2>
+    <p>
+        Pre-defined <strong>“standard test”</strong> set consisting of exactly <strong>111 tests</strong> will let you <strong>submit your test results</strong> to our server and get your setup’s
+        <strong>performance scored</strong> by comparing it to our <strong>reference results</strong>. The overall score is <a href="/news/test-your-filemaker-peformance-with-benchtest-20">calculated
+            as a weighed average</a> of the 111 individual tests with our intention for higher score to mean <strong>“faster configuration”</strong> for usual FileMaker solution tasks. You can check
+        all valid results compared <a href="javascript:void(0)" data-scroll-anchor="results" class="link-to-scroll">below on this page</a>.
+    </p>
+{/block}
+
+{block results-headline}Top Results{/block}
+{block results}
+    <h2>{include results-headline}</h2>
+    <p>
+        See how different configurations and hosting options compare when running the BenchTest standard test. Try it on your own and submit your results to have them listed here. If you’re looking
+        for the best hardware configuration or hosting option, this is a great way to find out what you can expect. If you’re a FileMaker hosting provider, make sure to get your hosting listed. </p>
+
+    <iframe class="topresults" src="{link //Tools:BenchTestResults}" frameborder="0" scrolling="no" onresize="resizeIframe(this)" onload="iframeLoad(this)"></iframe>
+
+{/block}

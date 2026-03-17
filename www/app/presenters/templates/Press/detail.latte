@@ -1,0 +1,30 @@
+{block title}{_generic.page-title.press-detail} - {$id}{/block}
+{block content}
+{import 'Articles/' . $id . '.latte'}
+
+<section class="cover default bottom-arrow-margin">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/press/cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        {include pressname}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="press pressDetail">
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="gr-12 editor-content">
+                    {include presscontent}
+                </div>
+            </div>
+        </div>
+    </article>
+</section>

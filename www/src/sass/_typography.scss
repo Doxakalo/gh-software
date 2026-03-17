@@ -1,0 +1,586 @@
+h1,
+h2,
+h3,
+h4,
+h5 {
+   margin-bottom: 0.5em;
+   letter-spacing: $letterSpacingHeader;
+   line-height: $lineHeightCondensed;
+}
+
+h1 {
+   font-size: 2em;
+   color: $colorBlue;
+   font-weight: $fwLight;
+
+   strong {
+      font-weight: $fwNormal;
+   }
+}
+
+h2 {
+   font-size: 1.286em;
+}
+
+h3 {
+   font-size: 1.2em;
+   font-weight: $fwBold;
+}
+
+h4 {
+   font-size: 1.1em;
+   font-weight: $fwBold;
+}
+
+h5 {
+   font-size: 1em;
+   font-weight: $fwBold;
+}
+
+p {
+   font-size: 1em;
+   line-height: $lineHeightNormal;
+   margin-bottom: 1em;
+
+   &.large {
+      font-size: 1.1em;
+   }
+}
+
+dl {
+   margin-bottom: 1em;
+}
+
+a {
+   color: $colorBlue;
+   text-decoration: underline;
+   outline: none;
+
+   // @animation					
+   @include transition-property(background-color, color, border-color);
+   @include transition-duration($hoverAnimationDuration);
+   @include transition-timing-function(ease-out);	   
+
+   &:hover {
+      color: $colorBlueHover;
+   }
+   
+   // phone links
+   &[href^="tel:"] {
+	   text-decoration: none;
+	   color: inherit;
+	   
+	   &:hover {
+		   text-decoration: none;
+		   color: inherit;
+	   }	   
+   }
+}
+
+/* 
+   Prevent default highlight on iOS
+*/
+#content a,
+.tools-items .item{
+   -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+strong {
+	font-weight: $fwBold;
+}
+
+small {
+   font-size: 0.857em;
+}
+
+body:not([data-template="news-detail"]){
+  .editor-content{
+    img{
+      width: auto !important;
+    }
+  }
+}
+.editor-content {
+	u {
+		text-decoration: underline;
+	}
+	
+	i, em {
+		font-style: italic;
+	}
+	
+	b, strong {
+		font-weight: $fwBold;
+	}
+	
+	// extra indentation of headers after elements
+	p + h2,
+	p + h3,
+	p + h4,
+	p + h5,
+	table + h2,
+	table + h3,
+	table + h4,
+	table + h5,
+	ul + h2,
+	ul + h3,
+	ul + h4,
+	ul + h5,
+	ol + h2,
+	ol + h3,
+	ol + h4,
+	ol + h5 {
+		padding-top: 0.5em;
+	}
+	
+	ul,
+	ol {
+		margin-bottom: 1em;	
+
+		li {
+			font-size: 1em;
+			line-height: $lineHeightNormal;
+			margin-left: 1.5em;
+		}
+		
+		li > ul,
+		li > ol {
+			margin-top: 0.25em;
+			margin-bottom: 0.25em;
+		}
+		
+		ul, ol {
+			margin-bottom: 0;
+		}
+
+      &.spacing {
+         li {
+            margin-bottom: 1em;
+         }
+      }
+	}
+
+	ul {
+		list-style: none;
+		li {
+			position: relative;
+			
+			&:before {
+				content: '\25CF';
+				position: absolute;
+				left: -1.4em;
+				top: 0;
+			}
+		}
+	}
+
+	ol {
+		list-style: decimal;
+	}
+	
+	hr {
+		border: none;
+		height: 2px;
+		margin: 1.5em auto;
+		width: 90%;
+		background-color: $colorLightBlue5;
+	}
+ 
+	table {
+		background-color: $colorLightBlue6;
+		border-collapse: collapse;
+      display: block;
+      overflow-x: auto;
+		margin-bottom: 1em;
+
+		thead td,
+		th {
+			background-color: $colorBlue;
+			color: $colorWhite;
+			font-weight: $fwBold;
+		}		
+
+		th,
+		td {
+			padding: 0.7em 1em;
+			vertical-align: top;
+			text-align: left;
+			font-size: 1em;
+			line-height: $lineHeightNormal;		
+         min-width: 10em;	
+		}
+
+		tr {
+			&:nth-of-type(even) {
+				td {
+					background-color: $colorLightBlue4;
+				}
+			}
+		}		
+
+		p {
+			margin: 0;
+		}		
+	
+		// @responsive
+		@include g-state(tablet mobile) {
+			width: 100%;
+			
+			th,
+			td {
+				padding: 0.4em 0.7em;
+				font-size: 0.85em;
+			}
+		}
+	}
+
+	img {
+		height: auto !important;
+		max-width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 0.25em;
+		margin-bottom: 1em;
+		display: block;
+		
+		&.half-left,
+		&.half-right {
+			margin-bottom: 1em;
+		}
+
+		&.half-left {
+			float: left;
+			margin-right: 1.5em;
+			margin-left: 0;
+			max-width: 50%;
+		}
+		
+		&.half-right {
+			float: right;
+			margin-left: 1.5em;
+			margin-right: 0;
+			max-width: 50%;
+		}
+
+		// @responsive
+		@include g-state(mobile) {
+			width: 100% !important;
+			max-width: 400px;	
+			
+			&.half-left,
+			&.half-right {
+				display: block;
+				float: none;
+				width: 100% !important;
+				margin-left: auto;
+				margin-right: auto;
+				max-width: 400px;
+			}
+		}		
+	}
+	
+	iframe {
+		display: block;
+		margin: 0 auto;
+		margin-bottom: 1em;
+
+		// @responsive
+		@include g-state(mobile) {
+			width: 100%;
+			max-height: 300px;
+		}	
+	}
+	
+	
+	// remove margin from last direct child
+	> :last-child {
+		margin-bottom: 0;
+	}	
+}
+
+.last-child-no-margin {
+	>:last-child {
+		margin-bottom: 0;
+	}		
+}
+
+/* Alignment classes */
+/* Example of use: */
+/* 
+!!Using gridle state names!!
+
+For desktop and global through viewports:
+... class="text-right" ...
+
+In cases when we need override alignment to right with center on tablet, but keep right on mobile, we can use this:
+
+... class="text-right text-right@tablet-center text-right@mobile-right ...
+*/
+.text-left {
+   text-align: left;
+}
+
+.text-center {
+   text-align: center;
+}
+
+.text-right {
+   text-align: right;
+}
+
+.text-left,
+.text-center,
+.text-right {
+   /* Tablet */
+   &\@tablet-right {
+      @include g-state(tablet) {
+         text-align: right;
+      }
+   }
+
+   &\@tablet-left {
+      @include g-state(tablet) {
+         text-align: left;
+      }
+   }
+
+   &\@tablet-center {
+      @include g-state(tablet) {
+         text-align: center;
+      }
+   }
+
+   /* Mobile */
+   &\@mobile-center {
+      @include g-state(mobile) {
+         text-align: center;
+      }
+   }
+
+   &\@mobile-left {
+      @include g-state(mobile) {
+         text-align: left;
+      }
+   }
+
+   &\@mobile-right {
+      @include g-state(mobile) {
+         text-align: right;
+      }
+   }
+
+   /* MobileSmall */
+   &\@mobileSmall-right {
+      @include g-state(mobileSmall) {
+         text-align: right;
+      }
+   }
+
+   &\@mobileSmall-center {
+      @include g-state(mobileSmall) {
+         text-align: center;
+      }
+   }
+
+   &\@mobileSmall-left {
+      @include g-state(mobileSmall) {
+         text-align: left;
+      }
+   }
+}
+/* End of alignment classes */
+
+
+/* Spacing classes */
+/* Example of use: */
+/* 
+!!Using gridle state names!!
+
+For desktop and global through viewports:
+... class="mb-1" ... - adds margin-bottom: 1em; to the element
+
+class names are assembled Margin-Bottom so M & B + number from 0 to 10
+
+In cases when we need override spacing only for tablet, we can use this:
+
+... class="mb-1 mb-2@tablet" ... - adds margin-bottom: 1em; global except tablet, where adds margin-bottom: 2em; to the element
+*/
+@for $num from 0 through 10 {
+
+   .mb-#{$num} {
+      margin-bottom: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            margin-bottom: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            margin-bottom: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            margin-bottom: #{$num}em !important;
+         }
+      }
+   }
+
+   .mt-#{$num} {
+      margin-top: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            margin-top: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            margin-top: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            margin-top: #{$num}em !important;
+         }
+      }
+   }
+
+   .ml-#{$num} {
+      margin-left: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            margin-left: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            margin-left: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            margin-left: #{$num}em !important;
+         }
+      }
+   }
+
+   .mr-#{$num} {
+      margin-right: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            margin-right: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            margin-right: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            margin-right: #{$num}em !important;
+         }
+      }
+   }
+
+   .pb-#{$num} {
+      padding-bottom: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            padding-bottom: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            padding-bottom: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            padding-bottom: #{$num}em !important;
+         }
+      }
+   }
+
+   .pt-#{$num} {
+      padding-top: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            padding-top: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            padding-top: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            padding-top: #{$num}em !important;
+         }
+      }
+   }
+
+   .pl-#{$num} {
+      padding-left: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            padding-left: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            padding-left: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            padding-left: #{$num}em !important;
+         }
+      }
+   }
+
+   .pr-#{$num} {
+      padding-right: #{$num}em;
+
+      &\@desktop {
+         @include g-state(desktop) {
+            padding-right: #{$num}em !important;
+         }
+      }
+
+      &\@tablet {
+         @include g-state(tablet) {
+            padding-right: #{$num}em !important;
+         }
+      }
+
+      &\@mobile {
+         @include g-state(mobile) {
+            padding-right: #{$num}em !important;
+         }
+      }
+   }
+}
+/* End of spacing classes */

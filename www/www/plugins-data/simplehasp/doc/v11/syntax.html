@@ -1,0 +1,134 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>24U SimpleHASP Plug-In 1.1 Syntax</title>
+<STYLE TYPE="text/css" MEDIA=screen>
+<!--
+  H	{ font-face: Helvetica, Arial }
+  .intro { font-size: 14px }
+  TD,P,BLOCKQUOTE  { font-face: Helvetica, Arial; font-size: 12px }
+-->
+</STYLE>
+</head>
+<body bgcolor="#FFFFFF">
+<font face="Geneva, Arial">
+
+<h2><font face="Helvetica, Arial">24U SimpleHASP Plug-In 1.1 Syntax</font></h2>
+
+<p class="intro">
+This file describes syntax of 24U SimpleHASP Plug-In's functions.
+<br>&nbsp;</p>
+
+<p><tt><b>SHasp_Version ( { versionFormat } )</b></tt><br>&nbsp;<br>
+
+Returns version string of the active 24U SimpleHASP Plug-In, formatted as requested by the parameter. Use:
+</p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>"short"</tt></td><td>&nbsp;</td><td>to get just the version number</td></tr>
+<tr valign="top"><td nowrap><tt>"long"</tt></td><td>&nbsp;</td><td>to get the plug-in name followed by its version number</td></tr>
+<tr valign="top"><td nowrap><tt>"platform"</tt></td><td>&nbsp;</td><td>to get the platform of the code currently running<br>&nbsp;</td></tr>
+</table>
+</blockquote>
+
+<p><tt><b>SHasp_Register ( registrationCode )</b></tt><br>&nbsp;<br>
+
+Attempts to unlock (register) your copy of 24U SimpleHASP Plug-In with the specified code. If the code is valid, 24U SimpleHASP Plug-In gets unlocked and stays in this state until you quit the FileMaker application, deactivate the plug-in, or the registration code expires. While unlocked, 24U SimpleHASP Plug-In is fully functional and does not bother the user with a shareware reminder.
+<br>&nbsp;<br>
+Returns a non-zero result when operation is not permitted.
+<br>&nbsp;</p>
+
+<p><tt><b>SHasp_Get( feature_id ; vendor_code ; selector )</b></tt><br>&nbsp;<br>
+
+Returns the current value of a HASP HL key parameter selected by selector.<br> 
+<br></p><blockquote>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>feature_id</tt></td><td>If you have solution with several modules, each module chan be protected separately by assigning it a specified number. Use 0 if you don't have more modules to protect.<br></td></tr>
+<tr valign="top"><td nowrap><tt>vendor_code</tt></td><td>is a unique code assigned by Aladdin to their customers to identify them for HASP HL keys. HASP keys which you have ordered have assigned unique vendor_code which is stored on Master Key. Tutorial and Examples for 24U SimpleHASP Plug-In use special DEMO vendor_code which works with DEMO key which can be ordered from Aladdin for free.</td><td>&nbsp;</td></tr>
+<tr valign="top"><td nowrap><tt>selector</tt></td><td>returns information regarding a session context</td></tr>
+<tr valign="top"><td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;<tt>"rtc"</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;returns the current time from HASP HL Time key</td></tr>
+<tr valign="top"><td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;<tt>"session-info"</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;returns information regarding a session context</td></tr>
+<tr valign="top"><td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;<tt>"size"</tt></td><td>&nbsp;&nbsp;&nbsp;&nbsp;returns the memory size of HASP HL Key in bytes</td></tr>
+</table></blockquote>
+
+<p>
+If an error occurs the function returns error code according to Aladdin API. See the list of common errors at the end of the document.<br> 
+In case of syntax error the function returns -50.<br>
+<br>
+
+<u>Examples:</u></p>
+<table border=0 cellspacing=4 cellpadding=0>
+<tr valign="top"><td nowrap><tt>SHasp_Get( 0 ; vendor_code ; "rtc" )</tt></td><td>&nbsp;</td><td>&nbsp; returns the current time from HASP HL Time key</td></tr>
+<tr valign="top"><td nowrap><tt>SHasp_Get( 0 ; vendor_code ; "session-info" )</tt></td><td>&nbsp;</td><td>&nbsp; returns information regarding a session context</td></tr>
+<tr valign="top"><td nowrap><tt>SHasp_Get( 0 ; vendor_code ; "size" )</tt></td><td>&nbsp;</td><td>&nbsp; returns the memory size of HASP HL Key in bytes</td></tr>
+</table>
+
+<br>
+</p>
+
+<p><tt><b>SHasp_Encrypt( feature_id ; vendor_code ; data )</b></tt><br>&nbsp;<br>
+
+Returns encrypted data using AES encryption algorithm. The returned data is a text type. The <tt>data</tt> parameter can be any type of FileMaker Pro data.<br>
+If an error occurs the function returns error code according to Aladdin API. See the list of common errors at the end of the document.<br> 
+In case of syntax error the function returns -50.<br>
+<br>
+</p>
+
+<p><tt><b>SHasp_Decrypt( feature_id ; vendor_code ; data )</b></tt><br>&nbsp;<br>
+
+Returns decrypted data using AES encryption algorithm. Input <tt>data</tt> parameter is a text representing encrypted data from SHasp_Encrypt function. The data in result is the original FileMaker Pro data of original type.<br>
+This function is not compatible with data encrypted with 24U SimpleHASP Plug-In 1.0.<br> 
+If an error occurs the function returns error code according to Aladdin API. See the list of common errors at the end of the document.<br>
+In case of syntax error the function returns -50.<br>
+<br>  
+</p>
+  
+<p><tt><b>SHasp_Read( feature_id ; vendor_code ; fileid { ; offset { ; length } } )</b></tt><br>&nbsp;<br>
+
+</p><blockquote><tt>fileid</tt>&nbsp;&nbsp; Identifies file within HASP HL memory. Use 65520 for default file.</blockquote>
+<p>
+Reads a memory of HASP HL key and returns it.<br>
+If an error occurs the function returns error code according to Aladdin API. See the list of common errors at the end of the document.<br>
+In case of syntax error the function returns -50.<br>
+<br>
+</p>
+
+<p><tt><b>SHasp_Update( update_data )</b></tt><br>&nbsp;<br>
+
+Writes and update for a HASP HL license, returns acknowledgment code.<br>
+If an error occurs the function returns error code according to Aladdin API. See the list of common errors at the end of the document.<br> 
+In case of syntax error the function returns -50.<br>
+<br>
+</p>
+
+<p><tt><b>SHasp_Write( feature_id ; vendor_code ; fileid ; offset ; length ; data ) </b></tt><br>&nbsp;<br>
+
+Writes to a memory of HASP HL key. It returns 0. <br>
+Use 0 for the <tt>length</tt> parameter to determine data size automatically.<br>
+If an error occurs the function returns error code according to Aladdin API. See the list of common errors at the end of the document.<br> 
+In case of syntax error the function returns -50.<br>
+<br>
+</p>
+
+<p>
+<h4>List of most common HASP HL keys error codes</h4>
+<table border="0" cellspacing="2">
+<tr><td align="right">1</td><td width="8">&nbsp;</td><td>Your request exceeds the HASP HL memory range.</td></tr>
+<tr><td align="right">2</td><td width="8">&nbsp;</td><td>You have requested an unknown feature_id.</td></tr>
+<tr><td align="right">3</td><td width="8">&nbsp;</td><td>Your system is out of memory.</td></tr>
+<tr><td align="right">5</td><td width="8">&nbsp;</td><td>Access to feature is denied.</td></tr>
+<tr><td align="right">6</td><td width="8">&nbsp;</td><td>The legacy decryption function cannot work on the feature.</td></tr>
+<tr><td align="right">7</td><td width="8">&nbsp;</td><td>The HASP HL key is no longer available.</td></tr>
+<tr><td align="right">11</td><td width="8">&nbsp;</td><td>The installed driver is too old to execute the function.</td></tr>
+<tr><td align="right">12</td><td width="8">&nbsp;</td><td>A real-time clock (rtc) is not available.</td></tr>
+<tr><td align="right">14</td><td width="8">&nbsp;</td><td>The required driver is not installed.</td></tr>
+<tr><td align="right">22</td><td width="8">&nbsp;</td><td>You have passed an invalid vendor code.</td></tr>
+<tr><td align="right">23</td><td width="8">&nbsp;</td><td>The used hardware does not support the encryption type.</td></tr>
+<tr><td align="right">27</td><td width="8">&nbsp;</td><td>Program is running remotely on a Terminal Server.</td></tr>
+<tr><td align="right">31</td><td width="8">&nbsp;</td><td>The requested feature is no longer available.</td></tr>
+</table>
+</ol>
+</p>
+
+</body>
+</html>

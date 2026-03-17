@@ -1,0 +1,180 @@
+{block overview-headline}Toolbox Overview{/block}
+{block overview}
+    <h2>{include overview-headline}</h2>
+    <p> Toolbox is a robust <a n:href="FileMakerLicensing:default">FileMaker Pro</a> plug-in which allows your FileMaker Pro databases to: </p>
+    <ul>
+        <li>Execute FileMaker or System shell scripts to <strong>automate tasks inside/outside of FileMaker Pro</strong></li>
+        <li>Execute SQL commands to <strong>develop faster and keep your solution clean</strong></li>
+        <li>Match &amp; replace regular expressions to <strong>find &amp; replace text fast using patterns</strong></li>
+        <li>Merge data values into text <strong>while maintaining styling to apply templates quickly and easily</strong></li>
+        <li>Lookup DNS name for IP &amp; vice versa to <strong>find out who is connecting from where</strong></li>
+        <li>Get current public IP to <strong>know more about clients and discover potential security attacks</strong></li>
+        <li>Define global keyboard shortcuts to <strong>avoid unnecessarily excessive use of script triggers</strong></li>
+        <li>Obtain precise microsecond timestamps to <strong>measure nearly unmeasurable chunks of time</strong></li>
+        <li>Get the type of a FileMaker variable to <strong>let your scripts make the right decisions</strong></li>
+        <li>Share variables between databases to <strong>avoid creating too many external data sources</strong></li>
+        <li>NEW! Get rich text as HTML to <strong>generate crystal clean HTML and CSS</strong></li>
+        <li>NEW! Support for iOS App SDK and FileMaker Cloud makes the plug-in work on the <strong>whole FileMaker Platform</strong></li>
+    </ul>
+{/block}
+
+{block dosystemscript-headline}Execute FileMaker Scripts or System Shell Scripts{/block}
+{block dosystemscript}
+    <h2>{include dosystemscript-headline}</h2>
+    <p> Toolbox is able to run “Bat” and “Visual Basic” scripts on Windows, and “AppleScript”, “Bash” and “PHP” scripts on Mac, and run a FileMaker script from places where the
+        FileMaker software does not allow it – for example from conditional formatting, validations, and calculation fields just placing your mouse over the element.
+    </p>
+    <p class="p-bold">
+        Running FileMaker scripts dynamically lets you automate tasks better without requiring user interaction, running external scripts even extends this automation outside of the
+        borders of FileMaker Pro to integrate your solution with other systems.
+    </p>
+{/block}
+
+{block sql-headline}Execute SQL Commands{/block}
+{block sql}
+    <h2>{include sql-headline}</h2>
+    <p>
+        Contrary to the built-in ExecuteSQL function, Toolbox_ExecuteSQL even allows for changing data in your FileMaker database using SQL.
+    </p>
+    <p class="p-bold">
+        Creating and modifying data in any table from any context without any relationships lets you develop faster and keep your solution clean without unnecessary utility structures.
+    </p>
+{/block}
+
+{block regexp-headline}Match and Replace Regular Expression in Text{/block}
+{block regexp}
+    <h2>{include regexp-headline}</h2>
+    <p>
+        Toolbox will let you get the number of occurrences of strings, and search and replace the strings on the basis of regular expressions.
+    </p>
+    <p class="p-bold">
+        Using regular expressions allows you to find and replace portions of text even if you don’t know in advance what exactly you will be looking for but you know how to
+        recognize it.
+    </p>
+{/block}
+
+{block data-headline}Merge Data into Text While Maintaining styles{/block}
+{block data}
+    <h2>{include data-headline}</h2>
+    <p>
+        Instead of long lasting patterning using native function of the FileMaker software<br> Substitute(text; [search1; replace1]; [search2; replace2]; … [searchN; replaceN]),<br>
+        Toolbox ensures that just linking a text with values of fields or variables suffices.
+    </p>
+    <p class="p-bold">
+        With Toolbox_MergeText you can merge your data into carefully prepared text templates quickly and easily, while maintaining styling.
+    </p>
+{/block}
+
+{block dns-headline}Lookup DNS Name for IP and VICE VERSA{/block}
+{block dns}
+    <h2>{include dns-headline}</h2>
+    <p>
+        Instead of browsing lots of Internet discussions about many possible and often complicated ways how to translate IP address to a hostname and vice versa, we have just one line of
+        code for you that will say: “Translate!” to your FileMaker solution.
+    </p>
+    <p class="p-bold">
+        Ability to easily translate between IPs and hostnames makes it easy to understand who is connecting to your solution and from where.
+    </p>
+{/block}
+
+{block publicip-headline}Get Current Public IP{/block}
+{block publicip}
+    <h2>{include publicip-headline}</h2>
+
+    <p>
+        Toolbox will return public IP address of the network from which FileMaker Pro is connecting, rather than the local network address returned by Get ( SystemIPAddress ).
+    </p>
+    <p class="p-bold">
+        Knowing the client’s public IP address lets you find out where the client is really connecting from, and easily discover potential security attacks.
+    </p>
+{/block}
+
+{block shortcuts-headline}Define a Custom Keyboard Shortcut{/block}
+{block shortcuts}
+    <h2>{include shortcuts-headline}</h2>
+    <p> Defining a custom keyboard shortcut allows user to assign a script to a particular key or to a combination of keys that will work athe whole FileMaker solution, without
+        having to use script triggers.
+    </p>
+    <p class="p-bold">
+        Global keyboard shortcuts let you avoid having to set up a keystroke script trigger for every single layout and running it unnecessarily for every single key
+        press when you only need a few shortcuts.
+    </p>
+{/block}
+
+{block timestamp-headline}Obtain Precise Timestamp{/block}
+{block timestamp}
+    <h2>{include timestamp-headline}</h2>
+    <p>
+        Unlike native timestamp provided by the FileMaker Pro, 24U Toolbox Plug-In provides timestamp even with microsecond precision.
+    </p>
+    <p class="p-bold">
+        Such precise timestamps let you measure time elapsed between events immediately following each other, such as quick FileMaker script steps, or even calculations.
+    </p>
+{/block}
+
+{block variables-headline}Get the Type of a FileMaker Variable{/block}
+{block variables}
+    <h2>{include variables-headline}</h2>
+    <p> With Toolbox not only you can discover the type of a FileMaker field, but also the type of the value stored in a FileMaker variable, such as “Text”, “Number”, “Date”,
+        “Time”, “Timestamp”, Container”.
+    </p>
+    <p class="p-bold">
+        Knowing the type of variable value lets your script make the right decisions because they can for example recognize that “123” is valid text result and not an error number 123.
+    </p>
+{/block}
+
+{block global_variables-headline}Create a Global Variable Outside of the Database{/block}
+{block global_variables}
+    <h2>{include global_variables-headline}</h2>
+    <p>
+        Unlike standard global variables that are accessible only within single FileMaker database, and disappear when you close the database, Toolbox lets you create a global
+        variable shared amultiple databases, and if you want, even survive after closing the database that created it.
+    </p>
+    <p class="p-bold">
+        Application-wide global variables are great for developing modular systems because they let you easily share temporary session data between multiple database files even without
+        linking them through external data sources.
+    </p>
+{/block}
+
+{block toolbox3-headline}Toolbox 3{/block}
+{block toolbox3}
+    <h2>{include toolbox3-headline}</h2>
+    <ul>
+        <li>New function Toolbox_GetAsHTML</li>
+        <li>Support for Native iOS FM Go apps</li>
+        <li>Now works on FileMaker Cloud</li>
+    </ul>
+{/block}
+
+{block richtext-headline}Get Rich Text as HTML{/block}
+{block richtext}
+    <h2>{include richtext-headline}</h2>
+    <p>
+        Toolbox 3 can convert rich-text to HTML with CSS, producing much clearer and customizable results than GetAsCSS.
+    </p>
+    <p class="p-bold">
+        By producing clean dynamic HTML content your websites will render faster and rank higher in search engines.
+    </p>
+{/block}
+
+{block apps-headline}Support for Native iOS FM Go Apps{/block}
+{block apps}
+    <h2>{include apps-headline}</h2>
+    <p>
+        Toolbox 3 now lets native apps built with the iOS App SDK Execute SQL, evaluate regular expressions, measure time with microseconds, and more.
+    </p>
+    <p class="p-bold">
+        Make your app run on an iPad or iPhone whilst our plug-in will still be there for you.
+    </p>
+{/block}
+
+{block fmcloud-headline}Support for FileMaker Cloud{/block}
+{block fmcloud}
+    <h2>{include fmcloud-headline}</h2>
+    <p>
+        Toolbox now works on FileMaker Cloud, enabling you to use its server-side functions on any flavor of FileMaker Server.
+    </p>
+    <p class="p-bold">
+        Whether you want to benchmark your server-side scripts, execute SQL, or generate clean dynamic HTML, you can do so on the powerful FileMaker Cloud as well.
+    </p>
+{/block}

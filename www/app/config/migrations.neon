@@ -1,0 +1,7 @@
+migrations:
+    default:
+        dsn: "mysql:host=db;port=3306;dbname=24usoftware_com;charset=utf8mb4"
+        user: "root"
+        password: "root123"
+        options:
+            lazy: yes

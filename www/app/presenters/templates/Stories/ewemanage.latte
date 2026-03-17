@@ -1,0 +1,52 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}EweManage{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover"data-image-position-horizontal="45">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/stories/slides/slide_2_patterngradmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/stories/slides/slide_2_patterngradmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-9@desktop gr-12@mobile cover-parallax-inner">
+                <h1 class="page-title">
+                    {include ewe_detail_headline}
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+{var $overview = [
+name => 'ewe_detail-overview',
+testimonials => [
+        [ img => $basePath.'/img/testimonials/jacques_kirouac.jpg', video => [id => '53A9RU00jJ8'], name => 'Sheep Sorter from Quebec', ],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+{var $articles = [
+    [name => 'ewe_article-benefits', img => $basePath.'/img/pages/stories/ewemanage/sheep.jpg', img_height => '350'],
+    [name => 'ewe_article-solution', img => $basePath.'/img/pages/stories/ewemanage/screenshot.png', img_height => '350' , img_url =>[url => $basePath.'/img/pages/stories/ewemanage/screenshot.png', target => '_blank']],
+    [name => 'ewe_article-automated_doors', img => $basePath.'/img/pages/stories/ewemanage/sorting.jpg', img_height => '350' ],
+    [name => 'ewe_article-plugins', img => $basePath.'/img/pages/stories/ewemanage/phidgets.png', img_height => '350' ],
+    [name => 'ewe_article-canada'],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles, row_color => 'light-blue'}
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'true', customDescriptionTranslate => "pages.stories.contact-form.description"}
+{/snippet}

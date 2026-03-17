@@ -1,0 +1,94 @@
+parameters:
+    # APPLICATION CONFIGURATION
+    application:
+        # Absolute Website URL
+        url: ""
+        # Absolutní cesta ke zkracovači (https://24usw.com/)
+        shortlinks-url: ""
+        # Absolutní cesta k administračnímu systému (https://system-24usoftware.24u.cz/)
+        system-url: ""
+        # Absolutní cesta k českému webu(https://www.24u.cz/)
+        24u-cz-url: ""
+
+        #Google Analytics - ID
+        GA-ID: ""
+
+        #Google Search Console - verification code
+        GA-SearchConsole-Verification: ""
+
+        #for news module - shortlink form
+        shortlinks:
+            active_cookie_hash: ""
+
+        # Sent e-mails (define in array below) about cancel subscription (custom form)
+        sent-cancel-subscription-notice-to-emails:
+            -
+
+        # Sent e-mails (define in array below) about extra big orders (custom form)
+        extra-orders-sent-to-emails:
+            -
+
+        # Define contact way for forms & services
+        # Extends the common.neon config file (in common.js
+        contact:
+            technical-issue:
+                pushover_user: ""
+                email: ""
+
+            immediate_help:
+                pushover_user: ""
+                email: ""
+
+            scheduled_assistance:
+                pushover_user: ""
+                email: ""
+
+            premium_support:
+                pushover_user: ""
+                email: ""
+
+            ongoing_care:
+                pushover_user: false
+                email: ""
+
+            call:
+                pushover_user: ""
+                email: ""
+
+            qa_call:
+                pushover_user: false
+                email: ""
+
+            product_support:
+                pushover_group: ""
+                email: ""
+
+            footer:
+                pushover_user: ""
+                email: ""
+
+
+    # FILEMAKER DATABASE FOR BENCHTEST DATABASE
+    filemaker-database-benchtest:
+        host: ""
+        database: ""
+        username: ""
+        password: ""
+
+
+# DATABASE CONNECTION
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname='
+	user: ""
+	password: ""
+	options:
+		lazy: yes
+
+
+# EMAIL SETTINGS
+mail:
+    smtp: true
+    host: "warp.24usoftware.com"
+    username: ""
+    password: ""
+    port: 587

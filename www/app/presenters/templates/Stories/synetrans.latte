@@ -1,0 +1,60 @@
+{import 'translate_'.$locale.'.latte'}
+
+{block title}Synelogis{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default" style="background-image: url('{$basePath}/img/pages/stories/slides/slide_1_patterngradmask.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/stories/slides/slide_1_patterngradmask.jpg')"></div>
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-6 gr-9@desktop gr-12@mobile cover-parallax-inner">
+                <h1 class="page-title">
+                    {include synelogis_detail_headline}
+                </h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+{var $overview = [
+name => 'synelogis_detail-overview',
+testimonials => [
+        [ img => $basePath.'/img/pages/stories/synetrans/video-thumbnail.jpg', video => [id => 'M1KitL9Az9w'], name => 'Vladislav Ptašnik', ],
+    ]
+] }
+{import '../Components/articles.latte'}
+{include article-overview, $overview}
+
+
+{var $articles = [
+    [name => 'synelogis_article-benefits', img => $basePath.'/img/pages/stories/synetrans/interier.jpg', img_height => '350'],
+    [name => 'synelogis_article-synergy', img => $basePath.'/img/pages/stories/synetrans/warehouse.jpg', img_height => '350'],
+    [name => 'synelogis_article-jiri_simak', img => $basePath.'/img/pages/stories/synetrans/simak.jpg', img_height => '250'],
+    [name => 'synelogis_article-opportunity_with_deadline', img => $basePath.'/img/pages/stories/synetrans/truck.jpg', img_height => '350'],
+    [name => 'synelogis_article-modern_app', img => $basePath.'/img/pages/stories/synetrans/tablets.jpg', img_height => '350'],
+    [name => 'synelogis_article-optimized_processes', img => $basePath.'/img/pages/stories/synetrans/demo-thumbnail.jpg', video-yt => [id => 'zq24u_f288w', title=> '', button-dark=>"true"]],
+    [name => 'synelogis_article-jan_cech', img => $basePath.'/img/pages/stories/synetrans/cech.jpg', img_height => '250'],
+    [name => 'synelogis_article-intuitive_interface', img => $basePath.'/img/pages/stories/synetrans/unloading.jpg'],
+    [name => 'synelogis_article-effecient_operation', img => $basePath.'/img/pages/stories/synetrans/delivery.jpg', img_height => '350'],
+    [name => 'synelogis_article-development', img => $basePath.'/img/pages/stories/synetrans/user.jpg', img_height => '350'],
+    [name => 'synelogis_article-one_team'],
+] }
+{import '../Components/articles.latte'}
+{include article-list, $articles, row_color => 'light-blue'}
+
+
+{snippet contactForm}
+    {include '../Components/contact-form-blue.latte', headline => 'false', description => 'true', customDescriptionTranslate => "pages.stories.contact-form.description"}
+{/snippet}

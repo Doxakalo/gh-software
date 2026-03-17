@@ -1,0 +1,131 @@
+{block title}{_generic.page-title.press}{/block}
+{block description}
+    All 24U Press releases basically focused on new products, their versions and our innovations are available here. Find out what we have officially released to public media.
+{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_generic.page-title.press}{/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => "All 24U Press releases basically focused on new products, their versions and our innovations are available here. Find out what we have officially released to public media.",
+            imagePath => $appConfig["og"]["image"],
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+
+<section class="cover-sticky" id="fixedCover">
+    <div class="container">
+        <div class="row row-align-middle">
+            <div class="gr-12">
+                <div class="title"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="cover default bottom-arrow-margin" style="background-image: url('{$basePath}/img/pages/press/cover.jpg')">
+    <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/press/cover.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="gr-6 gr-12@mobile cover-parallax-inner">
+                <div class="content">
+                    <h1 class="page-title">
+                        <strong>Press Releases</strong>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="spacing press">
+    <article>
+    {define table_row, $releaseDate, $urlString, $title}
+        <a n:href="Press:detail, $urlString" class="gr-12 press-row">
+            <div class="container">
+                <div class="row">
+                    <div class="gr-3 gr-5@mobile press-col">{$releaseDate|genericFormatDate}</div>
+                    <div class="gr-9 gr-7@mobile press-col">{$title|noescape}</div>
+                </div>
+            </div>
+        </a>
+    {/define}
+
+    {include table_row, '2021/12/07', '2021-12-07', '24U Software announces Tracksy'}
+    {include table_row, '2021/11/09', '2021-11-09', '24U releases Bridge for Phidgets 4.0 for Claris&reg; FileMaker<sup>&reg;</sup>'}
+    {include table_row, '2021/10/26', '2021-10-26', '24U releases BenchTest 2.0 for Claris&reg; FileMaker<sup>&reg;</sup> and announces Oct 27 FileMaker Performance Lab meeting'}
+    {include table_row, '2021/09/23', '2021-09-23', '24U releases Gonector 2.1 for Claris FileMaker'}
+    {include table_row, '2021/05/04', '2021-05-04', '24U releases Gonector 2.0 for Claris FileMaker'}
+    {include table_row, '2020/06/23', '2020-06-23', '24U releases Toolbox 3.1 for Claris<sup>&reg;</sup> FileMaker<sup>&reg;</sup>'}
+    {include table_row, '2020/04/29', '2020-04-29', '24U Software releases fmRESTor.js for Claris<sup>&reg;</sup> FileMaker<sup>&reg;</sup>'}
+    {include table_row, '2019/12/17', '2019-12-17', '24U Software announces Bridge for Arduino<sup>&reg;</sup>'}
+    {include table_row, '2019/08/01', '2019-08-01-2', '24U Software updates fmRESTor for FileMaker Server 18'}
+    {include table_row, '2019/08/01', '2019-08-01', '24U Software releases LogMonitor for server administrators'}
+    {include table_row, '2019/06/28', '2019-06-28-2', '24U Software adds mobile payment terminals to Gonector'}
+    {include table_row, '2019/06/28', '2019-06-28', '24U Software has a new website and updates all plug-ins'}
+    {include table_row, '2019/02/25', '2019-02-25', '24U Software releases 24U Phidgets Plug-In 3.1 for FileMaker Pro 14-17'}
+    {include table_row, '2019/01/31', '2019-01-31-2', '24U Software releases 24U FM Bench 1.3 for FileMaker Pro'}
+    {include table_row, '2019/01/31', '2019-01-31', '24U Software updates all plug-ins for FileMaker Pro'}
+    {include table_row, '2018/11/26', '2018-11-26', '24U Software releases 24U Phone Companion 3.0 for FileMaker Pro 17'}
+    {include table_row, '2018/10/30', '2018-10-30', '24U releases 24U Toolbox Plug-In 3.0'}
+    {include table_row, '2018/07/30', '2018-07-30', '24U releases 24U Phidgets Plug-In 3.0 for FileMaker Pro 14-17'}
+    {include table_row, '2018/07/27 ', '2018-07-27', '24U Software releases Gonector for custom mobile FileMaker apps'}
+    {include table_row, '2018/07/13 ', '2018-07-13', '24U releases 24U SimpleHASP Plug-In 2.0 for the FileMaker 17 Platform'}
+    {include table_row, '2018/06/28 ', '2018-06-28', '24U Software releases 24U SimpleFile Plug-In 3.0.3'}
+    {include table_row, '2018/06/20 ', '2018-06-20-2', '24U Software releases fmRESTor for FileMaker<sup>&reg;</sup> Data API'}
+    {include table_row, '2018/06/20 ', '2018-06-20', '24U Software releases Xgode online service'}
+    {include table_row, '2018/06/05 ', '2018-06-05-2', '24U releases 24U SimpleDialog Plug-In 6.0 for the FileMaker 17 Platform'}
+    {include table_row, '2018/06/05 ', '2018-06-05', '24U releases 24U SimpleTalk Plug-In 2.0 for the FileMaker 17 Platform'}
+    {include table_row, '2018/05/30 ', '2018-05-30', '24U Software releases 24U SimpleSound Plug-In 4.1.5, Phone Companion 2.1.2 and Phidgets Plug-In 2.0.2'}
+    {include table_row, '2017/12/19 ', '2017-12-19', '24U releases 24U SimpleSound Plug-In 4.1 for FileMaker Pro 16'}
+    {include table_row, '2017/05/17 ', '2017-05-17', '24U Software releases 24U Toolbox Plug-In 2.0.3'}
+    {include table_row, '2016/11/23 ', '2016-11-23', '24U Software releases 24U Phone Companion 2.1'}
+    {include table_row, '2016/10/07 ', '2016-10-07', '24U Promoted to Platinum Level of FileMaker Business Alliance (FBA)'}
+    {include table_row, '2016/07/18 ', '2016-07-18', 'SYNELOGIS eliminates paperwork in freight transportation with help of 24U and FileMaker Platform'}
+    {include table_row, '2016/07/13 ', '2016-07-13', '24U releases 24U Phidgets Plug-In 2.0 for FileMaker Pro 15'}
+    {include table_row, '2016/07/06 ', '2016-07-06', '24U to present fresh case studies and offer free consultations at FileMaker DevCon 2016'}
+    {include table_row, '2015/12/09 ', '2015-12-09', '24U announces 24U Email OSAX 5.0'}
+    {include table_row, '2015/11/26 ', '2015-11-26', '24U released 24U Appearance OSAX 4.0.1'}
+    {include table_row, '2015/11/06 ', '2015-11-06', '24U announces 24U Phidgets Remote for iPhone,&#8232;iPad, and iPod touch'}
+    {include table_row, '2015/11/04 ', '2015-11-04', '24U released 24U Toolbox Plug-In 2.0'}
+    {include table_row, '2015/07/01 ', '2015-07-01', '24U offers audit service for existing FileMaker<sup>&reg;</sup> solutions'}
+    {include table_row, '2015/05/28 ', '2015-05-28', '24U releases 24U SimpleDialog Plug-In 5.0 for FileMaker Pro 14'}
+    {include table_row, '2015/05/26 ', '2015-05-26', '24U released 24U SimpleFile Plug-In 3.0'}
+    {include table_row, '2015/05/20 ', '2015-05-20', '24U FM Bench is fully compatible with FileMaker Pro 14'}
+    {include table_row, '2015/05/13 ', '2015-05-13', '24U\'s plug-ins are compatible with the new FileMaker 14'}
+    {include table_row, '2015/03/30 ', '2015-03-30', '24U announces Cryptor for iPhone, iPad, and iPod touch'}
+    {include table_row, '2015/02/12 ', '2015-02-12', '24U Software offers help with 64-bit architecture'}
+    {include table_row, '2015/02/10 ', '2015-02-10', '24U Software releases 24U Phone Companion 2.0'}
+    {include table_row, '2014/12/16 ', '2014-12-16', '24U Software releases 24U FM Bench 1.2'}
+    {include table_row, '2014/09/04 ', '2014-09-04', '24U Software releases 24U Toolbox Plug-In 1.3'}
+    {include table_row, '2014/04/08 ', '2014-04-08', '24U Software releases 24U SimpleSound Plug-In 3.0.2'}
+    {include table_row, '2014/03/11 ', '2014-03-11', '24U Software releases 24U Toolbox Plug-In 1.2'}
+    {include table_row, '2013/08/05 ', '2013-08-05', '24U will exhibit at FileMaker DevCon 2013'}
+    {include table_row, '2012/07/09 ', '2012-07-09-2', '24U Software releases 24U SimpleFile Plug-In 2.0 for FileMaker Pro 12'}
+    {include table_row, '2012/07/09 ', '2012-07-09', '24U Software updates 24U SimpleDialog Plug-In for FileMaker Pro 12'}
+    {include table_row, '2012/02/13 ', '2012-02-13-2', '24U Software released Appearance OSAX 4.0'}
+    {include table_row, '2012/02/13 ', '2012-02-13', '24U FM Bench updated to version 1.0.1'}
+    {include table_row, '2012/02/03 ', '2012-02-03', '24U Software releases FM Bench'}
+    {include table_row, '2011/12/05 ', '2011-12-05-2', '24U Software releases 24U FM Bench Detective 1.0.2'}
+    {include table_row, '2011/12/05 ', '2011-12-05', '24U Toolbox Plug-In updated to version 1.1.2'}
+    {include table_row, '2011/09/27 ', '2011-09-27', '24U Toolbox Plug-In 1.1.1 Released'}
+    {include table_row, '2011/01/20 ', '2011-01-20', '24U Net Remote 1.0 released'}
+    {include table_row, '2010/07/19 ', '2010-07-19', '24U Software releases 24U SimpleDialog Plug-In 4.0'}
+    {include table_row, '2010/03/16 ', '2010-03-16', '24U Software releases 24U Plug-In Template 3.0'}
+    {include table_row, '2009/08/14 ', '2009-08-14', '24U Software exhibits telephony integration at FileMaker Developer Conference'}
+    {include table_row, '2009/07/23 ', '2009-07-23', 'Soliant Consulting becomes 24U Phone Companion Implementation Partner for the U.S.'}
+    {include table_row, '2009/07/07 ', '2009-07-07', '24U Software and Linear Blue partner to provide telephony for FileMaker<sup>&reg;</sup> Pro in the UK'}
+    {include table_row, '2009/06/30 ', '2009-06-30', '24U Phone Companion Released'}
+    {include table_row, '2009/03/31 ', '2009-03-31', '24U Toolbox Plug-In 1.0 Released'}
+    {include table_row, '2008/07/09 ', '2008-07-09', '24U Software announces 24U Phidgets Plug-In for FileMaker Pro'}
+    {include table_row, '2008/04/21 ', '2008-04-21', '24U SimpleChart Plug-In updated to version 1.2'}
+
+    </article>
+</section>

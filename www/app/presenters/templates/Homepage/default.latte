@@ -1,0 +1,261 @@
+{import 'translate_'.$locale.'.latte'}
+{block description}{_pages.homepage.metadata.description}{/block}
+
+{block og}
+    {ifset $appConfig["og"]}
+        {capture $title}{_pages.homepage.metadata.og.title}{/capture}
+        {capture $description}{_pages.homepage.metadata.og.description}{/capture}
+        {capture $ogMediaHtml}
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/homepage/og_images/og_image_1.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/homepage/og_images/og_image_2.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/homepage/og_images/og_image_3.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/homepage/og_images/og_image_4.jpg'>
+            <meta property='og:image' content='{$appConfig["url"]}/img/pages/homepage/og_images/og_image_5.jpg'>
+        {/capture}
+        {include meta-og,
+            type => $appConfig["og"]["type"],
+            title => $title,
+            description => $description,
+            ogMediaHTML => $ogMediaHtml,
+            siteName => $appConfig["og"]["site_name"]}
+    {/ifset}
+{/block}
+
+{block content}
+<section class="main-cover ios-overlay">
+    <div class="swiper-container" id="cover-slider">
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+                <div class="inner-background cover-parallax slide1-adjust_position" style="background-image: url('{$basePath}/img/pages/homepage/slides/slide_1_color.jpg');"></div>
+                <div class="row row-align-middle slide-text-content">
+                    <div class="gr-12 prefix-1 sufix-1 gr-10@mobile prefix-0@mobileSmall gr-9@mobileSmall cover-parallax-inner">
+                        {include header_slide01}
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/homepage/slides/slide_2_color.jpg');"></div>
+            {*<div class="swiper-slide cover-parallax" style="background-image: url('img/pages/homepage/slides/synetrans_slide.jpg');">*}
+                <div class="row row-align-middle slide-text-content">
+                    <div class="gr-12 prefix-1 sufix-1 gr-10@mobile prefix-0@mobileSmall gr-9@mobileSmall cover-parallax-inner">
+                        {include header_slide02}
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/homepage/slides/slide_3_color.jpg');"></div>
+                <div class="row row-align-middle slide-text-content">
+                    <div class="gr-12 prefix-1 sufix-1 gr-10@mobile prefix-0@mobileSmall gr-9@mobileSmall cover-parallax-inner">
+                        {include header_slide03}
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/homepage/slides/slide_4_color.jpg');"></div>
+                <div class="row row-align-middle slide-text-content">
+                    <div class="gr-12 prefix-1 sufix-1 gr-10@mobile prefix-0@mobileSmall gr-9@mobileSmall cover-parallax-inner">
+                        {include header_slide04}
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="inner-background cover-parallax" style="background-image: url('{$basePath}/img/pages/homepage/slides/slide_5_color.jpg');"></div>
+                <div class="row row-align-middle slide-text-content">
+                    <div class="gr-12 prefix-1 sufix-1 gr-10@mobile prefix-0@mobileSmall gr-9@mobileSmall cover-parallax-inner">
+                        {include header_slide05}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</section>
+
+<section class="service-tabs arrow">
+    <div class="container">
+        <div class="row">
+            <div class="no-gutter gr-3 gr-6@mobile gr-12@mobileSmall">
+                <a n:href="CustomApps:default" class="divider first">
+                    <div class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/servis-panel/custom_apps.jpg');"></div>
+                    <h2>{_pages.homepage.service-tabs.custom_apps.label|noescape}</h2>
+                    <img src="{$basePath}/img/icons/restor_icon.svg" alt="Custom Apps"/>
+                    <p>{_pages.homepage.service-tabs.custom_apps.text|noescape}</p>
+                </a>
+            </div>
+            <div class="no-gutter gr-3 gr-6@mobile gr-12@mobileSmall">
+                <a n:href="FileMakerConsulting:default" class="divider last-mobile">
+                    <div class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/servis-panel/consulting.jpg');"></div>
+                    <h2>{_pages.homepage.service-tabs.fm_consulting.label|noescape}</h2>
+                    <img src="{$basePath}/img/icons/dialog_icon.svg" alt="FileMaker Consulting"/>
+                    <p>{_pages.homepage.service-tabs.fm_consulting.text|noescape}</p>
+                </a>
+            </div>
+            <div class="no-gutter gr-3 gr-6@mobile gr-12@mobileSmall">
+                <a n:href="HardwareIntegration:default" class="divider first-mobile">
+                    <div class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/servis-panel/hardware_integration.jpg');"></div>
+                    <h2>{_pages.homepage.service-tabs.hw_integrations.label|noescape}</h2>
+                    <img src="{$basePath}/img/icons/phidgets_icon.svg" alt="Hardware Integration"/>
+                    <p>{_pages.homepage.service-tabs.hw_integrations.text|noescape}</p>
+                </a>
+            </div>
+            <div class="no-gutter gr-3 gr-6@mobile gr-12@mobileSmall">
+                <a n:href="SLA:default" class="divider last">
+                    <div class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/servis-panel/sla.jpg');"></div>
+                    <h2>{_pages.homepage.service-tabs.sla.label|noescape}</h2>
+                    <img src="{$basePath}/img/icons/sla_icon.svg" alt="Service Level Agreements"/>
+                    <p>{_pages.homepage.service-tabs.sla.text|noescape}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slider-panel arrow video-switch-arrows testimonial-swiper-video ">
+    {var $testimonials = [
+        [quote => 'jeff_england', img => $basePath.'/img/testimonials/jeff_england.jpg', video => [id => 'zwsonEo2Go8']],
+        [quote => 'craig_cuttler', img => $basePath.'/img/testimonials/craig_cuttler.jpg', video => [id => 'E1ZzV8-vA8o']],
+        [quote => 'jacques_kirouac', img => $basePath.'/img/testimonials/jacques_kirouac.jpg', video => [id => '53A9RU00jJ8']],
+        [quote => 'pep_espuyes', img => $basePath.'/img/testimonials/pepe_espunyes.jpg'],
+        [quote => 'graham_lindsay', img => $basePath.'/img/testimonials/graham_lindsay.jpg', video => [id => 'TCTXNlx5-8I']],
+        [quote => 'duncan_mcdavid', img => $basePath.'/img/testimonials/duncan_mcdavid.jpg', video => [id => '6cyY3URjoOg']],
+    ] }
+    {import '../Components/testimonials.latte'}
+    {include testimonial-swiper, $testimonials}
+</section>
+
+<section class="tile-panel">
+    <div class="row">
+        {* -- Bridge for Phidgets -- *}
+        <div class="tile gr-12 hide@mobile no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+                <a n:href="Tools:tracksy" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/tracksy/tracksy-card-wide.jpg')"> {* TODO - Insert LINK *}
+                    <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/tracksy/tracksy-card-wide-rollover.jpg')"></div>
+                    <div class="content">
+                        {include tracksy_preview}
+                    </div>
+                </a>
+        </div>
+
+        <div class="tile gr-12 hide show@mobile no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+                <a n:href="Tools:tracksy" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/tracksy/tracksy-card.jpg')"> {* TODO - Insert LINK *}
+                    <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/tracksy/tracksy-card-rollover.jpg')"></div>
+                    <div class="content">
+                        {include tracksy_preview}
+                    </div>
+                </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <a n:href="ProductPages:breedbook" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/breedbook/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/breedbook/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include breedbook_preview}
+                </div>
+            </a>
+        </div>
+
+        {* -- Jogs -- *}
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a n:href="Stories:jogs" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/jogs/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/jogs/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include jogs_preview}
+                </div>
+            </a>
+        </div>
+
+        {* -- Gonector -- *}
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+            <a n:href="Tools:gonector" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/gonector/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/gonector/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include gonector_preview}
+                </div>
+            </a>
+        </div>
+
+
+        {* -- Spedisimo -- *}
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <a n:href="ProductPages:spedisimo" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/spedisimo/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/spedisimo/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include spedisimo_preview}
+                </div>
+            </a>
+        </div>
+
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a n:href="Stories:ewemanage" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/sorting_sheeps/cover.jpg')"> {* TODO - Insert LINK *}
+
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/sorting_sheeps/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include ewemanage_preview}
+                </div>
+            </a>
+        </div>
+
+        {* -- Bridge for Phidgets -- *}
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+            <a n:href="Tools:bridgeForPhidgets" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/bridge-for-phidgets/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/bridge-for-phidgets/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include phidgets_bridge_preview}
+                </div>
+            </a>
+        </div>
+
+        {* -- SimpleDialog -- *}
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a n:href="Tools:simpleDialog" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/simpledialog/simple_dialog.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/simpledialog/simple_dialog_rollover.jpg')"></div>
+                <div class="content">
+                    {include simple_dialog_preview}
+                </div>
+            </a>
+        </div>
+
+
+        {* -- Bridge for Arduino -- *}
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a n:href="Tools:bridgeForArduino" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/bridge-for-arduino/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/bridge-for-arduino/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include arduino_bridge_preview}
+                </div>
+            </a>
+        </div>
+
+        {* -- Phone Companion -- *}
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-right padding-bottom" data-hightlight="true" data-hightlight-is-second="false"  data-highlight-full-width="false">
+            <a n:href="Tools:phoneCompanion" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/phone_companion/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/phone_companion/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include phone_companion_preview}
+                </div>
+            </a>
+        </div>
+
+        {* -- Xgode -- *}
+        <div class="tile gr-6 gr-12@mobile no-gutter padding-left padding-bottom" data-hightlight="true" data-hightlight-is-second="true"  data-highlight-full-width="false">
+            <a n:href="Tools:xgode" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/xgode/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/xgode/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include xgode_preview}
+                </div>
+            </a>
+        </div>
+
+        {* -- Scavent -- *}
+        <div class="tile gr-12 no-gutter padding-bottom" data-hightlight="true" data-hightlight-is-second="false" data-highlight-full-width="true">
+            <a n:href="ProductPages:scavent" class="overlay" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/scavent/cover.jpg')"> {* TODO - Insert LINK *}
+                <div class="rollover" style="background-image: url('{$basePath}/img/pages/homepage/card_boxes/scavent/cover_rollover.jpg')"></div>
+                <div class="content">
+                    {include scavent_preview}
+                </div>
+            </a>
+        </div>
+    </div>
+</section>

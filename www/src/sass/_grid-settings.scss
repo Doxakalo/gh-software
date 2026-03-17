@@ -1,0 +1,57 @@
+// Import gridle
+@import "../../node_modules/coffeekraken-gridle/flex";
+
+
+// setup the grid (required)
+@include g-setup((
+	context: 12,
+	gutter-width: 24px,
+	// gutter-left: 20px,
+	// direction: rtl,
+	// dir-attribute: true,
+	states-classes: true,
+	// classes-prefix: 'gr-'
+));
+
+
+// register clear-each classes
+//@include g-register-clear-each(2, both);
+
+@include g-register-state(desktop2k, (
+	gutter-width: 28px,
+	min-width: 1600px,
+	max-width: 2048px
+));
+
+@include g-register-state(desktopLarge, (
+	gutter-width: 24px,
+    min-width: 1260px,
+	max-width: 1600px
+));
+
+@include g-register-state(desktop, (
+	gutter-width: 20px,
+    min-width: 1000px,
+    max-width: 1260px - 1px
+));
+
+@include g-register-state(tablet, (
+	gutter-width: 18px,
+    min-width: 768px,
+    max-width: 1000px - 1px
+));
+
+@include g-register-state(mobile, (
+	gutter-width: 16px,
+    max-width: 767px 
+));
+
+@include g-register-state(mobileSmall, (
+	gutter-width: 16px,
+    max-width: 400px 
+));
+
+@include g-register-state(mobileTiny, (
+	gutter-width: 16px,
+    max-width: 340px 
+));

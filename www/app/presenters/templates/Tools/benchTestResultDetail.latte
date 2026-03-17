@@ -1,0 +1,93 @@
+{block content}
+
+<div id="benchTestResult" class="benchTestResult editor-content">
+
+    <table>
+        <tr class="hide@mobile hide@mobileSmall">
+            <th>Test</th>
+            <th class="it">Iteration</th>
+            <th class="time">Time</th>
+            <th class="scoreColumn">Score</th>
+        </tr>
+        {dump $benchTestData[$id]}
+        {foreach $benchTestData[$id]["script_run"] as $run}
+            <tr class="run">
+                <td>{$run["test"]}</td>
+                <td class="it">
+                    <div class="hide@mobile hide@mobileSmall">{$run["iteration"]}</div>
+                    <div class="hide show@mobile show@mobileSmall">
+                        <div class="label-value">
+                            <span class="label">Iteration:</span> <span class="value">{number_format($run["iteration"])}</span>
+                        </div>
+                    </div>
+                </td>
+                <td  class="time">
+                    <div class="hide@mobile hide@mobileSmall">{number_format($run["runtime"],2)}</div>
+                    <div class="hide show@mobile show@mobileSmall">
+                        <div class="label-value">
+                            <span class="label">Time:</span> <span class="value">{number_format($run["runtime"],2)}</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="scoreColumn">
+                    {var $logScore = log10($run["cx_score"])}
+                    {var $percentage = (($logScore * 100) > 100 ? 100:($logScore * 100))}
+
+                    <div class="hide@mobile hide@mobileSmall score {$logScore < 0 ? "negative" : "positive"}">
+                        {if $logScore >= 0}
+                            <div class="graph-part scoreWrapper">
+                                <span class="scoreNumber">{number_format($run["cx_score"],2 )}</span>
+                            </div>
+                            <div class="graph-part graphWrapper">
+                                <div class="graph" style="width: {$percentage|noescape}%;"></div>
+                            </div>
+                        {else}
+                            <div class="graph-part graphWrapper">
+                                <div class="graph" style="width: {($percentage * -1)|noescape}%;"></div>
+                            </div>
+                            <div class="graph-part scoreWrapper">
+                                <span class="scoreNumber">{number_format($run["cx_score"],2)}</span>
+                            </div>
+                        {/if}
+                    </div>
+                    <div class="hide show@mobile show@mobileSmall">
+                        <div class="label-value">
+                            <span class="label">Score:</span> <span class="value">{number_format($run["cx_score"],2 )}</span>
+                        </div>
+                    </div>
+                </td>        {/foreach}
+    </table>
+</div>
+
+    <div style="display: none" id="detailOfEnvironment">
+
+       <h2>
+           Test Session Details
+       </h2>
+        <div class="row">
+            <div class="gr-4">
+                <div class="labelAndValue">
+                    <span class="label">Started:</span> <span class="value">{$benchTestData[$id]["started"]}</span>
+                    <span class="label">Finished:</span> <span class="value">{$benchTestData[$id]["finished"]}</span>
+                </div>
+            </div>
+            <div class="gr-4">
+                <span class="label">Submited/Received:</span> <span class="value">{$benchTestData[$id]["submitted"]}</span>
+                <span class="label">Submited By:</span> <span class="value">{$benchTestData[$id]["contact_name"]}</span>
+
+            </div>
+            <div class="gr-4">
+                <span class="label">BenchTest Version:</span> <span class="value">{$benchTestData[$id]["environment"]["benchtest_version"]}</span>
+            </div>
+        </div>
+    </div>
+
+{/block}
+
+{block post-script}
+<script>
+    $(document).on('click', '.showDetailOfEnvironment', function(e) {
+        $('#detailOfEnvironment').modal({  closeExisting: false, position: "top"});
+    });
+</script>
+{/block}

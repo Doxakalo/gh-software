@@ -1,0 +1,16 @@
+# TEMP FILE
+www/.sass-cache
+www/bower_components
+www/vendor
+www/node_modules
+www/src/sass/plugins
+www/www/webhook-data/*
+
+# LOCAL CONFIG FILES
+www/app/config/*local.neon
+
+# COMPOSER
+# www/composer.lock
+
+# IntelliJ project files
+.idea

@@ -1,0 +1,93 @@
+body[data-template="hardware-integration"] {
+  section {
+    &.info {
+      background-color: $colorBlue;
+      text-align: center;
+      width: 100%;
+
+      .item {
+        @include g-grid(1,5);
+        @include flex-grow(1 !important);
+        padding: 5em 4em 7em;
+        text-align: center;
+        position: relative;
+
+        @include g-state(mobile) {
+          @include g-grid(1,2);
+          padding: (3em * $scaleRatioMobile);
+
+          &:last-of-type {
+            padding-bottom: 2em;
+          }
+        }
+
+        @include g-state(mobileSmall) {
+          @include g-grid(1,1);
+          padding: (3em * $scaleRatioMobile);
+
+          &:last-of-type {
+            padding-bottom: 2em;
+          }
+        }
+
+        h2,
+        p {
+          color: $colorWhite;
+          margin-bottom: .3em;
+        }
+
+        h2 {
+          font-size: 3.5em;
+          font-weight: $fwLight;
+        }
+
+        img {
+          max-height: 45px;
+          max-width: 75px;
+          margin-bottom: 1em;
+        }
+
+        p {
+          max-width: 10em;
+          margin: 0 auto;
+          font-weight: $fwNormal;
+        }
+      }
+    }
+    &.contact {
+      .text-form {
+        a {
+          color: white;
+          font-weight: bold;
+        }
+      }
+      form {
+        margin-bottom: 0;
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="search"],
+        input[type="time"],
+        textarea {
+          @include input-placeholder {
+            color: rgba($colorOrange, .6);
+          }
+        }
+      }
+      select {
+        background-color: rgba($colorWhite, .6);
+        color: $colorOrange;
+        font-weight: $fwNormal;
+
+        @include input-placeholder {
+          color: $colorOrange;
+        }
+      }
+      .open-arrow {
+        background-color: #ec8a59;
+      }
+    }
+  }
+}
